@@ -18,8 +18,8 @@ class PatientModel extends Model
         'patient_type',
         'opd_id_code',
         'ipd_id_code',
-        'gen_id_code', // <-- New field
-        'cus_id_code', // <-- New field
+        'gen_id_code',
+        'cus_id_code',
         'first_name',
         'last_name',
         'date_of_birth',
@@ -152,4 +152,88 @@ class PatientModel extends Model
 
         return $data; // Return the modified data array
     }
+
+    /**
+     * Admits a patient to IPD. This updates the patient_type to 'IPD'
+     * and ensures an 'ipd_id_code' is generated/assigned.
+     *
+     * @param int $patientId The ID of the patient to admit.
+     * @param array $admissionData Additional data relevant to IPD admission (e.g., ward, bed, etc.).
+     * @return bool True on successful admission, false otherwise.
+     */
+    public function admitPatientToIPD(int $patientId, array $admissionData): bool
+    {
+        $this->db->transBegin(); // Start a database transaction
+
+        try {
+            // 1. Fetch the current patient record to check existing ID
+            $patient = $this->find($patientId);
+
+            if (!$patient) {
+                log_message('error', 'Patient not found for admission to IPD. ID: ' . $patientId);
+                return false;
+            }
+
+            $updateData = [
+                'patient_type' => 'IPD', // Set patient type to IPD
+            ];
+
+            // 2. Generate or ensure IPD ID Code is set
+            // If ipd_id_code is empty, generate a new one using your sequence model
+            if (empty($patient['ipd_id_code'])) {
+                $sequenceModel = new \App\Models\PatientIdSequenceModel();
+                $currentDate = Time::now(TIMEZONE)->format('ymd'); // Ensure TIMEZONE is defined in Constants.php
+                $ipdSequence = $sequenceModel->getNextSequence('IPD');
+                $updateData['ipd_id_code'] = sprintf('IPD-%s-%05d', $currentDate, $ipdSequence);
+            } else {
+                // If an ipd_id_code already exists, keep it
+                $updateData['ipd_id_code'] = $patient['ipd_id_code'];
+            }
+
+            // 3. Update the patient record
+            $this->update($patientId, $updateData);
+
+            // OPTIONAL: If you have a separate 'ipd_admissions' table for detailed IPD records
+            // Example: Inserting data into an IPD admissions table
+            // This would require a separate model for 'ipd_admissions' or direct query builder usage.
+            /*
+            if (isset($admissionData['ward_id']) && isset($admissionData['bed_id'])) {
+                // Load or create an instance of your IpdAdmissionModel here
+                // $ipdAdmissionModel = new \App\Models\IpdAdmissionModel();
+                // $ipdAdmissionModel->insert([
+                //     'patient_id' => $patientId,
+                //     'ipd_id_code' => $updateData['ipd_id_code'],
+                //     'ward_id' => $admissionData['ward_id'],
+                //     'bed_id' => $admissionData['bed_id'],
+                //     'admission_date' => date('Y-m-d H:i:s'),
+                //     // ... any other IPD specific fields from $admissionData
+                // ]);
+                // Or directly using the query builder:
+                // $this->db->table('ipd_admissions')->insert([
+                //     'patient_id' => $patientId,
+                //     'ipd_id_code' => $updateData['ipd_id_code'],
+                //     'ward_id' => $admissionData['ward_id'],
+                //     'bed_id' => $admissionData['bed_id'],
+                //     'admission_date' => date('Y-m-d H:i:s'),
+                // ]);
+            }
+            */
+
+            if ($this->db->transStatus() === false) {
+                $this->db->transRollback();
+                log_message('error', 'IPD Admission transaction failed for patient ID: ' . $patientId);
+                return false; // Admission failed
+            } else {
+                $this->db->transCommit();
+                log_message('info', 'Patient ' . $patientId . ' admitted to IPD. IPD Code: ' . $updateData['ipd_id_code']);
+                return true; // Admission successful
+            }
+
+        } catch (\Exception $e) {
+            $this->db->transRollback();
+            log_message('error', 'Exception during IPD admission for patient ID ' . $patientId . ': ' . $e->getMessage());
+            return false; // Admission failed due to an exception
+        }
+    }
+    // --- END OF UPDATED METHOD ---
 }

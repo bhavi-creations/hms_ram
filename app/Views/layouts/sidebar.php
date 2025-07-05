@@ -1,7 +1,7 @@
 <aside class="app-sidebar side_bg shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="<?= base_url('/') ?>" class="brand-link">
-            <img src="<?= base_url('assets/img/credit/AdminLTELogo.jpg') ?>" alt="HMS Logo" class="brand-image" />
+            <img src="<?= base_url('public/assets/img/AdminLTELogo.png') ?>" alt="HMS Logo" class="brand-image" />
             <span class="brand-text">HMS</span> <!-- Changed to HMS -->
         </a>
     </div>

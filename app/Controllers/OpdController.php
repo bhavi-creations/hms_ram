@@ -39,8 +39,13 @@ class OpdController extends BaseController
                 return $this->fail('Patient ID is required.', 400);
             }
 
-            // Call the new method from PatientModel to update patient type to IPD
-            $success = $this->patientModel->admitPatientToIPD($patientId);
+            // Get all POST data from the AJAX request.
+            // This 'admissionData' array will contain details like ward_id, bed_id, etc.,
+            // that you send from your frontend form when admitting a patient.
+            $admissionData = $this->request->getPost(); // Collect all data from the AJAX POST request
+
+            // Call the method from PatientModel, passing both arguments
+            $success = $this->patientModel->admitPatientToIPD((int)$patientId, $admissionData);
 
             if ($success) {
                 // Fetch the updated patient record to show the new IPD ID

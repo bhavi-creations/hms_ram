@@ -33,7 +33,7 @@
              <li class="nav-item dropdown user-menu">
                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 
-                     <!-- <img src="<?= base_url('assets/img/user2-160x160.jpg') ?>" class="rounded-circle shadow " alt="User Image" /> -->
+                     <!-- <img src="<?= base_url('public/assets/img/user2-160x160.jpg') ?>" class="rounded-circle shadow " alt="User Image" /> -->
                     
 
                      <!-- <span class="d-none d-md-inline">Alexander Pierce</span> -->
@@ -42,7 +42,7 @@
                      <!-- User image -->
                      <li class="user-header text-bg-primary">
 
-                         <!-- <img src="<?= base_url('assets/img/user2-160x160.jpg') ?>" class="rounded-circle shadow " alt="User Image" /> -->
+                         <!-- <img src="<?= base_url('public/assets/img/user2-160x160.jpg') ?>" class="rounded-circle shadow " alt="User Image" /> -->
 
                          <!-- <p>
                              Alexander Pierce - Web Developer

@@ -93,3 +93,227 @@ DEBUG - 2025-07-05 04:48:30 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2025-07-05 04:49:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-07-05 04:49:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-07-05 05:11:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:17:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:17:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:17:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:17:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:17:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:18:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:18:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:20:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:20:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:21:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:21:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:21:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:21:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:22:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:22:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:22:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 05:22:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:16:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:16:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:16:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:16:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+    CRITICAL - 2025-07-05 06:17:50 --> CodeIgniter\Exceptions\BadMethodCallException: Call to undefined method App\Models\PatientModel::admitPatientToIPD
+    [Method: POST, Route: opd/admitToIpd/23]
+    in SYSTEMPATH\Model.php on line 930.
+    1 APPPATH\Controllers\OpdController.php(43): CodeIgniter\Model->__call('admitPatientToIPD', [...])
+    2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\OpdController->admitToIpd('23')
+    3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OpdController))
+    4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+    5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+    6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+    7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+    DEBUG - 2025-07-05 06:18:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+    DEBUG - 2025-07-05 06:18:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+    DEBUG - 2025-07-05 06:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+    DEBUG - 2025-07-05 06:18:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+    DEBUG - 2025-07-05 06:18:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+    DEBUG - 2025-07-05 06:18:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+    CRITICAL - 2025-07-05 06:18:43 --> CodeIgniter\Exceptions\BadMethodCallException: Call to undefined method App\Models\PatientModel::admitPatientToIPD
+    [Method: POST, Route: casualty/admitToIpd/10]
+    in SYSTEMPATH\Model.php on line 930.
+    1 APPPATH\Controllers\CasualtyController.php(42): CodeIgniter\Model->__call('admitPatientToIPD', [...])
+    2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CasualtyController->admitToIpd('10')
+    3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CasualtyController))
+    4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+    5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+    6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+    7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+    DEBUG - 2025-07-05 06:19:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:30:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:30:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-05 06:30:54 --> ArgumentCountError: Too few arguments to function App\Models\PatientModel::admitPatientToIPD(), 1 passed in C:\xampp\htdocs\hms_ram\app\Controllers\OpdController.php on line 43 and exactly 2 expected
+[Method: POST, Route: opd/admitToIpd/23]
+in APPPATH\Models\PatientModel.php on line 164.
+ 1 APPPATH\Controllers\OpdController.php(43): App\Models\PatientModel->admitPatientToIPD(23)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\OpdController->admitToIpd('23')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OpdController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-05 06:31:44 --> ArgumentCountError: Too few arguments to function App\Models\PatientModel::admitPatientToIPD(), 1 passed in C:\xampp\htdocs\hms_ram\app\Controllers\OpdController.php on line 43 and exactly 2 expected
+[Method: POST, Route: opd/admitToIpd/23]
+in APPPATH\Models\PatientModel.php on line 164.
+ 1 APPPATH\Controllers\OpdController.php(43): App\Models\PatientModel->admitPatientToIPD(23)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\OpdController->admitToIpd('23')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OpdController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-05 06:32:12 --> ArgumentCountError: Too few arguments to function App\Models\PatientModel::admitPatientToIPD(), 1 passed in C:\xampp\htdocs\hms_ram\app\Controllers\OpdController.php on line 43 and exactly 2 expected
+[Method: POST, Route: opd/admitToIpd/23]
+in APPPATH\Models\PatientModel.php on line 164.
+ 1 APPPATH\Controllers\OpdController.php(43): App\Models\PatientModel->admitPatientToIPD(23)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\OpdController->admitToIpd('23')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OpdController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-05 06:33:38 --> ArgumentCountError: Too few arguments to function App\Models\PatientModel::admitPatientToIPD(), 1 passed in C:\xampp\htdocs\hms_ram\app\Controllers\OpdController.php on line 43 and exactly 2 expected
+[Method: POST, Route: opd/admitToIpd/23]
+in APPPATH\Models\PatientModel.php on line 164.
+ 1 APPPATH\Controllers\OpdController.php(43): App\Models\PatientModel->admitPatientToIPD(23)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\OpdController->admitToIpd('23')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OpdController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-05 06:35:47 --> ArgumentCountError: Too few arguments to function App\Models\PatientModel::admitPatientToIPD(), 1 passed in C:\xampp\htdocs\hms_ram\app\Controllers\OpdController.php on line 43 and exactly 2 expected
+[Method: POST, Route: opd/admitToIpd/23]
+in APPPATH\Models\PatientModel.php on line 164.
+ 1 APPPATH\Controllers\OpdController.php(43): App\Models\PatientModel->admitPatientToIPD(23)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\OpdController->admitToIpd('23')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OpdController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-05 06:40:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-07-05 06:40:51 --> Patient 23 admitted to IPD. IPD Code: IPD-250705-00001
+DEBUG - 2025-07-05 06:40:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:40:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:41:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:41:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:41:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-05 06:41:35 --> ArgumentCountError: Too few arguments to function App\Models\PatientModel::admitPatientToIPD(), 1 passed in C:\xampp\htdocs\hms_ram\app\Controllers\CasualtyController.php on line 42 and exactly 2 expected
+[Method: POST, Route: casualty/admitToIpd/22]
+in APPPATH\Models\PatientModel.php on line 164.
+ 1 APPPATH\Controllers\CasualtyController.php(42): App\Models\PatientModel->admitPatientToIPD(22)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CasualtyController->admitToIpd('22')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CasualtyController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-05 06:42:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:42:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:43:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-07-05 06:43:02 --> Patient 22 admitted to IPD. IPD Code: IPD-250705-00002
+DEBUG - 2025-07-05 06:43:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:43:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 06:43:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:00:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:00:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:00:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:00:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:00:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:00:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:01:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-07-05 07:02:10 --> Patient 13 admitted to IPD. IPD Code: IPD-250705-00003
+DEBUG - 2025-07-05 07:02:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:02:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:02:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:02:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:02:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:05:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:05:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:05:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:05:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:05:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:05:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:08:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:09:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:09:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:09:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:10:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:10:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:10:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:11:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:11:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:11:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:11:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:11:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-07-05 07:12:12 --> Patient 11 admitted to IPD. IPD Code: IPD-250705-00004
+DEBUG - 2025-07-05 07:12:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:12:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:14:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:20:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:20:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:20:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:20:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:20:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:20:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:20:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:21:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:21:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:21:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:21:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:22:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:22:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:22:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:22:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:23:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:23:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:25:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:26:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:26:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:26:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 07:26:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-05 07:26:37 --> ErrorException: Undefined array key "patient_type"
+[Method: POST, Route: patients/save]
+in APPPATH\Models\PatientModel.php on line 141.
+ 1 APPPATH\Models\PatientModel.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "patient_type"', 'C:\\xampp\\htdocs\\hms_ram\\app\\Models\\PatientModel.php', 141)
+ 2 SYSTEMPATH\BaseModel.php(1701): App\Models\PatientModel->generateTypeSpecificIDsOnUpdate([...])
+ 3 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\BaseModel->trigger('beforeUpdate', [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\Patients.php(221): CodeIgniter\Model->update('8', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->save()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-05 07:28:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-05 07:28:27 --> ErrorException: Array to string conversion
+[Method: POST, Route: patients/save]
+in APPPATH\Models\PatientModel.php on line 156.
+ 1 APPPATH\Models\PatientModel.php(156): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\hms_ram\\app\\Models\\PatientModel.php', 156)
+ 2 SYSTEMPATH\BaseModel.php(1701): App\Models\PatientModel->generateTypeSpecificIDsOnUpdate([...])
+ 3 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\BaseModel->trigger('beforeUpdate', [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\Patients.php(221): CodeIgniter\Model->update('8', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->save()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

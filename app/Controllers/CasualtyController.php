@@ -39,9 +39,16 @@ class CasualtyController extends BaseController
                 return $this->fail('Patient ID is required.', 400);
             }
 
-            $success = $this->patientModel->admitPatientToIPD($patientId);
+            // Get all POST data from the AJAX request.
+            // This 'admissionData' array will contain details like ward_id, bed_id, etc.,
+            // that you send from your frontend form when admitting a patient.
+            $admissionData = $this->request->getPost(); // Collect all data from the AJAX POST request
+
+            // Call the method from PatientModel, passing both arguments
+            $success = $this->patientModel->admitPatientToIPD((int)$patientId, $admissionData);
 
             if ($success) {
+                // Fetch the updated patient record to show the new IPD ID
                 $updatedPatient = $this->patientModel->find($patientId);
                 $ipdId = $updatedPatient['ipd_id_code'] ?? 'N/A';
                 return $this->respondUpdated(['success' => true, 'message' => 'Patient successfully admitted to IPD. New IPD ID: ' . $ipdId]);
@@ -49,6 +56,7 @@ class CasualtyController extends BaseController
                 return $this->fail('Failed to admit patient to IPD. Please check logs for details.', 500);
             }
         }
+        // If not an AJAX request, redirect or show an error
         return redirect()->back()->with('error', 'Invalid request method.');
     }
 }
