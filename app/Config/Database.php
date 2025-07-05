@@ -32,12 +32,12 @@ class Database extends Config
 
 
 
-        'username'     => 'root',
-        'password'     => '',
+        // 'username'     => 'root',
+        // 'password'     => '',
 
 
-        // 'username'     => 'bhavicreations',
-        // 'password'     => 'd8Az75YlgmyBnVM',
+        'username'     => 'bhavicreations',
+        'password'     => 'd8Az75YlgmyBnVM',
 
 
         'database'     => 'hms_ram',

@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><?= isset($title) ? $title : 'HMS RAM' ?></title>
-    <link rel="icon" href="<?= base_url('public/assets/img/credit/AdminLTELogo.jpg') ?>" type="image/jpeg"> 
+    <title><?= isset($title) ? $title : ' CI4' ?></title>
+    <link rel="icon" href="<?= base_url('assets/img/credit/AdminLTELogo.jpg.jpg') ?>" type="image/jpeg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="Main Header Component | AdminLTE 4" />
     <meta name="author" content="ColorlibHQ" />
@@ -16,7 +16,6 @@
     <meta
         name="keywords"
         content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard" />
-    
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
@@ -30,18 +29,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <link href="<?= base_url('public/assets/css/adminlte.min.css') ?>" rel="stylesheet">
-    <link href="<?= base_url('public/assets/css/adminlte.css') ?>" rel="stylesheet">
-
+    <link href="<?= base_url('assets/css/adminlte.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/adminlte.css') ?>" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <link rel="stylesheet" href="<?= base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
-
     <style>
-        /* Your Astro image styles */
         [data-astro-image] {
             width: 100%;
             height: auto;
@@ -66,9 +58,7 @@
     <div class="app-wrapper">
 
         <?= $this->include('layouts/navbar') ?>
-        <?= $this->include('layouts/sidebar') ?> 
-        
-        <main class="app-main">
+        <?= $this->include('layouts/sidebar') ?> <main class="app-main">
             <div class="app-content-header">
                 <div class="container-fluid">
                     <?= $this->renderSection('content') ?>
@@ -86,24 +76,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
 
+    <script src="<?= base_url('assets/js/adminlte.min.js') ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-    
-    <script src="<?= base_url('public/assets/js/adminlte.min.js') ?>"></script>
 
-    <script src="<?= base_url('plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/jszip/jszip.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/pdfmake/pdfmake.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/pdfmake/vfs_fonts.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
-    
+
+    <script src="/path/to/jquery.min.js"></script>
+    <script src="/path/to/jquery-ui.min.js"></script>
+    <script src="/path/to/jquery.dataTables.min.js"></script>
+    <script src="/path/to/dataTables.bootstrap4.min.js"></script>
+    <script src="/path/to/adminlte.min.js"></script>
+
+
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
         const Default = {
