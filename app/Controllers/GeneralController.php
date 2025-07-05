@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\PatientModel;
 use CodeIgniter\API\ResponseTrait;
 
-class OpdController extends BaseController
+class GeneralController extends BaseController
 {
     use ResponseTrait;
 
@@ -18,22 +18,20 @@ class OpdController extends BaseController
     }
 
     /**
-     * Displays the list of OPD patients.
+     * Displays the list of General patients, including those admitted to IPD.
      */
     public function index()
     {
-        $data['title'] = 'OPD Management';
-        // Use the new method from PatientModel to get only OPD patients OR those admitted to IPD
+        $data['title'] = 'General Patient Management';
+        // Fetch patients who are currently 'General' OR 'IPD'
+        // This ensures patients who transition from General to IPD are still visible on this list.
         $data['patients'] = $this->patientModel
                                     ->groupStart()
-                                    ->where('patient_type', 'OPD')
+                                    ->where('patient_type', 'General')
                                     ->orWhere('patient_type', 'IPD')
                                     ->groupEnd()
                                     ->findAll();
 
-        return view('opd/opd_list', $data);
+        return view('general/general_patients_list', $data);
     }
-
-    // The admitToIpd method has been removed from here
-    // as it is now centralized in the Patients controller.
 }

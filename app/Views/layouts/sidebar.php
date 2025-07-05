@@ -18,8 +18,7 @@
                     </a>
                 </li>
 
-                <!-- Patient Management -->
-                <?php $isPatientManagementActive = url_is('patients*') || url_is('opd*') || url_is('ipd*') || url_is('casualty*') || url_is('medical-records*'); ?>
+                <?php $isPatientManagementActive = url_is('patients*') || url_is('opd*') || url_is('ipd*') || url_is('casualty*') || url_is('medical-records*') || url_is('patients/general*'); ?>
                 <li class="nav-item <?= $isPatientManagementActive ? 'menu-open' : '' ?>">
                     <a href="#" class="nav-link <?= $isPatientManagementActive ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-hospital-user"></i>
@@ -41,7 +40,12 @@
                                 <p>Patient List</p>
                             </a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a href="<?= base_url('general') ?>" class="nav-link <?= uri_string() == 'general' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-list-alt"></i>
+                                <p>General Patients List</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="<?= base_url('opd') ?>" class="nav-link <?= uri_string() == 'opd' ? 'active' : '' ?>">
                                 <i class="nav-icon fas fa-person-walking"></i>

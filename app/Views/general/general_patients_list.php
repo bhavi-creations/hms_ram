@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><?= esc($title) ?></h1>
+                    <h1><?= $title ?></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= base_url('/') ?>">Home</a></li>
-                        <li class="breadcrumb-item active"><?= esc($title) ?></li>
+                        <li class="breadcrumb-item active"><?= $title ?></li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">List of OPD Patients</h3>
+                    <h3 class="card-title">List of General Patients</h3>
                 </div>
                 <div class="card-body">
                     <?php if (session()->getFlashdata('success')) : ?>
@@ -42,42 +42,33 @@
                         </div>
                     <?php endif; ?>
 
-                    <table id="opdPatientsTable" class="table table-bordered table-striped">
+                    <table id="generalPatientsTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>OPD ID</th>
+                                <th>General ID</th>
                                 <th>Name</th>
                                 <th>Gender</th>
                                 <th>Phone</th>
-                                <th>Actions</th>
-                            </tr>
+                                <th>Actions</th> </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($patients) && is_array($patients)) : ?>
                                 <?php foreach ($patients as $patient) : ?>
-                                    <tr>
-                                        <td><?= esc($patient['opd_id_code'] ?? 'N/A') ?></td>
+                                    <tr id="patient-row-<?= esc($patient['id']) ?>">
+                                        <td><?= esc($patient['gen_id_code'] ?? 'N/A') ?></td>
                                         <td><?= esc($patient['first_name'] . ' ' . $patient['last_name']) ?></td>
                                         <td><?= esc($patient['gender']) ?></td>
                                         <td><?= esc($patient['phone_number']) ?></td>
                                         <td>
-                                            <!-- View Patient Button (Icon Only) -->
-                                            <a href="<?= base_url('patients/view/' . $patient['id']) ?>" class="btn btn-info btn-sm" title="View Patient">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <!-- Edit Patient Button (Icon Only) -->
-                                            <a href="<?= base_url('patients/edit/' . $patient['id']) ?>" class="btn btn-warning btn-sm" title="Edit Patient">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
+                                            <a href="<?= base_url('patients/view/' . $patient['id']) ?>" class="btn btn-info btn-sm" title="View Patient"><i class="fas fa-eye"></i></a>
+                                            <a href="<?= base_url('patients/edit/' . $patient['id']) ?>" class="btn btn-warning btn-sm" title="Edit Patient"><i class="fas fa-edit"></i></a>
                                             <?php if ($patient['patient_type'] === 'IPD'): ?>
-                                                <!-- Patient Added to IPD Button (Icon + Text) -->
-                                                <button class="btn btn-sm btn-secondary d-inline-flex align-items-center" disabled>
-                                                    <i class="fas fa-check me-2"></i> Patient Added to IPD
+                                                <button class="btn btn-sm btn-secondary" disabled>
+                                                    <i class="fas fa-check"></i> Patient Added to IPD
                                                 </button>
                                             <?php else: ?>
-                                                <!-- Add to IPD Button (Icon + Text) -->
-                                                <button type="button" class="btn btn-success btn-sm admit-to-ipd-btn d-inline-flex align-items-center" data-patient-id="<?= esc($patient['id']) ?>" title="Admit to IPD">
-                                                    <i class="fas fa-bed me-2"></i> Add to IPD
+                                                <button type="button" class="btn btn-success btn-sm admit-to-ipd-btn" data-patient-id="<?= $patient['id'] ?>" title="Admit to IPD">
+                                                    <i class="fas fa-bed"></i> Add to IPD
                                                 </button>
                                             <?php endif; ?>
                                         </td>
@@ -85,8 +76,7 @@
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="5" class="text-center">No OPD patients found.</td>
-                                </tr>
+                                    <td colspan="5" class="text-center">No General patients found.</td> </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -98,10 +88,11 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
+<script src="<?= base_url('public/plugins/datatables/datatables.min.js') ?>"></script>
 <script>
     $(function () {
-        // Initialize DataTable
-        $("#opdPatientsTable").DataTable({
+        // Initialize DataTables for the General Patients table
+        $("#generalPatientsTable").DataTable({
             "paging": true,
             "lengthChange": false,
             "searching": true,
@@ -110,48 +101,33 @@
             "autoWidth": false,
             "responsive": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#opdPatientsTable_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#generalPatientsTable_wrapper .col-md-6:eq(0)');
 
-        // SweetAlert2 for "Add to IPD" using Event Delegation
-        // Attach the click listener to a static parent (like document or table_wrapper)
-        // This ensures the listener works even if DataTables re-renders rows.
+        // SweetAlert2 and AJAX for "Admit to IPD"
         $(document).on('click', '.admit-to-ipd-btn', function() {
             const patientId = $(this).data('patient-id');
-            const patientName = $(this).closest('tr').find('td:eq(1)').text();
+            const patientName = $(this).closest('tr').find('td:eq(1)').text(); // Get patient name from the table row
             const $clickedButton = $(this); // Store reference to the clicked button
-
-            // Log patient ID to console for debugging
-            console.log('Attempting to admit patient ID:', patientId, 'Name:', patientName);
-
-            // Basic validation for patientId
-            if (!patientId) {
-                Swal.fire(
-                    'Error!',
-                    'Patient ID not found for admission.',
-                    'error'
-                );
-                console.error('Patient ID is missing for the clicked button.');
-                return; // Stop execution if patient ID is invalid
-            }
 
             Swal.fire({
                 title: 'Confirm Admission to IPD',
                 text: `Are you sure you want to admit ${patientName} to IPD?`,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#28a745',
-                cancelButtonColor: '#dc3545',
+                confirmButtonColor: '#28a745', // Green
+                cancelButtonColor: '#dc3545', // Red
                 confirmButtonText: 'Yes, Admit!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '<?= base_url('patients/admitToIPD') ?>',
+                        url: '<?= base_url('patients/admitToIPD') ?>', // Centralized endpoint in Patients controller
                         type: 'POST',
                         dataType: 'json',
-                        data: { patient_id: patientId },
+                        data: { patient_id: patientId }, // Send patient_id as POST data
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
-                            '<?= csrf_header() ?>': '<?= csrf_hash() ?>' // Add CSRF token
+                            // Include CSRF token if enabled in CodeIgniter
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>'
                         },
                         success: function(response) {
                             if (response.success) {
@@ -159,28 +135,27 @@
                                     'Admitted!',
                                     response.message,
                                     'success'
-                                ).then(() => {
-                                    // Update the button directly without reloading the page
-                                    $clickedButton.html('<i class="fas fa-check me-2"></i> Patient Added to IPD')
-                                                    .prop('disabled', true)
-                                                    .removeClass('btn-success')
-                                                    .addClass('btn-secondary');
-                                });
+                                );
+
+                                // Update the button directly without reloading the page
+                                $clickedButton.html('<i class="fas fa-check"></i> Patient Added to IPD')
+                                    .prop('disabled', true)
+                                    .removeClass('btn-success')
+                                    .addClass('btn-secondary');
+
                             } else {
                                 Swal.fire(
                                     'Failed!',
                                     response.message || 'An error occurred while admitting the patient.',
                                     'error'
                                 );
-                                console.error("Server responded with failure:", response);
                             }
                         },
                         error: function(xhr, status, error) {
-                            // Log full XHR object for detailed debugging
-                            console.error("AJAX Error:", status, error, xhr);
+                            console.error("AJAX Error:", status, error, xhr.responseText);
                             Swal.fire(
                                 'Error!',
-                                'Could not admit patient. Server error. Check console for details.',
+                                'Could not admit patient. Server error.',
                                 'error'
                             );
                         }

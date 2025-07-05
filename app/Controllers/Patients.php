@@ -14,9 +14,7 @@ use CodeIgniter\I18n\Time;
 
 class Patients extends BaseController
 {
-
     use ResponseTrait;
-
 
     protected $patientModel;
     protected $doctorModel;
@@ -40,6 +38,9 @@ class Patients extends BaseController
         $data['patients'] = $this->patientModel->findAll();
         return view('patients/patient_list', $data);
     }
+
+    // The generalPatients() method has been removed from here
+    // as it is now in C:\xampp\htdocs\hms_ram\app\Controllers\GeneralController.php
 
 
     public function filter()
@@ -234,6 +235,39 @@ class Patients extends BaseController
                 $session->setFlashdata('error', 'Failed to update patient. Please try again.');
                 return redirect()->back()->withInput();
             }
+        }
+    }
+
+    /**
+     * Handles the AJAX request to admit a patient to IPD.
+     * This method is centralized here to be called from OPD, Casualty, and General patient lists.
+     */
+    public function admitToIPD()
+    {
+        // Ensure this is an AJAX request
+        if (!$this->request->isAJAX()) {
+            return $this->failForbidden('Only AJAX requests are allowed.');
+        }
+
+        // Get patient_id from POST data
+        $patientId = $this->request->getPost('patient_id');
+
+        if (empty($patientId)) {
+            return $this->failValidationErrors('Patient ID is required.');
+        }
+
+        // You can pass additional admission data if needed in $admissionData (e.g., ward, bed details from a modal)
+        $admissionData = $this->request->getPost(); // Collect all POST data
+
+        // Call the model method to admit the patient
+        $admitted = $this->patientModel->admitPatientToIPD((int)$patientId, $admissionData);
+
+        if ($admitted) {
+            // Fetch the updated patient data to return to the frontend
+            $updatedPatient = $this->patientModel->find($patientId);
+            return $this->respondCreated(['success' => true, 'message' => 'Patient successfully admitted to IPD.', 'patient' => $updatedPatient]);
+        } else {
+            return $this->fail('Failed to admit patient to IPD.', 500);
         }
     }
 

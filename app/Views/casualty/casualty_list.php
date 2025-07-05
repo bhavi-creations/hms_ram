@@ -15,7 +15,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -62,10 +63,16 @@
                                         <td>
                                             <a href="<?= base_url('patients/view/' . $patient['id']) ?>" class="btn btn-info btn-sm" title="View Patient"><i class="fas fa-eye"></i></a>
                                             <a href="<?= base_url('patients/edit/' . $patient['id']) ?>" class="btn btn-warning btn-sm" title="Edit Patient"><i class="fas fa-edit"></i></a>
-                                            <button type="button" class="btn btn-success btn-sm admit-to-ipd-btn" data-patient-id="<?= $patient['id'] ?>" title="Admit to IPD">
-                                                <i class="fas fa-bed"></i> Add to IPD
-                                            </button>
-                                            </td>
+                                            <?php if ($patient['patient_type'] === 'IPD'): ?>
+                                                <button class="btn btn-sm btn-secondary" disabled>
+                                                    <i class="fas fa-check"></i> Patient Added to IPD
+                                                </button>
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-success btn-sm admit-to-ipd-btn" data-patient-id="<?= $patient['id'] ?>" title="Admit to IPD">
+                                                    <i class="fas fa-bed"></i> Add to IPD
+                                                </button>
+                                            <?php endif; ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
@@ -76,28 +83,15 @@
                         </tbody>
                     </table>
                 </div>
-                </div>
-            </div></section>
-    </div>
+            </div>
+        </div>
+    </section>
+</div>
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-<script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('plugins/jszip/jszip.min.js') ?>"></script>
-<script src="<?= base_url('plugins/pdfmake/pdfmake.min.js') ?>"></script>
-<script src="<?= base_url('plugins/pdfmake/vfs_fonts.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
- 
-
 <script>
-    $(function () {
+    $(function() {
         $("#casualtyPatientsTable").DataTable({
             "paging": true,
             "lengthChange": false,
@@ -113,6 +107,7 @@
         $('.admit-to-ipd-btn').on('click', function() {
             const patientId = $(this).data('patient-id');
             const patientName = $(this).closest('tr').find('td:eq(1)').text();
+            const $clickedButton = $(this); // Store reference to the clicked button
 
             Swal.fire({
                 title: 'Confirm Admission to IPD',
@@ -125,9 +120,12 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '<?= base_url('casualty/admitToIpd/') ?>' + patientId,
+                        url: '<?= base_url('patients/admitToIPD') ?>',
                         type: 'POST',
                         dataType: 'json',
+                        data: {
+                            patient_id: patientId
+                        },
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest'
                         },
@@ -138,7 +136,11 @@
                                     response.message,
                                     'success'
                                 ).then(() => {
-                                    window.location.reload();
+                                    // Update the button directly without reloading the page
+                                    $clickedButton.html('<i class="fas fa-check"></i> Patient Added to IPD')
+                                        .prop('disabled', true)
+                                        .removeClass('btn-success')
+                                        .addClass('btn-secondary');
                                 });
                             } else {
                                 Swal.fire(

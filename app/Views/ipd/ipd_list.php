@@ -15,7 +15,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -54,7 +55,7 @@
                         <tbody>
                             <?php if (!empty($patients) && is_array($patients)) : ?>
                                 <?php foreach ($patients as $patient) : ?>
-                                    <tr>
+                                    <tr id="patient-row-<?= esc($patient['id']) ?>">
                                         <td><?= esc($patient['ipd_id_code'] ?? 'N/A') ?></td>
                                         <td><?= esc($patient['first_name'] . ' ' . $patient['last_name']) ?></td>
                                         <td><?= esc($patient['gender']) ?></td>
@@ -62,7 +63,26 @@
                                         <td>
                                             <a href="<?= base_url('patients/view/' . $patient['id']) ?>" class="btn btn-info btn-sm" title="View Patient"><i class="fas fa-eye"></i></a>
                                             <a href="<?= base_url('patients/edit/' . $patient['id']) ?>" class="btn btn-warning btn-sm" title="Edit Patient"><i class="fas fa-edit"></i></a>
-                                            </td>
+                                            
+                                            <!-- Conditional buttons based on patient_type -->
+                                            <?php if ($patient['patient_type'] === 'IPD'): ?>
+                                                <button type="button" class="btn btn-danger btn-sm remove-from-ipd-btn" data-patient-id="<?= esc($patient['id']) ?>" title="Remove from IPD">
+                                                    <i class="fas fa-undo"></i> Remove from IPD
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-sm discharge-patient-btn" data-patient-id="<?= esc($patient['id']) ?>" title="Discharge Patient">
+                                                    <i class="fas fa-sign-out-alt"></i> Discharged
+                                                </button>
+                                            <?php elseif ($patient['patient_type'] === 'Discharged'): ?>
+                                                <button type="button" class="btn btn-secondary btn-sm" disabled title="Patient Discharged">
+                                                    <i class="fas fa-check"></i> Discharged
+                                                </button>
+                                            <?php else: ?>
+                                                <!-- This case should ideally not happen if only IPD patients are shown -->
+                                                <button type="button" class="btn btn-secondary btn-sm" disabled title="Not an IPD Patient">
+                                                    N/A
+                                                </button>
+                                            <?php endif; ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
@@ -73,24 +93,17 @@
                         </tbody>
                     </table>
                 </div>
-                </div>
-            </div></section>
-    </div>
+            </div>
+        </div>
+    </section>
+</div>
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-<script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script>
-<script src="<?= base_url('plugins/jszip/jszip.min.js') ?>"></script>
-<script src="<?= base_url('plugins/pdfmake/pdfmake.min.js') ?>"></script>
-<script src="<?= base_url('plugins/pdfmake/vfs_fonts.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
-<script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
+<!-- DataTables JS (already in main.php, so no need for individual includes here) -->
+<!-- <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script> -->
+<!-- ... other DataTables plugins ... -->
+
 <script>
     $(function () {
         $("#ipdPatientsTable").DataTable({
@@ -103,6 +116,131 @@
             "responsive": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#ipdPatientsTable_wrapper .col-md-6:eq(0)');
+
+        // SweetAlert2 and AJAX for "Remove from IPD"
+        $(document).on('click', '.remove-from-ipd-btn', function() {
+            const patientId = $(this).data('patient-id');
+            const patientName = $(this).closest('tr').find('td:eq(1)').text();
+            const $clickedButton = $(this); // Reference to the "Remove from IPD" button
+            const $dischargeButton = $clickedButton.next('.discharge-patient-btn'); // Reference to the "Discharged" button
+
+            Swal.fire({
+                title: 'Confirm Removal from IPD',
+                text: `Are you sure you want to remove ${patientName} from IPD? They will revert to their original patient type.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545', // Red for removal
+                cancelButtonColor: '#6c757d', // Grey for cancel
+                confirmButtonText: 'Yes, Remove!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= base_url('ipd/removeFromIPD') ?>', // New route for removal
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { patient_id: patientId },
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Removed!',
+                                    response.message,
+                                    'success'
+                                ).then(() => {
+                                    // Remove the row from the IPD table immediately
+                                    // This assumes you want them gone from the IPD list after removal
+                                    $clickedButton.closest('tr').remove();
+                                    // No need to update button on original page via JS here,
+                                    // as that page will fetch its data fresh on next visit.
+                                    // The backend logic will ensure the correct button state on original page.
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Failed!',
+                                    response.message || 'An error occurred while removing the patient from IPD.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", status, error, xhr.responseText);
+                            Swal.fire(
+                                'Error!',
+                                'Could not remove patient from IPD. Server error.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+
+        // SweetAlert2 and AJAX for "Discharged"
+        $(document).on('click', '.discharge-patient-btn', function() {
+            const patientId = $(this).data('patient-id');
+            const patientName = $(this).closest('tr').find('td:eq(1)').text();
+            const $clickedButton = $(this); // Reference to the "Discharged" button
+            const $removeButton = $clickedButton.prev('.remove-from-ipd-btn'); // Reference to the "Remove from IPD" button
+
+            Swal.fire({
+                title: 'Confirm Patient Discharge',
+                text: `Are you sure you want to discharge ${patientName}? This action is usually final.`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745', // Green for discharge
+                cancelButtonColor: '#6c757d', // Grey for cancel
+                confirmButtonText: 'Yes, Discharge!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= base_url('ipd/dischargePatient') ?>', // New route for discharge
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { patient_id: patientId },
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Discharged!',
+                                    response.message,
+                                    'success'
+                                ).then(() => {
+                                    // Update buttons to show "Discharged" and disable them
+                                    $removeButton.remove(); // Remove "Remove from IPD" button
+                                    $clickedButton.html('<i class="fas fa-check"></i> Discharged')
+                                                 .prop('disabled', true)
+                                                 .removeClass('btn-success')
+                                                 .addClass('btn-secondary');
+                                    // Optionally, you might want to remove the row from the table
+                                    // if discharged patients shouldn't be in the active IPD list.
+                                    // $clickedButton.closest('tr').remove();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Failed!',
+                                    response.message || 'An error occurred while discharging the patient.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", status, error, xhr.responseText);
+                            Swal.fire(
+                                'Error!',
+                                'Could not discharge patient. Server error.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
     });
 </script>
 <?= $this->endSection() ?>

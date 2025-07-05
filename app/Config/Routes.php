@@ -18,10 +18,7 @@ $routes->get('/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth' filter here
 
 
-
-
-// Patients 
-
+// Patients
 $routes->group('patients', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Patients::index');
     $routes->get('register', 'Patients::register');
@@ -32,25 +29,37 @@ $routes->group('patients', ['filter' => 'auth'], function ($routes) {
     $routes->get('delete/(:num)', 'Patients::delete/$1');
     $routes->get('download-report/(:any)', 'Patients::downloadReport/$1');
     $routes->post('deleteReportFile', 'Patients::deleteReportFile');
+
+    // Centralized route for admitting patients to IPD (within the patients group)
+    $routes->post('admitToIPD', 'Patients::admitToIPD');
+
+
+});
+
+// New: General Management Routes (now in its own controller)
+$routes->group('general', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'GeneralController::index'); // Points to the new GeneralController
 });
 
 
-
-
-
-$routes->group('opd', function ($routes) {
+$routes->group('opd', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'OpdController::index');
-    $routes->post('admitToIpd/(:num)', 'OpdController::admitToIpd/$1');
+    // Removed: $routes->post('admitToIpd/(:num)', 'OpdController::admitToIpd/$1');
 });
 
 // New: IPD Management Routes
-$routes->group('ipd', function ($routes) {
+$routes->group('ipd', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'IpdController::index');
     // Add more IPD specific routes here later (e.g., assign bed, view daily notes, discharge)
+
+    // <--- ADDED THESE NEW ROUTES ---
+    $routes->post('removeFromIPD', 'IpdController::removeFromIPD');
+    $routes->post('dischargePatient', 'IpdController::dischargePatient');
+    // <--- END ADDED ROUTES ---
 });
 
 // New: Casualty Management Routes
-$routes->group('casualty', function ($routes) {
+$routes->group('casualty', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CasualtyController::index');
-    $routes->post('admitToIpd/(:num)', 'CasualtyController::admitToIpd/$1');
+    // Removed: $routes->post('admitToIpd/(:num)', 'CasualtyController::admitToIpd/$1');
 });

@@ -71,7 +71,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             // 'honeypot',
-            // 'csrf', // Keep CSRF commented out if it's in $required already or you manage it per method
+            // 'csrf',  
             // 'invalidchars',
         ],
         'after' => [
