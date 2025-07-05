@@ -25,22 +25,25 @@ class Database extends Config
      * @var array<string, mixed>
      */
     public array $default = [
+
+        
         'DSN'          => '',
-
-
         'hostname'     => 'localhost',
 
 
 
-        // 'username'     => 'root',
-        // 'password'     => '',
+        'username'     => 'root',
+        'password'     => '',
 
 
-        'username'     => 'bhavicreations',
-        'password'     => 'd8Az75YlgmyBnVM',
+        // 'username'     => 'bhavicreations',
+        // 'password'     => 'd8Az75YlgmyBnVM',
 
 
-        'database'     => 'ci4_templete',
+        'database'     => 'hms_ram',
+
+
+        
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

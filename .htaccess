@@ -20,7 +20,7 @@ Options -Indexes
 
 
 	# uncomment this below line in local 
-	RewriteBase /ci4_templete/
+	RewriteBase /hms_ram/
 
 	# uncomment this below line in live server 
 	# RewriteBase /

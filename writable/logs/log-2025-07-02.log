@@ -1,0 +1,491 @@
+DEBUG - 2025-07-02 03:42:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 03:42:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:24:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:24:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:24:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:25:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:25:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:26:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:26:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:26:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:26:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:33:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:33:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:37:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:37:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:37:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:37:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:37:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:37:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:37:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:38:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:38:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:39:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:40:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:40:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:40:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:40:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:40:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:41:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:45:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:46:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:46:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 04:46:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:12:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:13:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:13:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:13:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:13:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:14:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:14:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:14:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:25:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:25:18 --> ErrorException: Cannot redeclare App\Controllers\Patients::downloadReport()
+[Method: GET, Route: patients]
+in APPPATH\Controllers\Patients.php on line 266.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2025-07-02 05:25:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:25:20 --> ErrorException: Cannot redeclare App\Controllers\Patients::downloadReport()
+[Method: GET, Route: patients/view/20]
+in APPPATH\Controllers\Patients.php on line 266.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2025-07-02 05:25:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:25:21 --> ErrorException: Cannot redeclare App\Controllers\Patients::downloadReport()
+[Method: GET, Route: patients]
+in APPPATH\Controllers\Patients.php on line 266.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2025-07-02 05:25:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:25:22 --> ErrorException: Cannot redeclare App\Controllers\Patients::downloadReport()
+[Method: GET, Route: patients/register]
+in APPPATH\Controllers\Patients.php on line 266.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2025-07-02 05:25:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:25:22 --> ErrorException: Cannot redeclare App\Controllers\Patients::downloadReport()
+[Method: GET, Route: patients/register]
+in APPPATH\Controllers\Patients.php on line 266.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2025-07-02 05:25:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:25:23 --> ErrorException: Cannot redeclare App\Controllers\Patients::downloadReport()
+[Method: GET, Route: patients/register]
+in APPPATH\Controllers\Patients.php on line 266.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2025-07-02 05:27:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:27:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:27:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:30:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:30:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:30:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:30:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:30:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:32:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:32:56 --> ErrorException: Undefined variable $fileName
+[Method: GET, Route: patients/view/20]
+in APPPATH\Views\patients\view_patient.php on line 67.
+ 1 APPPATH\Views\patients\view_patient.php(67): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $fileName', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php', 67)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/view_patient', [], true)
+ 5 APPPATH\Controllers\Patients.php(288): view('patients/view_patient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->view('20')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 05:33:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:33:17 --> ErrorException: Undefined variable $fileName
+[Method: GET, Route: patients/view/20]
+in APPPATH\Views\patients\view_patient.php on line 67.
+ 1 APPPATH\Views\patients\view_patient.php(67): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $fileName', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php', 67)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/view_patient', [], true)
+ 5 APPPATH\Controllers\Patients.php(288): view('patients/view_patient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->view('20')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 05:33:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:33:18 --> ErrorException: Undefined variable $fileName
+[Method: GET, Route: patients/view/20]
+in APPPATH\Views\patients\view_patient.php on line 67.
+ 1 APPPATH\Views\patients\view_patient.php(67): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $fileName', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php', 67)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/view_patient', [], true)
+ 5 APPPATH\Controllers\Patients.php(288): view('patients/view_patient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->view('20')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 05:33:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 05:33:31 --> ErrorException: Undefined variable $fileName
+[Method: GET, Route: patients/view/20]
+in APPPATH\Views\patients\view_patient.php on line 67.
+ 1 APPPATH\Views\patients\view_patient.php(67): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $fileName', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php', 67)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\view_patient.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/view_patient', [], true)
+ 5 APPPATH\Controllers\Patients.php(288): view('patients/view_patient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->view('20')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 05:35:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:36:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:36:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:58:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:58:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:59:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 05:59:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:10:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:10:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:10:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:10:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:10:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:42:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:44:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:45:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:46:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:46:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 06:46:09 --> ParseError: syntax error, unexpected token "endforeach", expecting "elseif" or "else" or "endif"
+[Method: GET, Route: patients/view/21]
+in APPPATH\Views\patients\view_patient.php on line 90.
+ 1 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/view_patient', [], true)
+ 3 APPPATH\Controllers\Patients.php(288): view('patients/view_patient', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->view('21')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 06:46:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:46:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:47:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:48:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:48:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:49:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 06:49:04 --> ParseError: syntax error, unexpected token "endforeach", expecting "elseif" or "else" or "endif"
+[Method: GET, Route: patients/view/21]
+in APPPATH\Views\patients\view_patient.php on line 90.
+ 1 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/view_patient', [], true)
+ 3 APPPATH\Controllers\Patients.php(288): view('patients/view_patient', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->view('21')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 06:49:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 06:49:29 --> ParseError: syntax error, unexpected token "endforeach"
+[Method: GET, Route: patients/view/21]
+in APPPATH\Views\patients\view_patient.php on line 91.
+ 1 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/view_patient', [], true)
+ 3 APPPATH\Controllers\Patients.php(288): view('patients/view_patient', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->view('21')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 06:49:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:51:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:52:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:52:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:52:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:58:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:58:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:58:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 06:59:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-07-02 06:59:49 --> [DEPRECATED] trim(): Passing null to parameter #1 ($string) of type string is deprecated in APPPATH\Controllers\Patients.php on line 44.
+ 1 APPPATH\Controllers\Patients.php(44): trim(null)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->filter()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 07:02:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:02:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:02:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:02:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:03:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:04:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:05:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:05:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:06:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:17:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 07:17:33 --> ErrorException: Undefined array key "patient_id"
+[Method: GET, Route: patients/edit/4]
+in APPPATH\Views\patients\register_patient.php on line 255.
+ 1 APPPATH\Views\patients\register_patient.php(255): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "patient_id"', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\register_patient.php', 255)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\register_patient.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/register_patient', [], true)
+ 5 APPPATH\Controllers\Patients.php(379): view('patients/register_patient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->edit('4')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 07:17:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 07:17:45 --> ErrorException: Undefined array key "patient_id"
+[Method: GET, Route: patients/edit/4]
+in APPPATH\Views\patients\register_patient.php on line 255.
+ 1 APPPATH\Views\patients\register_patient.php(255): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "patient_id"', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\register_patient.php', 255)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\register_patient.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/register_patient', [], true)
+ 5 APPPATH\Controllers\Patients.php(379): view('patients/register_patient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->edit('4')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 07:18:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-02 07:18:13 --> ErrorException: Undefined array key "patient_id"
+[Method: GET, Route: patients/edit/4]
+in APPPATH\Views\patients\register_patient.php on line 255.
+ 1 APPPATH\Views\patients\register_patient.php(255): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "patient_id"', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\register_patient.php', 255)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\patients\\register_patient.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('patients/register_patient', [], true)
+ 5 APPPATH\Controllers\Patients.php(379): view('patients/register_patient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->edit('4')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 07:19:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:22:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:22:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:22:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:22:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:25:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:25:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:31:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:31:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:31:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:31:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:36:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:36:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:36:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:36:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:41:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:41:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:41:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:49:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 07:49:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:02:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:14:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:14:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:17:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:17:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:18:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:21:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:21:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:21:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:22:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:22:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:22:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:22:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:38:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:38:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:38:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:38:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:38:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:39:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:44:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:44:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:45:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:46:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 10:51:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:28:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:29:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:29:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:32:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:37:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:37:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:41:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:41:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:43:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:43:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:43:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:43:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-02 11:43:48 --> mysqli_sql_exception: Unknown column 'last_sequence' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `id_sequ...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `id_sequ...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `id_sequ...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `id_sequ...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\app\Models\PatientIdSequenceModel.php(46): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\hms_ram\app\Models\PatientModel.php(114): App\Models\PatientIdSequenceModel->getNextSequence('PAT')
+#6 C:\xampp\htdocs\hms_ram\system\BaseModel.php(1701): App\Models\PatientModel->generatePatientIDs(Array)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(840): CodeIgniter\BaseModel->trigger('beforeInsert', Array)
+#8 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#9 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#10 C:\xampp\htdocs\hms_ram\app\Controllers\Patients.php(202): CodeIgniter\BaseModel->save(Array)
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Patients->save()
+#12 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+#13 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#15 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#16 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#17 {main}
+ERROR - 2025-07-02 11:43:48 --> mysqli_sql_exception: Unknown column 'last_sequence' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `last_se...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `last_se...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `last_se...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `last_se...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\app\Models\PatientIdSequenceModel.php(59): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\app\Models\PatientModel.php(114): App\Models\PatientIdSequenceModel->getNextSequence('PAT')
+#6 C:\xampp\htdocs\hms_ram\system\BaseModel.php(1701): App\Models\PatientModel->generatePatientIDs(Array)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(840): CodeIgniter\BaseModel->trigger('beforeInsert', Array)
+#8 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#9 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#10 C:\xampp\htdocs\hms_ram\app\Controllers\Patients.php(202): CodeIgniter\BaseModel->save(Array)
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Patients->save()
+#12 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+#13 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#15 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#16 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#17 {main}
+CRITICAL - 2025-07-02 11:43:48 --> Error: Call to a member function getRowArray() on bool
+[Method: POST, Route: patients/save]
+in APPPATH\Models\PatientIdSequenceModel.php on line 60.
+ 1 APPPATH\Models\PatientModel.php(114): App\Models\PatientIdSequenceModel->getNextSequence('PAT')
+ 2 SYSTEMPATH\BaseModel.php(1701): App\Models\PatientModel->generatePatientIDs([...])
+ 3 SYSTEMPATH\BaseModel.php(840): CodeIgniter\BaseModel->trigger('beforeInsert', [...])
+ 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Patients.php(202): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->save()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 11:44:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:44:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:50:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-02 11:50:01 --> mysqli_sql_exception: Unknown column 'last_sequence' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `id_sequ...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `id_sequ...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `id_sequ...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `id_sequ...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\app\Models\PatientIdSequenceModel.php(46): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\hms_ram\app\Models\PatientModel.php(114): App\Models\PatientIdSequenceModel->getNextSequence('PAT')
+#6 C:\xampp\htdocs\hms_ram\system\BaseModel.php(1701): App\Models\PatientModel->generatePatientIDs(Array)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(840): CodeIgniter\BaseModel->trigger('beforeInsert', Array)
+#8 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#9 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#10 C:\xampp\htdocs\hms_ram\app\Controllers\Patients.php(202): CodeIgniter\BaseModel->save(Array)
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Patients->save()
+#12 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+#13 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#15 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#16 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#17 {main}
+ERROR - 2025-07-02 11:50:01 --> mysqli_sql_exception: Unknown column 'last_sequence' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `last_se...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `last_se...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `last_se...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `last_se...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\app\Models\PatientIdSequenceModel.php(59): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\app\Models\PatientModel.php(114): App\Models\PatientIdSequenceModel->getNextSequence('PAT')
+#6 C:\xampp\htdocs\hms_ram\system\BaseModel.php(1701): App\Models\PatientModel->generatePatientIDs(Array)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(840): CodeIgniter\BaseModel->trigger('beforeInsert', Array)
+#8 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#9 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#10 C:\xampp\htdocs\hms_ram\app\Controllers\Patients.php(202): CodeIgniter\BaseModel->save(Array)
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Patients->save()
+#12 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+#13 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#15 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#16 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#17 {main}
+CRITICAL - 2025-07-02 11:50:01 --> Error: Call to a member function getRowArray() on bool
+[Method: POST, Route: patients/save]
+in APPPATH\Models\PatientIdSequenceModel.php on line 60.
+ 1 APPPATH\Models\PatientModel.php(114): App\Models\PatientIdSequenceModel->getNextSequence('PAT')
+ 2 SYSTEMPATH\BaseModel.php(1701): App\Models\PatientModel->generatePatientIDs([...])
+ 3 SYSTEMPATH\BaseModel.php(840): CodeIgniter\BaseModel->trigger('beforeInsert', [...])
+ 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Patients.php(202): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->save()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-02 11:53:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:53:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:53:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 11:53:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-02 12:34:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

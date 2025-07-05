@@ -34,6 +34,7 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'auth'          => \App\Filters\AuthFilter::class, // ADD THIS LINE for your custom AuthFilter
     ];
 
     /**
@@ -70,7 +71,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             // 'honeypot',
-            // 'csrf',
+            // 'csrf', // Keep CSRF commented out if it's in $required already or you manage it per method
             // 'invalidchars',
         ],
         'after' => [
@@ -103,5 +104,5 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = []; // This array is used for applying filters to specific URI patterns
 }

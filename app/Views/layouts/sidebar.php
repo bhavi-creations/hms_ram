@@ -1,8 +1,8 @@
-<aside class="app-sidebar side_bg  shadow" data-bs-theme="dark">
+<aside class="app-sidebar side_bg shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="<?= base_url('/') ?>" class="brand-link">
-            <img src="<?= base_url('assets/img/credit/AdminLTELogo.jpg') ?>" alt="AdminLTELogo" class="brand-image  " />
-            <!-- <span class="brand-text  ">Ci4 templete    </span> -->
+            <img src="<?= base_url('assets/img/credit/AdminLTELogo.jpg') ?>" alt="HMS Logo" class="brand-image" />
+            <span class="brand-text">HMS</span> <!-- Changed to HMS -->
         </a>
     </div>
 
@@ -10,241 +10,468 @@
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
 
-
-
- 
-
-
+                <!-- Dashboard -->
                 <li class="nav-item">
                     <a href="<?= base_url('dashboard') ?>" class="nav-link <?= uri_string() == 'dashboard' ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>  
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
-
-
-
-                <?php
-                // Determine if any page under 'distributor-sales' or 'distributors' is active
-                $isDistributorSalesActive = url_is('distributor-sales*') || url_is('distributors*');
-                ?>
-                <li class="nav-item <?= $isDistributorSalesActive ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= $isDistributorSalesActive ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-truck-loading"></i>
+                <!-- Patient Management -->
+                <?php $isPatientManagementActive = url_is('patients*') || url_is('opd*') || url_is('ipd*') || url_is('casualty*') || url_is('medical-records*'); ?>
+                <li class="nav-item <?= $isPatientManagementActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isPatientManagementActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-hospital-user"></i>
                         <p>
-                            Drop Down 1
-                            <i class="nav-arrow fas fa-chevron-right"></i> <!-- Changed from bi bi-chevron-right -->
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= base_url('distributors') ?>" class="nav-link <?= uri_string() == 'distributors' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Distributors</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('distributor-sales') ?>" class="nav-link <?= uri_string() == 'distributor-sales' ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-truck-flatbed"></i>
-
-                                <p>All Sales Orders</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('distributor-sales/new') ?>" class="nav-link <?= uri_string() == 'distributor-sales/new' ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-truck-flatbed"></i>
-
-                                <p>Create New Order</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
-                <?php
-                // Determine if any page under 'vendors' is active
-                $isVendorsActive = url_is('vendors') || url_is('vendors/*');
-                ?>
-                <li class="nav-item <?= $isVendorsActive ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= $isVendorsActive ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-handshake"></i> <!-- Icon for the Vendors parent menu -->
-                        <p>
-                           Drop Down 2
+                            Patient Management
                             <i class="nav-arrow fas fa-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('vendors') ?>" class="nav-link <?= uri_string() == 'vendors' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Vendors</p>
+                            <a href="<?= base_url('patients/register') ?>" class="nav-link <?= uri_string() == 'patients/register' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>Register Patient</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('vendors/vendorReport') ?>" class="nav-link <?= uri_string() == 'vendors/vendorReport' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Vendor Report</p>
+                            <a href="<?= base_url('patients') ?>" class="nav-link <?= uri_string() == 'patients' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-user-injured"></i>
+                                <p>Patient List</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-
-                <?php
-                // Determine if any page under 'gst-rates', 'units', or 'products' is active
-                $isProductManagementActive = url_is('gst-rates*') || url_is('units*') || url_is('products*');
-                ?>
-                <li class="nav-item <?= $isProductManagementActive ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= $isProductManagementActive ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-boxes"></i> <!-- Icon for the Product Management parent menu -->
-                        <p>
-                            Drop Down 3
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-header">UNITS & GST</li> <!-- Moved inside the treeview -->
-
+                        
                         <li class="nav-item">
-                            <a href="<?= base_url('gst-rates') ?>" class="nav-link <?= uri_string() == 'gst-rates' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-percent"></i> <!-- Changed from bi bi-percent to fas fa-percent -->
-                                <p>GST Rates</p>
+                            <a href="<?= base_url('opd') ?>" class="nav-link <?= uri_string() == 'opd' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-person-walking"></i>
+                                <p>OPD Management</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('units') ?>" class="nav-link <?= uri_string() == 'units' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-cubes"></i>
-                                <p>Units</p>
-                            </a>
-                        </li>
-                        <li class="nav-header">Product Details</li> <!-- Moved inside the treeview -->
-                        <li class="nav-item">
-                            <a href="<?= base_url('products') ?>" class="nav-link <?= uri_string() == 'products' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-box"></i>
-                                <p>Products List</p>
+                            <a href="<?= base_url('ipd') ?>" class="nav-link <?= uri_string() == 'ipd' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-bed-pulse"></i>
+                                <p>IPD Management</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url('products/manage-prices') ?>" class="nav-link <?= uri_string() == 'products/manage-prices' ? 'active' : '' ?>">
-                                <i class=" nav-icon fa-solid fa-indian-rupee-sign"></i>
-                                <p> Manage Prices </p>
+                            <a href="<?= base_url('casualty') ?>" class="nav-link <?= uri_string() == 'casualty' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-truck-medical"></i>
+                                <p>Casualty / ER</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('medical-records') ?>" class="nav-link <?= uri_string() == 'medical-records' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-file-medical"></i>
+                                <p>Medical Records</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
-
-
-
-
-
-
-                <?php
-                // Determine if any page under 'products/stock-overview', 'stock-in', or 'stock-out' is active
-                $isStockManagementActive = url_is('products/stock-overview*') || url_is('stock-in*') || url_is('stock-out*');
-                ?>
-                <li class="nav-item <?= $isStockManagementActive ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= $isStockManagementActive ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-warehouse"></i> <!-- Icon for Stock Management parent menu -->
+                <!-- Doctor Management -->
+                <?php $isDoctorManagementActive = url_is('doctors*'); ?>
+                <li class="nav-item <?= $isDoctorManagementActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isDoctorManagementActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-user-md"></i>
                         <p>
-                           Drop Down 4
+                            Doctor Management
                             <i class="nav-arrow fas fa-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link <?= uri_string() == 'products/stock-overview' ? 'active' : '' ?>" href="<?= base_url('products/stock-overview') ?>">
-                                <i class="nav-icon fas fa-boxes"></i>
-                                <p>Available Stock</p>
+                            <a href="<?= base_url('doctors/register') ?>" class="nav-link <?= uri_string() == 'doctors/register' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>Register Doctor</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('stock-in') ?>" class="nav-link <?= uri_string() == 'stock-in' ? 'active' : '' ?>">
+                            <a href="<?= base_url('doctors') ?>" class="nav-link <?= uri_string() == 'doctors' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-stethoscope"></i>
+                                <p>Doctor List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('doctors/schedule') ?>" class="nav-link <?= uri_string() == 'doctors/schedule' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>Doctor Schedule</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Appointment Management -->
+                <?php $isAppointmentManagementActive = url_is('appointments*'); ?>
+                <li class="nav-item <?= $isAppointmentManagementActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isAppointmentManagementActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-calendar-check"></i>
+                        <p>
+                            Appointment Management
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('appointments/schedule') ?>" class="nav-link <?= uri_string() == 'appointments/schedule' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-calendar-plus"></i>
+                                <p>Schedule Appointment</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('appointments') ?>" class="nav-link <?= uri_string() == 'appointments' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-calendar-day"></i>
+                                <p>View Appointments</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('appointments/history') ?>" class="nav-link <?= uri_string() == 'appointments/history' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-history"></i>
+                                <p>Appointment History</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Reception / Front Desk -->
+                <?php $isReceptionActive = url_is('reception*'); ?>
+                <li class="nav-item <?= $isReceptionActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isReceptionActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-concierge-bell"></i>
+                        <p>
+                            Reception / Front Desk
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('reception/checkin') ?>" class="nav-link <?= uri_string() == 'reception/checkin' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-clipboard-check"></i>
+                                <p>Patient Check-in</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('reception/inquiries') ?>" class="nav-link <?= uri_string() == 'reception/inquiries' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <p>Patient Inquiries</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('reception/visitors') ?>" class="nav-link <?= uri_string() == 'reception/visitors' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-users-viewfinder"></i>
+                                <p>Visitor Log</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Pharmacy Management -->
+                <?php $isPharmacyManagementActive = url_is('pharmacy*'); ?>
+                <li class="nav-item <?= $isPharmacyManagementActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isPharmacyManagementActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-pills"></i>
+                        <p>
+                            Pharmacy Management
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pharmacy/drugs') ?>" class="nav-link <?= uri_string() == 'pharmacy/drugs' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-capsules"></i>
+                                <p>Manage Drugs</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pharmacy/categories') ?>" class="nav-link <?= uri_string() == 'pharmacy/categories' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>Drug Categories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pharmacy/suppliers') ?>" class="nav-link <?= uri_string() == 'pharmacy/suppliers' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-truck"></i>
+                                <p>Suppliers</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pharmacy/stock-in') ?>" class="nav-link <?= uri_string() == 'pharmacy/stock-in' ? 'active' : '' ?>">
                                 <i class="nav-icon fas fa-arrow-down"></i>
                                 <p>Stock In</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= uri_string() == 'stock-out' ? 'active' : '' ?>" href="<?= base_url('stock-out') ?>">
-                                <i class="nav-icon fas fa-truck-moving"></i>
-                                <p> Stock Out </p>
+                            <a href="<?= base_url('pharmacy/dispense') ?>" class="nav-link <?= uri_string() == 'pharmacy/dispense' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-prescription-bottle-alt"></i>
+                                <p>Stock Out / Dispense</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pharmacy/alerts') ?>" class="nav-link <?= uri_string() == 'pharmacy/alerts' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-bell"></i>
+                                <p>Expiry Alerts</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
-
-
-
-
-
-                <?php
-                $isMarketingSalesActive = url_is('marketing-persons*') || url_is('marketing-distribution*') || url_is('sales*') || url_is('reports/person-stock*');
-                ?>
-                <li class="nav-item <?= $isMarketingSalesActive ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= $isMarketingSalesActive ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-users"></i>
+                <!-- Laboratory Management -->
+                <?php $isLaboratoryManagementActive = url_is('laboratory*'); ?>
+                <li class="nav-item <?= $isLaboratoryManagementActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isLaboratoryManagementActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-flask"></i>
                         <p>
-                           Drop Down 5
-                            <i class="nav-arrow bi bi-chevron-right"></i>
+                            Laboratory Management
+                            <i class="nav-arrow fas fa-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-header">Marketing</li>
-
                         <li class="nav-item">
-                            <a href="<?= base_url('marketing-persons') ?>" class="nav-link <?= uri_string() == 'marketing-persons' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Marketing Persons</p>
+                            <a href="<?= base_url('laboratory/orders') ?>" class="nav-link <?= uri_string() == 'laboratory/orders' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-vials"></i>
+                                <p>Order Tests</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('marketing-distribution') ?>" class="nav-link <?= uri_string() == 'marketing-distribution' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-share-square"></i>
-                                <p>Distribute Products</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header">SALES</li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('sales/create') ?>" class="nav-link <?= uri_string() == 'sales/create' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-plus-circle"></i>
-                                <p>Add Sale</p>
+                            <a href="<?= base_url('laboratory/results') ?>" class="nav-link <?= uri_string() == 'laboratory/results' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-microscope"></i>
+                                <p>Enter Results</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('sales') ?>" class="nav-link <?= uri_string() == 'sales' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                                <p>Sales List</p>
+                            <a href="<?= base_url('laboratory/reports') ?>" class="nav-link <?= uri_string() == 'laboratory/reports' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>View Lab Reports</p>
                             </a>
                         </li>
-
-                        <li class="nav-header">REPORTS</li>
                         <li class="nav-item">
-                            <a href="<?= base_url('reports/person-stock') ?>" class="nav-link <?= uri_string() == 'reports/person-stock' ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-chart-bar"></i>
-                                <p>Person Stock Report</p>
+                            <a href="<?= base_url('laboratory/types') ?>" class="nav-link <?= uri_string() == 'laboratory/types' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>Test Types</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
+                <!-- Billing & Accounts -->
+                <?php $isBillingAccountsActive = url_is('billing*') || url_is('invoices*'); ?>
+                <li class="nav-item <?= $isBillingAccountsActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isBillingAccountsActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                        <p>
+                            Billing & Accounts
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('billing/create') ?>" class="nav-link <?= uri_string() == 'billing/create' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>Create Invoice</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('invoices') ?>" class="nav-link <?= uri_string() == 'invoices' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-list-alt"></i>
+                                <p>View Invoices</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('billing/payments') ?>" class="nav-link <?= uri_string() == 'billing/payments' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-money-check-alt"></i>
+                                <p>Payment History</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('billing/services') ?>" class="nav-link <?= uri_string() == 'billing/services' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-hand-holding-medical"></i>
+                                <p>Manage Services</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
+                <!-- Hospital Resources -->
+                <?php $isHospitalResourcesActive = url_is('wards*') || url_is('beds*') || url_is('assets*'); ?>
+                <li class="nav-item <?= $isHospitalResourcesActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isHospitalResourcesActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-hospital"></i>
+                        <p>
+                            Hospital Resources
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('wards') ?>" class="nav-link <?= uri_string() == 'wards' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>Wards</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('beds') ?>" class="nav-link <?= uri_string() == 'beds' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-bed"></i>
+                                <p>Beds</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('assets') ?>" class="nav-link <?= uri_string() == 'assets' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-laptop-medical"></i>
+                                <p>Assets & Equipment</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
+                <!-- Staff Management -->
+                <?php $isStaffManagementActive = url_is('staff*') || url_is('users*') || url_is('roles*'); ?>
+                <li class="nav-item <?= $isStaffManagementActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isStaffManagementActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>
+                            Staff Management
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('staff/register') ?>" class="nav-link <?= uri_string() == 'staff/register' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>Add Staff</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('staff') ?>" class="nav-link <?= uri_string() == 'staff' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Staff List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('users') ?>" class="nav-link <?= uri_string() == 'users' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-users-gear"></i>
+                                <p>User Accounts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('roles') ?>" class="nav-link <?= uri_string() == 'roles' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-user-tag"></i>
+                                <p>Roles & Permissions</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('staff/attendance') ?>" class="nav-link <?= uri_string() == 'staff/attendance' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-clipboard-user"></i>
+                                <p>Attendance</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
+                <!-- Diagnostics & Imaging -->
+                <?php $isDiagnosticsActive = url_is('diagnostics*') || url_is('imaging*'); ?>
+                <li class="nav-item <?= $isDiagnosticsActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isDiagnosticsActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-x-ray"></i>
+                        <p>
+                            Diagnostics & Imaging
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('diagnostics/orders') ?>" class="nav-link <?= uri_string() == 'diagnostics/orders' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-notes-medical"></i>
+                                <p>Order Imaging</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('diagnostics/results') ?>" class="nav-link <?= uri_string() == 'diagnostics/results' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-file-image"></i>
+                                <p>View Results</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
+                <!-- Reporting & Analytics -->
+                <?php $isReportingActive = url_is('reports*'); ?>
+                <li class="nav-item <?= $isReportingActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isReportingActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-chart-line"></i>
+                        <p>
+                            Reporting & Analytics
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('reports/patients') ?>" class="nav-link <?= uri_string() == 'reports/patients' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-chart-bar"></i>
+                                <p>Patient Reports</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('reports/financial') ?>" class="nav-link <?= uri_string() == 'reports/financial' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>Financial Reports</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('reports/pharmacy') ?>" class="nav-link <?= uri_string() == 'reports/pharmacy' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-chart-area"></i>
+                                <p>Pharmacy Reports</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('reports/lab') ?>" class="nav-link <?= uri_string() == 'reports/lab' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-chart-line"></i>
+                                <p>Lab Reports</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
+                <!-- System Configuration & Audit -->
+                <?php $isSystemConfigActive = url_is('settings*') || url_is('master-data*') || url_is('audit*'); ?>
+                <li class="nav-item <?= $isSystemConfigActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isSystemConfigActive ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            System Config & Audit
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('settings') ?>" class="nav-link <?= uri_string() == 'settings' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-sliders-h"></i>
+                                <p>General Settings</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('master-data') ?>" class="nav-link <?= uri_string() == 'master-data' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-database"></i>
+                                <p>Master Data</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('audit-logs') ?>" class="nav-link <?= uri_string() == 'audit-logs' ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-history"></i>
+                                <p>Audit Logs</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-
-
-
-
+                <!-- Logout Link -->
+                <li class="nav-item">
+                    <a href="<?= base_url('logout') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
 
             </ul>
-
-
-
-
         </nav>
     </div>
 </aside>
