@@ -614,3 +614,6 @@ INFO - 2025-07-05 12:03:30 --> Storing previous patient type General for patient
 INFO - 2025-07-05 12:03:30 --> Generated new IPD ID IPD-250705-00041 for patient 23 during admission.
 INFO - 2025-07-05 12:03:30 --> Patient 23 admitted to IPD. IPD Code: IPD-250705-00041
 DEBUG - 2025-07-05 12:03:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-05 12:07:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-07-05 12:07:19 --> Patient 19 discharged.
+DEBUG - 2025-07-05 12:08:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

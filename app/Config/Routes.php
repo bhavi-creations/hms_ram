@@ -63,3 +63,18 @@ $routes->group('casualty', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CasualtyController::index');
     // Removed: $routes->post('admitToIpd/(:num)', 'CasualtyController::admitToIpd/$1');
 });
+
+
+
+
+
+
+// Doctors Routes
+// Doctors Routes
+$routes->get('doctors', 'Doctors::index');
+$routes->get('doctors/new', 'Doctors::new');
+$routes->post('doctors/save', 'Doctors::save');
+$routes->post('doctors/delete/(:num)', 'Doctors::delete/$1'); // Route for deletion
+// Placeholder for edit/view if you add those controllers later
+$routes->get('doctors/edit/(:num)', 'Doctors::edit/$1');
+$routes->get('doctors/view/(:num)', 'Doctors::view/$1');

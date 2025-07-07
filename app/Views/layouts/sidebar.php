@@ -85,7 +85,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('doctors/register') ?>" class="nav-link <?= uri_string() == 'doctors/register' ? 'active' : '' ?>">
+                            <a href="<?= base_url('doctors/new') ?>" class="nav-link <?= uri_string() == 'doctors/new' ? 'active' : '' ?>">
                                 <i class="nav-icon fas fa-user-plus"></i>
                                 <p>Register Doctor</p>
                             </a>

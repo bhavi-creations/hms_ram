@@ -1,0 +1,1059 @@
+DEBUG - 2025-07-07 04:53:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 04:53:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 04:53:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 04:53:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 04:53:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 04:54:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:12:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:18:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:18:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:18:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:19:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:21:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:21:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:21:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:21:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:27:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 05:27:21 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: doctors]
+in APPPATH\Views\doctors\list.php on line 55.
+ 1 APPPATH\Views\doctors\list.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\list.php', 55)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\list.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/list', [], true)
+ 5 APPPATH\Controllers\Doctors.php(23): view('doctors/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 05:27:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:27:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 05:27:26 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "layout/main.php"
+[Method: GET, Route: doctors/add]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layout/main.php')
+ 2 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('layout/main', [], true)
+ 3 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 4 APPPATH\Controllers\Doctors.php(29): view('doctors/add', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 05:27:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 05:27:29 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "layout/main.php"
+[Method: GET, Route: doctors/add]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layout/main.php')
+ 2 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('layout/main', [], true)
+ 3 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 4 APPPATH\Controllers\Doctors.php(29): view('doctors/add', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:28:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 05:28:08 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: doctors]
+in APPPATH\Views\doctors\list.php on line 55.
+ 1 APPPATH\Views\doctors\list.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\list.php', 55)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\list.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/list', [], true)
+ 5 APPPATH\Controllers\Doctors.php(23): view('doctors/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 05:34:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 05:34:53 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "layout/main.php"
+[Method: GET, Route: doctors/add]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layout/main.php')
+ 2 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('layout/main', [], true)
+ 3 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 4 APPPATH\Controllers\Doctors.php(29): view('doctors/add', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 05:35:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:35:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:43:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:43:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 05:43:59 --> ErrorException: Undefined array key "status"
+[Method: GET, Route: doctors]
+in APPPATH\Views\doctors\list.php on line 55.
+ 1 APPPATH\Views\doctors\list.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "status"', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\list.php', 55)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\list.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/list', [], true)
+ 5 APPPATH\Controllers\Doctors.php(23): view('doctors/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 05:45:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 05:48:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 06:04:27 --> mysqli_sql_exception: Duplicate entry '2958453' for key 'medical_license_no' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `do...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `do...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `do...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `do...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(141): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#10 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-07-07 06:04:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '2958453' for key 'medical_license_no'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Doctors.php(141): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 06:04:27 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '2958453' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'ramu\', \'raj\', NULL, \'eye\', \'mbbs\', \'2958453\', \'2\', \'its a bio\', \'1\', \'Male\', \'2025-07-01\', \'7897897897\', \'doc@gmai.com\', \'fsvfebsb\', \'lingam\', \'7487477878\', \'398593\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'400\', \'15\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-06T11:13\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 06:04:27\', \'2025-07-07 06:04:27\', \'DOC-250707-0002\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'ramu\', \'raj\', NULL, \'eye\', \'mbbs\', \'2958453\', \'2\', \'its a bio\', \'1\', \'Male\', \'2025-07-01\', \'7897897897\', \'doc@gmai.com\', \'fsvfebsb\', \'lingam\', \'7487477878\', \'398593\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'400\', \'15\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-06T11:13\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 06:04:27\', \'2025-07-07 06:04:27\', \'DOC-250707-0002\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Doctors.php(141): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 06:04:27 --> [Caused by] mysqli_sql_exception: Duplicate entry '2958453' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'ramu\', \'raj\', NULL, \'eye\', \'mbbs\', \'2958453\', \'2\', \'its a bio\', \'1\', \'Male\', \'2025-07-01\', \'7897897897\', \'doc@gmai.com\', \'fsvfebsb\', \'lingam\', \'7487477878\', \'398593\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'400\', \'15\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-06T11:13\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 06:04:27\', \'2025-07-07 06:04:27\', \'DOC-250707-0002\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'ramu\', \'raj\', NULL, \'eye\', \'mbbs\', \'2958453\', \'2\', \'its a bio\', \'1\', \'Male\', \'2025-07-01\', \'7897897897\', \'doc@gmai.com\', \'fsvfebsb\', \'lingam\', \'7487477878\', \'398593\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'400\', \'15\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-06T11:13\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 06:04:27\', \'2025-07-07 06:04:27\', \'DOC-250707-0002\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'ramu\', \'raj\', NULL, \'eye\', \'mbbs\', \'2958453\', \'2\', \'its a bio\', \'1\', \'Male\', \'2025-07-01\', \'7897897897\', \'doc@gmai.com\', \'fsvfebsb\', \'lingam\', \'7487477878\', \'398593\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'400\', \'15\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-06T11:13\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 06:04:27\', \'2025-07-07 06:04:27\', \'DOC-250707-0002\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Doctors.php(141): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 06:05:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:05:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:05:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:05:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:05:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:22:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:33:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:35:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:35:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:38:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:38:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:38:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:43:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:44:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:44:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:45:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:48:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:48:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:51:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 06:52:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:02:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:02:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:03:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:03:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:04:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:04:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:07:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:10:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 07:10:26 --> mysqli_sql_exception: Duplicate entry '22' for key 'user_id' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `do...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `do...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `do...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `do...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#10 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-07-07 07:10:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '22' for key 'user_id'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 07:10:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '22' for key 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'shaik\', \'khana\', \'22\', \'lungs\', \'mbbs\', \'295844333\', \'3\', \'gwrg\', \'2\', \'Male\', \'2025-07-01\', \'7897897897\', \'bhavicreations@gmail.com\', \'\', \'lingam\', \'3213213213\', \'546345\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'500.00\', \'2.00\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-07T13:05\', \'1751870144_cdea2b9999775374c7c4.jpg\', \'1751870144_761430c3723f37337bb4.png\', \'1751870144_a8424b561947102e8cfa.pdf\', \'1751870144_24b99885509a21dc88ec.pdf\', \'1751870144_e4cb3a0e601b258cf16f.pdf\', \'1751870144_eed27b42337e9525e863.pdf\', \'2025-07-07 07:10:26\', \'2025-07-07 07:10:26\', \'DOC-250707-0007\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'shaik\', \'khana\', \'22\', \'lungs\', \'mbbs\', \'295844333\', \'3\', \'gwrg\', \'2\', \'Male\', \'2025-07-01\', \'7897897897\', \'bhavicreations@gmail.com\', \'\', \'lingam\', \'3213213213\', \'546345\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'500.00\', \'2.00\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-07T13:05\', \'1751870144_cdea2b9999775374c7c4.jpg\', \'1751870144_761430c3723f37337bb4.png\', \'1751870144_a8424b561947102e8cfa.pdf\', \'1751870144_24b99885509a21dc88ec.pdf\', \'1751870144_e4cb3a0e601b258cf16f.pdf\', \'1751870144_eed27b42337e9525e863.pdf\', \'2025-07-07 07:10:26\', \'2025-07-07 07:10:26\', \'DOC-250707-0007\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 07:10:26 --> [Caused by] mysqli_sql_exception: Duplicate entry '22' for key 'user_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'shaik\', \'khana\', \'22\', \'lungs\', \'mbbs\', \'295844333\', \'3\', \'gwrg\', \'2\', \'Male\', \'2025-07-01\', \'7897897897\', \'bhavicreations@gmail.com\', \'\', \'lingam\', \'3213213213\', \'546345\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'500.00\', \'2.00\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-07T13:05\', \'1751870144_cdea2b9999775374c7c4.jpg\', \'1751870144_761430c3723f37337bb4.png\', \'1751870144_a8424b561947102e8cfa.pdf\', \'1751870144_24b99885509a21dc88ec.pdf\', \'1751870144_e4cb3a0e601b258cf16f.pdf\', \'1751870144_eed27b42337e9525e863.pdf\', \'2025-07-07 07:10:26\', \'2025-07-07 07:10:26\', \'DOC-250707-0007\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'shaik\', \'khana\', \'22\', \'lungs\', \'mbbs\', \'295844333\', \'3\', \'gwrg\', \'2\', \'Male\', \'2025-07-01\', \'7897897897\', \'bhavicreations@gmail.com\', \'\', \'lingam\', \'3213213213\', \'546345\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'500.00\', \'2.00\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-07T13:05\', \'1751870144_cdea2b9999775374c7c4.jpg\', \'1751870144_761430c3723f37337bb4.png\', \'1751870144_a8424b561947102e8cfa.pdf\', \'1751870144_24b99885509a21dc88ec.pdf\', \'1751870144_e4cb3a0e601b258cf16f.pdf\', \'1751870144_eed27b42337e9525e863.pdf\', \'2025-07-07 07:10:26\', \'2025-07-07 07:10:26\', \'DOC-250707-0007\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'shaik\', \'khana\', \'22\', \'lungs\', \'mbbs\', \'295844333\', \'3\', \'gwrg\', \'2\', \'Male\', \'2025-07-01\', \'7897897897\', \'bhavicreations@gmail.com\', \'\', \'lingam\', \'3213213213\', \'546345\', \'ngerhe\', \'2025-07-01\', \'Full-time\', \'temporary\', \'senior eye specialist\', \'500.00\', \'2.00\', \'SBI5572286\', \'state bank of india\', \'SBIN68\', \'erxpp8768\', \'1\', \'Active\', \'2025-07-07T13:05\', \'1751870144_cdea2b9999775374c7c4.jpg\', \'1751870144_761430c3723f37337bb4.png\', \'1751870144_a8424b561947102e8cfa.pdf\', \'1751870144_24b99885509a21dc88ec.pdf\', \'1751870144_e4cb3a0e601b258cf16f.pdf\', \'1751870144_eed27b42337e9525e863.pdf\', \'2025-07-07 07:10:26\', \'2025-07-07 07:10:26\', \'DOC-250707-0007\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 07:10:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:10:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:16:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:16:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:17:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 07:17:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 07:17:29 --> mysqli_sql_exception: Duplicate entry '' for key 'medical_license_no' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `do...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `do...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `do...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `do...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#10 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-07-07 07:17:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '' for key 'medical_license_no'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 07:17:29 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'hamram\', \'jamm\', NULL, \'card\', \'\', \'\', \'0\', \'\', NULL, \'Male\', \'2025-07-01\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'0.00\', \'0.00\', \'\', \'\', \'\', \'\', \'1\', \'Active\', \'\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 07:17:29\', \'2025-07-07 07:17:29\', \'DOC-250707-0008\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'hamram\', \'jamm\', NULL, \'card\', \'\', \'\', \'0\', \'\', NULL, \'Male\', \'2025-07-01\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'0.00\', \'0.00\', \'\', \'\', \'\', \'\', \'1\', \'Active\', \'\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 07:17:29\', \'2025-07-07 07:17:29\', \'DOC-250707-0008\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 07:17:29 --> [Caused by] mysqli_sql_exception: Duplicate entry '' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'hamram\', \'jamm\', NULL, \'card\', \'\', \'\', \'0\', \'\', NULL, \'Male\', \'2025-07-01\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'0.00\', \'0.00\', \'\', \'\', \'\', \'\', \'1\', \'Active\', \'\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 07:17:29\', \'2025-07-07 07:17:29\', \'DOC-250707-0008\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'hamram\', \'jamm\', NULL, \'card\', \'\', \'\', \'0\', \'\', NULL, \'Male\', \'2025-07-01\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'0.00\', \'0.00\', \'\', \'\', \'\', \'\', \'1\', \'Active\', \'\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 07:17:29\', \'2025-07-07 07:17:29\', \'DOC-250707-0008\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'hamram\', \'jamm\', NULL, \'card\', \'\', \'\', \'0\', \'\', NULL, \'Male\', \'2025-07-01\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'0.00\', \'0.00\', \'\', \'\', \'\', \'\', \'1\', \'Active\', \'\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 07:17:29\', \'2025-07-07 07:17:29\', \'DOC-250707-0008\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `user_id`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :user_id:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Doctors.php(186): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 07:23:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 09:22:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 09:22:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:06:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 10:06:54 --> ErrorException: Undefined variable $users
+[Method: GET, Route: doctors/add]
+in APPPATH\Views\doctors\add.php on line 65.
+ 1 APPPATH\Views\doctors\add.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php', 65)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 5 APPPATH\Controllers\Doctors.php(33): view('doctors/add', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 10:07:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 10:07:04 --> ErrorException: Undefined variable $users
+[Method: GET, Route: doctors/add]
+in APPPATH\Views\doctors\add.php on line 65.
+ 1 APPPATH\Views\doctors\add.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php', 65)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 5 APPPATH\Controllers\Doctors.php(33): view('doctors/add', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 10:07:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 10:07:40 --> ErrorException: Undefined variable $users
+[Method: GET, Route: doctors/add]
+in APPPATH\Views\doctors\add.php on line 65.
+ 1 APPPATH\Views\doctors\add.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php', 65)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 5 APPPATH\Controllers\Doctors.php(33): view('doctors/add', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 10:07:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 10:07:51 --> ErrorException: Undefined variable $users
+[Method: GET, Route: doctors/add]
+in APPPATH\Views\doctors\add.php on line 65.
+ 1 APPPATH\Views\doctors\add.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php', 65)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 5 APPPATH\Controllers\Doctors.php(33): view('doctors/add', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 10:09:28 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "doctors/index.php"
+[Method: GET, Route: doctors]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('doctors/index.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/index', [], true)
+ 3 APPPATH\Controllers\Doctors.php(29): view('doctors/index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 10:09:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:11:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 10:11:13 --> ErrorException: Undefined variable $users
+[Method: GET, Route: doctors/add]
+in APPPATH\Views\doctors\add.php on line 61.
+ 1 APPPATH\Views\doctors\add.php(61): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php', 61)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\add.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/add', [], true)
+ 5 APPPATH\Controllers\Doctors.php(33): view('doctors/add', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->add()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 10:15:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:15:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:34:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:35:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:36:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:37:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:37:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:38:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:38:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:39:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:42:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:42:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:43:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:47:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:47:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:47:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:48:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:48:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:49:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:49:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:49:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:49:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:49:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 10:58:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:00:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:00:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:02:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:02:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:02:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:02:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:03:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 11:07:27 --> Error: Call to a member function setRule() on null
+[Method: POST, Route: doctors/save]
+in APPPATH\Controllers\Doctors.php on line 121.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 11:08:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:11:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:12:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:13:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:15:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:15:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 11:19:37 --> mysqli_sql_exception: Unknown column 'date_key' in 'where clause' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(158): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#6 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-07-07 11:19:37 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date_key' in 'where clause'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 2 APPPATH\Controllers\Doctors.php(158): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 11:19:37 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date_key' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 4 APPPATH\Controllers\Doctors.php(158): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 11:19:37 --> [Caused by] mysqli_sql_exception: Unknown column 'date_key' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 5 APPPATH\Controllers\Doctors.php(158): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 11:34:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 11:34:53 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "doctors/index.php"
+[Method: GET, Route: doctors]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('doctors/index.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/index', [], true)
+ 3 APPPATH\Controllers\Doctors.php(29): view('doctors/index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 11:35:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:36:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:36:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:37:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:38:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:38:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:43:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:43:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:43:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:45:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:45:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:46:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:46:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:51:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:52:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:52:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:53:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:53:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:53:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:53:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:53:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:55:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:55:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:55:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:56:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 11:56:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:00:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:00:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:00:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:00:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:00:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-07 12:03:39 --> CodeIgniter\Validation\Exceptions\ValidationException: "" is not a valid rule.
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Validation\Validation.php on line 345.
+ 1 SYSTEMPATH\Validation\Validation.php(345): CodeIgniter\Validation\Exceptions\ValidationException::forRuleNotFound('')
+ 2 SYSTEMPATH\Validation\Validation.php(201): CodeIgniter\Validation\Validation->processRules('last_name', 'last_name', 'ling', [...], [...], 'last_name')
+ 3 SYSTEMPATH\Controller.php(138): CodeIgniter\Validation\Validation->run()
+ 4 APPPATH\Controllers\Doctors.php(136): CodeIgniter\Controller->validate([...], [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-07 12:04:31 --> mysqli_sql_exception: Unknown column 'date_key' in 'where clause' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#6 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-07-07 12:04:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date_key' in 'where clause'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 2 APPPATH\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:04:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date_key' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 4 APPPATH\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:04:31 --> [Caused by] mysqli_sql_exception: Unknown column 'date_key' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 5 APPPATH\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 12:04:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:04:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:04:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:05:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:05:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 12:05:19 --> mysqli_sql_exception: Unknown column 'date_key' in 'where clause' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#6 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-07-07 12:05:19 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date_key' in 'where clause'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 2 APPPATH\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:05:19 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date_key' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 4 APPPATH\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:05:19 --> [Caused by] mysqli_sql_exception: Unknown column 'date_key' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = \'doctor_seq_250707\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `doctor_id_sequences`
+WHERE `date_key` = :date_key:', [...], false)
+ 5 APPPATH\Controllers\Doctors.php(176): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 12:08:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:08:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:08:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:08:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 12:09:03 --> mysqli_sql_exception: Duplicate entry '' for key 'medical_license_no' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `do...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `do...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `do...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `do...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#10 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-07-07 12:09:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '' for key 'medical_license_no'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :user_id:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:09:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'mani\', \'man\', \'heart \', \'\', \'\', \'\', \'\', \'1\', \'\', \'\', \'\', \'bhavicreations@gmail.com\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:09:03\', \'2025-07-07 12:09:03\', \'DOC-250707-0009\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'mani\', \'man\', \'heart \', \'\', \'\', \'\', \'\', \'1\', \'\', \'\', \'\', \'bhavicreations@gmail.com\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:09:03\', \'2025-07-07 12:09:03\', \'DOC-250707-0009\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :user_id:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:09:03 --> [Caused by] mysqli_sql_exception: Duplicate entry '' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'mani\', \'man\', \'heart \', \'\', \'\', \'\', \'\', \'1\', \'\', \'\', \'\', \'bhavicreations@gmail.com\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:09:03\', \'2025-07-07 12:09:03\', \'DOC-250707-0009\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'mani\', \'man\', \'heart \', \'\', \'\', \'\', \'\', \'1\', \'\', \'\', \'\', \'bhavicreations@gmail.com\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:09:03\', \'2025-07-07 12:09:03\', \'DOC-250707-0009\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'mani\', \'man\', \'heart \', \'\', \'\', \'\', \'\', \'1\', \'\', \'\', \'\', \'bhavicreations@gmail.com\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:09:03\', \'2025-07-07 12:09:03\', \'DOC-250707-0009\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `user_id`, `last_login_at`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :user_id:, :last_login_at:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 12:09:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:09:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:09:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:09:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:09:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:12:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:12:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:12:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 12:13:03 --> mysqli_sql_exception: Duplicate entry '' for key 'medical_license_no' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `do...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `do...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `do...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `do...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
+#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
+#8 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save(Array)
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->save()
+#10 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2025-07-07 12:13:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '' for key 'medical_license_no'
+[Method: POST, Route: doctors/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:13:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Duplicate entry '' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'raja\', \'creations\', \'lasik\', \'\', \'\', \'\', \'\', \'6\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:13:03\', \'2025-07-07 12:13:03\', \'DOC-250707-0010\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'raja\', \'creations\', \'lasik\', \'\', \'\', \'\', \'\', \'6\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:13:03\', \'2025-07-07 12:13:03\', \'DOC-250707-0010\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:13:03 --> [Caused by] mysqli_sql_exception: Duplicate entry '' for key 'medical_license_no'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'raja\', \'creations\', \'lasik\', \'\', \'\', \'\', \'\', \'6\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:13:03\', \'2025-07-07 12:13:03\', \'DOC-250707-0010\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'raja\', \'creations\', \'lasik\', \'\', \'\', \'\', \'\', \'6\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:13:03\', \'2025-07-07 12:13:03\', \'DOC-250707-0010\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (\'raja\', \'creations\', \'lasik\', \'\', \'\', \'\', \'\', \'6\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'1\', \'Active\', NULL, NULL, NULL, NULL, NULL, NULL, \'2025-07-07 12:13:03\', \'2025-07-07 12:13:03\', \'DOC-250707-0010\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `doctors` (`first_name`, `last_name`, `specialization`, `qualification`, `medical_license_no`, `experience_years`, `bio`, `department_id`, `gender`, `date_of_birth`, `phone_number`, `email`, `address`, `emergency_contact_name`, `emergency_contact_phone`, `registration_number`, `medical_council`, `joining_date`, `employment_status`, `contract_type`, `designation`, `opd_fee`, `ipd_charge_percentage`, `bank_account_number`, `bank_name`, `ifsc_code`, `pan_number`, `is_available`, `status`, `profile_picture`, `signature_image`, `resume_path`, `degree_certificate_path`, `license_certificate_path`, `other_certificates_path`, `created_at`, `updated_at`, `doctor_id_code`) VALUES (:first_name:, :last_name:, :specialization:, :qualification:, :medical_license_no:, :experience_years:, :bio:, :department_id:, :gender:, :date_of_birth:, :phone_number:, :email:, :address:, :emergency_contact_name:, :emergency_contact_phone:, :registration_number:, :medical_council:, :joining_date:, :employment_status:, :contract_type:, :designation:, :opd_fee:, :ipd_charge_percentage:, :bank_account_number:, :bank_name:, :ifsc_code:, :pan_number:, :is_available:, :status:, :profile_picture:, :signature_image:, :resume_path:, :degree_certificate_path:, :license_certificate_path:, :other_certificates_path:, :created_at:, :updated_at:, :doctor_id_code:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Doctors.php(259): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->save()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 12:22:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:22:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:22:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:22:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:22:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:22:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:23:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:23:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:23:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:24:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:25:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:25:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:29:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:29:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 12:32:30 --> mysqli_sql_exception: Table 'hms_ram.departments' doesn't exist in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `doctors...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `doctors...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `doctors...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-07 12:32:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'hms_ram.departments' doesn't exist
+[Method: GET, Route: doctors]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:32:30 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'hms_ram.departments' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:32:30 --> [Caused by] mysqli_sql_exception: Table 'hms_ram.departments' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 12:34:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-07 12:35:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-07 12:36:17 --> mysqli_sql_exception: Table 'hms_ram.departments' doesn't exist in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `doctors...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `doctors...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `doctors...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Doctors->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-07 12:36:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'hms_ram.departments' doesn't exist
+[Method: GET, Route: doctors]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:36:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'hms_ram.departments' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-07 12:36:17 --> [Caused by] mysqli_sql_exception: Table 'hms_ram.departments' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `doctors`.*, `departments`.`department_name`
+FROM `doctors`
+LEFT JOIN `departments` ON `departments`.`id` = `doctors`.`department_id`', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Doctors.php(33): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-07 12:38:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

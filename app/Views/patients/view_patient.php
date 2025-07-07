@@ -51,13 +51,15 @@
 
             <?php if (!empty($reportFiles)): ?>
                 <hr>
-                <h5 class="mb-3">Uploaded Reports:</h5> <div class="row"> <?php foreach ($reportFiles as $fileName): ?>
+                <h5 class="mb-3">Uploaded Reports:</h5>
+                <div class="row"> <?php foreach ($reportFiles as $fileName): ?>
                         <?php
-                        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
-                        // Construct the correct public URL for the file
-                        $fileUrl = base_url('public/uploads/patient_reports/' . urlencode($fileName));
+                                        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+                                        // Construct the correct public URL for the file
+                                        $fileUrl = base_url('public/uploads/patient_reports/' . urlencode($fileName));
                         ?>
-                        <div class="col-auto mb-3"> <div class="card p-2 text-center" style="width: 220px; height: auto;"> <?php if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])): ?>
+                        <div class="col-auto mb-3">
+                            <div class="card p-2 text-center" style="width: 220px; height: auto;"> <?php if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])): ?>
                                     <a href="<?= $fileUrl ?>" target="_blank" class="d-block text-decoration-none">
                                         <img src="<?= $fileUrl ?>" alt="Report Image" class="img-fluid rounded" style="max-height: 200px; object-fit: contain;">
                                         <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
