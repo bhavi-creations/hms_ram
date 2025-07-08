@@ -82,11 +82,11 @@
                                             <b>Status</b> <span class="float-right">
                                                 <span class="badge
                                                     <?php
-                                                        $doctorStatus = $doctor['status'] ?? 'Unknown';
-                                                        if ($doctorStatus == 'Active') echo 'bg-success';
-                                                        else if ($doctorStatus == 'On Leave') echo 'bg-warning';
-                                                        else if ($doctorStatus == 'Suspended' || $doctorStatus == 'Terminated') echo 'bg-danger';
-                                                        else echo 'bg-secondary';
+                                                    $doctorStatus = $doctor['status'] ?? 'Unknown';
+                                                    if ($doctorStatus == 'Active') echo 'bg-success';
+                                                    else if ($doctorStatus == 'On Leave') echo 'bg-warning';
+                                                    else if ($doctorStatus == 'Suspended' || $doctorStatus == 'Terminated') echo 'bg-danger';
+                                                    else echo 'bg-secondary';
                                                     ?>">
                                                     <?= esc($doctorStatus) ?>
                                                 </span>
@@ -131,7 +131,7 @@
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
                                             <b>Department ID :</b> <span class="float-right"><?= esc($doctor['department_id'] ?? 'N/A') ?></span>
-                                            </li>
+                                        </li>
                                         <li class="list-group-item">
                                             <b>Joining Date :</b> <span class="float-right"><?= esc($doctor['joining_date'] ?? 'N/A') ?></span>
                                         </li>
@@ -186,15 +186,14 @@
                             <hr>
                             <div class="row">
                                 <?php
-                                // Define all file fields for doctors and their labels
-                                $doctorDocumentFields = [
-                                    'resume_path' => 'Resume',
+                                // Define all SINGLE file fields for doctors and their labels
+                                $singleDoctorDocumentFields = [
+                                    'resume_path'             => 'Resume',
                                     'degree_certificate_path' => 'Degree Certificate',
                                     'license_certificate_path' => 'License Certificate',
-                                    'other_certificates_path' => 'Other Certificates',
                                 ];
 
-                                foreach ($doctorDocumentFields as $dbColumn => $label):
+                                foreach ($singleDoctorDocumentFields as $dbColumn => $label):
                                     $fileName = $doctor[$dbColumn] ?? null;
                                     $fileUrl = !empty($fileName) ? base_url('public/uploads/doctors/' . urlencode($fileName)) : '';
                                     $ext = !empty($fileName) ? pathinfo($fileName, PATHINFO_EXTENSION) : '';
@@ -212,16 +211,18 @@
                                                         <embed src="<?= esc($fileUrl) ?>" type="application/pdf" width="100%" height="150px" style="border: 1px solid #ddd; border-radius: 4px;" />
                                                         <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($label) ?>"><i class="fas fa-file-pdf text-danger me-1"></i> <?= esc($label) ?></small>
                                                     </a>
-                                                <?php else: ?>
+                                                <?php else: // For doc, docx, etc. 
+                                                ?>
                                                     <a href="<?= esc($fileUrl) ?>" target="_blank" class="d-block text-decoration-none">
                                                         <div class="d-flex flex-column align-items-center justify-content-center" style="height: 150px; background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 4px;">
                                                             <i class="fas fa-file-alt fa-3x text-info mb-2"></i>
                                                             <small class="text-muted text-center px-1 text-truncate" style="width: 100%;" title="<?= esc($label) ?>"><?= esc($label) ?></small>
                                                         </div>
-                                                        <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($label) ?>"><i class="fas fa-download me-1"></i> <?= esc($label) ?></small>
+                                                        <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($label) ?>"><i class="fas fa-download me-1"></i> Download <?= esc($label) ?></small>
                                                     </a>
                                                 <?php endif; ?>
-                                            <?php else: // File not present ?>
+                                            <?php else: // File not present 
+                                            ?>
                                                 <div class="d-flex flex-column align-items-center justify-content-center" style="height: 150px; background-color: #f0f0f0; border: 1px dashed #ccc; border-radius: 4px;">
                                                     <i class="fas fa-file-excel fa-3x text-muted mb-2"></i>
                                                     <small class="text-muted text-center px-1" style="width: 100%;"><?= esc($label) ?>: N/A</small>
@@ -230,6 +231,55 @@
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
+
+                                <?php
+                                $otherCertificates = [];
+                                if (!empty($doctor['other_certificates_path'])) {
+                                    $decoded = json_decode($doctor['other_certificates_path'], true);
+                                    if (is_array($decoded)) {
+                                        $otherCertificates = $decoded;
+                                    }
+                                }
+                                ?>
+                                <?php if (!empty($otherCertificates)): ?>
+                                    <div class="col-md-12">
+                                        <h6 class="mt-3 mb-2">Other Certificates/Awards:</h6>
+                                    </div>
+                                    <?php foreach ($otherCertificates as $fileName):
+                                        // For each file in the array, reconstruct its URL and get its extension
+                                        $fileUrl = base_url('public/uploads/doctors/' . urlencode($fileName));
+                                        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+                                    ?>
+                                        <div class="col-md-4 col-sm-6 mb-3">
+                                            <div class="card p-2 text-center" style="height: auto;">
+                                                <?php if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])): ?>
+                                                    <a href="<?= esc($fileUrl) ?>" target="_blank" class="d-block text-decoration-none">
+                                                        <img src="<?= esc($fileUrl) ?>" alt="<?= esc($fileName) ?>" class="img-fluid rounded" style="max-height: 150px; object-fit: contain;">
+                                                        <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><i class="fas fa-image me-1"></i> <?= esc($fileName) ?></small>
+                                                    </a>
+                                                <?php elseif (strtolower($ext) === 'pdf'): ?>
+                                                    <a href="<?= esc($fileUrl) ?>" target="_blank" class="d-block text-decoration-none">
+                                                        <embed src="<?= esc($fileUrl) ?>" type="application/pdf" width="100%" height="150px" style="border: 1px solid #ddd; border-radius: 4px;" />
+                                                        <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><i class="fas fa-file-pdf text-danger me-1"></i> <?= esc($fileName) ?></small>
+                                                    </a>
+                                                <?php else: // For doc, docx, etc. 
+                                                ?>
+                                                    <a href="<?= esc($fileUrl) ?>" target="_blank" class="d-block text-decoration-none">
+                                                        <div class="d-flex flex-column align-items-center justify-content-center" style="height: 150px; background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 4px;">
+                                                            <i class="fas fa-file-alt fa-3x text-info mb-2"></i>
+                                                            <small class="text-muted text-center px-1 text-truncate" style="width: 100%;" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
+                                                        </div>
+                                                        <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><i class="fas fa-download me-1"></i> Download <?= esc($fileName) ?></small>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="col-md-12">
+                                        <p class="text-muted">No other certificates uploaded.</p>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

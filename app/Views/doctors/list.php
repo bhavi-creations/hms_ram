@@ -47,9 +47,7 @@
                                         <td><?= esc($doctor['doctor_id_code']) ?></td>
                                         <td><?= esc($doctor['first_name'] . ' ' . $doctor['last_name']) ?></td>
                                         <td><?= esc($doctor['specialization']) ?></td>
-                                        <!-- <td><?= esc($doctor['department_id'] ?? 'N/A') ?></td> -->
                                         <td><?= esc($doctor['department_name'] ?? 'N/A') ?></td>
-
                                         <td><?= esc($doctor['phone_number']) ?></td> <!-- THIS WAS THE PROBLEM LINE, NOW FIXED -->
                                         <td><?= esc($doctor['email']) ?></td>
                                         <td>

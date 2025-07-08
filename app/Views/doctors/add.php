@@ -63,7 +63,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="username">Login Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" value="<?= old('username') ?>"  >
+                                    <input type="text" class="form-control" id="username" name="username" value="<?= old('username') ?>">
                                     <?php if (session('errors.username')): ?>
                                         <div class="text-danger"><?= session('errors.username') ?></div>
                                     <?php endif ?>
@@ -71,7 +71,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="password">Login Password</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="password" name="password"  >
+                                        <input type="password" class="form-control" id="password" name="password">
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i>
@@ -269,14 +269,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="other_certificate_file">Other Certificate/Award (PDF, JPG, PNG, DOC, DOCX - Max 5MB)</label>
+                            <label for="other_certificate_file">Other Certificate/Award (PDF, JPG, PNG, DOC, DOCX - Max 5MB per file)</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="other_certificate_file" name="other_certificate_file" accept=".pdf,image/*,.doc,.docx">
-                                    <label class="custom-file-label" for="other_certificate_file">Choose file</label>
+                                    <input type="file" class="custom-file-input" id="other_certificate_file" name="other_certificate_file[]" accept=".pdf,image/*,.doc,.docx" multiple>
+                                    <label class="custom-file-label" for="other_certificate_file">Choose files</label>
                                 </div>
                             </div>
-                            <small class="form-text text-muted">If you need to upload multiple other certificates, you would require more advanced client-side handling and server-side processing to store paths (e.g., as a JSON array of filenames).</small>
+                            <small class="form-text text-muted">You can select multiple files.</small>
                         </div>
 
 
