@@ -60,10 +60,20 @@ class Doctors extends BaseController
             return redirect()->to(base_url('doctors'))->with('error', 'Doctor not found.');
         }
 
+        // Decode other_certificates_path from JSON string to array
+        $otherCertificatesArray = [];
+        if (!empty($doctor['other_certificates_path'])) {
+            $decoded = json_decode($doctor['other_certificates_path'], true);
+            if (is_array($decoded)) {
+                $otherCertificatesArray = $decoded;
+            }
+        }
+        $doctor['other_certificates_array'] = $otherCertificatesArray; // Pass this decoded array to the view
+
         $data = [
             'title'       => 'Edit Doctor',
             'doctor'      => $doctor,
-            'departments' => $this->departmentModel->findAll(),
+            'departments' => $this->departmentModel->findAll(), // Make sure departments are passed for the dropdown
         ];
         return view('doctors/edit', $data);
     }
@@ -72,6 +82,7 @@ class Doctors extends BaseController
     {
         return $this->save($id);
     }
+
 
     public function save()
     {
@@ -89,10 +100,8 @@ class Doctors extends BaseController
         }
 
         // 3. Define Validation Rules
-        // Username and Password validation for NEW entries
-        // We keep is_unique here because UserModel's validation doesn't have it.
         $usernameRules = ($doctorId ? 'permit_empty' : 'required|is_unique[users.username]') . '|min_length[5]|max_length[50]';
-        $passwordRules = ($doctorId ? 'permit_empty' : 'required') . '|min_length[6]|max_length[255]'; // Removed password_confirm, you can add it if needed
+        $passwordRules = ($doctorId ? 'permit_empty' : 'required') . '|min_length[6]|max_length[255]';
 
         $rules = [
             'first_name'             => 'required|min_length[3]|max_length[100]',
@@ -113,7 +122,9 @@ class Doctors extends BaseController
             'resume_file'            => 'if_exist|uploaded[resume_file]|max_size[resume_file,5120]|ext_in[resume_file,pdf,doc,docx]',
             'degree_certificate_file' => 'if_exist|uploaded[degree_certificate_file]|max_size[degree_certificate_file,5120]|ext_in[degree_certificate_file,pdf,jpg,jpeg,png]',
             'license_certificate_file' => 'if_exist|uploaded[license_certificate_file]|max_size[license_certificate_file,5120]|ext_in[license_certificate_file,pdf,jpg,jpeg,png]',
-            'other_certificate_file' => 'if_exist|uploaded[other_certificate_file]|max_size[other_certificate_file,5120]|ext_in[other_certificate_file,pdf,doc,docx,jpg,jpeg,png]',
+            // --- UPDATED: Validation rule for multiple 'other_certificate_file' inputs ---
+            // 'other_certificate_file' (singular) changed to 'other_certificate_file.*' (for multiple files)
+            'other_certificate_file.*' => 'if_exist|uploaded[other_certificate_file]|max_size[other_certificate_file,5120]|ext_in[other_certificate_file,pdf,doc,docx,jpg,jpeg,png]',
         ];
 
         if (!$this->validate($rules)) {
@@ -181,22 +192,12 @@ class Doctors extends BaseController
                 $userId = $this->userModel->getInsertID();
                 $doctorData['user_id'] = $userId; // Link doctor to user ID
             } else { // This is an EXISTING doctor entry (update)
-                // If username or password are provided during an update, update the user table
                 $updateUserData = [];
-                // Only update username if provided and changed AND not taken by another user
-                // This requires a more complex check:
-                // If $postData['username'] is not empty AND it's different from current username AND is_unique validation passed (handled by controller validation)
                 if (!empty($postData['username'])) {
-                    // We only update if the username is different, to avoid unnecessary updates
-                    // and potential unique constraint violations if the username didn't change.
-                    // $existingDoctor['user_id'] holds the ID of the user record to be updated.
                     $currentUser = $this->userModel->find($existingDoctor['user_id']);
                     if ($currentUser && $postData['username'] !== $currentUser['username']) {
                         $updateUserData['username'] = $postData['username'];
                     } else if (!$currentUser) {
-                        // If for some reason the user record doesn't exist, log or handle.
-                        // For now, let's just skip username update if no user is found.
-                        // Or throw an error if a user account is expected to exist.
                         throw new \Exception('User account not found for existing doctor to update username.');
                     }
                 }
@@ -211,17 +212,16 @@ class Doctors extends BaseController
                             throw new \Exception('Failed to update user account details.');
                         }
                     } else {
-                        // This scenario means an existing doctor somehow doesn't have a user_id.
-                        // Decide how to handle: create new user, or throw error.
-                        // For safety, let's throw an error for now to investigate such cases.
                         throw new \Exception('Existing doctor has no linked user account. Cannot update user details.');
                     }
                 }
+         
             }
 
-            // 6. File Upload Handling (remains the same)
+            // 6. File Upload Handling
             $uploadBaseDir = 'uploads/doctors/';
-            $uploadFullPath = ROOTPATH . 'public/' . $uploadBaseDir; // Incorrect for your desired path
+            // --- IMPORTANT: Use ROOTPATH for consistency with your existing setup and deleteDocumentAjax path ---
+            $uploadFullPath = ROOTPATH . 'public/' . $uploadBaseDir;
 
             if (!is_dir($uploadFullPath)) {
                 mkdir($uploadFullPath, 0777, true);
@@ -242,26 +242,25 @@ class Doctors extends BaseController
                     if ($existingDoctor && !empty($existingDoctor[$dbColumn])) {
                         $oldFilePath = $uploadFullPath . $existingDoctor[$dbColumn];
                         if (file_exists($oldFilePath)) {
-                            unlink($oldFilePath);
+                            unlink($oldFilePath); // Delete old file
                         }
                     }
                     $newName = $file->getRandomName();
                     $file->move($uploadFullPath, $newName);
                     $doctorData[$dbColumn] = $newName;
-                } else if ($doctorId && $existingDoctor) {
-                    if (!isset($doctorData[$dbColumn])) {
-                        $doctorData[$dbColumn] = $existingDoctor[$dbColumn] ?? null;
-                    }
-                } else {
-                    if (!isset($doctorData[$dbColumn])) {
-                        $doctorData[$dbColumn] = null;
-                    }
                 }
+                // --- No else if / else block needed here for retaining existing values
+                // because if no new file is uploaded, $doctorData[$dbColumn] will simply not be set,
+                // and the model's update function will ignore fields not present in the $data array,
+                // thus preserving the existing value in the database.
+                // Unless you explicitly want to set it to null if the user somehow 'unselects' it,
+                // which is handled by the AJAX delete.
             }
 
-            $files = $this->request->getFiles();
-            $currentOtherCertificates = [];
+        
 
+            // --- UPDATED: Handle 'Other Certificates' multi-file upload correctly ---
+            $currentOtherCertificates = [];
             if ($doctorId && $existingDoctor && !empty($existingDoctor['other_certificates_path'])) {
                 $decoded = json_decode($existingDoctor['other_certificates_path'], true);
                 if (is_array($decoded)) {
@@ -269,23 +268,12 @@ class Doctors extends BaseController
                 }
             }
 
-            $filesToDelete = $this->request->getPost('delete_other_certificate');
-            if (!empty($filesToDelete) && is_array($filesToDelete)) {
-                foreach ($filesToDelete as $fileNameToDelete) {
-                    $currentOtherCertificates = array_filter($currentOtherCertificates, function ($fileName) use ($fileNameToDelete) {
-                        return $fileName !== $fileNameToDelete;
-                    });
-                    $filePath = $uploadFullPath . $fileNameToDelete;
-                    if (file_exists($filePath)) {
-                        unlink($filePath);
-                    }
-                }
-                $currentOtherCertificates = array_values($currentOtherCertificates);
-            }
-
+            // Get newly uploaded files from the 'other_certificate_file' array input
             $newlyUploadedOtherCertificates = [];
-            if (isset($files['other_certificate_file'])) {
-                foreach ($files['other_certificate_file'] as $file) {
+            $otherCertFiles = $this->request->getFiles('other_certificate_file'); // Get all files for this input name
+
+            if ($otherCertFiles && !empty($otherCertFiles['other_certificate_file'])) { // Ensure the array exists and is not empty
+                foreach ($otherCertFiles['other_certificate_file'] as $file) {
                     if ($file->isValid() && !$file->hasMoved()) {
                         $newName = $file->getRandomName();
                         $file->move($uploadFullPath, $newName);
@@ -294,8 +282,9 @@ class Doctors extends BaseController
                 }
             }
 
+            // Merge existing files (which haven't been deleted by AJAX) with newly uploaded files
             $finalOtherCertificates = array_merge($currentOtherCertificates, $newlyUploadedOtherCertificates);
-            $doctorData['other_certificates_path'] = json_encode($finalOtherCertificates);
+            $doctorData['other_certificates_path'] = json_encode(array_values($finalOtherCertificates)); // Re-index array before encoding
 
 
             // 7. Save Doctor data to the database
@@ -330,6 +319,8 @@ class Doctors extends BaseController
         }
     }
 
+
+     
 
     public function view($id = null)
 
@@ -367,5 +358,70 @@ class Doctors extends BaseController
 
 
         return view('doctors/view', $data);
+    }
+
+
+
+     public function deleteDocumentAjax()
+    {
+        // Ensure this is an AJAX request and method is POST
+        if (!$this->request->isAJAX() || !$this->request->is('post')) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+        }
+
+        $input = $this->request->getJSON(true); // Get JSON input as associative array
+        $doctorId = $input['id'] ?? null;
+        $field = $input['field'] ?? null;
+        $fileName = $input['fileName'] ?? null;
+
+        // Basic validation
+        if (empty($doctorId) || empty($field) || empty($fileName)) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Missing required data.']);
+        }
+
+        $doctor = $this->doctorModel->find($doctorId);
+
+        if (!$doctor) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Doctor not found.']);
+        }
+
+        // --- IMPORTANT: This path MUST match your save() method's upload path ---
+        $filePath = ROOTPATH . 'public/uploads/doctors/' . $fileName;
+
+        // Check if file exists and delete it
+        if (file_exists($filePath)) {
+            if (!unlink($filePath)) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to delete file from server. Permissions issue?']);
+            }
+        } else {
+            // File might already be gone from disk, proceed to update DB anyway
+            // Or log this: log_message('warning', "File not found for deletion: " . $filePath);
+        }
+
+        // Update database record based on the field
+        $updateData = [];
+        if ($field === 'other_certificates_path') {
+            // For multiple certificates, decode, remove, encode
+            $currentFiles = json_decode($doctor['other_certificates_array'] ?? '[]', true); // Note: Assuming 'other_certificates_array' is the DB field
+            if (is_array($currentFiles)) {
+                $updatedFiles = array_filter($currentFiles, fn($file) => $file !== $fileName);
+                $updateData[$field] = json_encode(array_values($updatedFiles)); // Re-index array
+            } else {
+                $updateData[$field] = '[]'; // If it was malformed, reset it
+            }
+        } else {
+            // For single file fields, set to null
+            $updateData[$field] = null;
+        }
+
+        if ($this->doctorModel->update($doctorId, $updateData)) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Document deleted successfully.',
+                'csrf_hash' => csrf_hash() // Send updated CSRF token
+            ]);
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update database record.']);
+        }
     }
 }

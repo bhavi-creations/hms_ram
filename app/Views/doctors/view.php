@@ -130,7 +130,7 @@
                                 <div class="col-md-6">
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
-                                            <b>Department ID :</b> <span class="float-right"><?= esc($doctor['department_id'] ?? 'N/A') ?></span>
+                                            <b>Department ID :</b> <span class="float-right"><?= esc($doctor['department_name'] ?? 'N/A') ?></span>
                                         </li>
                                         <li class="list-group-item">
                                             <b>Joining Date :</b> <span class="float-right"><?= esc($doctor['joining_date'] ?? 'N/A') ?></span>

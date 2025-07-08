@@ -70,11 +70,14 @@ $routes->group('casualty', ['filter' => 'auth'], function ($routes) {
 
 
 // Doctors Routes
-// Doctors Routes
+ 
 $routes->get('doctors', 'Doctors::index');
 $routes->get('doctors/new', 'Doctors::new');
 $routes->post('doctors/save', 'Doctors::save');
-$routes->post('doctors/delete/(:num)', 'Doctors::delete/$1'); // Route for deletion
-// Placeholder for edit/view if you add those controllers later
+$routes->post('doctors/delete/(:num)', 'Doctors::delete/$1'); // Route for deleting entire doctor record (if that's its purpose)
+
 $routes->get('doctors/edit/(:num)', 'Doctors::edit/$1');
 $routes->get('doctors/view/(:num)', 'Doctors::view/$1');
+
+$routes->post('doctors/delete_document_ajax', 'Doctors::deleteDocumentAjax');
+// $routes->post('doctors/delete_document/(:num)', 'Doctors::deleteDocument/$1');
