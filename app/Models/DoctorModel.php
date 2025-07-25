@@ -74,16 +74,16 @@ class DoctorModel extends Model
         $this->db->transStart(); // Start a transaction
 
         $this->db->table('doctor_id_sequences') // <--- Updated table name
-                 ->where('name', 'doctor_sequence')
-                 ->set('current_value', 'current_value + 1', FALSE) // Increment atomically
-                 ->update();
+            ->where('name', 'doctor_sequence')
+            ->set('current_value', 'current_value + 1', FALSE) // Increment atomically
+            ->update();
 
         $sequence = $this->db->table('doctor_id_sequences') // <--- Updated table name
-                             ->select('current_value')
-                             ->where('name', 'doctor_sequence')
-                             ->get()
-                             ->getRow()
-                             ->current_value;
+            ->select('current_value')
+            ->where('name', 'doctor_sequence')
+            ->get()
+            ->getRow()
+            ->current_value;
 
         $this->db->transComplete(); // Complete the transaction
 
@@ -107,9 +107,10 @@ class DoctorModel extends Model
 
     public function findAllDoctors()
     {
-        return $this->select('id, doctor_id_code, first_name, last_name, specialization, email, phone_number, designation')
-                    ->findAll();
+        return $this->select('id, doctor_id_code, first_name, last_name, specialization, email, phone_number, designation, opd_fee')
+            ->findAll();
     }
+
 
     public function getDoctorDetails($id)
     {

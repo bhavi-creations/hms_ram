@@ -29,11 +29,8 @@ $routes->group('patients', ['filter' => 'auth'], function ($routes) {
     $routes->get('delete/(:num)', 'Patients::delete/$1');
     $routes->get('download-report/(:any)', 'Patients::downloadReport/$1');
     $routes->post('deleteReportFile', 'Patients::deleteReportFile');
-
-    // Centralized route for admitting patients to IPD (within the patients group)
     $routes->post('admitToIPD', 'Patients::admitToIPD');
-
-
+    $routes->get('getPatientsByPhone', 'Patients::getPatientsByPhone'); // <-- ADDED THIS ROUTE
 });
 
 // New: General Management Routes (now in its own controller)
@@ -44,40 +41,57 @@ $routes->group('general', ['filter' => 'auth'], function ($routes) {
 
 $routes->group('opd', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'OpdController::index');
-    // Removed: $routes->post('admitToIpd/(:num)', 'OpdController::admitToIpd/$1');
 });
 
 // New: IPD Management Routes
 $routes->group('ipd', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'IpdController::index');
-    // Add more IPD specific routes here later (e.g., assign bed, view daily notes, discharge)
-
-    // <--- ADDED THESE NEW ROUTES ---
     $routes->post('removeFromIPD', 'IpdController::removeFromIPD');
     $routes->post('dischargePatient', 'IpdController::dischargePatient');
-    // <--- END ADDED ROUTES ---
 });
 
 // New: Casualty Management Routes
 $routes->group('casualty', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'CasualtyController::index');
-    // Removed: $routes->post('admitToIpd/(:num)', 'CasualtyController::admitToIpd/$1');
 });
 
 
+// Doctors Routes (Admin view of doctors list)
+// These routes should also be protected by the 'auth' filter.
+$routes->group('doctors', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Doctors::index');
+    $routes->get('new', 'Doctors::new');
+    $routes->post('save', 'Doctors::save');
+    $routes->post('delete/(:num)', 'Doctors::delete/$1');
+    $routes->get('edit/(:num)', 'Doctors::edit/$1');
+    $routes->get('view/(:num)', 'Doctors::view/$1');
+    $routes->post('delete_document_ajax', 'Doctors::deleteDocumentAjax');
+});
 
 
+// Group for appointment management (Admin/General)
+$routes->group('appointments', ['namespace' => 'App\Controllers', 'filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'AppointmentController::index');
+    $routes->get('create', 'AppointmentController::create');
+    $routes->post('store', 'AppointmentController::store');
+    $routes->get('edit/(:num)', 'AppointmentController::edit/$1');
+    $routes->post('update/(:num)', 'AppointmentController::update/$1');
+    $routes->get('delete/(:num)', 'AppointmentController::delete/$1');
+    $routes->get('history', 'AppointmentController::history');
+});
+
+// Patient-specific appointment routes (this is still separate and likely has its own auth logic)
+$routes->get('patient/appointments', 'AppointmentController::patientAppointments');
 
 
-// Doctors Routes
- 
-$routes->get('doctors', 'Doctors::index');
-$routes->get('doctors/new', 'Doctors::new');
-$routes->post('doctors/save', 'Doctors::save');
-$routes->post('doctors/delete/(:num)', 'Doctors::delete/$1'); // Route for deleting entire doctor record (if that's its purpose)
-
-$routes->get('doctors/edit/(:num)', 'Doctors::edit/$1');
-$routes->get('doctors/view/(:num)', 'Doctors::view/$1');
-
-$routes->post('doctors/delete_document_ajax', 'Doctors::deleteDocumentAjax');
-// $routes->post('doctors/delete_document/(:num)', 'Doctors::deleteDocument/$1');
+// --- DOCTOR-SPECIFIC ROUTES ---
+$routes->group('doctor', ['filter' => 'auth'], function ($routes) {
+    $routes->get('dashboard', 'Home::doctorDashboard');
+    $routes->get('appointments', 'AppointmentController::doctorAppointments');
+    $routes->get('appointments/view/(:num)', 'AppointmentController::doctorViewAppointment/$1');
+    $routes->get('appointments/edit/(:num)', 'AppointmentController::doctorEditAppointment/$1');
+    $routes->post('appointments/update/(:num)', 'AppointmentController::doctorUpdateAppointment/$1');
+    $routes->get('appointments/history', 'AppointmentController::doctorAppointmentHistory');
+    $routes->get('patients', 'Patients::doctorPatientsList');
+});
+// --- END DOCTOR-SPECIFIC ROUTES ---

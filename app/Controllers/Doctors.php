@@ -215,7 +215,6 @@ class Doctors extends BaseController
                         throw new \Exception('Existing doctor has no linked user account. Cannot update user details.');
                     }
                 }
-         
             }
 
             // 6. File Upload Handling
@@ -257,7 +256,7 @@ class Doctors extends BaseController
                 // which is handled by the AJAX delete.
             }
 
-        
+
 
             // --- UPDATED: Handle 'Other Certificates' multi-file upload correctly ---
             $currentOtherCertificates = [];
@@ -320,7 +319,7 @@ class Doctors extends BaseController
     }
 
 
-     
+
 
     public function view($id = null)
 
@@ -362,7 +361,7 @@ class Doctors extends BaseController
 
 
 
-     public function deleteDocumentAjax()
+    public function deleteDocumentAjax()
     {
         // Ensure this is an AJAX request and method is POST
         if (!$this->request->isAJAX() || !$this->request->is('post')) {

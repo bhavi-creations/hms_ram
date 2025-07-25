@@ -172,185 +172,238 @@
                         </div>
                     </div>
                 </div>
-
                 <hr class="my-4">
 
                 <div class="row">
-                    <div class="col-md-6">
-                        <h5 class="mb-3 text-muted">Referral & Remarks</h5>
+
+                    <h5 class="mb-3 text-muted">Appointment Details</h5>
+
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="referred_to_doctor_id">Referred To Doctor</label>
-                            <select name="referred_to_doctor_id" class="form-control">
-                                <option value="">-- Select Doctor --</option>
-                                <?php foreach ($doctors as $doctor): ?>
-                                    <option value="<?= esc($doctor['id']) ?>" <?= old('referred_to_doctor_id', $isEditMode ? $patient['referred_to_doctor_id'] : '') == $doctor['id'] ? 'selected' : '' ?>>
-                                        <?= esc($doctor['first_name'] . ' ' . $doctor['last_name'] . ' - ' . $doctor['specialization']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
+                            <label for="appointment_date">Appointment Date</label>
+                            <input type="date" name="appointment_date"
+                                class="form-control <?= $validation->hasError('appointment_date') ? 'is-invalid' : '' ?>"
+                                value="<?= old('appointment_date', $appointment_date ?? '') ?>">
+
+                            <?php if ($validation->hasError('appointment_date')): ?>
+                                <div class="invalid-feedback"><?= $validation->getError('appointment_date') ?></div>
+                            <?php endif; ?>
                         </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="referred_by_id">Referred By</label>
-                            <select name="referred_by_id" id="referred_by_id" class="form-control <?= $validation->hasError('referred_by_id') ? 'is-invalid' : '' ?>">
-                                <option value="">Select Referred By (Optional)</option>
-                                <?php foreach ($referred_persons as $person): ?>
-                                    <option value="<?= esc($person['id']) ?>" <?= old('referred_by_id', $isEditMode ? $patient['referred_by_id'] : '') == $person['id'] ? 'selected' : '' ?>>
-                                        <?= esc($person['name']) ?> (<?= esc($person['type']) ?>)
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php if ($validation->hasError('referred_by_id')): ?><div class="invalid-feedback"><?= $validation->getError('referred_by_id') ?></div><?php endif; ?>
+                            <label for="appointment_time">Appointment Time</label>
+                            <input type="time" name="appointment_time"
+                                class="form-control <?= $validation->hasError('appointment_time') ? 'is-invalid' : '' ?>"
+                                value="<?= old('appointment_time', $appointment_time ?? '') ?>">
+
+                            <?php if ($validation->hasError('appointment_time')): ?>
+                                <div class="invalid-feedback"><?= $validation->getError('appointment_time') ?></div>
+                            <?php endif; ?>
                         </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="remarks">Remarks</label>
-                            <textarea name="remarks" class="form-control <?= $validation->hasError('remarks') ? 'is-invalid' : '' ?>" id="remarks" rows="3" placeholder="Any additional notes or remarks"><?= old('remarks', $isEditMode ? $patient['remarks'] : '') ?></textarea>
-                            <?php if ($validation->hasError('remarks')): ?><div class="invalid-feedback"><?= $validation->getError('remarks') ?></div><?php endif; ?>
+                            <label for="reason_for_visit">Reason for Visit</label>
+                            <textarea name="reason_for_visit"
+                                class="form-control <?= $validation->hasError('reason_for_visit') ? 'is-invalid' : '' ?>"
+                                rows="3"><?= old('reason_for_visit', $reason_for_visit ?? '') ?></textarea>
+
+                            <?php if ($validation->hasError('reason_for_visit')): ?>
+                                <div class="invalid-feedback"><?= $validation->getError('reason_for_visit') ?></div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <h5 class="mb-3 text-muted">Financial Details</h5>
-                        <div class="form-group">
-                            <label for="fee">Fee (INR)</label>
-                            <input type="number" step="0.01" name="fee" class="form-control <?= $validation->hasError('fee') ? 'is-invalid' : '' ?>" id="fee" placeholder="e.g., 500.00" value="<?= old('fee', $isEditMode ? $patient['fee'] : '0.00') ?>">
-                            <?php if ($validation->hasError('fee')): ?><div class="invalid-feedback"><?= $validation->getError('fee') ?></div><?php endif; ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="discount_percentage">Discount (%)</label>
-                            <input type="number" step="0.01" name="discount_percentage" class="form-control <?= $validation->hasError('discount_percentage') ? 'is-invalid' : '' ?>" id="discount_percentage" placeholder="e.g., 10.00" value="<?= old('discount_percentage', $isEditMode ? $patient['discount_percentage'] : '0.00') ?>">
-                            <?php if ($validation->hasError('discount_percentage')): ?><div class="invalid-feedback"><?= $validation->getError('discount_percentage') ?></div><?php endif; ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="final_amount">Final Amount (INR)</label>
-                            <input type="number" step="0.01" name="final_amount" class="form-control" id="final_amount" value="<?= old('final_amount', $isEditMode ? $patient['final_amount'] : '0.00') ?>" readonly>
-                        </div>
-
-
-                    </div>
                     <hr class="my-4">
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="upload_reports">Upload Reports</label>
-                            <div class="custom-file">
-                                <input type="file" name="upload_reports[]" id="upload_reports" class="custom-file-input <?= $validation->hasError('upload_reports.*') ? 'is-invalid' : '' ?>" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
-                                <label class="custom-file-label" for="upload_reports">Choose files...</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="mb-3 text-muted">Referral & Remarks</h5>
+                            <div class="form-group">
+                                <label for="referred_to_doctor_id">Referred To Doctor</label>
+                                <select name="referred_to_doctor_id" class="form-control">
+                                    <option value="">-- Select Doctor --</option>
+                                    <?php foreach ($doctors as $doctor): ?>
+                                        <option
+                                            value="<?= esc($doctor['id']) ?>"
+                                            data-opd-fee="<?= esc($doctor['opd_fee']) ?>"
+                                            <?= old('referred_to_doctor_id', $isEditMode ? $patient['referred_to_doctor_id'] : '') == $doctor['id'] ? 'selected' : '' ?>>
+                                            <?= esc($doctor['first_name'] . ' ' . $doctor['last_name'] . ' - ' . $doctor['specialization']) ?>
+                                        </option>
+
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                            <?php if ($validation->hasError('upload_reports.*')): ?>
-                                <div class="invalid-feedback d-block"><?= $validation->getError('upload_reports.*') ?></div>
-                            <?php elseif ($validation->hasError('upload_reports')): ?>
-                                <div class="invalid-feedback d-block"><?= $validation->getError('upload_reports') ?></div>
-                            <?php endif; ?>
-                            <small class="form-text text-muted">Max 5MB each. Allowed: PDF, DOC, JPG, PNG.</small>
+                            <div class="form-group">
+                                <label for="referred_by_id">Referred By</label>
+                                <select name="referred_by_id" id="referred_by_id" class="form-control <?= $validation->hasError('referred_by_id') ? 'is-invalid' : '' ?>">
+                                    <option value="">Select Referred By (Optional)</option>
+                                    <?php foreach ($referred_persons as $person): ?>
+                                        <option value="<?= esc($person['id']) ?>" <?= old('referred_by_id', $isEditMode ? $patient['referred_by_id'] : '') == $person['id'] ? 'selected' : '' ?>>
+                                            <?= esc($person['name']) ?> (<?= esc($person['type']) ?>)
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php if ($validation->hasError('referred_by_id')): ?><div class="invalid-feedback"><?= $validation->getError('referred_by_id') ?></div><?php endif; ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="remarks">Remarks</label>
+                                <textarea name="remarks" class="form-control <?= $validation->hasError('remarks') ? 'is-invalid' : '' ?>" id="remarks" rows="3" placeholder="Any additional notes or remarks"><?= old('remarks', $isEditMode ? $patient['remarks'] : '') ?></textarea>
+                                <?php if ($validation->hasError('remarks')): ?><div class="invalid-feedback"><?= $validation->getError('remarks') ?></div><?php endif; ?>
+                            </div>
+                        </div>
 
-                            <?php if ($isEditMode && !empty($patient['reports'])):
-                                $existingReports = json_decode($patient['reports'], true);
-                                if (is_array($existingReports) && count($existingReports) > 0): ?>
-                                    <div class="mt-4">
-                                        <h5 class="mb-3">Existing Report(s):</h5>
-                                        <div class="row" id="existingReportsContainer"> <?php foreach ($existingReports as $fileName): ?>
-                                                <?php
-                                                                                            $ext = pathinfo($fileName, PATHINFO_EXTENSION);
-                                                                                            $fileUrl = base_url('public/uploads/patient_reports/' . urlencode($fileName));
-                                                ?>
-                                                <div class="col-auto mb-3" id="report-<?= esc(str_replace('.', '-', $fileName)) ?>">
-                                                    <div class="card p-2 text-center position-relative" style="width: 220px; height: auto;">
-                                                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-report-btn"
-                                                            data-patient-id="<?= esc($patient['patient_id_code']) ?>"
-                                                            data-filename="<?= esc($fileName) ?>"
-                                                            title="Delete Report">
-                                                            <i class="fas fa-times"></i>
-                                                        </button>
+                        <div class="col-md-6">
+                            <h5 class="mb-3 text-muted">Financial Details</h5>
+                            <div class="form-group">
+                                <label for="fee">Fee (INR)</label>
+                                <input type="number" step="0.01" name="fee" class="form-control <?= $validation->hasError('fee') ? 'is-invalid' : '' ?>" id="fee" placeholder="e.g., 500.00" value="<?= old('fee', $isEditMode ? $patient['fee'] : '0.00') ?>">
+                                <?php if ($validation->hasError('fee')): ?><div class="invalid-feedback"><?= $validation->getError('fee') ?></div><?php endif; ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="discount_percentage">Discount (%)</label>
+                                <input type="number" step="0.01" name="discount_percentage" class="form-control <?= $validation->hasError('discount_percentage') ? 'is-invalid' : '' ?>" id="discount_percentage" placeholder="e.g., 10.00" value="<?= old('discount_percentage', $isEditMode ? $patient['discount_percentage'] : '0.00') ?>">
+                                <?php if ($validation->hasError('discount_percentage')): ?><div class="invalid-feedback"><?= $validation->getError('discount_percentage') ?></div><?php endif; ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="final_amount">Final Amount (INR)</label>
+                                <input type="number" step="0.01" name="final_amount" class="form-control" id="final_amount" value="<?= old('final_amount', $isEditMode ? $patient['final_amount'] : '0.00') ?>" readonly>
+                            </div>
 
-                                                        <?php if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])): ?>
-                                                            <a href="<?= $fileUrl ?>" target="_blank" class="d-block text-decoration-none pt-3"> <img src="<?= $fileUrl ?>" alt="Report Image" class="img-fluid rounded" style="max-height: 200px; object-fit: contain;">
-                                                                <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
-                                                            </a>
-                                                        <?php elseif (strtolower($ext) === 'pdf'): ?>
-                                                            <a href="<?= $fileUrl ?>" target="_blank" class="d-block text-decoration-none pt-3"> <embed src="<?= $fileUrl ?>" type="application/pdf" width="100%" height="200px" style="border: 1px solid #ddd; border-radius: 4px;" />
-                                                                <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><i class="fas fa-file-pdf text-danger me-1"></i> <?= esc($fileName) ?></small>
-                                                            </a>
-                                                        <?php else: ?>
-                                                            <a href="<?= $fileUrl ?>" target="_blank" class="d-block text-decoration-none pt-3">
-                                                                <div class="d-flex flex-column align-items-center justify-content-center" style="height: 200px; background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 4px;">
-                                                                    <i class="fas fa-file-alt fa-3x text-info mb-2"></i>
-                                                                    <small class="text-muted text-center px-1 text-truncate" style="width: 100%;" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
-                                                                </div>
-                                                                <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
-                                                            </a>
-                                                        <?php endif; ?>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+
+
+                        <hr class="my-4">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="upload_reports">Upload Reports</label>
+                                <div class="custom-file">
+                                    <input type="file" name="upload_reports[]" id="upload_reports" class="custom-file-input <?= $validation->hasError('upload_reports.*') ? 'is-invalid' : '' ?>" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                                    <label class="custom-file-label" for="upload_reports">Choose files...</label>
+                                </div>
+                                <?php if ($validation->hasError('upload_reports.*')): ?>
+                                    <div class="invalid-feedback d-block"><?= $validation->getError('upload_reports.*') ?></div>
+                                <?php elseif ($validation->hasError('upload_reports')): ?>
+                                    <div class="invalid-feedback d-block"><?= $validation->getError('upload_reports') ?></div>
+                                <?php endif; ?>
+                                <small class="form-text text-muted">Max 5MB each. Allowed: PDF, DOC, JPG, PNG.</small>
+
+                                <?php if ($isEditMode && !empty($patient['reports'])):
+                                    $existingReports = json_decode($patient['reports'], true);
+                                    if (is_array($existingReports) && count($existingReports) > 0): ?>
+                                        <div class="mt-4">
+                                            <h5 class="mb-3">Existing Report(s):</h5>
+                                            <div class="row" id="existingReportsContainer"> <?php foreach ($existingReports as $fileName): ?>
+                                                    <?php
+                                                                                                $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+                                                                                                $fileUrl = base_url('public/uploads/patient_reports/' . urlencode($fileName));
+                                                    ?>
+                                                    <div class="col-auto mb-3" id="report-<?= esc(str_replace('.', '-', $fileName)) ?>">
+                                                        <div class="card p-2 text-center position-relative" style="width: 220px; height: auto;">
+                                                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-report-btn"
+                                                                data-patient-id="<?= esc($patient['patient_id_code']) ?>"
+                                                                data-filename="<?= esc($fileName) ?>"
+                                                                title="Delete Report">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+
+                                                            <?php if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])): ?>
+                                                                <a href="<?= $fileUrl ?>" target="_blank" class="d-block text-decoration-none pt-3"> <img src="<?= $fileUrl ?>" alt="Report Image" class="img-fluid rounded" style="max-height: 200px; object-fit: contain;">
+                                                                    <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
+                                                                </a>
+                                                            <?php elseif (strtolower($ext) === 'pdf'): ?>
+                                                                <a href="<?= $fileUrl ?>" target="_blank" class="d-block text-decoration-none pt-3"> <embed src="<?= $fileUrl ?>" type="application/pdf" width="100%" height="200px" style="border: 1px solid #ddd; border-radius: 4px;" />
+                                                                    <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><i class="fas fa-file-pdf text-danger me-1"></i> <?= esc($fileName) ?></small>
+                                                                </a>
+                                                            <?php else: ?>
+                                                                <a href="<?= $fileUrl ?>" target="_blank" class="d-block text-decoration-none pt-3">
+                                                                    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 200px; background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 4px;">
+                                                                        <i class="fas fa-file-alt fa-3x text-info mb-2"></i>
+                                                                        <small class="text-muted text-center px-1 text-truncate" style="width: 100%;" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
+                                                                    </div>
+                                                                    <small class="d-block mt-2 text-muted text-truncate" title="<?= esc($fileName) ?>"><?= esc($fileName) ?></small>
+                                                                </a>
+                                                            <?php endif; ?>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            <?php endforeach; ?>
+                                                <?php endforeach; ?>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            const deleteButtons = document.querySelectorAll('.delete-report-btn');
-                                            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                                            const csrfHash = document.querySelector('meta[name="csrf-hash"]').getAttribute('content');
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const deleteButtons = document.querySelectorAll('.delete-report-btn');
+                                                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                                                const csrfHash = document.querySelector('meta[name="csrf-hash"]').getAttribute('content');
 
-                                            deleteButtons.forEach(button => {
-                                                button.addEventListener('click', function() {
-                                                    const patientId = this.dataset.patientId;
-                                                    const filename = this.dataset.filename;
-                                                    const cardId = `report-${filename.replace(/\./g, '-')}`;
+                                                deleteButtons.forEach(button => {
+                                                    button.addEventListener('click', function() {
+                                                        const patientId = this.dataset.patientId;
+                                                        const filename = this.dataset.filename;
+                                                        const cardId = `report-${filename.replace(/\./g, '-')}`;
 
-                                                    if (confirm(`Are you sure you want to delete the report "${filename}"? This action cannot be undone.`)) {
-                                                        fetch('<?= base_url('patients/deleteReportFile') ?>', {
-                                                                method: 'POST',
-                                                                headers: {
-                                                                    'Content-Type': 'application/json',
-                                                                    'X-Requested-With': 'XMLHttpRequest',
-                                                                    '<?= csrf_header() ?>': csrfToken
-                                                                },
-                                                                body: JSON.stringify({
-                                                                    patient_id: patientId,
-                                                                    filename: filename,
-                                                                    [csrfHash]: csrfToken
+                                                        if (confirm(`Are you sure you want to delete the report "${filename}"? This action cannot be undone.`)) {
+                                                            fetch('<?= base_url('patients/deleteReportFile') ?>', {
+                                                                    method: 'POST',
+                                                                    headers: {
+                                                                        'Content-Type': 'application/json',
+                                                                        'X-Requested-With': 'XMLHttpRequest',
+                                                                        '<?= csrf_header() ?>': csrfToken
+                                                                    },
+                                                                    body: JSON.stringify({
+                                                                        patient_id: patientId,
+                                                                        filename: filename,
+                                                                        [csrfHash]: csrfToken
+                                                                    })
                                                                 })
-                                                            })
-                                                            .then(response => response.json())
-                                                            .then(data => {
-                                                                if (data.success) {
-                                                                    alert(data.message);
-                                                                    const cardToRemove = document.getElementById(cardId);
-                                                                    if (cardToRemove) {
-                                                                        cardToRemove.remove();
-                                                                        const container = document.getElementById('existingReportsContainer');
-                                                                        if (container && container.children.length === 0) {
-                                                                            const parentDiv = container.closest('.mt-4');
-                                                                            if (parentDiv) parentDiv.style.display = 'none';
+                                                                .then(response => response.json())
+                                                                .then(data => {
+                                                                    if (data.success) {
+                                                                        alert(data.message);
+                                                                        const cardToRemove = document.getElementById(cardId);
+                                                                        if (cardToRemove) {
+                                                                            cardToRemove.remove();
+                                                                            const container = document.getElementById('existingReportsContainer');
+                                                                            if (container && container.children.length === 0) {
+                                                                                const parentDiv = container.closest('.mt-4');
+                                                                                if (parentDiv) parentDiv.style.display = 'none';
+                                                                            }
                                                                         }
+                                                                    } else {
+                                                                        alert('Error: ' + data.message);
+                                                                        console.error('Delete failed:', data.error);
                                                                     }
-                                                                } else {
-                                                                    alert('Error: ' + data.message);
-                                                                    console.error('Delete failed:', data.error);
-                                                                }
-                                                            })
-                                                            .catch(error => {
-                                                                alert('An error occurred during deletion.');
-                                                                console.error('Fetch error:', error);
-                                                            });
-                                                    }
+                                                                })
+                                                                .catch(error => {
+                                                                    alert('An error occurred during deletion.');
+                                                                    console.error('Fetch error:', error);
+                                                                });
+                                                        }
+                                                    });
                                                 });
                                             });
-                                        });
-                                    </script>
-                            <?php endif;
-                            endif; ?>
+                                        </script>
+                                <?php endif;
+                                endif; ?>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card-footer d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-save mr-2"></i><?= $isEditMode ? 'Update Patient' : 'Register Patient' ?></button>
+                    <div class="card-footer d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-save mr-2"></i><?= $isEditMode ? 'Update Patient' : 'Register Patient' ?></button>
+                    </div>
+                    <?= form_close() ?>
                 </div>
-                <?= form_close() ?>
             </div>
         </div>
-    </div>
 </section>
 <script>
     document.getElementById('upload_reports').addEventListener('change', function() {
@@ -397,5 +450,30 @@
         }
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const doctorSelect = document.querySelector('select[name="referred_to_doctor_id"]');
+        const feeInput = document.querySelector('input[name="fee"]');
+
+        // When a doctor is selected, update the Fee field
+        doctorSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const opdFee = selectedOption.getAttribute('data-opd-fee');
+
+            if (opdFee) {
+                feeInput.value = parseFloat(opdFee).toFixed(2);
+            } else {
+                feeInput.value = '0.00';
+            }
+        });
+
+        // Trigger once when page loads (for edit mode)
+        if (doctorSelect.value !== "") {
+            doctorSelect.dispatchEvent(new Event('change'));
+        }
+    });
+</script>
+
 
 <?= $this->endSection() ?>

@@ -1,0 +1,790 @@
+DEBUG - 2025-07-12 06:26:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 09:21:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 09:21:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 09:21:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 09:21:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:37:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:37:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:37:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:37:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:56:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:56:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:56:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-12 11:56:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-12 11:56:57 --> mysqli_sql_exception: Unknown column 'doctors.name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 11:56:57 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 11:56:57 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 11:56:57 --> [Caused by] mysqli_sql_exception: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-12 12:02:59 --> mysqli_sql_exception: Unknown column 'doctors.name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 12:02:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:02:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:02:59 --> [Caused by] mysqli_sql_exception: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-12 12:03:00 --> mysqli_sql_exception: Unknown column 'doctors.name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 12:03:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:03:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:03:00 --> [Caused by] mysqli_sql_exception: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-12 12:03:01 --> mysqli_sql_exception: Unknown column 'doctors.name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 12:03:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:03:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:03:01 --> [Caused by] mysqli_sql_exception: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-12 12:04:31 --> mysqli_sql_exception: Unknown column 'doctors.name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 12:04:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:04:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:04:31 --> [Caused by] mysqli_sql_exception: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-12 12:04:33 --> mysqli_sql_exception: Unknown column 'doctors.name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 12:04:33 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:04:33 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:04:33 --> [Caused by] mysqli_sql_exception: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-12 12:04:34 --> mysqli_sql_exception: Unknown column 'doctors.name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 12:04:34 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:04:34 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:04:34 --> [Caused by] mysqli_sql_exception: Unknown column 'doctors.name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name`, `patients`.`last_name`, `doctors`.`name` as `doctor_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(24): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-12 12:19:44 --> mysqli_sql_exception: Unknown column 'appointments.deleted_at' in 'where clause' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appoint...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appoint...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appoint...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appoint...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\AppointmentController.php(26): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-07-12 12:19:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.deleted_at' in 'where clause'
+[Method: GET, Route: appointments]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AppointmentController.php(26): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:19:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'appointments.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\AppointmentController.php(26): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-12 12:19:44 --> [Caused by] mysqli_sql_exception: Unknown column 'appointments.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `appointments`.*, `patients`.`first_name` as `patient_first_name`, `patients`.`last_name` as `patient_last_name`, `doctors`.`first_name` as `doctor_first_name`, `doctors`.`last_name` as `doctor_last_name`
+FROM `appointments`
+JOIN `patients` ON `appointments`.`patient_id` = `patients`.`id`
+JOIN `doctors` ON `appointments`.`doctor_id` = `doctors`.`id`
+WHERE `appointments`.`deleted_at` IS NULL
+ORDER BY `appointment_date` DESC', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\AppointmentController.php(26): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AppointmentController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AppointmentController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-12 12:25:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
