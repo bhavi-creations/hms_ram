@@ -82,7 +82,25 @@ $routes->group('appointments', ['namespace' => 'App\Controllers', 'filter' => 'a
 // Patient-specific appointment routes
 $routes->get('patient/appointments', 'AppointmentController::patientAppointments');
 
-// Assets & Equipment Routes
+
+// --- HOSPITAL RESOURCES ROUTES ---
+// Existing wards group (KEEP THIS EXACTLY AS IS)
+// $routes->group('wards', ['filter' => 'auth'], function ($routes) {
+//     $routes->get('/', 'WardController::index');
+//     $routes->get('create', 'WardController::create');
+//     $routes->post('store', 'WardController::store');
+//     $routes->get('edit/(:num)', 'WardController::edit/$1');
+//     $routes->post('update/(:num)', 'WardController::update/$1');
+//     $routes->get('delete/(:num)', 'WardController::delete/$1');
+// });
+
+ 
+// $routes->group('beds', ['filter' => 'auth'], function ($routes) {
+//     $routes->get('/', 'BedController::index'); 
+//     $routes->get('ward/(:num)', 'BedController::showByWard/$1');  
+//     $routes->get('beds/renumber/(:num)', 'BedController::renumberWardBeds/$1');
+   
+// });
 $routes->group('assets', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'AssetController::index');
     $routes->get('create', 'AssetController::create');
@@ -104,22 +122,3 @@ $routes->group('doctor', ['filter' => 'auth'], function ($routes) {
     $routes->get('patients', 'Patients::doctorPatientsList');
 });
 // --- END DOCTOR-SPECIFIC ROUTES ---
-
-// --- NEW HOSPITAL RESOURCES ROUTES: WARDS ---
-$routes->group('wards', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Wards::index');
-    $routes->get('create', 'Wards::create');
-    $routes->post('store', 'Wards::store');
-    $routes->get('edit/(:num)', 'Wards::edit/$1');
-    $routes->post('update/(:num)', 'Wards::update/$1');
-    $routes->get('delete/(:num)', 'Wards::delete/$1');
-});
-
-// --- NEW HOSPITAL RESOURCES ROUTES: BEDS ---
-$routes->group('beds', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Beds::index');
-    // Route for filtering beds by ward
-    $routes->get('filter/(:num)', 'Beds::filter/$1');
-    // Route for updating bed status via AJAX
-    $routes->post('updateStatus/(:num)', 'Beds::updateStatus/$1');
-});
