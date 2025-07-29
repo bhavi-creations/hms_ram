@@ -44,7 +44,7 @@
 
                                 <dt class="col-sm-4">Patient Type:</dt>
                                 <dd class="col-sm-8">
-                                    <span class="badge badge-primary"><?= esc($patient['patient_type']) ?></span>
+                                     <?= esc($patient['patient_type']) ?>
                                 </dd>
 
                                 <!-- Always display ID labels, show N/A if null -->
