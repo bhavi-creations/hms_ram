@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2025 at 07:20 AM
+-- Generation Time: Jul 29, 2025 at 07:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,7 +51,84 @@ INSERT INTO `appointments` (`id`, `patient_id`, `doctor_id`, `appointment_date`,
 (4, 36, 43, '2025-07-24', '23:19:00', '', 'Cancelled', '2025-07-24 11:19:57', '2025-07-25 05:00:23', NULL),
 (5, 27, 43, '2025-07-26', '19:50:00', 'hh', 'Confirmed', '2025-07-24 12:18:21', '2025-07-24 12:18:21', NULL),
 (6, 20, 43, '2025-07-25', '16:14:00', 'asthma problem\r\n', 'Confirmed', '2025-07-25 04:19:33', '2025-07-25 04:19:33', NULL),
-(7, 37, 43, '2025-07-25', '17:04:00', 'general', 'Pending', '2025-07-25 05:09:08', '2025-07-25 05:10:19', NULL);
+(7, 37, 43, '2025-07-25', '17:04:00', 'general', 'Confirmed', '2025-07-25 05:09:08', '2025-07-28 11:56:59', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assets_equipment`
+--
+
+CREATE TABLE `assets_equipment` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `asset_tag` varchar(100) DEFAULT NULL,
+  `category` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `purchase_date` date DEFAULT NULL,
+  `warranty_expiry_date` date DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `status` enum('Operational','Under Maintenance','Out of Service','Disposed') NOT NULL DEFAULT 'Operational',
+  `notes` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `beds`
+--
+
+CREATE TABLE `beds` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `ward_id` int(11) UNSIGNED NOT NULL,
+  `bed_number` varchar(50) NOT NULL,
+  `status` enum('Available','Occupied','Under Maintenance','Dirty') NOT NULL DEFAULT 'Available',
+  `notes` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `beds`
+--
+
+INSERT INTO `beds` (`id`, `ward_id`, `bed_number`, `status`, `notes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'GEN-1', 'Available', NULL, '2025-07-26 05:38:05', '2025-07-28 11:46:53', NULL),
+(2, 1, 'GEN-2', 'Available', NULL, '2025-07-26 05:38:05', '2025-07-28 09:32:19', NULL),
+(3, 1, 'GEN-3', 'Occupied', NULL, '2025-07-26 05:38:05', '2025-07-26 06:32:52', NULL),
+(4, 1, 'GEN-4', 'Occupied', NULL, '2025-07-26 05:38:05', '2025-07-26 06:32:58', NULL),
+(5, 1, 'GEN-5', 'Occupied', NULL, '2025-07-26 05:38:05', '2025-07-26 06:33:04', NULL),
+(6, 1, 'GEN-6', 'Occupied', NULL, '2025-07-26 05:38:05', '2025-07-26 06:33:11', NULL),
+(7, 1, 'GEN-7', 'Occupied', NULL, '2025-07-26 05:38:05', '2025-07-26 06:33:16', NULL),
+(8, 1, 'GEN-8', 'Occupied', NULL, '2025-07-26 05:38:05', '2025-07-26 06:33:22', NULL),
+(9, 1, 'GEN-9', 'Available', NULL, '2025-07-26 05:38:05', '2025-07-26 05:53:00', '2025-07-26 05:53:00'),
+(10, 1, 'GEN-10', 'Available', NULL, '2025-07-26 05:38:05', '2025-07-26 05:53:00', '2025-07-26 05:53:00'),
+(11, 1, 'GEN-11', 'Available', NULL, '2025-07-26 05:51:53', '2025-07-26 05:53:00', '2025-07-26 05:53:00'),
+(12, 1, 'GEN-12', 'Available', NULL, '2025-07-26 05:51:53', '2025-07-26 05:53:00', '2025-07-26 05:53:00'),
+(13, 2, 'P-1', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-28 11:36:11', NULL),
+(14, 2, 'P-2', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-28 11:31:41', NULL),
+(15, 2, 'P-3', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-29 04:24:29', NULL),
+(16, 2, 'P-4', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(17, 2, 'P-5', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(18, 2, 'P-6', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(19, 2, 'P-7', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(20, 2, 'P-8', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(21, 2, 'P-9', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(22, 2, 'P-10', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(23, 2, 'P-11', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(24, 2, 'P-12', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(25, 2, 'P-13', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(26, 2, 'P-14', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(27, 2, 'P-15', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(28, 2, 'P-16', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(29, 2, 'P-17', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(30, 2, 'P-18', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(31, 2, 'P-19', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL),
+(32, 2, 'P-20', 'Available', NULL, '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -220,22 +297,22 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`id`, `patient_id_code`, `patient_type`, `previous_patient_type`, `opd_id_code`, `ipd_id_code`, `gen_id_code`, `cus_id_code`, `first_name`, `last_name`, `date_of_birth`, `gender`, `blood_group`, `marital_status`, `occupation`, `address`, `phone_number`, `email`, `emergency_contact_name`, `emergency_contact_phone`, `known_allergies`, `pre_existing_conditions`, `referred_to_doctor_id`, `referred_by_id`, `remarks`, `reports`, `fee`, `discount_percentage`, `final_amount`, `created_at`, `updated_at`) VALUES
-(4, 'PAT-250628-00001', 'General', NULL, 'OPD-250628-00001', 'IPD-250705-00022', 'GEN-250724-00015', NULL, 'ram ram hai', 'raj ', '2025-06-09', 'Male', 'A+', 'single ', 'student', 'ttd', '7897897897', 'bhavicreations3022@gmail.comettttt', 'ttttt', '3213213213', 'errrrt', 't', NULL, 2, 'fg', '[\"1751439791_7786_12345.pdf\",\"1751439814_7833_Sales_by_nanna_20250614_062022.pdf\"]', 606.00, 6.00, 569.64, '2025-06-28 03:48:50', '2025-07-24 05:25:23'),
+(4, 'PAT-250628-00001', 'Discharged', NULL, 'OPD-250628-00001', NULL, 'GEN-250724-00015', NULL, 'ram ram hai', 'raj ', '2025-06-09', 'Male', 'A+', 'single ', 'student', 'ttd', '7897897897', 'bhavicreations3022@gmail.comettttt', 'ttttt', '3213213213', 'errrrt', 't', NULL, 2, 'fg', '[\"1751439791_7786_12345.pdf\",\"1751439814_7833_Sales_by_nanna_20250614_062022.pdf\"]', 606.00, 6.00, 569.64, '2025-06-28 03:48:50', '2025-07-28 07:14:28'),
 (5, 'PAT-250628-00002', 'General', NULL, 'OPD-250628-00002', NULL, 'GEN-250709-00014', NULL, 'ramu', 'ling', '2025-06-06', 'Male', '', '', '', 'hg', '7897897897', 'bhavicreations3022@gmail.come', 'rao', '3213213213', 'ytf', 'yf', NULL, NULL, '', NULL, 6660.00, 60.00, 2664.00, '2025-06-28 03:49:50', '2025-07-09 04:05:46'),
-(7, 'PAT-250628-00001', 'IPD', NULL, NULL, 'IPD-250705-00028', 'GEN-250628-00001', NULL, 'raja', 'creations', '2025-06-12', 'Male', 'A+', 'single ', 'student', 'dgbgggggggggg', '7897897897', 'bhavicreations@gmail.com', 'rao', '3213213213', 'gfs', 'srtg', NULL, 1, 'dgt', '[\"uploads\\/patient_reports\\/1751085590_031e227b11d0d6ac3658.jpg\"]', 1222.00, 1.00, 1209.78, '2025-06-28 04:39:50', '2025-07-05 10:38:53'),
-(8, 'PAT-250628-00002', 'IPD', NULL, 'OPD-250705-00008', 'IPD-250705-00006', 'GEN-250628-00002', NULL, 'raja', 'creations', '2025-06-01', 'Male', 'B+', 'single ', 'student', 'fd', '7897897897', 'vgv@gmail.com', 'rao', '3213213213', 'gf', 'gf', NULL, 1, 'f', '[\"uploads\\/patient_reports\\/1751085659_9d981954beb66d21e9ad.png\"]', 1345.00, 1.00, 1331.55, '2025-06-28 04:40:59', '2025-07-05 07:31:11'),
-(9, 'PAT-250628-00003', 'IPD', NULL, 'OPD-250628-00001', 'IPD-250705-00020', NULL, NULL, 'raja', 'creations ', '2025-06-04', 'Female', 'o+', 'single ', 'fd', 'df', '7897897897', 'latha@gmail.com', 'rao', '3213213213', 'febd', 'erb', NULL, 1, 'fet', '[\"uploads\\/patient_reports\\/1751085717_226cc379f0d3c564a203.png\"]', 3453.00, 4.00, 3314.88, '2025-06-28 04:41:57', '2025-07-05 10:02:07'),
-(10, 'PAT-250628-00004', 'IPD', NULL, NULL, 'IPD-250705-00018', NULL, 'CUS-250628-00001', 'ramu', 'raju', '2025-06-02', 'Other', 'A+', 'single ', 'student', 'rgvs', '7897897897', 'latha@gmail.com', 'rao', '3213213213', 'srg', 'sreg', NULL, 1, 'czsrszgg', '[\"uploads\\/patient_reports\\/1751085772_a098277ebe53be0504f7.png\"]', 43234.00, 5.00, 41072.30, '2025-06-28 04:42:52', '2025-07-05 09:58:32'),
-(11, 'PAT-250628-00005', 'IPD', NULL, NULL, 'IPD-250705-00004', 'GEN-250628-00003', NULL, 'ramu', 'healthcare', '2025-06-10', 'Female', 'A+', 'single ', 'student', 'eaf', '7897897897', 'visoi@gmail.com', 'ttttt', '3213213213', 'sdWvge', 'wegv', NULL, 1, 'vdew', '[\"1751086114_96a6950429f76305c189.jpg\"]', 534.00, 3.00, 517.98, '2025-06-28 04:48:34', '2025-07-05 07:12:12'),
-(13, 'PAT-250628-00007', 'IPD', NULL, 'OPD-250628-00003', 'IPD-250705-00003', NULL, NULL, 'ramu', 'creations', '2025-06-11', 'Male', 'A+', 'rer', 'er', 'ef bes', '7897897897', 'bhavicreations@gmail.com', 'rao', '3213213213', 'esr', 'er', NULL, 2, '', '[\"1751698881_2515_vk poster 9.png\"]', 555.00, 5.00, 527.25, '2025-06-28 07:31:24', '2025-07-05 07:02:10'),
-(14, 'PAT-250628-00008', 'IPD', NULL, 'OPD-250628-00004', 'IPD-250705-00010', NULL, NULL, 'raja', 'healthcare', '2025-06-14', 'Female', 'A+', 'single ', 'student', 'ewf', '2525252525', 'bhavicreations@gmail.com', 'rao', '3213213213', 'wef', 'wef', NULL, 1, 'dvse', '[\"1751095934_657b769b4755bdc13eb1.png\"]', 2432.00, 4.00, 2334.72, '2025-06-28 07:32:14', '2025-07-25 09:44:46'),
-(15, 'PAT-250628-00010', 'IPD', NULL, NULL, 'IPD-250705-00030', 'GEN-250628-00005', NULL, 'jana', 'creations', '2025-06-10', 'Male', 'B-', 'single ', 'student', 'hgmd', '2525252525', 'bhavicreations@gmail.com', 'rao', '3213213213', 'ghg', 'dhg', NULL, 3, 'fc', NULL, 645.00, 5.00, 612.75, '2025-06-28 09:18:19', '2025-07-25 09:44:41'),
-(16, 'PAT-250628-00011', 'IPD', NULL, NULL, 'IPD-250705-00032', 'GEN-250628-00006', NULL, 'ramu', 'ling', '2025-06-10', 'Male', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-06-28 09:41:39', '2025-07-05 10:52:21'),
+(7, 'PAT-250628-00001', 'Discharged', NULL, NULL, NULL, 'GEN-250628-00001', NULL, 'raja', 'creations', '2025-06-12', 'Male', 'A+', 'single ', 'student', 'dgbgggggggggg', '7897897897', 'bhavicreations@gmail.com', 'rao', '3213213213', 'gfs', 'srtg', NULL, 1, 'dgt', '[\"uploads\\/patient_reports\\/1751085590_031e227b11d0d6ac3658.jpg\"]', 1222.00, 1.00, 1209.78, '2025-06-28 04:39:50', '2025-07-28 07:12:21'),
+(8, 'PAT-250628-00002', 'Discharged', NULL, 'OPD-250705-00008', NULL, 'GEN-250628-00002', NULL, 'raja', 'creations', '2025-06-01', 'Male', 'B+', 'single ', 'student', 'fd', '7897897897', 'vgv@gmail.com', 'rao', '3213213213', 'gf', 'gf', NULL, 1, 'f', '[\"uploads\\/patient_reports\\/1751085659_9d981954beb66d21e9ad.png\"]', 1345.00, 1.00, 1331.55, '2025-06-28 04:40:59', '2025-07-28 09:23:22'),
+(9, 'PAT-250628-00003', 'Discharged', NULL, 'OPD-250628-00001', NULL, NULL, NULL, 'raja', 'creations ', '2025-06-04', 'Female', 'o+', 'single ', 'fd', 'df', '7897897897', 'latha@gmail.com', 'rao', '3213213213', 'febd', 'erb', NULL, 1, 'fet', '[\"uploads\\/patient_reports\\/1751085717_226cc379f0d3c564a203.png\"]', 3453.00, 4.00, 3314.88, '2025-06-28 04:41:57', '2025-07-28 09:28:15'),
+(10, 'PAT-250628-00004', 'General', NULL, NULL, NULL, 'GEN-250728-00020', 'CUS-250628-00001', 'ramu', 'raju', '2025-06-02', 'Other', 'A+', 'single ', 'student', 'rgvs', '7897897897', 'latha@gmail.com', 'rao', '3213213213', 'srg', 'sreg', NULL, 1, 'czsrszgg', '[\"uploads\\/patient_reports\\/1751085772_a098277ebe53be0504f7.png\"]', 43234.00, 5.00, 41072.30, '2025-06-28 04:42:52', '2025-07-28 09:30:54'),
+(11, 'PAT-250628-00005', 'Discharged', NULL, NULL, 'IPD-250728-00045', 'GEN-250628-00003', NULL, 'ramu', 'eeeee', '2025-06-10', 'Female', 'A+', 'single ', 'student', 'eaf', '7897897897', 'visoi@gmail.com', 'ttttt', '3213213213', 'sdWvge', 'wegv', NULL, 1, 'vdew', '[\"1751086114_96a6950429f76305c189.jpg\"]', 534.00, 3.00, 517.98, '2025-06-28 04:48:34', '2025-07-28 11:31:41'),
+(13, 'PAT-250628-00007', 'Discharged', NULL, 'OPD-250628-00003', NULL, NULL, NULL, 'ramu', 'creations', '2025-06-11', 'Male', 'A+', 'rer', 'er', 'ef bes', '7897897897', 'bhavicreations@gmail.com', 'rao', '3213213213', 'esr', 'er', NULL, 2, '', '[\"1751698881_2515_vk poster 9.png\"]', 555.00, 5.00, 527.25, '2025-06-28 07:31:24', '2025-07-28 09:31:36'),
+(14, 'PAT-250628-00008', 'Discharged', NULL, 'OPD-250628-00004', NULL, NULL, NULL, 'raja', 'healthcare', '2025-06-14', 'Female', 'A+', 'single ', 'student', 'ewf', '2525252525', 'bhavicreations@gmail.com', 'rao', '3213213213', 'wef', 'wef', NULL, 1, 'dvse', '[\"1751095934_657b769b4755bdc13eb1.png\"]', 2432.00, 4.00, 2334.72, '2025-06-28 07:32:14', '2025-07-28 10:15:25'),
+(15, 'PAT-250628-00010', 'Discharged', NULL, NULL, 'IPD-250728-00046', 'GEN-250628-00005', NULL, 'jana', 'creations', '2025-06-10', 'Male', 'B-', 'single ', 'student', 'hgmd', '2525252525', 'bhavicreations@gmail.com', 'rao', '3213213213', 'ghg', 'dhg', NULL, 3, 'fc', NULL, 645.00, 5.00, 612.75, '2025-06-28 09:18:19', '2025-07-28 11:46:53'),
+(16, 'PAT-250628-00011', 'Discharged', NULL, NULL, 'IPD-250705-00032', 'GEN-250628-00006', NULL, 'ramu', 'ling', '2025-06-10', 'Male', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-06-28 09:41:39', '2025-07-28 11:36:12'),
 (17, 'PAT-250628-00012', 'IPD', 'General', NULL, 'IPD-250710-00043', 'GEN-250628-00007', NULL, 'niranjan', 'wfw', '2025-06-24', 'Male', 'AB-', 'single ', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-06-28 09:57:11', '2025-07-10 14:09:04'),
 (18, 'PAT-250702-00013', 'IPD', NULL, 'OPD-250702-00005', 'IPD-250705-00008', NULL, NULL, 'peter', 'raj', '2025-07-01', 'Female', 'A+', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-02 04:40:53', '2025-07-05 07:50:54'),
 (19, 'PAT-250702-00014', 'Discharged', NULL, NULL, NULL, 'GEN-250702-00008', NULL, 'ratnam', 'dvfd', '2025-07-01', 'Male', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-02 04:46:56', '2025-07-05 12:07:19'),
 (20, 'PAT-250702-00015', 'IPD', NULL, NULL, 'IPD-250705-00016', 'GEN-250702-00009', NULL, 'bravo', 'marco', '2025-07-01', 'Male', 'A+', 'single ', 'student', 'fdb ttrbn', '1231231231', 'bhavicreations@gmail.com', 'rao', '3213213213', 'dtr', 'trf s', NULL, 1, 'fdsd', '[\"1751433226_8683_arjuna online iti _1_.pdf\",\"1751433226_5226_stock-vector-alphabet-letters-icon-logo-vk-or-kv-monogram-2203519181_1747721447.jpg\",\"1751433226_3706_vk logo 6.jpg\"]', 5555.00, 5.00, 5277.25, '2025-07-02 05:13:46', '2025-07-25 09:41:07'),
-(21, 'PAT-250702-00016', 'General', NULL, NULL, NULL, 'GEN-250702-00010', NULL, 'ramu', 'ling', '2025-07-01', 'Male', 'A+', '', '', '', '', '', '', '', '', '', NULL, NULL, '', '[\"1751434062_8995_Vendor_Report_20250607_102423.pdf\",\"1751434062_7977_vk new 4.png\"]', 0.00, 0.00, 0.00, '2025-07-02 05:27:42', '2025-07-09 04:05:42'),
+(21, 'PAT-250702-00016', 'IPD', 'General', NULL, 'IPD-250726-00044', 'GEN-250702-00010', NULL, 'ramu', 'ling', '2025-07-01', 'Male', 'A+', '', '', '', '', '', '', '', '', '', NULL, NULL, '', '[\"1751434062_8995_Vendor_Report_20250607_102423.pdf\",\"1751434062_7977_vk new 4.png\"]', 0.00, 0.00, 0.00, '2025-07-02 05:27:42', '2025-07-26 09:53:29'),
 (22, 'PAT-250702-00017', 'IPD', NULL, NULL, 'IPD-250705-00002', NULL, 'CUS-250702-00002', 'ramuraju', 'creations', '2025-06-11', 'Male', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-02 11:53:40', '2025-07-05 06:43:02'),
 (23, 'PAT-250705-00018', 'IPD', 'General', 'OPD-250705-00006', 'IPD-250705-00041', 'GEN-250705-00013', NULL, 'vinay', 'trh', '2025-04-01', 'Male', 'O+', '', '', '', '', '', '', '', '', '', NULL, NULL, '', '[\"1751688337_4093_stock_in_details_13.pdf\",\"1751688337_8056_vk poster 9.png\"]', 0.00, 0.00, 0.00, '2025-07-05 04:05:37', '2025-07-05 12:03:30'),
 (24, 'PAT-250705-00019', 'IPD', NULL, NULL, 'IPD-250705-00034', 'GEN-250705-00011', NULL, 'mango', 'kai', '2025-07-01', 'Male', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-05 10:05:39', '2025-07-05 10:56:00'),
@@ -244,14 +321,51 @@ INSERT INTO `patients` (`id`, `patient_id_code`, `patient_type`, `previous_patie
 (27, 'PAT-250705-00022', 'Discharged', NULL, 'OPD-250705-00010', NULL, NULL, NULL, 'jack', 'fruit', '2025-07-02', 'Other', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-05 10:06:49', '2025-07-09 04:07:20'),
 (28, 'PAT-250705-00023', 'OPD', NULL, 'OPD-250705-00011', NULL, NULL, NULL, 'painapple', 'ss', '2025-07-01', 'Other', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-05 10:07:06', '2025-07-05 10:07:06'),
 (29, 'PAT-250705-00024', 'IPD', NULL, NULL, 'IPD-250705-00026', NULL, 'CUS-250705-00003', 'rappa', 'rappa', '2025-07-01', 'Female', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-05 10:07:25', '2025-07-05 10:33:00'),
-(30, 'PAT-250705-00025', 'IPD', NULL, NULL, 'IPD-250705-00024', NULL, 'CUS-250705-00004', 'promo', 'granite', '2025-07-01', 'Other', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-05 10:07:56', '2025-07-05 10:25:27'),
-(31, 'PAT-250709-00026', 'IPD', 'Casualty', NULL, 'IPD-250709-00042', NULL, 'CUS-250709-00005', 'sample', 'patient', '2025-07-01', 'Male', '', '', '', '', '', '', '', '', '', '', 26, NULL, '', NULL, 232.00, 0.00, 232.00, '2025-07-09 05:20:04', '2025-07-09 05:22:46'),
+(30, 'PAT-250705-00025', 'Discharged', NULL, NULL, NULL, NULL, 'CUS-250705-00004', 'promo', 'granite', '2025-07-01', 'Other', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '', NULL, 0.00, 0.00, 0.00, '2025-07-05 10:07:56', '2025-07-28 11:17:07'),
+(31, 'PAT-250709-00026', 'Discharged', NULL, NULL, NULL, NULL, 'CUS-250709-00005', 'sample', 'patient', '2025-07-01', 'Male', '', '', '', '', '', '', '', '', '', '', 26, NULL, '', NULL, 232.00, 0.00, 232.00, '2025-07-09 05:20:04', '2025-07-28 10:58:41'),
 (32, 'PAT-250709-00027', 'Casualty', NULL, NULL, NULL, NULL, 'CUS-250709-00006', 'ramu', 'creations', '2025-07-03', 'Male', '', '', '', '', '', '', '', '', '', '', 15, NULL, '', NULL, 400.00, 8.00, 368.00, '2025-07-09 05:46:50', '2025-07-09 05:46:50'),
 (33, 'PAT-250709-00028', 'Casualty', NULL, NULL, NULL, NULL, 'CUS-250709-00007', 'wednesday ', 'week', '2025-07-01', 'Male', '', '', '', '', '', '', '', '', '', '', 18, NULL, '', NULL, 400.00, 2.00, 392.00, '2025-07-09 06:50:10', '2025-07-09 07:09:36'),
 (34, 'PAT-250724-00029', 'General', NULL, NULL, NULL, 'GEN-250724-00016', NULL, 'janu', 'wing', '2025-07-25', 'Male', 'A+', 'single ', '', 'kkd', '7897897897', 'bhavicreatiodns@gmail.com', 'ttttt', '3213213213', 'e', 'e', 15, 1, 'k', NULL, 400.00, 0.00, 400.00, '2025-07-24 05:27:15', '2025-07-24 05:27:15'),
 (35, 'PAT-250724-00030', 'General', NULL, NULL, NULL, 'GEN-250724-00017', NULL, 'kumar', 'gorri', '2025-07-07', 'Male', '', '', '', '', '', '', '', '', '', '', 43, 2, '', NULL, 300.00, 0.00, 300.00, '2025-07-24 10:50:15', '2025-07-24 10:50:15'),
 (36, 'PAT-250724-00031', 'General', NULL, NULL, NULL, 'GEN-250724-00018', NULL, 'kanta', 'mani', '2025-07-02', 'Male', 'A-', '', '', '', '', '', '', '', '', '', 43, NULL, 'hi ', '[\"1753355997_7591_bhavi logo.png\",\"1753356877_dd4e96ceb6e0e64dd084.pdf\"]', 300.00, 1.00, 297.00, '2025-07-24 11:19:57', '2025-07-24 11:39:58'),
-(37, 'PAT-250725-00032', 'General', NULL, NULL, NULL, 'GEN-250725-00019', NULL, 'naidu', 'raddy', '2025-07-09', 'Male', 'B-', '', '', '', '4564564564', '', '', '', '', '', 43, 3, 'g', NULL, 300.00, 0.00, 300.00, '2025-07-25 05:09:08', '2025-07-25 05:09:08');
+(37, 'PAT-250725-00032', 'Discharged', NULL, NULL, 'IPD-250729-00047', 'GEN-250725-00019', NULL, 'naidu', 'raddy', '2025-07-09', 'Male', 'B-', '', '', '', '4564564564', '', '', '', '', '', 43, 3, 'g', '[\"1753703819_6435_sample-blue-round-grunge-stamp-J1D0R6.jpg\"]', 300.00, 0.00, 300.00, '2025-07-25 05:09:08', '2025-07-29 04:24:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patient_admissions`
+--
+
+CREATE TABLE `patient_admissions` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `ward_id` int(11) UNSIGNED DEFAULT NULL,
+  `bed_id` int(11) UNSIGNED DEFAULT NULL,
+  `admission_date` datetime NOT NULL,
+  `discharge_date` datetime DEFAULT NULL,
+  `admission_status` enum('Admitted','Discharged','Transferred','Waiting Assignment') NOT NULL DEFAULT 'Waiting Assignment',
+  `notes` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patient_admissions`
+--
+
+INSERT INTO `patient_admissions` (`id`, `patient_id`, `ward_id`, `bed_id`, `admission_date`, `discharge_date`, `admission_status`, `notes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(5, 10, NULL, NULL, '2025-07-28 09:30:41', '2025-07-28 09:30:54', 'Discharged', '', '2025-07-28 09:30:41', '2025-07-28 09:30:54', NULL),
+(6, 11, NULL, NULL, '2025-07-28 09:31:17', '2025-07-28 09:31:40', 'Discharged', '', '2025-07-28 09:31:17', '2025-07-28 09:31:40', NULL),
+(7, 13, NULL, NULL, '2025-07-28 09:31:23', '2025-07-28 09:31:36', 'Discharged', '', '2025-07-28 09:31:23', '2025-07-28 09:31:36', NULL),
+(8, 14, NULL, NULL, '2025-07-28 09:32:07', '2025-07-28 10:15:25', 'Discharged', '', '2025-07-28 09:32:07', '2025-07-28 10:15:25', NULL),
+(9, 15, NULL, NULL, '2025-07-28 09:32:14', '2025-07-28 09:32:19', 'Discharged', '', '2025-07-28 09:32:14', '2025-07-28 09:32:19', NULL),
+(10, 31, NULL, NULL, '2025-07-28 10:58:32', '2025-07-28 10:58:41', 'Discharged', '', '2025-07-28 10:58:32', '2025-07-28 10:58:41', NULL),
+(11, 30, NULL, NULL, '2025-07-28 11:16:46', '2025-07-28 11:17:07', 'Discharged', '', '2025-07-28 11:16:46', '2025-07-28 11:17:07', NULL),
+(12, 11, NULL, NULL, '2025-07-28 11:31:15', '2025-07-28 11:31:41', 'Discharged', 'Admitted to IPD, awaiting ward/bed assignment.', '2025-07-28 11:31:15', '2025-07-28 11:31:41', NULL),
+(13, 16, NULL, NULL, '2025-07-28 11:35:59', '2025-07-28 11:36:11', 'Discharged', '', '2025-07-28 11:35:59', '2025-07-28 11:36:11', NULL),
+(14, 15, NULL, NULL, '2025-07-28 11:46:07', '2025-07-28 11:46:53', 'Discharged', 'Admitted to IPD, awaiting ward/bed assignment.', '2025-07-28 11:46:07', '2025-07-28 11:46:53', NULL),
+(15, 37, NULL, NULL, '2025-07-29 04:24:03', '2025-07-29 04:24:29', 'Discharged', 'Admitted to IPD, awaiting ward/bed assignment.', '2025-07-29 04:24:03', '2025-07-29 04:24:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -273,8 +387,8 @@ CREATE TABLE `patient_id_sequences` (
 INSERT INTO `patient_id_sequences` (`id`, `prefix`, `next_sequence_number`, `updated_at`) VALUES
 (1, 'PAT', 32, '2025-07-25 10:39:08'),
 (2, 'OPD', 11, '2025-07-05 15:37:06'),
-(3, 'IPD', 43, '2025-07-10 19:39:04'),
-(4, 'GEN', 19, '2025-07-25 10:39:08'),
+(3, 'IPD', 47, '2025-07-29 09:54:02'),
+(4, 'GEN', 20, '2025-07-28 15:00:54'),
 (5, 'CUS', 7, '2025-07-09 12:20:10');
 
 -- --------------------------------------------------------
@@ -354,7 +468,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `first_name`, `last_name`, `username`, `email`, `password`, `phone_number`, `address`, `status`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 1, 'System', 'Admin', 'admin', 'admin@example.com', '$2y$10$f1/gyLrKkbOx7vySl.bDV.JyiyyHRGrgfQ9zw0yP7s9OOt0KrKVha', '9876543210', '123 Admin Street, City', 'active', '2025-07-25 03:58:24', '2025-06-25 13:05:57', '2025-07-25 03:58:24'),
+(1, 1, 'System', 'Admin', 'admin', 'admin@example.com', '$2y$10$f1/gyLrKkbOx7vySl.bDV.JyiyyHRGrgfQ9zw0yP7s9OOt0KrKVha', '9876543210', '123 Admin Street, City', 'active', '2025-07-29 03:40:13', '2025-06-25 13:05:57', '2025-07-29 03:40:13'),
 (2, 2, 'Jane', 'Smith', 'drsmith', 'jane.smith@hms.com', '$2y$10$f1/gyLrKkbOx7vySl.bDV.JyiyyHRGrgfQ9zw0yP7s9OOt0KrKVha', '9988776655', '456 Medical Avenue, City', 'active', '2025-06-25 10:43:02', '2025-06-25 16:10:32', '2025-07-02 10:07:34'),
 (3, 2, 'ramapappa', 'rao', 'doctor', 'vgv@gmail.com', '$2y$10$Xdxj1UOk1PmJc9FCOFHA3uY37u2DtyTh31iBvbPuhUFx7XdjeV1.a', '7897897897', 'fgb', 'active', NULL, '2025-07-07 11:19:37', '2025-07-07 11:19:37'),
 (4, 2, 'mani', 'man', 'mani', 'bhavicreations@gmail.com', '$2y$10$TfEyAe07XY3Eaj0rcVIeB.hi6evsQ3kKidZnUBwJw1KuVqWmFOlgK', '', '', 'active', '2025-07-08 04:59:54', '2025-07-07 12:05:19', '2025-07-08 04:59:54'),
@@ -366,8 +480,34 @@ INSERT INTO `users` (`id`, `role_id`, `first_name`, `last_name`, `username`, `em
 (10, 2, 'bheam', 'bheam', 'bheam', 'abhi@gmail.com', '$2y$10$kjsLBUKrFUysEAG6igivd.yGE6W8S0.pNpzhH8/nN9IgjA1sa6TEm', '', '', 'active', NULL, '2025-07-08 08:03:56', '2025-07-08 08:03:56'),
 (11, 2, 'sharak', 'sharak', 'sharak', 'bhavicreations3022@gmail.come', '$2y$10$W6chLlM85QpZIu6ERUwfGear8ptlGYWrCgoD.DDbg1BR80BiU.kIq', '', '', 'active', '2025-07-08 11:49:57', '2025-07-08 09:18:21', '2025-07-08 11:49:57'),
 (12, 2, 'ramun', 'creations', 'ramun', 'bhavicreations@gmail.com', '$2y$10$o5.M0hPP2XITfdiH06/bIOxKmsf4FaOLbsb63S10DonI61tHyPdHK', '', '', 'active', '2025-07-08 11:49:14', '2025-07-08 09:21:53', '2025-07-08 11:49:14'),
-(13, 2, 'ramesh', 'pilli', 'ramesh', 'rameshpilli@gmail.com', '$2y$10$h4NrHZLzeQxYCPgnoMSjwucG3/ypEkzDD9DCGpCjyuDRM8sYAltkG', '7897897895', 'kkkd', 'active', '2025-07-25 04:20:53', '2025-07-24 10:45:53', '2025-07-25 04:20:53'),
+(13, 2, 'ramesh', 'pilli', 'ramesh', 'rameshpilli@gmail.com', '$2y$10$h4NrHZLzeQxYCPgnoMSjwucG3/ypEkzDD9DCGpCjyuDRM8sYAltkG', '7897897895', 'kkkd', 'active', '2025-07-29 04:22:28', '2025-07-24 10:45:53', '2025-07-29 04:22:28'),
 (14, 2, 'Harsh vardhan', 'Basara', 'harsha', 'abhvasi@gmail.com', '$2y$10$CDdwoNTxRR38zKognEZOteNUFqoGfhYSnji8jXj0YY8xIvF5deMki', '7531598254', '', 'active', NULL, '2025-07-25 05:13:34', '2025-07-25 05:13:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wards`
+--
+
+CREATE TABLE `wards` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `capacity` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `status` enum('Active','Inactive','Under Maintenance') NOT NULL DEFAULT 'Active',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `bed_prefix` varchar(20) NOT NULL DEFAULT 'BED'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wards`
+--
+
+INSERT INTO `wards` (`id`, `name`, `description`, `capacity`, `status`, `created_at`, `updated_at`, `deleted_at`, `bed_prefix`) VALUES
+(1, 'General Ward', '', 8, 'Active', '2025-07-26 05:38:05', '2025-07-26 06:34:20', NULL, 'GEN'),
+(2, 'Pediatric Ward', 'This ward for children', 20, 'Active', '2025-07-26 06:05:01', '2025-07-26 06:05:01', NULL, 'P');
 
 --
 -- Indexes for dumped tables
@@ -380,6 +520,21 @@ ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `appointment_patient_id_foreign` (`patient_id`),
   ADD KEY `appointment_doctor_id_foreign` (`doctor_id`);
+
+--
+-- Indexes for table `assets_equipment`
+--
+ALTER TABLE `assets_equipment`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `asset_tag` (`asset_tag`);
+
+--
+-- Indexes for table `beds`
+--
+ALTER TABLE `beds`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bed_number_per_ward` (`ward_id`,`bed_number`),
+  ADD KEY `ward_id` (`ward_id`);
 
 --
 -- Indexes for table `doctors`
@@ -413,6 +568,15 @@ ALTER TABLE `patients`
   ADD KEY `fk_patients_referred_doctor` (`referred_to_doctor_id`);
 
 --
+-- Indexes for table `patient_admissions`
+--
+ALTER TABLE `patient_admissions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_pa_patient_id` (`patient_id`),
+  ADD KEY `fk_pa_ward_id` (`ward_id`),
+  ADD KEY `fk_pa_bed_id` (`bed_id`);
+
+--
 -- Indexes for table `patient_id_sequences`
 --
 ALTER TABLE `patient_id_sequences`
@@ -440,6 +604,13 @@ ALTER TABLE `users`
   ADD KEY `role_id` (`role_id`);
 
 --
+-- Indexes for table `wards`
+--
+ALTER TABLE `wards`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -448,6 +619,18 @@ ALTER TABLE `users`
 --
 ALTER TABLE `appointments`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `assets_equipment`
+--
+ALTER TABLE `assets_equipment`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `beds`
+--
+ALTER TABLE `beds`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `doctors`
@@ -466,6 +649,12 @@ ALTER TABLE `hospital_departments`
 --
 ALTER TABLE `patients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `patient_admissions`
+--
+ALTER TABLE `patient_admissions`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `patient_id_sequences`
@@ -492,8 +681,20 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `wards`
+--
+ALTER TABLE `wards`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `beds`
+--
+ALTER TABLE `beds`
+  ADD CONSTRAINT `fk_beds_ward_id` FOREIGN KEY (`ward_id`) REFERENCES `wards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `patients`
@@ -501,6 +702,14 @@ ALTER TABLE `users`
 ALTER TABLE `patients`
   ADD CONSTRAINT `fk_patients_referred_by` FOREIGN KEY (`referred_by_id`) REFERENCES `referred_persons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_patients_referred_doctor` FOREIGN KEY (`referred_to_doctor_id`) REFERENCES `doctors` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `patient_admissions`
+--
+ALTER TABLE `patient_admissions`
+  ADD CONSTRAINT `fk_pa_bed_id` FOREIGN KEY (`bed_id`) REFERENCES `beds` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pa_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pa_ward_id` FOREIGN KEY (`ward_id`) REFERENCES `wards` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
