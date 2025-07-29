@@ -11,7 +11,7 @@ use CodeIgniter\Files\File;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\I18n\Time;
 use App\Models\AppointmentModel;
-
+use App\Models\PatientAdmissionModel;
 
 class Patients extends BaseController
 {
@@ -22,20 +22,26 @@ class Patients extends BaseController
     protected $doctorModel;
     protected $referredPersonModel;
     protected $patientIdSequenceModel;
+    protected $patientAdmissionModel;
 
     public function __construct()
     {
-
+        // Initialize models
         $this->appointmentModel = new AppointmentModel();
         $this->patientModel = new PatientModel();
         $this->doctorModel = new DoctorModel();
         $this->referredPersonModel = new ReferredPersonModel();
         $this->patientIdSequenceModel = new PatientIdSequenceModel();
+        $this->patientAdmissionModel = new PatientAdmissionModel();
 
+        // Load helpers
         helper('form');
         helper('filesystem');
     }
 
+    /**
+     * Displays a list of all patients.
+     */
     public function index()
     {
         $data['title'] = 'Patient List';
@@ -43,6 +49,10 @@ class Patients extends BaseController
         return view('patients/patient_list', $data);
     }
 
+    /**
+     * Filters patients by various criteria (e.g., full name, date, etc.).
+     * This method is used for AJAX filtering on the patient list page.
+     */
     public function filter()
     {
         $field = $this->request->getGet('field');
@@ -72,34 +82,42 @@ class Patients extends BaseController
         return view('patients/partials/patient_table', ['patients' => $patients]);
     }
 
+    /**
+     * Displays the form to register a new patient.
+     */
     public function register()
     {
         $data['title'] = 'Register New Patient';
         $data['validation'] = \Config\Services::validation();
 
-        $doctorModel = new \App\Models\DoctorModel();
+        // Fetch doctors and referred persons for dropdowns
         $data['doctors'] = $this->doctorModel->findAllDoctors();
-
         $data['referred_persons'] = $this->referredPersonModel->findAll();
-        $data['patient'] = [];
+        $data['patient'] = []; // Empty patient array for new registration
 
+        // Set old input values for form fields, or default values
         $data['appointment_date'] = old('appointment_date', date('Y-m-d'));
         $data['appointment_time'] = old('appointment_time', date('H:i'));
-
         $data['reason_for_visit'] = old('reason_for_visit');
 
         return view('patients/register_patient', $data);
     }
 
+    /**
+     * Saves a new patient record or updates an existing one.
+     * Handles file uploads and appointment creation/update.
+     */
     public function save()
     {
         $session = session();
         $uploadDir = ROOTPATH . 'public/uploads/patient_reports/';
 
+        // Ensure upload directory exists
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
+        // Define file upload validation rules
         $fileValidationRules = [
             'upload_reports.*' => [
                 'rules' => 'max_size[upload_reports,5120]|ext_in[upload_reports,pdf,doc,docx,jpg,jpeg,png]',
@@ -110,20 +128,22 @@ class Patients extends BaseController
             ],
         ];
 
+        // Define appointment-related validation rules
         $appointmentValidation = [
-            // FIX: Changed 'doctor_id' from 'required' to 'permit_empty'
             'referred_to_doctor_id' => 'permit_empty|integer',
-            'appointment_date' => 'permit_empty|valid_date', // Also make date/time optional if doctor is optional
-            'appointment_time' => 'permit_empty|regex_match[/^(?:[01]\d|2[0-3]):[0-5]\d$/]', // Also make date/time optional if doctor is optional
+            'appointment_date' => 'permit_empty|valid_date',
+            'appointment_time' => 'permit_empty|regex_match[/^(?:[01]\d|2[0-3]):[0-5]\d$/]',
             'reason_for_visit' => 'permit_empty|string|max_length[1000]',
         ];
 
+        // Merge all validation rules
         $validationRules = array_merge(
             $this->patientModel->validationRules,
             $fileValidationRules,
             $appointmentValidation
         );
 
+        // Run validation
         if (!$this->validate($validationRules)) {
             $session->setFlashdata('error', 'Please correct the errors in the form.');
             $fileErrors = $this->validator->getErrors('upload_reports.*');
@@ -136,6 +156,7 @@ class Patients extends BaseController
         $patientId = $this->request->getPost('id');
         $currentReportFilenames = [];
 
+        // If updating an existing patient, retrieve current reports
         if (!empty($patientId)) {
             $existingPatient = $this->patientModel->find($patientId);
             if ($existingPatient && !empty($existingPatient['reports'])) {
@@ -143,6 +164,7 @@ class Patients extends BaseController
             }
         }
 
+        // Handle file uploads
         $files = $this->request->getFiles();
         if (isset($files['upload_reports'])) {
             foreach ($files['upload_reports'] as $file) {
@@ -156,10 +178,12 @@ class Patients extends BaseController
             }
         }
 
+        // Calculate final amount based on fee and discount
         $fee = (float) $this->request->getPost('fee');
         $discountPercentage = (float) $this->request->getPost('discount_percentage');
         $finalAmount = round($fee - ($fee * ($discountPercentage / 100)), 2);
 
+        // Prepare patient data for saving
         $data = [
             'first_name'                => $this->request->getPost('first_name'),
             'last_name'                 => $this->request->getPost('last_name'),
@@ -187,12 +211,12 @@ class Patients extends BaseController
 
         $appointmentModel = new \App\Models\AppointmentModel();
 
-        // INSERT
+        // Handle INSERT (new patient)
         if (empty($patientId)) {
             if ($this->patientModel->save($data)) {
                 $newId = $this->patientModel->getInsertID();
 
-                // Only attempt to save appointment if a doctor, date, and time are provided
+                // Create appointment if doctor, date, and time are provided
                 $referredDoctorId = $this->request->getPost('referred_to_doctor_id');
                 $appointmentDate = $this->request->getPost('appointment_date');
                 $appointmentTime = $this->request->getPost('appointment_time');
@@ -209,7 +233,7 @@ class Patients extends BaseController
                     $appointmentModel->insert($appointmentData);
                 }
 
-
+                // Prepare success message with generated IDs
                 $newPatient = $this->patientModel->find($newId);
                 $typeMsg = match ($newPatient['patient_type']) {
                     'OPD' => 'OPD ID: ' . ($newPatient['opd_id_code'] ?? 'N/A'),
@@ -227,14 +251,24 @@ class Patients extends BaseController
             }
         }
 
-        // UPDATE
+        // Handle UPDATE (existing patient)
         else {
+            // Ensure previous_patient_type is handled correctly on update
+            $existingPatient = $this->patientModel->find($patientId);
+            if ($existingPatient && $data['patient_type'] === 'IPD' && $existingPatient['patient_type'] !== 'IPD') {
+                $data['previous_patient_type'] = $existingPatient['patient_type'];
+            } elseif ($existingPatient && $data['patient_type'] !== 'IPD' && $existingPatient['patient_type'] === 'IPD') {
+                // If changing *from* IPD to another type (not discharged), clear previous_patient_type
+                $data['previous_patient_type'] = null;
+            }
+
+
             if ($this->patientModel->update($patientId, $data)) {
                 $referredDoctorId = $this->request->getPost('referred_to_doctor_id');
                 $appointmentDate = $this->request->getPost('appointment_date');
                 $appointmentTime = $this->request->getPost('appointment_time');
 
-                // Only update/insert appointment if a doctor, date, and time are provided
+                // Update/insert appointment if details are provided
                 if (!empty($referredDoctorId) && !empty($appointmentDate) && !empty($appointmentTime)) {
                     $appointmentData = [
                         'patient_id'        => $patientId,
@@ -255,7 +289,6 @@ class Patients extends BaseController
                 } else {
                     // If appointment details are removed from the form, and an existing appointment exists,
                     // you might want to delete it or set its status to cancelled.
-                    // For now, we'll just not update it if required fields are missing.
                     $existingAppointment = $appointmentModel->where('patient_id', $patientId)->first();
                     if ($existingAppointment && ($existingAppointment['status'] == 'Pending' || $existingAppointment['status'] == 'Confirmed')) {
                         // Optionally set to cancelled if details are removed
@@ -263,13 +296,14 @@ class Patients extends BaseController
                     }
                 }
 
-
+                // Prepare success message with updated IDs
                 $updatedPatient = $this->patientModel->find($patientId);
                 $typeMsg = match ($updatedPatient['patient_type']) {
                     'OPD' => 'OPD ID: ' . ($updatedPatient['opd_id_code'] ?? 'N/A'),
                     'IPD' => 'IPD ID: ' . ($updatedPatient['ipd_id_code'] ?? 'N/A'),
                     'General' => 'General ID: ' . ($updatedPatient['gen_id_code'] ?? 'N/A'),
                     'Casualty' => 'Casualty ID: ' . ($updatedPatient['cus_id_code'] ?? 'N/A'),
+                    'Discharged' => 'Discharged (No specific ID)', // Added for discharged patients
                     default => 'Type ID: N/A'
                 };
 
@@ -282,7 +316,12 @@ class Patients extends BaseController
         }
     }
 
-
+    /**
+     * Handles admitting a patient to IPD from the Patients list.
+     * This method will update the patient's type and potentially create an initial admission record.
+     *
+     * @return \CodeIgniter\HTTP\Response
+     */
     public function admitToIPD()
     {
         if (!$this->request->isAJAX()) {
@@ -295,39 +334,122 @@ class Patients extends BaseController
             return $this->failValidationErrors('Patient ID is required.');
         }
 
-        $admissionData = $this->request->getPost();
+        // Access the database connection from BaseController
+        $db = \Config\Database::connect();
+        $db->transBegin(); // Start transaction
 
-        $admitted = $this->patientModel->admitPatientToIPD((int)$patientId, $admissionData);
+        try {
+            // Update patient type to IPD and store previous type
+            $patientUpdateSuccess = $this->patientModel->admitPatientToIPD((int)$patientId, []);
 
-        if ($admitted) {
-            $updatedPatient = $this->patientModel->find($patientId);
-            return $this->respondCreated(['success' => true, 'message' => 'Patient successfully admitted to IPD.', 'patient' => $updatedPatient]);
-        } else {
-            return $this->fail('Failed to admit patient to IPD.', 500);
+            if (!$patientUpdateSuccess) {
+                $db->transRollback();
+                return $this->respondCreated(['success' => false, 'message' => 'Failed to update patient type to IPD.']);
+            }
+
+            // Create a new patient_admission record with 'Waiting Assignment' status
+            $admissionData = [
+                'patient_id' => (int)$patientId,
+                'admission_date' => date('Y-m-d H:i:s'),
+                'admission_status' => 'Waiting Assignment',
+                'notes' => 'Admitted to IPD, awaiting ward/bed assignment.',
+            ];
+
+            $admissionId = $this->patientAdmissionModel->insert($admissionData); // Use the initialized model
+
+            if (!$admissionId) {
+                $db->transRollback();
+                return $this->respondCreated(['success' => false, 'message' => 'Failed to create initial IPD admission record.']);
+            }
+
+            if ($db->transStatus() === false) {
+                $db->transRollback();
+                return $this->respondCreated(['success' => false, 'message' => 'Transaction failed during IPD admission.']);
+            } else {
+                $db->transCommit();
+                return $this->respondCreated(['success' => true, 'message' => 'Patient admitted to IPD successfully. Please assign a ward and bed.']);
+            }
+
+        } catch (\Exception $e) {
+            $db->transRollback();
+            log_message('error', 'Exception during admitToIPD for patient ID ' . $patientId . ': ' . $e->getMessage());
+            return $this->fail('An error occurred during IPD admission.', 500);
         }
     }
 
 
+    /**
+     * Downloads or displays a patient report based on its MIME type.
+     *
+     * @param string $filename The name of the file to download/display.
+     */
     public function downloadReport($filename)
     {
-        $publicFilePath = ROOTPATH . 'public/uploads/patient_reports/' . $filename;
-        $legacyFilePath = WRITEPATH . 'uploads/patient_reports/' . $filename;
+        // --- DEBUGGING START ---
+        log_message('debug', 'downloadReport: Function called for filename: ' . $filename);
+        // --- DEBUGGING END ---
 
-        $filePathToDownload = null;
+        // Define potential file paths
+        // Using FCPATH for direct access to the public folder from the root of the CodeIgniter project.
+        $publicFilePath = FCPATH . 'public/uploads/patient_reports/' . $filename; 
+        
+        // --- DEBUGGING START ---
+        log_message('debug', 'downloadReport: Checking file path: ' . $publicFilePath);
+        // --- DEBUGGING END ---
+
+        $filePathToServe = null;
 
         if (file_exists($publicFilePath)) {
-            $filePathToDownload = $publicFilePath;
-        } elseif (file_exists($legacyFilePath)) {
-            $filePathToDownload = $legacyFilePath;
-        }
-
-        if (!$filePathToDownload) {
+            $filePathToServe = $publicFilePath;
+            // --- DEBUGGING START ---
+            log_message('debug', 'downloadReport: File found at: ' . $publicFilePath);
+            // --- DEBUGGING END ---
+        } else {
+            // --- DEBUGGING START ---
+            log_message('error', 'downloadReport: File NOT found at expected path: ' . $publicFilePath);
+            // --- DEBUGGING END ---
             throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found: ' . $filename);
         }
 
-        return $this->response->download($filePathToDownload, null);
+        // Determine MIME type
+        $mime = mime_content_type($filePathToServe);
+        // --- DEBUGGING START ---
+        log_message('debug', 'downloadReport: Determined MIME type: ' . $mime);
+        // --- DEBUGGING END ---
+
+        // List of MIME types that browsers can typically display inline
+        $inlineMimeTypes = [
+            'application/pdf',
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+            'image/webp',
+        ];
+
+        if (in_array($mime, $inlineMimeTypes)) {
+            // Set content type and send file for inline display
+            $this->response->setHeader('Content-Type', $mime);
+            $this->response->setHeader('Content-Disposition', 'inline; filename="' . basename($filename) . '"');
+            $this->response->setBody(file_get_contents($filePathToServe));
+            
+            // --- DEBUGGING START ---
+            log_message('debug', 'downloadReport: Sending file for INLINE display. Headers: Content-Type: ' . $mime . ', Content-Disposition: inline');
+            // --- DEBUGGING END ---
+            return $this->response;
+        } else {
+            // For other file types, force download
+            // --- DEBUGGING START ---
+            log_message('info', 'downloadReport: Forcing DOWNLOAD for file (MIME type: ' . $mime . '). Headers: Content-Disposition: attachment');
+            // --- DEBUGGING END ---
+            return $this->response->download($filePathToServe, null);
+        }
     }
 
+    /**
+     * Displays details of a specific patient.
+     *
+     * @param int $id The ID of the patient to view.
+     */
     public function view($id = null)
     {
         $patient = $this->patientModel->find($id);
@@ -356,7 +478,11 @@ class Patients extends BaseController
         ]);
     }
 
-
+    /**
+     * Displays the form to edit an existing patient.
+     *
+     * @param int $id The ID of the patient to edit.
+     */
     public function edit($id = null)
     {
         $data['title'] = 'Edit Patient';
@@ -384,7 +510,11 @@ class Patients extends BaseController
         return view('patients/register_patient', $data);
     }
 
-
+    /**
+     * Deletes a patient record.
+     *
+     * @param int $id The ID of the patient to delete.
+     */
     public function delete($id = null)
     {
         $session = session();
@@ -396,6 +526,9 @@ class Patients extends BaseController
         return redirect()->to('/patients');
     }
 
+    /**
+     * Deletes a specific report file via AJAX.
+     */
     public function deleteReportFile()
     {
         if ($this->request->isAJAX()) {
@@ -493,5 +626,18 @@ class Patients extends BaseController
         $data['doctor_name'] = $session->get('first_name') . ' ' . $session->get('last_name');
 
         return view('doctors/patients_list', $data);
+    }
+
+    /**
+     * Displays a list of all discharged patients.
+     */
+    public function dischargedPatients()
+    {
+        $data = [
+            'title' => 'Discharged Patients List',
+            // Fetch patients where patient_type is 'Discharged'
+            'patients' => $this->patientModel->where('patient_type', 'Discharged')->orderBy('created_at', 'DESC')->findAll()
+        ];
+        return view('patients/discharged_patients', $data);
     }
 }

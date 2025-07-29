@@ -3,13 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\WardModel;
-use App\Models\BedModel;
+use App\Models\BedModel; // Ensure BedModel is used if its methods are called within Wards controller
 use CodeIgniter\Controller;
 
 class Wards extends BaseController
 {
     protected $wardModel;
-    protected $bedModel;
+    protected $bedModel; // Keep this as it's used in your provided code (e.g., in delete, addBedsToWard)
 
     public function __construct()
     {
@@ -51,6 +51,7 @@ class Wards extends BaseController
     public function store()
     {
         // Validate the incoming request data
+        // Assuming WardModel has validation rules defined
         if (!$this->validate($this->wardModel->validationRules)) {
             // If validation fails, redirect back to the form with input and errors
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -119,11 +120,15 @@ class Wards extends BaseController
             return redirect()->to(base_url('wards'));
         }
 
-        // Set the ID for unique validation rule to ignore current record
-        $this->wardModel->setValidationRule('name', "required|min_length[3]|max_length[100]|is_unique[wards.name,id,{$id}]");
-
-        // Validate the incoming request data
-        if (!$this->validate($this->wardModel->validationRules)) {
+        // IMPORTANT: Temporarily set the validation rule for 'name' to allow self-update
+        // This assumes your WardModel has a 'name' rule.
+        $validationRules = $this->wardModel->validationRules;
+        if (isset($validationRules['name'])) {
+            $validationRules['name'] = "required|min_length[3]|max_length[100]|is_unique[wards.name,id,{$id}]";
+        }
+        
+        // Validate the incoming request data using the modified rules
+        if (!$this->validate($validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -155,7 +160,6 @@ class Wards extends BaseController
             if ($newPrefix !== $oldPrefix) {
                 $this->regenerateAllBedsForWard($id, $newPrefix, $newCapacity);
             }
-
 
             session()->setFlashdata('success', 'Ward and its beds updated successfully!');
             return redirect()->to(base_url('wards'));
@@ -193,7 +197,13 @@ class Wards extends BaseController
      */
     protected function generateBedsForWard(int $wardId, string $prefix, int $capacity)
     {
-        $bedNumbers = $this->bedModel->generateBedNumbers($prefix, $capacity, 1); // Start from 1 for new ward
+        // Ensure BedModel has generateBedNumbers method or replace with direct logic
+        // For now, assuming generateBedNumbers exists and returns an array of bed numbers
+        // Example: ['BED-1', 'BED-2']
+        $bedNumbers = [];
+        for ($i = 1; $i <= $capacity; $i++) {
+            $bedNumbers[] = strtoupper($prefix) . '-' . $i;
+        }
 
         $bedsToInsert = [];
         foreach ($bedNumbers as $bedNum) {
@@ -220,28 +230,43 @@ class Wards extends BaseController
     protected function addBedsToWard(int $wardId, string $prefix, int $newCapacity, int $oldCapacity)
     {
         // Get the highest bed number ever used for this ward, including soft-deleted ones
-        $highestExistingNumber = $this->bedModel->getHighestBedNumber($wardId, $prefix);
+        // This method should be in BedModel
+        $highestExistingBed = $this->bedModel->where('ward_id', $wardId)
+                                             ->withDeleted() // Include soft-deleted records
+                                             ->orderBy('id', 'DESC') // Order by ID to get the latest created bed
+                                             ->first();
 
-        // Calculate the starting number for new beds. If no beds exist, start from 1.
-        // Otherwise, start from highestExistingNumber + 1
+        $highestExistingNumber = 0;
+        if ($highestExistingBed) {
+            // Extract numeric part from bed_number (e.g., "BED-5" -> 5)
+            $parts = explode('-', $highestExistingBed['bed_number']);
+            if (count($parts) > 1 && is_numeric(end($parts))) {
+                $highestExistingNumber = (int)end($parts);
+            }
+        }
+
         $startNumberForNewBeds = $highestExistingNumber > 0 ? $highestExistingNumber + 1 : 1;
 
         $bedsToInsert = [];
-        for ($i = $startNumberForNewBeds; $i <= $startNumberForNewBeds + ($newCapacity - $oldCapacity) -1 ; $i++) {
-             // Check if a bed with this number and prefix already exists (even if soft-deleted)
+        for ($i = $startNumberForNewBeds; $i <= $newCapacity; $i++) { // Loop up to newCapacity
+            $fullBedNumber = strtoupper($prefix) . '-' . $i;
+
+            // Check if a bed with this full bed number already exists (even if soft-deleted)
             $existingBed = $this->bedModel->where('ward_id', $wardId)
-                                          ->where('bed_number', strtoupper($prefix) . '-' . $i)
+                                          ->where('bed_number', $fullBedNumber)
                                           ->withDeleted() // Include soft-deleted records in search
                                           ->first();
 
             if ($existingBed) {
-                // If exists, restore it (undelete) and update its status to Available
-                $this->bedModel->update($existingBed['id'], ['deleted_at' => null, 'status' => 'Available']);
+                // If exists and is soft-deleted, restore it and update its status to Available
+                if ($existingBed['deleted_at'] !== null) {
+                    $this->bedModel->update($existingBed['id'], ['deleted_at' => null, 'status' => 'Available']);
+                }
             } else {
                 // If not exists, create a new one
                 $bedsToInsert[] = [
                     'ward_id'    => $wardId,
-                    'bed_number' => strtoupper($prefix) . '-' . $i,
+                    'bed_number' => $fullBedNumber,
                     'status'     => 'Available',
                 ];
             }
@@ -264,31 +289,28 @@ class Wards extends BaseController
      */
     protected function removeBedsFromWard(int $wardId, string $prefix, int $newCapacity, int $oldCapacity)
     {
-        // Get all beds for the ward, ordered by bed number descending
-        // We need to fetch all beds to correctly identify which ones to remove based on the new capacity.
-        $bedsToRemove = $this->bedModel->where('ward_id', $wardId)
-                                       ->orderBy('id', 'DESC') // Order by ID to ensure consistent removal
-                                       ->findAll();
+        // Get all currently active beds for the ward, ordered by bed number descending
+        $beds = $this->bedModel->where('ward_id', $wardId)
+                               ->orderBy('bed_number', 'DESC') // Order by bed_number to remove highest first
+                               ->findAll();
 
-        // Filter out beds that should remain based on the new capacity.
-        // We need to parse the bed_number to get the numeric part for comparison.
         $bedsToDeleteIds = [];
-        $currentBedCount = 0;
+        $bedsToKeepCount = 0;
 
-        // Sort beds by their numeric part in descending order
-        usort($bedsToRemove, function($a, $b) use ($prefix) {
-            $numA = (int)str_replace($prefix . '-', '', $a['bed_number']);
-            $numB = (int)str_replace($prefix . '-', '', $b['bed_number']);
-            return $numB <=> $numA; // Descending order
-        });
-
-        foreach ($bedsToRemove as $bed) {
+        foreach ($beds as $bed) {
             // Extract the numeric part of the bed_number (e.g., from GEN-5 get 5)
             $numericPart = (int)str_replace($prefix . '-', '', $bed['bed_number']);
 
-            // If the numeric part is greater than the new capacity, mark for deletion
             if ($numericPart > $newCapacity) {
-                $bedsToDeleteIds[] = $bed['id'];
+                // If the numeric part is greater than the new capacity, mark for deletion
+                // But only if it's not currently occupied
+                if ($bed['status'] === 'Available' || $bed['status'] === 'Under Maintenance' || $bed['status'] === 'Dirty') {
+                     $bedsToDeleteIds[] = $bed['id'];
+                } else {
+                    // Log or handle: Cannot delete occupied bed
+                    session()->setFlashdata('error', "Cannot reduce capacity. Bed " . $bed['bed_number'] . " is currently occupied.");
+                    // You might want to prevent the update entirely or just skip this bed
+                }
             }
         }
 
@@ -297,6 +319,7 @@ class Wards extends BaseController
             $this->bedModel->delete($bedsToDeleteIds);
         }
     }
+
 
     /**
      * Regenerates all beds for a ward, typically when the prefix changes.
@@ -313,5 +336,21 @@ class Wards extends BaseController
 
         // Generate and insert new beds with the new prefix
         $this->generateBedsForWard($wardId, $newPrefix, $capacity);
+    }
+
+    /**
+     * AJAX endpoint to get all wards.
+     * Used for populating dropdowns in other parts of the system.
+     * @return \CodeIgniter\HTTP\Response
+     */
+    public function getWards()
+    {
+        // Ensure it's an AJAX request to prevent direct access
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(403)->setJSON(['error' => 'Forbidden']);
+        }
+
+        $wards = $this->wardModel->findAll();
+        return $this->response->setJSON($wards);
     }
 }

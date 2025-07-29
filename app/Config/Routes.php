@@ -17,6 +17,10 @@ $routes->get('/logout', 'Auth::logout');
 // Dashboard route (will be protected)
 $routes->get('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth' filter here
 
+// New: Top-level route for Discharged Patients List
+// This matches the sidebar link base_url('discharged-patients')
+$routes->get('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
+
 
 // Patients
 $routes->group('patients', ['filter' => 'auth'], function ($routes) {
@@ -31,6 +35,8 @@ $routes->group('patients', ['filter' => 'auth'], function ($routes) {
     $routes->post('deleteReportFile', 'Patients::deleteReportFile');
     $routes->post('admitToIPD', 'Patients::admitToIPD');
     $routes->get('getPatientsByPhone', 'Patients::getPatientsByPhone');
+    // Removed the nested 'discharged' route here as it's now top-level
+    // $routes->get('discharged', 'Patients::dischargedPatients');
 });
 
 // New: General Management Routes (now in its own controller)
@@ -48,6 +54,14 @@ $routes->group('ipd', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'IpdController::index');
     $routes->post('removeFromIPD', 'IpdController::removeFromIPD');
     $routes->post('dischargePatient', 'IpdController::dischargePatient');
+
+    // --- Critical New Routes for Ward/Bed Assignment AJAX ---
+    $routes->get('getAvailableBedsByWard/(:num)', 'IpdController::getAvailableBedsByWard/$1');
+    $routes->get('getPatientAdmissionDetails/(:num)', 'IpdController::getPatientAdmissionDetails/$1');
+    
+    // Simplified POST route for assignWardBed
+    $routes->post('assignWardBed', 'IpdController::assignWardBed'); 
+    // --- END Critical New Routes ---
 });
 
 // New: Casualty Management Routes
@@ -113,6 +127,7 @@ $routes->group('wards', ['filter' => 'auth'], function ($routes) {
     $routes->get('edit/(:num)', 'Wards::edit/$1');
     $routes->post('update/(:num)', 'Wards::update/$1');
     $routes->get('delete/(:num)', 'Wards::delete/$1');
+    $routes->get('getWards', 'Wards::getWards');
 });
 
 // --- NEW HOSPITAL RESOURCES ROUTES: BEDS ---
@@ -122,4 +137,5 @@ $routes->group('beds', ['filter' => 'auth'], function ($routes) {
     $routes->get('filter/(:num)', 'Beds::filter/$1');
     // Route for updating bed status via AJAX
     $routes->post('updateStatus/(:num)', 'Beds::updateStatus/$1');
+    $routes->get('getBedDetails/(:num)', 'Beds::getBedDetails/$1');
 });

@@ -109,9 +109,35 @@ class Beds extends BaseController
         return $this->response->setJSON(['success' => false, 'message' => 'Invalid request method.']);
     }
 
-  
+    /**
+     * This method is essentially the same as index, but kept for clarity if you want
+     * a dedicated route for filtering. The index method already handles the optional $wardId.
+     *
+     * @param int $wardId The ID of the ward to filter beds by.
+     */
     public function filter($wardId)
     {
         return $this->index($wardId);
+    }
+
+    /**
+     * AJAX endpoint to get details of a single bed.
+     * Used for populating the current bed in the IPD assignment modal if it's not "Available".
+     * @param int $id The ID of the bed.
+     * @return \CodeIgniter\HTTP\Response
+     */
+    public function getBedDetails($id)
+    {
+        // Ensure it's an AJAX request to prevent direct access
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(403)->setJSON(['error' => 'Forbidden']);
+        }
+
+        $bed = $this->bedModel->find($id);
+        if ($bed) {
+            return $this->response->setJSON(['success' => true, 'bed' => $bed]);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Bed not found.']);
+        }
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use CodeIgniter\I18n\Time; // Make sure this is included for date formatting
+use CodeIgniter\I18n\Time;
 
 class PatientModel extends Model
 {
@@ -234,13 +234,13 @@ class PatientModel extends Model
             // Ensure previous_patient_type is only set if it's not already IPD or Discharged
             // This prevents overwriting a meaningful previous type if admitting from an already IPD/Discharged state
             if (!in_array($patient['patient_type'], ['IPD', 'Discharged'])) {
-                 $updateData['previous_patient_type'] = $patient['patient_type'];
-                 log_message('info', 'Storing previous patient type ' . $patient['patient_type'] . ' for patient ' . $patientId . ' before IPD admission.');
+                $updateData['previous_patient_type'] = $patient['patient_type'];
+                log_message('info', 'Storing previous patient type ' . $patient['patient_type'] . ' for patient ' . $patientId . ' before IPD admission.');
             } else {
-                 // If patient was already IPD/Discharged, we might want to clear previous_patient_type
-                 // or handle it differently based on your specific re-admission logic.
-                 // For now, setting to null to ensure clarity.
-                 $updateData['previous_patient_type'] = null;
+                // If patient was already IPD/Discharged, we might want to clear previous_patient_type
+                // or handle it differently based on your specific re-admission logic.
+                // For now, setting to null to ensure clarity.
+                $updateData['previous_patient_type'] = null;
             }
 
             if (empty($patient['ipd_id_code'])) {
@@ -300,7 +300,7 @@ class PatientModel extends Model
 
             $updateData = [
                 'patient_type' => $revertType,
-                'ipd_id_code' => null, // Clear IPD ID
+                'ipd_id_code' => null, // This is intended for "revert" as they are no longer IPD
                 'previous_patient_type' => null, // Clear previous type after reverting for cleanup
             ];
 
@@ -325,7 +325,7 @@ class PatientModel extends Model
 
     /**
      * Marks an IPD patient as 'Discharged'.
-     * Clears IPD-specific details.
+     * This method will now retain the ipd_id_code.
      *
      * @param int $patientId The ID of the patient to discharge.
      * @return bool True on success, false otherwise.
@@ -341,13 +341,29 @@ class PatientModel extends Model
                 return false;
             }
 
+            // --- DEBUGGING START ---
+            log_message('debug', 'PatientModel::markAsDischarged - Patient ID: ' . $patientId);
+            log_message('debug', 'PatientModel::markAsDischarged - Patient data BEFORE update: ' . json_encode($patient));
+            // --- DEBUGGING END ---
+
             $updateData = [
                 'patient_type' => 'Discharged',
-                'ipd_id_code' => null, // Clear IPD ID
-                'previous_patient_type' => null, // Clear previous type on discharge for cleanup
+                // REMOVED: 'ipd_id_code' => null, // This line was causing the IPD ID to be nulled.
+                                                // By removing it, the existing ipd_id_code will be preserved.
+                'previous_patient_type' => null, // Clearing previous type on discharge is usually fine.
             ];
 
+            // Explicitly ensure ipd_id_code is NOT set to null if it exists
+            // If it's not in $updateData, CodeIgniter will not touch it, preserving its value.
+            // No need to add it to $updateData if it's already there and we don't want to change it.
+            // The only change needed is to remove the line that explicitly sets it to null.
+
             $this->update($patientId, $updateData);
+
+            // --- DEBUGGING START ---
+            $updatedPatient = $this->find($patientId); // Re-fetch to see actual state after update
+            log_message('debug', 'PatientModel::markAsDischarged - Patient data AFTER update: ' . json_encode($updatedPatient));
+            // --- DEBUGGING END ---
 
             if ($this->db->transStatus() === false) {
                 $this->db->transRollback();
@@ -355,7 +371,7 @@ class PatientModel extends Model
                 return false;
             } else {
                 $this->db->transCommit();
-                log_message('info', 'Patient ' . $patientId . ' discharged.');
+                log_message('info', 'Patient ' . $patientId . ' discharged. IPD ID: ' . ($patient['ipd_id_code'] ?? 'N/A') . ' retained.');
                 return true;
             }
 

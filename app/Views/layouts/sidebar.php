@@ -14,19 +14,20 @@
                 <li class="nav-item">
                     <?php if (session()->get('role_id') == 1): ?>
                         <a href="<?= base_url('dashboard') ?>" class="nav-link <?= uri_string() == 'dashboard' ? 'active' : '' ?>">
-                    <?php elseif (session()->get('role_id') == 2): ?>
-                        <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link <?= uri_string() == 'doctor/dashboard' ? 'active' : '' ?>">
-                    <?php else: ?>
-                        <a href="<?= base_url('dashboard') ?>" class="nav-link <?= uri_string() == 'dashboard' ? 'active' : '' ?>">
-                    <?php endif; ?>
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
-                    </a>
+                        <?php elseif (session()->get('role_id') == 2): ?>
+                            <a href="<?= base_url('doctor/dashboard') ?>" class="nav-link <?= uri_string() == 'doctor/dashboard' ? 'active' : '' ?>">
+                            <?php else: ?>
+                                <a href="<?= base_url('dashboard') ?>" class="nav-link <?= uri_string() == 'dashboard' ? 'active' : '' ?>">
+                                <?php endif; ?>
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Dashboard</p>
+                                </a>
                 </li>
 
-                <?php if (session()->get('role_id') == 1): // Admin-only sections ?>
+                <?php if (session()->get('role_id') == 1): // Admin-only sections 
+                ?>
                     <!-- Patient Management -->
-                    <?php $isPatientManagementActive = url_is('patients*') || url_is('opd*') || url_is('ipd*') || url_is('casualty*') || url_is('medical-records*') || url_is('general*'); ?>
+                    <?php $isPatientManagementActive = url_is('patients*') || url_is('opd*') || url_is('ipd*') || url_is('casualty*') || url_is('medical-records*') || url_is('general*') || url_is('discharged-patients*'); ?>
                     <li class="nav-item <?= $isPatientManagementActive ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= $isPatientManagementActive ? 'active' : '' ?>">
                             <i class="nav-icon fas fa-hospital-user"></i>
@@ -78,11 +79,19 @@
                                     <p>Medical Records</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('discharged-patients') ?>" class="nav-link <?= uri_string() == 'discharged-patients' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-user-check"></i> <!-- New icon for discharged patients -->
+                                    <p>Discharged Patients</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
+
                     <!-- Doctor Management (Admin only) -->
-                    <?php $isDoctorManagementActive = url_is('doctors*') && !url_is('doctor/appointments*'); // Exclude doctor's own panel from this ?>
+                    <?php $isDoctorManagementActive = url_is('doctors*') && !url_is('doctor/appointments*'); // Exclude doctor's own panel from this 
+                    ?>
                     <li class="nav-item <?= $isDoctorManagementActive ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= $isDoctorManagementActive ? 'active' : '' ?>">
                             <i class="nav-icon fas fa-user-md"></i>
@@ -442,9 +451,11 @@
                             </li>
                         </ul>
                     </li>
-                <?php endif; // End Admin-only sections ?>
+                <?php endif; // End Admin-only sections 
+                ?>
 
-                <?php if (session()->get('role_id') == 2): // Doctor-specific sections ?>
+                <?php if (session()->get('role_id') == 2): // Doctor-specific sections 
+                ?>
                     <!-- Doctor's Appointment Management -->
                     <?php $isDoctorAppointmentActive = url_is('doctor/appointments*'); ?>
                     <li class="nav-item <?= $isDoctorAppointmentActive ? 'menu-open' : '' ?>">
@@ -538,7 +549,8 @@
                         </ul>
                     </li>
 
-                <?php endif; // End Doctor-specific sections ?>
+                <?php endif; // End Doctor-specific sections 
+                ?>
 
                 <!-- Logout Link (Visible to all authenticated users) -->
                 <li class="nav-item">
