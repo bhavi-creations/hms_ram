@@ -9,6 +9,9 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
+// Import the UserModel to fetch role details if not already in session
+// You might need to adjust this namespace if your UserModel is in a different location,
+// e.g., use App\Models\HMS\UserModel;
 use App\Models\UserModel; // Assuming your UserModel is directly in App\Models
 
 
@@ -67,14 +70,12 @@ abstract class BaseController extends Controller
             // redirect them to the login page.
             // Adjust 'login' route as per your application's actual login URL.
             // Ensure public routes (like login, register) do not extend BaseController or bypass this check.
-            // FIX: Correctly access the URI path
-            if ($request->getUri()->getPath() !== 'login' && $request->getUri()->getPath() !== 'register') { // Adjust paths as needed
+            if ($request->uri->getPath() !== 'login' && $request->uri->getPath() !== 'register') { // Adjust paths as needed
                  return redirect()->to(site_url('login'))->with('error', 'Please log in to access this page.');
             }
         } else {
             // User is logged in, now check roles for pharmacy access
-            // FIX: Correctly access the URI path for segment
-            $currentRoute = $request->getUri()->getSegment(1); // Gets the first segment of the URL, e.g., 'pharmacy'
+            $currentRoute = $request->uri->getSegment(1); // Gets the first segment of the URL, e.g., 'pharmacy'
 
             if ($currentRoute === 'pharmacy') {
                 $userRoleId = $this->session->get('role_id'); // Assuming role_id is stored in session

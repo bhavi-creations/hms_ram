@@ -79,13 +79,11 @@
         <?= $this->include('layouts/footer') ?>
     </div>
 
-    <script src="<?= base_url('assets/adminlte/plugins/jquery/jquery.min.js') ?>"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="<?= base_url('public/plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
-    <script src="<?= base_url('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -125,10 +123,23 @@
         });
     </script>
 
+
+
+
+
+
+    <script src="<?= base_url('assets/adminlte/plugins/jquery/jquery.min.js') ?>"></script>
+    <script src="<?= base_url('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= base_url('assets/adminlte/dist/js/adminlte.min.js') ?>"></script>
+
     <script src="<?= base_url('assets/adminlte/plugins/select2/js/select2.full.min.js') ?>"></script>
     <script src="<?= base_url('assets/adminlte/plugins/moment/moment.js') ?>"></script>
 
     <?= $this->renderSection('scripts') ?>
+</body>
+
+</html>
+<?= $this->renderSection('scripts') ?>
 </body>
 
 </html>

@@ -41,7 +41,7 @@ $routes->group('patients', ['filter' => 'auth'], function ($routes) {
 
 // New: General Management Routes (now in its own controller)
 $routes->group('general', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'GeneralController::index'); // Points to the new GeneralController
+    $routes->get('/', 'GeneralController::index');
 });
 
 
@@ -58,9 +58,9 @@ $routes->group('ipd', ['filter' => 'auth'], function ($routes) {
     // --- Critical New Routes for Ward/Bed Assignment AJAX ---
     $routes->get('getAvailableBedsByWard/(:num)', 'IpdController::getAvailableBedsByWard/$1');
     $routes->get('getPatientAdmissionDetails/(:num)', 'IpdController::getPatientAdmissionDetails/$1');
-    
+
     // Simplified POST route for assignWardBed
-    $routes->post('assignWardBed', 'IpdController::assignWardBed'); 
+    $routes->post('assignWardBed', 'IpdController::assignWardBed');
     // --- END Critical New Routes ---
 });
 
@@ -138,4 +138,96 @@ $routes->group('beds', ['filter' => 'auth'], function ($routes) {
     // Route for updating bed status via AJAX
     $routes->post('updateStatus/(:num)', 'Beds::updateStatus/$1');
     $routes->get('getBedDetails/(:num)', 'Beds::getBedDetails/$1');
+});
+
+
+
+
+
+
+
+
+
+
+
+// Pharmacy Routes
+
+
+$routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function ($routes) {
+
+    // Pharmacy Dashboard
+    $routes->get('/', 'Dashboard::index');
+    $routes->get('dashboard', 'Dashboard::index'); // Alias for /pharmacy
+
+    // Medicine Management (PharmacyMedicinesController)
+    $routes->get('medicines', 'Medicines::index');
+    $routes->get('medicines/create', 'Medicines::create');
+    $routes->post('medicines/store', 'Medicines::store');
+    $routes->get('medicines/edit/(:num)', 'Medicines::edit/$1');
+    $routes->post('medicines/update/(:num)', 'Medicines::update/$1');
+    $routes->post('medicines/delete/(:num)', 'Medicines::delete/$1'); // Using POST for delete for safety
+
+    // Medicine Batches
+    $routes->get('medicines/batches/(:num)', 'Medicines::batches/$1');
+    $routes->get('medicines/add-batch/(:num)', 'Medicines::addBatch/$1');
+    $routes->post('medicines/store-batch', 'Medicines::storeBatch');
+    $routes->get('medicines/edit-batch/(:num)', 'Medicines::editBatch/$1');
+    $routes->post('medicines/update-batch/(:num)', 'Medicines::updateBatch/$1');
+
+    // Stock Adjustments
+    $routes->match(['get', 'post'], 'medicines/adjust-stock', 'Medicines::adjustStock'); // Handles both form display and submission
+
+    // Sales Management (PharmacySalesController)
+    $routes->get('sales', 'Sales::index'); // POS Panel
+    $routes->post('sales/process', 'Sales::processSale');
+    $routes->get('sales/invoice/(:num)', 'Sales::invoice/$1');
+    $routes->get('sales/list', 'Sales::listSales'); // Sales History/Reports view
+
+    // Purchases Management (PharmacyPurchasesController)
+    $routes->get('purchases', 'Purchases::index');
+    $routes->get('purchases/create', 'Purchases::create');
+    $routes->post('purchases/store', 'Purchases::store');
+    $routes->get('purchases/view/(:num)', 'Purchases::view/$1');
+    $routes->match(['get', 'post'], 'purchases/receive-stock/(:num)', 'Purchases::receiveStock/$1'); // Handles stock receiving
+
+    // Supplier Management (PharmacySuppliersController)
+    $routes->get('suppliers', 'Suppliers::index');
+    $routes->get('suppliers/create', 'Suppliers::create');
+    $routes->post('suppliers/store', 'Suppliers::store');
+    $routes->get('suppliers/edit/(:num)', 'Suppliers::edit/$1');
+    $routes->post('suppliers/update/(:num)', 'Suppliers::update/$1');
+    $routes->post('suppliers/delete/(:num)', 'Suppliers::delete/$1');
+
+    // Returns Management (PharmacyReturnsController)
+    $routes->get('returns', 'Returns::index'); // List pending/all returns
+    $routes->get('returns/create', 'Returns::create'); // Initiate a return
+    $routes->post('returns/store', 'Returns::store');
+    $routes->get('returns/approve/(:num)', 'Returns::approve/$1'); // Manager approval form
+    $routes->post('returns/process-approval/(:num)', 'Returns::processApproval/$1');
+
+    // Reports (PharmacyReportsController)
+    $routes->get('reports', 'Reports::index');
+    $routes->get('reports/sales', 'Reports::sales');
+    $routes->get('reports/stock', 'Reports::stock');
+    $routes->get('reports/expiry', 'Reports::expiry');
+    $routes->get('reports/purchases', 'Reports::purchases');
+
+    // Category Management (PharmacyCategoriesController - if kept separate)
+    $routes->get('categories', 'Categories::index');
+    $routes->get('categories/create', 'Categories::create');
+    $routes->post('categories/store', 'Categories::store');
+    $routes->get('categories/edit/(:num)', 'Categories::edit/$1');
+    $routes->post('categories/update/(:num)', 'Categories::update/$1');
+    $routes->post('categories/delete/(:num)', 'Categories::delete/$1');
+});
+
+
+ 
+$routes->group('api', function($routes){
+    $routes->get('get-doctors', 'Api::getDoctors'); // Maps /api/get-doctors to Api controller's getDoctors method
+});
+
+$routes->group('pharmacy', function($routes){
+    $routes->get('medicines/get-batches-by-medicine/(:num)', 'Pharmacy\Medicine::getBatchesByMedicine/$1');
+    // Make sure this route is correct based on your controller structure
 });

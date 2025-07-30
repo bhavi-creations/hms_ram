@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="Main Header Component | AdminLTE 4" />
     <meta name="author" content="ColorlibHQ" />
-
+    
     <meta
         name="description"
         content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS." />
@@ -37,10 +37,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <link rel="stylesheet" href="<?= base_url('assets/adminlte/plugins/select2/css/select2.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/adminlte/plugins/select2/css/select2-bootstrap4.min.css') ?>">
-
-
     <style>
         [data-astro-image] {
             width: 100%;
@@ -66,8 +62,8 @@
     <div class="app-wrapper">
 
         <?= $this->include('layouts/navbar') ?>
-        <?= $this->include('layouts/sidebar') ?>
-
+        <?= $this->include('layouts/sidebar') ?> 
+        
         <main class="app-main">
             <div class="app-content-header">
                 <div class="container-fluid">
@@ -79,13 +75,11 @@
         <?= $this->include('layouts/footer') ?>
     </div>
 
-    <script src="<?= base_url('assets/adminlte/plugins/jquery/jquery.min.js') ?>"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="<?= base_url('public/plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
-    <script src="<?= base_url('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -124,9 +118,6 @@
             }
         });
     </script>
-
-    <script src="<?= base_url('assets/adminlte/plugins/select2/js/select2.full.min.js') ?>"></script>
-    <script src="<?= base_url('assets/adminlte/plugins/moment/moment.js') ?>"></script>
 
     <?= $this->renderSection('scripts') ?>
 </body>

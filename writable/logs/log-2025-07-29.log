@@ -318,3 +318,76 @@ DEBUG - 2025-07-29 05:00:27 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2025-07-29 05:00:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-07-29 05:00:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-07-29 05:01:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:32:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:44:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-29 05:44:53 --> CodeIgniter\HTTP\Exceptions\HTTPException: Failed to parse JSON string. Error: Syntax error
+[Method: POST, Route: patients/deleteReportFile]
+in SYSTEMPATH\HTTP\IncomingRequest.php on line 537.
+ 1 SYSTEMPATH\HTTP\IncomingRequest.php(537): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidJSON('Syntax error')
+ 2 APPPATH\Controllers\Patients.php(535): CodeIgniter\HTTP\IncomingRequest->getJSON()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->deleteReportFile()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-29 05:45:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:45:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:45:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-29 05:45:19 --> CodeIgniter\HTTP\Exceptions\HTTPException: Failed to parse JSON string. Error: Syntax error
+[Method: POST, Route: patients/deleteReportFile]
+in SYSTEMPATH\HTTP\IncomingRequest.php on line 537.
+ 1 SYSTEMPATH\HTTP\IncomingRequest.php(537): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidJSON('Syntax error')
+ 2 APPPATH\Controllers\Patients.php(535): CodeIgniter\HTTP\IncomingRequest->getJSON()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->deleteReportFile()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-29 05:45:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:45:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-07-29 05:45:53 --> Preserving existing ID (via beforeUpdate) GEN-250725-00019 for patient 37 for type General
+DEBUG - 2025-07-29 05:45:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:45:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:45:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-29 05:45:59 --> CodeIgniter\HTTP\Exceptions\HTTPException: Failed to parse JSON string. Error: Syntax error
+[Method: POST, Route: patients/deleteReportFile]
+in SYSTEMPATH\HTTP\IncomingRequest.php on line 537.
+ 1 SYSTEMPATH\HTTP\IncomingRequest.php(537): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidJSON('Syntax error')
+ 2 APPPATH\Controllers\Patients.php(535): CodeIgniter\HTTP\IncomingRequest->getJSON()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Patients->deleteReportFile()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Patients))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-07-29 05:52:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:52:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:56:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:57:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:57:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:57:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 05:57:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:38 --> IpdController::dischargePatient - Patient data BEFORE patientModel->markAsDischarged: {"id":"18","patient_id_code":"PAT-250702-00013","patient_type":"IPD","previous_patient_type":null,"opd_id_code":"OPD-250702-00005","ipd_id_code":"IPD-250705-00008","gen_id_code":null,"cus_id_code":null,"first_name":"peter","last_name":"raj","date_of_birth":"2025-07-01","gender":"Female","blood_group":"A+","marital_status":"","occupation":"","address":"","phone_number":"","email":"","emergency_contact_name":"","emergency_contact_phone":"","known_allergies":"","pre_existing_conditions":"","referred_to_doctor_id":null,"referred_by_id":null,"remarks":"","reports":null,"fee":"0.00","discount_percentage":"0.00","final_amount":"0.00","created_at":"2025-07-02 04:40:53","updated_at":"2025-07-05 07:50:54"}
+DEBUG - 2025-07-29 06:02:38 --> PatientModel::markAsDischarged - Patient ID: 18
+DEBUG - 2025-07-29 06:02:38 --> PatientModel::markAsDischarged - Patient data BEFORE update: {"id":"18","patient_id_code":"PAT-250702-00013","patient_type":"IPD","previous_patient_type":null,"opd_id_code":"OPD-250702-00005","ipd_id_code":"IPD-250705-00008","gen_id_code":null,"cus_id_code":null,"first_name":"peter","last_name":"raj","date_of_birth":"2025-07-01","gender":"Female","blood_group":"A+","marital_status":"","occupation":"","address":"","phone_number":"","email":"","emergency_contact_name":"","emergency_contact_phone":"","known_allergies":"","pre_existing_conditions":"","referred_to_doctor_id":null,"referred_by_id":null,"remarks":"","reports":null,"fee":"0.00","discount_percentage":"0.00","final_amount":"0.00","created_at":"2025-07-02 04:40:53","updated_at":"2025-07-05 07:50:54"}
+DEBUG - 2025-07-29 06:02:38 --> PatientModel::markAsDischarged - Patient data AFTER update: {"id":"18","patient_id_code":"PAT-250702-00013","patient_type":"Discharged","previous_patient_type":null,"opd_id_code":"OPD-250702-00005","ipd_id_code":"IPD-250705-00008","gen_id_code":null,"cus_id_code":null,"first_name":"peter","last_name":"raj","date_of_birth":"2025-07-01","gender":"Female","blood_group":"A+","marital_status":"","occupation":"","address":"","phone_number":"","email":"","emergency_contact_name":"","emergency_contact_phone":"","known_allergies":"","pre_existing_conditions":"","referred_to_doctor_id":null,"referred_by_id":null,"remarks":"","reports":null,"fee":"0.00","discount_percentage":"0.00","final_amount":"0.00","created_at":"2025-07-02 04:40:53","updated_at":"2025-07-29 06:02:38"}
+INFO - 2025-07-29 06:02:38 --> Patient 18 discharged. IPD ID: IPD-250705-00008 retained.
+DEBUG - 2025-07-29 06:02:38 --> IpdController::dischargePatient - Patient data AFTER patientModel->markAsDischarged: {"id":"18","patient_id_code":"PAT-250702-00013","patient_type":"Discharged","previous_patient_type":null,"opd_id_code":"OPD-250702-00005","ipd_id_code":"IPD-250705-00008","gen_id_code":null,"cus_id_code":null,"first_name":"peter","last_name":"raj","date_of_birth":"2025-07-01","gender":"Female","blood_group":"A+","marital_status":"","occupation":"","address":"","phone_number":"","email":"","emergency_contact_name":"","emergency_contact_phone":"","known_allergies":"","pre_existing_conditions":"","referred_to_doctor_id":null,"referred_by_id":null,"remarks":"","reports":null,"fee":"0.00","discount_percentage":"0.00","final_amount":"0.00","created_at":"2025-07-02 04:40:53","updated_at":"2025-07-29 06:02:38"}
+DEBUG - 2025-07-29 06:02:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:02:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:12:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:12:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 06:12:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 07:08:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-29 07:08:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-07-29 07:08:29 --> Generated new ID (via beforeUpdate) GEN-250729-00021 for patient 31 for type General
+DEBUG - 2025-07-29 07:08:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

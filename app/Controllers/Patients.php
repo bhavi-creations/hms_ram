@@ -369,7 +369,6 @@ class Patients extends BaseController
                 $db->transCommit();
                 return $this->respondCreated(['success' => true, 'message' => 'Patient admitted to IPD successfully. Please assign a ward and bed.']);
             }
-
         } catch (\Exception $e) {
             $db->transRollback();
             log_message('error', 'Exception during admitToIPD for patient ID ' . $patientId . ': ' . $e->getMessage());
@@ -391,8 +390,8 @@ class Patients extends BaseController
 
         // Define potential file paths
         // Using FCPATH for direct access to the public folder from the root of the CodeIgniter project.
-        $publicFilePath = FCPATH . 'public/uploads/patient_reports/' . $filename; 
-        
+        $publicFilePath = FCPATH . 'public/uploads/patient_reports/' . $filename;
+
         // --- DEBUGGING START ---
         log_message('debug', 'downloadReport: Checking file path: ' . $publicFilePath);
         // --- DEBUGGING END ---
@@ -431,7 +430,7 @@ class Patients extends BaseController
             $this->response->setHeader('Content-Type', $mime);
             $this->response->setHeader('Content-Disposition', 'inline; filename="' . basename($filename) . '"');
             $this->response->setBody(file_get_contents($filePathToServe));
-            
+
             // --- DEBUGGING START ---
             log_message('debug', 'downloadReport: Sending file for INLINE display. Headers: Content-Type: ' . $mime . ', Content-Disposition: inline');
             // --- DEBUGGING END ---
@@ -528,12 +527,14 @@ class Patients extends BaseController
 
     /**
      * Deletes a specific report file via AJAX.
+     * Now correctly retrieves data using getPost() as jQuery sends form data by default.
      */
     public function deleteReportFile()
     {
         if ($this->request->isAJAX()) {
-            $patientId = $this->request->getJSON()->patient_id;
-            $filename = $this->request->getJSON()->filename;
+            // Changed from getJSON() to getPost() to correctly read form-urlencoded data
+            $patientId = $this->request->getPost('patient_id');
+            $filename = $this->request->getPost('filename');
 
             if (!$patientId || !$filename) {
                 return $this->response->setJSON(['success' => false, 'message' => 'Invalid data provided.']);
@@ -555,17 +556,25 @@ class Patients extends BaseController
 
             $filePath = FCPATH . 'public/uploads/patient_reports/' . $filename;
             if (file_exists($filePath)) {
+                // Attempt to delete the file
                 unlink($filePath);
+            } else {
+                // Log if file doesn't exist on disk but is in DB (for debugging)
+                log_message('warning', 'Attempted to delete report file that does not exist on disk: ' . $filePath);
             }
 
+            // Remove the filename from the patient's reports array in the database
             $updatedReports = array_values(array_filter($reportList, fn($f) => $f !== $filename));
             $patientModel->update($patient['id'], ['reports' => json_encode($updatedReports)]);
 
-            return $this->response->setJSON(['success' => true, 'message' => 'File deleted successfully.']);
+            // Return success response with updated CSRF hash
+            return $this->response->setJSON(['success' => true, 'message' => 'File deleted successfully.', 'csrfHash' => csrf_hash()]);
         }
 
+        // If not an AJAX request, return forbidden
         return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized request.']);
     }
+
 
     /**
      * AJAX endpoint to fetch patients by phone number.

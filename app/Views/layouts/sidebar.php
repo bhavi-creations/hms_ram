@@ -154,7 +154,6 @@
                         </ul>
                     </li>
 
-                    <!-- Pharmacy Management (Admin only) -->
                     <?php $isPharmacyManagementActive = url_is('pharmacy*'); ?>
                     <li class="nav-item <?= $isPharmacyManagementActive ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= $isPharmacyManagementActive ? 'active' : '' ?>">
@@ -166,15 +165,21 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= base_url('pharmacy/drugs') ?>" class="nav-link <?= uri_string() == 'pharmacy/drugs' ? 'active' : '' ?>">
+                                <a href="<?= base_url('pharmacy/dashboard') ?>" class="nav-link <?= uri_string() == 'pharmacy' || uri_string() == 'pharmacy/dashboard' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-chart-line"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/medicines') ?>" class="nav-link <?= uri_string() == 'pharmacy/medicines' || url_is('pharmacy/medicines/*') ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-capsules"></i>
-                                    <p>Manage Drugs</p>
+                                    <p>Manage Medicines</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="<?= base_url('pharmacy/categories') ?>" class="nav-link <?= uri_string() == 'pharmacy/categories' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-tags"></i>
-                                    <p>Drug Categories</p>
+                                    <p>Medicine Categories</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -184,21 +189,33 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('pharmacy/stock-in') ?>" class="nav-link <?= uri_string() == 'pharmacy/stock-in' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-arrow-down"></i>
-                                    <p>Stock In</p>
+                                <a href="<?= base_url('pharmacy/purchases') ?>" class="nav-link <?= uri_string() == 'pharmacy/purchases' || url_is('pharmacy/purchases/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-boxes"></i>
+                                    <p>Purchases</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('pharmacy/dispense') ?>" class="nav-link <?= uri_string() == 'pharmacy/dispense' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-prescription-bottle-alt"></i>
-                                    <p>Stock Out / Dispense</p>
+                                <a href="<?= base_url('pharmacy/medicines/adjust-stock') ?>" class="nav-link <?= uri_string() == 'pharmacy/medicines/adjust-stock' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-exchange-alt"></i>
+                                    <p>Stock Adjustments</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('pharmacy/alerts') ?>" class="nav-link <?= uri_string() == 'pharmacy/alerts' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-bell"></i>
-                                    <p>Expiry Alerts</p>
+                                <a href="<?= base_url('pharmacy/sales') ?>" class="nav-link <?= uri_string() == 'pharmacy/sales' || url_is('pharmacy/sales/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-cash-register"></i>
+                                    <p>POS Panel (Sales)</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/returns') ?>" class="nav-link <?= uri_string() == 'pharmacy/returns' || url_is('pharmacy/returns/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-undo"></i>
+                                    <p>Returns</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/reports') ?>" class="nav-link <?= uri_string() == 'pharmacy/reports' || url_is('pharmacy/reports/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>Reports</p>
                                 </a>
                             </li>
                         </ul>
