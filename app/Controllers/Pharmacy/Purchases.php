@@ -1,4 +1,6 @@
-<?php namespace App\Controllers\Pharmacy;
+<?php
+
+namespace App\Controllers\Pharmacy;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\RawSql; // For direct SQL in update
@@ -36,11 +38,11 @@ class Purchases extends BaseController
     public function index()
     {
         $purchases = $this->purchaseModel
-                            ->select('pharmacy_purchases.*, ps.name as supplier_name, u_ordered.first_name as ordered_by_first_name, u_ordered.last_name as ordered_by_last_name')
-                            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_purchases.supplier_id')
-                            ->join('users u_ordered', 'u_ordered.id = pharmacy_purchases.ordered_by_user_id')
-                            ->orderBy('purchase_date', 'DESC')
-                            ->findAll();
+            ->select('pharmacy_purchases.*, ps.name as supplier_name, u_ordered.first_name as ordered_by_first_name, u_ordered.last_name as ordered_by_last_name')
+            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_purchases.supplier_id')
+            ->join('users u_ordered', 'u_ordered.id = pharmacy_purchases.ordered_by_user_id')
+            ->orderBy('purchase_date', 'DESC')
+            ->findAll();
 
         $data = [
             'title'     => 'Manage Purchases',
@@ -54,11 +56,15 @@ class Purchases extends BaseController
      */
     public function create()
     {
+        // Make sure you have PharmacySupplierModel and PharmacyMedicineModel loaded in constructor
+        $suppliers = $this->supplierModel->findAll();
+        $medicines = $this->medicineModel->findAll();
+
         $data = [
-            'title'      => 'Create New Purchase Order',
-            'suppliers'  => $this->supplierModel->findAll(),
-            'medicines'  => $this->medicineModel->findAll(), // For selecting items
-            'validation' => service('validation')
+            'title' => 'Create New Purchase Order',
+            'suppliers' => $suppliers,
+            'medicines' => $medicines,
+            'validation' => \Config\Services::validation() // For form validation errors
         ];
         return view('pharmacy/purchases/create', $data);
     }
@@ -129,7 +135,6 @@ class Purchases extends BaseController
             }
 
             return redirect()->to(site_url('pharmacy/purchases/view/' . $purchaseId))->with('success', 'Purchase order created successfully!');
-
         } catch (\Exception $e) {
             $this->purchaseModel->db->transRollback();
             return redirect()->back()->withInput()->with('error', 'Error creating purchase order: ' . $e->getMessage());
@@ -142,21 +147,21 @@ class Purchases extends BaseController
     public function view($id = null)
     {
         $purchase = $this->purchaseModel
-                            ->select('pharmacy_purchases.*, ps.name as supplier_name, u_ordered.first_name as ordered_by_first_name, u_ordered.last_name as ordered_by_last_name, u_received.first_name as received_by_first_name, u_received.last_name as received_by_last_name')
-                            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_purchases.supplier_id')
-                            ->join('users u_ordered', 'u_ordered.id = pharmacy_purchases.ordered_by_user_id')
-                            ->join('users u_received', 'u_received.id = pharmacy_purchases.received_by_user_id', 'left') // Left join as received_by can be null
-                            ->find($id);
+            ->select('pharmacy_purchases.*, ps.name as supplier_name, u_ordered.first_name as ordered_by_first_name, u_ordered.last_name as ordered_by_last_name, u_received.first_name as received_by_first_name, u_received.last_name as received_by_last_name')
+            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_purchases.supplier_id')
+            ->join('users u_ordered', 'u_ordered.id = pharmacy_purchases.ordered_by_user_id')
+            ->join('users u_received', 'u_received.id = pharmacy_purchases.received_by_user_id', 'left') // Left join as received_by can be null
+            ->find($id);
 
         if (empty($purchase)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Purchase order not found: ' . $id);
         }
 
         $purchaseItems = $this->purchaseItemModel
-                                ->select('pharmacy_purchase_items.*, pm.generic_name, pm.brand_name, pm.strength')
-                                ->join('pharmacy_medicines pm', 'pm.id = pharmacy_purchase_items.medicine_id')
-                                ->where('purchase_id', $id)
-                                ->findAll();
+            ->select('pharmacy_purchase_items.*, pm.generic_name, pm.brand_name, pm.strength')
+            ->join('pharmacy_medicines pm', 'pm.id = pharmacy_purchase_items.medicine_id')
+            ->where('purchase_id', $id)
+            ->findAll();
 
         $data = [
             'title'         => 'Purchase Order Details',
@@ -181,10 +186,10 @@ class Purchases extends BaseController
         }
 
         $purchaseItems = $this->purchaseItemModel
-                                ->select('pharmacy_purchase_items.*, pm.generic_name, pm.brand_name, pm.strength')
-                                ->join('pharmacy_medicines pm', 'pm.id = pharmacy_purchase_items.medicine_id')
-                                ->where('purchase_id', $id)
-                                ->findAll();
+            ->select('pharmacy_purchase_items.*, pm.generic_name, pm.brand_name, pm.strength')
+            ->join('pharmacy_medicines pm', 'pm.id = pharmacy_purchase_items.medicine_id')
+            ->where('purchase_id', $id)
+            ->findAll();
 
         if ($this->request->getMethod() === 'post') {
             $rules = [
@@ -197,7 +202,7 @@ class Purchases extends BaseController
             ];
 
             // Filter out items with 0 received quantity if not strictly required
-            $receivedItems = array_filter($this->request->getPost('received_items'), function($item) {
+            $receivedItems = array_filter($this->request->getPost('received_items'), function ($item) {
                 return (int)$item['received_quantity'] > 0;
             });
 
@@ -236,9 +241,9 @@ class Purchases extends BaseController
 
                     // Check if a batch with this medicine_id and batch_number already exists from this supplier
                     $existingBatch = $this->batchModel
-                                            ->where('medicine_id', $purchaseItem['medicine_id'])
-                                            ->where('batch_number', $receivedItem['batch_number'])
-                                            ->first();
+                        ->where('medicine_id', $purchaseItem['medicine_id'])
+                        ->where('batch_number', $receivedItem['batch_number'])
+                        ->first();
 
                     if ($existingBatch) {
                         // Update existing batch stock
@@ -270,7 +275,7 @@ class Purchases extends BaseController
                     // Link the batch_id to the purchase_item IF it's not already linked (can be updated later)
                     // If a purchase item is received in multiple batches, this part would need more advanced logic
                     if (empty($purchaseItem['batch_id'])) {
-                         $this->purchaseItemModel->update($purchaseItem['id'], ['batch_id' => $batchId]);
+                        $this->purchaseItemModel->update($purchaseItem['id'], ['batch_id' => $batchId]);
                     }
 
                     if (($totalReceivedSoFar + $newlyReceived) < $orderedQuantity) {
@@ -293,7 +298,6 @@ class Purchases extends BaseController
                 }
 
                 return redirect()->to(site_url('pharmacy/purchases/view/' . $id))->with('success', 'Stock received and updated successfully!');
-
             } catch (\Exception $e) {
                 $this->purchaseModel->db->transRollback();
                 return redirect()->back()->withInput()->with('error', 'Error receiving stock: ' . $e->getMessage());

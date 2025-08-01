@@ -15433,3 +15433,64 @@ html.maximized-card {
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* For a better looking close button in alerts */
+.alert .close {
+    /* Basic styling for visibility */
+    opacity: 1; /* Ensure it's not faded by default */
+    font-size: 1.25rem; /* Slightly larger X */
+    font-weight: 700; /* Bolder X */
+    line-height: 1;
+    color: inherit; /* Inherit color from the alert text */
+    text-shadow: none; /* Remove default text shadow */
+    background-color: transparent; /* Ensure no background */
+    border: 0; /* Remove any border */
+    padding: 0; /* Adjust padding if needed */
+    position: relative;
+    top: -0.1rem; /* Fine-tune vertical alignment */
+}
+
+/* Hover and Focus effect */
+.alert .close:hover,
+.alert .close:focus {
+    color: #000; /* Darker color on hover/focus */
+    text-decoration: none;
+    opacity: 0.75; /* Slight fade on hover */
+    outline: none; /* Remove outline on focus */
+}
+
+/* Specific styling for different alert types (optional, but good for consistency) */
+.alert-success .close {
+    color: #155724; /* Darker green for success */
+}
+.alert-danger .close {
+    color: #721c24; /* Darker red for danger */
+}
+.alert-warning .close {
+    color: #856404; /* Darker yellow for warning */
+}
+.alert-info .close {
+    color: #0c5460; /* Darker blue for info */
+}

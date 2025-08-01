@@ -216,10 +216,7 @@ class Sales extends BaseController
      */
     public function listSales()
     {
-        $sales = $this->salesModel
-                     ->select('pharmacy_sales.*, u.first_name as sales_person_first_name, u.last_name as sales_person_last_name')
-                     ->join('users u', 'u.id = pharmacy_sales.sales_person_id')
-                     ->findAll(); // Add pagination later
+        $sales = $this->salesModel->findAll(); 
 
         $data = [
             'title' => 'Sales History',
