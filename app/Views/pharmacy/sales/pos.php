@@ -65,30 +65,30 @@
                                     <div id="in_hospital_fields" style="display: <?= (old('prescription_type') == 'in_hospital') ? 'block' : 'none' ?>;">
                                         <div class="form-group">
                                             <label for="patient_id_code">Patient ID Code <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="patient_id_code" name="patient_id_code" 
+                                            <input type="text" class="form-control" id="patient_id_code" name="patient_id_code"
                                                 value="<?= old('patient_id_code') ?>" placeholder="Enter Patient ID Code (e.g., PNT-001)">
                                         </div>
                                         <div class="form-group">
                                             <label for="doctor_id">Doctor (Optional)</label>
                                             <select class="form-control select2" id="doctor_id" name="doctor_id" style="width: 100%;">
                                                 <option value="">Select Doctor</option>
-                                                </select>
+                                            </select>
                                         </div>
                                     </div>
                                     <div id="outside_sale_fields" style="display: <?= (old('prescription_type') == 'outside_sale') ? 'block' : 'none' ?>;">
                                         <div class="form-group">
                                             <label for="outside_patient_name">Patient Name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="outside_patient_name" name="outside_patient_name" 
+                                            <input type="text" class="form-control" id="outside_patient_name" name="outside_patient_name"
                                                 value="<?= old('outside_patient_name') ?>" placeholder="Enter patient name">
                                         </div>
                                         <div class="form-group">
                                             <label for="outside_patient_phone">Patient Phone (Optional)</label>
-                                            <input type="text" class="form-control" id="outside_patient_phone" name="outside_patient_phone" 
+                                            <input type="text" class="form-control" id="outside_patient_phone" name="outside_patient_phone"
                                                 value="<?= old('outside_patient_phone') ?>" placeholder="Enter patient phone">
                                         </div>
                                         <div class="form-group">
                                             <label for="outside_patient_address">Patient Address (Optional)</label>
-                                            <textarea class="form-control" id="outside_patient_address" name="outside_patient_address" 
+                                            <textarea class="form-control" id="outside_patient_address" name="outside_patient_address"
                                                 rows="2" placeholder="Enter patient address"><?= old('outside_patient_address') ?></textarea>
                                         </div>
                                     </div>
@@ -98,68 +98,62 @@
 
                             <h4>Medicine Items</h4>
                             <div id="medicine-items-container">
-                                <?php 
+                                <?php
                                 // Re-populate items if there are validation errors
                                 $old_items = old('items');
-                                if (!empty($old_items)): 
-                                    foreach ($old_items as $key => $item): 
+                                if (!empty($old_items)):
+                                    foreach ($old_items as $key => $item):
                                         $item_id = $key; // Use key as a temporary item ID
                                 ?>
-                                    <div class="row medicine-item border border-secondary rounded p-3 mb-2" data-item-id="<?= $item_id ?>">
-                                        <div class="col-md-11 row">
-                                            <div class="form-group col-md-4">
-                                                <label>Medicine <span class="text-danger">*</span></label>
-                                                <select class="form-control medicine-select" name="items[<?= $item_id ?>][medicine_id]">
-                                                    <option value="">Select Medicine</option>
-                                                    <?php foreach ($medicines as $med): ?>
-                                                        <option value="<?= esc($med['id']) ?>" 
-                                                            <?= (old("items.{$item_id}.medicine_id") == $med['id']) ? 'selected' : '' ?>
-                                                            data-unit-price="<?= esc($med['selling_price_per_unit']) ?>">
-                                                            <?= esc($med['brand_name']) ?> (<?= esc($med['generic_name']) ?>)
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                        <div class="row medicine-item border border-secondary rounded p-3 mb-2" data-item-id="<?= $item_id ?>">
+                                            <div class="col-md-11 row">
+                                                <div class="form-group col-md-4">
+                                                    <label>Medicine <span class="text-danger">*</span></label>
+                                                    <select class="form-control medicine-select" name="items[<?= $item_id ?>][medicine_id]">
+                                                        <option value="">Select Medicine</option>
+                                                        <?php foreach ($medicines as $med): ?>
+                                                            <option value="<?= esc($med['id']) ?>"
+                                                                <?= (old("items.{$item_id}.medicine_id") == $med['id']) ? 'selected' : '' ?>
+                                                                data-unit-price="<?= esc($med['selling_price']) ?>">
+                                                                <?= esc($med['brand_name']) ?> (<?= esc($med['generic_name']) ?>)
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>Batch <span class="text-danger">*</span></label>
+                                                    <select class="form-control batch-select" name="items[<?= $item_id ?>][batch_id]">
+                                                        <option value="">Select Batch</option>
+                                                    </select>
+                                                    <small class="form-text text-muted batch-stock-info"></small>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Quantity <span class="text-danger">*</span></label>
+                                                    <input type="number" class="form-control item-quantity" name="items[<?= $item_id ?>][quantity]"
+                                                        value="<?= old("items.{$item_id}.quantity") ?>" min="1">
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Unit Price</label>
+                                                    <input type="number" class="form-control item-unit-price" name="items[<?= $item_id ?>][unit_selling_price]"
+                                                        value="<?= old("items.{$item_id}.unit_selling_price") ?>" step="0.01" readonly>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Discount/Item</label>
+                                                    <input type="number" class="form-control item-discount-per-item" name="items[<?= $item_id ?>][discount_per_item]"
+                                                        value="<?= old("items.{$item_id}.discount_per_item", 0) ?>" step="0.01">
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Sub Total</label>
+                                                    <input type="number" class="form-control item-sub-total" value="0.00" step="0.01" readonly>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label>Batch <span class="text-danger">*</span></label>
-                                                <select class="form-control batch-select" name="items[<?= $item_id ?>][batch_id]">
-                                                    <option value="">Select Batch</option>
-                                                    <?php 
-                                                    // This will be tricky to pre-populate correctly with old input
-                                                    // A separate AJAX call for each old item might be needed or pass all batches
-                                                    // For now, it will be empty and rely on user re-selection or JS to fetch.
-                                                    // Consider an AJAX endpoint for specific medicine's batches
-                                                    ?>
-                                                </select>
-                                                <small class="form-text text-muted batch-stock-info"></small>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label>Quantity <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control item-quantity" name="items[<?= $item_id ?>][quantity]" 
-                                                    value="<?= old("items.{$item_id}.quantity") ?>" min="1">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label>Unit Price</label>
-                                                <input type="number" class="form-control item-unit-price" name="items[<?= $item_id ?>][unit_selling_price]" 
-                                                    value="<?= old("items.{$item_id}.unit_selling_price") ?>" step="0.01" readonly>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label>Discount/Item</label>
-                                                <input type="number" class="form-control item-discount-per-item" name="items[<?= $item_id ?>][discount_per_item]" 
-                                                    value="<?= old("items.{$item_id}.discount_per_item", 0) ?>" step="0.01">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label>Sub Total</label>
-                                                <input type="number" class="form-control item-sub-total" value="0.00" step="0.01" readonly>
+                                            <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                                <button type="button" class="btn btn-danger btn-sm remove-item">X</button>
                                             </div>
                                         </div>
-                                        <div class="col-md-1 d-flex align-items-center justify-content-center">
-                                            <button type="button" class="btn btn-danger btn-sm remove-item">X</button>
-                                        </div>
-                                    </div>
-                                <?php 
+                                <?php
                                     endforeach;
-                                endif; 
+                                endif;
                                 ?>
                             </div>
                             <button type="button" class="btn btn-success btn-sm mb-3" id="add-medicine-item">Add Medicine Item</button>
@@ -176,7 +170,7 @@
                                     <div class="form-group row">
                                         <label for="total_discount" class="col-sm-6 col-form-label">Total Sale Discount (Optional):</label>
                                         <div class="col-sm-6">
-                                            <input type="number" class="form-control" id="total_discount" name="total_discount" 
+                                            <input type="number" class="form-control" id="total_discount" name="total_discount"
                                                 value="<?= old('total_discount', 0) ?>" step="0.01" min="0">
                                         </div>
                                     </div>
@@ -199,7 +193,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="notes">Notes (Optional)</label>
-                                        <textarea class="form-control" id="notes" name="notes" rows="3" 
+                                        <textarea class="form-control" id="notes" name="notes" rows="3"
                                             placeholder="Any specific notes for this sale"><?= old('notes') ?></textarea>
                                     </div>
                                 </div>
@@ -211,7 +205,7 @@
                         </div>
                     </form>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -222,20 +216,21 @@
 <script src="<?= base_url('assets/adminlte/plugins/moment/moment.min.js') ?>"></script>
 
 <script>
-    var itemCounter = <?= !empty($old_items) ? count($old_items) : 0 ?>; // Keep track of item count for unique names
+    // Global counter to ensure unique names for dynamically added items
+    var itemCounter = <?= !empty($old_items) ? count($old_items) : 0 ?>;
 
-    $(function () {
+    $(function() {
         // Initialize Select2 for doctor selection
         $('#doctor_id').select2({
             placeholder: 'Search for a Doctor',
             allowClear: true,
             ajax: {
-                url: '<?= site_url('api/get-doctors') ?>', // You'll need to create this API endpoint
+                url: '<?= site_url('api/get-doctors') ?>',
                 dataType: 'json',
                 delay: 250,
-                processResults: function (data) {
+                processResults: function(data) {
                     return {
-                        results: $.map(data.doctors, function (doctor) {
+                        results: $.map(data.doctors, function(doctor) {
                             return {
                                 id: doctor.id,
                                 text: doctor.first_name + ' ' + doctor.last_name + ' (' + doctor.specialization + ')'
@@ -247,12 +242,16 @@
             }
         });
 
-        // Initialize Select2 for all medicine selects
-        $('.medicine-select').select2({
-            placeholder: 'Select Medicine',
-            allowClear: true,
-            // You can add AJAX here if medicine list is huge, but for now assuming it's passed from controller
-        });
+        // Function to initialize Select2 for medicine selects
+        function initializeMedicineSelect(selector) {
+            $(selector).select2({
+                placeholder: 'Select Medicine',
+                allowClear: true,
+            });
+        }
+
+        // Initialize Select2 for existing medicine selects
+        initializeMedicineSelect('.medicine-select');
 
         // Toggle patient/doctor fields based on prescription type
         $('#prescription_type').on('change', function() {
@@ -279,8 +278,8 @@
                 let unitPrice = parseFloat($(this).find('.item-unit-price').val()) || 0;
                 let discountPerItem = parseFloat($(this).find('.item-discount-per-item').val()) || 0;
 
-                let itemSubTotal = (quantity * unitPrice) - discountPerItem;
-                if (itemSubTotal < 0) itemSubTotal = 0; // Prevent negative sub-total
+                let itemSubTotal = (quantity * unitPrice) - (quantity * discountPerItem); // Correct calculation for discount
+                if (itemSubTotal < 0) itemSubTotal = 0;
 
                 $(this).find('.item-sub-total').val(itemSubTotal.toFixed(2));
 
@@ -290,7 +289,7 @@
 
             let totalSaleDiscount = parseFloat($('#total_discount').val()) || 0;
             let finalNetAmount = netAmount - totalSaleDiscount;
-            if (finalNetAmount < 0) finalNetAmount = 0; // Prevent negative final net amount
+            if (finalNetAmount < 0) finalNetAmount = 0;
 
             $('#total_amount_display').val(totalAmount.toFixed(2));
             $('#net_amount_display').val(finalNetAmount.toFixed(2));
@@ -307,9 +306,7 @@
                             <select class="form-control medicine-select" name="items[${itemCounter}][medicine_id]">
                                 <option value="">Select Medicine</option>
                                 <?php foreach ($medicines as $med): ?>
-                                    <option value="<?= esc($med['id']) ?>" data-unit-price="<?= esc($med['selling_price_per_unit']) ?>">
-                                        <?= esc($med['brand_name']) ?> (<?= esc($med['generic_name']) ?>)
-                                    </option>
+                                    <option value="<?= esc($med['id']) ?>"><?= esc($med['brand_name']) ?> (<?= esc($med['generic_name']) ?>)</option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -343,18 +340,14 @@
                 </div>
             `;
             $('#medicine-items-container').append(newItemHtml);
-            // Re-initialize Select2 for the newly added medicine select
-            $(`select[name="items[${itemCounter}][medicine_id]"]`).select2({
-                placeholder: 'Select Medicine',
-                allowClear: true,
-            });
-            updateTotals(); // Recalculate totals after adding new item
+            initializeMedicineSelect($(`select[name="items[${itemCounter}][medicine_id]"]`));
+            updateTotals();
         });
 
         // Remove Medicine Item button click (delegated event)
         $('#medicine-items-container').on('click', '.remove-item', function() {
             $(this).closest('.medicine-item').remove();
-            updateTotals(); // Recalculate totals after removing item
+            updateTotals();
         });
 
         // Handle medicine selection change (delegated event)
@@ -364,13 +357,14 @@
             const $batchSelect = $itemRow.find('.batch-select');
             const $unitPriceInput = $itemRow.find('.item-unit-price');
             const $stockInfo = $itemRow.find('.batch-stock-info');
-            const selectedMedicineOption = $(this).find('option:selected');
-            const defaultUnitPrice = selectedMedicineOption.data('unit-price') || '0.00';
 
-            $unitPriceInput.val(defaultUnitPrice); // Set default selling price
-
-            $batchSelect.empty().append($('<option>', { value: '', text: 'Select Batch' }));
-            $stockInfo.text(''); // Clear previous stock info
+            // Clear batch select and price when medicine changes
+            $batchSelect.empty().append($('<option>', {
+                value: '',
+                text: 'Select Batch'
+            }));
+            $stockInfo.text('');
+            $unitPriceInput.val('0.00');
 
             if (medicineId) {
                 $.ajax({
@@ -383,8 +377,9 @@
                                 let optionText = `${batch.batch_number} (Stock: ${batch.current_stock} | Exp: ${moment(batch.expiry_date).format('MMM YYYY')})`;
                                 $batchSelect.append($('<option>', {
                                     value: batch.id,
-                                    text : optionText,
-                                    'data-current-stock': batch.current_stock
+                                    text: optionText,
+                                    'data-current-stock': batch.current_stock,
+                                    'data-selling-price': batch.selling_price // Add selling price data
                                 }));
                             });
                         } else {
@@ -393,11 +388,14 @@
                                 text: 'No active batches found'
                             }));
                         }
-                        updateTotals(); // Recalculate totals after batch update
+                        updateTotals();
                     },
                     error: function(xhr, status, error) {
                         console.error("Error loading batches:", error);
-                        $batchSelect.empty().append($('<option>', { value: '', text: 'Error loading batches' }));
+                        $batchSelect.empty().append($('<option>', {
+                            value: '',
+                            text: 'Error loading batches'
+                        }));
                         updateTotals();
                     }
                 });
@@ -406,17 +404,29 @@
             }
         });
 
-        // Handle batch selection change (delegated event) to show stock
+        // Handle batch selection change (delegated event)
         $('#medicine-items-container').on('change', '.batch-select', function() {
             const $selectedOption = $(this).find('option:selected');
             const currentStock = $selectedOption.data('current-stock');
+            const sellingPrice = $selectedOption.data('selling-price');
             const $stockInfo = $(this).closest('.medicine-item').find('.batch-stock-info');
-            
+            const $unitPriceInput = $(this).closest('.medicine-item').find('.item-unit-price');
+
             if (currentStock !== undefined) {
                 $stockInfo.text(`Available Stock: ${currentStock}`);
             } else {
                 $stockInfo.text('');
             }
+            
+            // This is the key part that updates the unit price.
+            // It gets the selling price from the data attribute on the selected batch option.
+            if (sellingPrice !== undefined) {
+                $unitPriceInput.val(parseFloat(sellingPrice).toFixed(2));
+            } else {
+                $unitPriceInput.val('0.00');
+            }
+
+            updateTotals();
         });
 
         // Recalculate totals on quantity, unit price, item discount, or total discount change

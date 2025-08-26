@@ -1,0 +1,677 @@
+DEBUG - 2025-08-26 05:20:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:20:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-26 05:20:31 --> ErrorException: unlink(C:\xampp\htdocs\hms_ram\writable\debugbar/debugbar_1756124875.072963.json): Permission denied
+[Method: GET, Route: /]
+in SYSTEMPATH\Debug\Toolbar\Collectors\History.php on line 82.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'unlink(C:\\xampp\\htdocs\\hms_ram\\writable\\debugbar/debugbar_1756124875.072963.json): Permission denied', 'C:\\xampp\\htdocs\\hms_ram\\system\\Debug\\Toolbar\\Collectors\\History.php', 82)
+ 2 SYSTEMPATH\Debug\Toolbar\Collectors\History.php(82): unlink('C:\\xampp\\htdocs\\hms_ram\\writable\\debugbar/debugbar_1756124875.072963.json')
+ 3 SYSTEMPATH\Debug\Toolbar.php(517): CodeIgniter\Debug\Toolbar\Collectors\History->setFiles('1756185630.036585', 20)
+ 4 SYSTEMPATH\Debug\Toolbar.php(496): CodeIgniter\Debug\Toolbar->format([...], 'html')
+ 5 APPPATH\Config\Events.php(47): CodeIgniter\Debug\Toolbar->respond()
+ 6 SYSTEMPATH\Events\Events.php(155): CodeIgniter\Events\Events::Config\{closure}()
+ 7 SYSTEMPATH\CodeIgniter.php(339): CodeIgniter\Events\Events::trigger('pre_system')
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-08-26 05:20:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:20:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:20:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:20:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:20:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:20:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:21:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:22:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:22:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:22:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:22:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:23:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:23:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:24:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:24:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:25:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:25:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:25:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:26:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:26:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:26:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:27:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:39 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:39 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:39 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:39 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:39 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:39 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:39 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:39 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:39 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:39 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:39 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:39 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:40 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:40 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:41 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:41 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:41 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:41 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:41 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:41 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:41 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:41 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:41 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:41 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:42 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:42 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:43 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:43 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:43 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:43 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:43 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:43 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:43 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:43 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:43 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:43 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:43 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:43 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:43 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:43 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:44 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:44 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:45 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:45 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:45 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:45 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:45 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:45 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:45 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:45 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:50 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:50 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:50 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:50 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:51 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:51 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:51 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:51 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:51 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:51 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:51 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:51 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:51 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:51 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:51 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:51 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:51 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:51 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:52 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:52 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:53 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:53 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:53 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:53 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:58 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:58 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:27:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:27:59 --> Request received by adjustStock.
+INFO - 2025-08-26 05:27:59 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:00 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:00 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:00 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:00 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:28:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:28:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:11 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:11 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:12 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:12 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:14 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:14 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:15 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:15 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:16 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:16 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:16 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:16 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:16 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:16 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:16 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:16 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:21 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:21 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:21 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:21 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:21 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:21 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:22 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:22 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:23 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:23 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:54 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:54 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:55 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:55 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:28:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:28:56 --> Request received by adjustStock.
+INFO - 2025-08-26 05:28:56 --> Received non-AJAX POST or GET request to adjustStock.
+DEBUG - 2025-08-26 05:29:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:29:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:29:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:31:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:31:54 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:31:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:32:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:32:04 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:33:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:33:36 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:33:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:33:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:33:47 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:34:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:34:57 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:35:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:35:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:35:06 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:36:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:36:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:36:54 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:36:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:37:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:37:05 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:37:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:37:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:37:10 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:37:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:37:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:37:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:38:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-26 05:38:59 --> Request received by adjustStock.
+DEBUG - 2025-08-26 05:43:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-26 05:43:41 --> ErrorException: Undefined variable $medicines
+[Method: GET, Route: pharmacy/medicines/adjust-stock]
+in APPPATH\Views\pharmacy\medicines\adjust_stock.php on line 56.
+ 1 APPPATH\Views\pharmacy\medicines\adjust_stock.php(56): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $medicines', 'C:\\xampp\\htdocs\\hms_ram\\app\\Views\\pharmacy\\medicines\\adjust_stock.php', 56)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\pharmacy\\medicines\\adjust_stock.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('pharmacy/medicines/adjust_stock', [], true)
+ 5 APPPATH\Controllers\Pharmacy\Medicines.php(736): view('pharmacy/medicines/adjust_stock', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Medicines->adjustStock()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Medicines))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-08-26 05:43:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:43:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:43:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:44:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:45:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:45:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:45:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:47:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:47:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:47:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:47:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:50:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:50:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:50:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:50:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:50:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-26 05:50:52 --> ErrorException: Cannot redeclare App\Controllers\Pharmacy\Medicines::getBatchesByMedicine()
+[Method: GET, Route: pharmacy/medicines/batches/12]
+in APPPATH\Controllers\Pharmacy\Medicines.php on line 757.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2025-08-26 05:51:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:51:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:51:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:51:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:51:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:51:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:51:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:51:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:52:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:52:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:54:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 05:56:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:35:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:39:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:41:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:42:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:42:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:42:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:43:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:43:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-26 06:43:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

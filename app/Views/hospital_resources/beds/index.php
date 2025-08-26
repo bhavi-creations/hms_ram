@@ -151,6 +151,8 @@
 <script>
     $(function() {
         // Initialize DataTables
+        <?php if (!empty($batches) && is_array($batches)): ?>
+
         $("#bedsTable").DataTable({
             "responsive": true,
             "lengthChange": false,
@@ -160,6 +162,8 @@
                 { "orderable": false, "targets": 0 }
             ]
         }).buttons().container().appendTo('#bedsTable_wrapper .col-md-6:eq(0)');
+        <?php endif; ?>
+
 
         // SweetAlert2 for changing bed status
         $('.edit-bed-status-btn').on('click', function() {

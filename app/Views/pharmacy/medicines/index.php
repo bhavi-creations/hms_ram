@@ -53,7 +53,7 @@
                         <table id="medicinesTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>S.No</th>
                                     <th>Generic Name</th>
                                     <th>Brand Name</th>
                                     <th>Strength</th>
@@ -62,18 +62,20 @@
                                     <th>Manufacturer</th>
                                     <th>Total Stock</th>
                                     <th>Reorder Level</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if (!empty($medicines) && is_array($medicines)): ?>
+                                    <?php $s_no = 1; ?>
                                     <?php foreach ($medicines as $medicine): ?>
                                         <tr>
-                                            <td><?= esc($medicine['id']) ?></td>
+                                            <td><?= $s_no++ ?></td>
                                             <td><?= esc($medicine['generic_name']) ?></td>
                                             <td><?= esc($medicine['brand_name']) ?></td>
-                                            <td><?= esc($medicine['strength']) ?></td>
-                                            <td><?= esc($medicine['dosage_form']) ?></td>
+                                            <td><?= esc($medicine['strength']) ?> <?= esc($medicine['unit_of_measure_name']) ?></td>
+                                            <td><?= esc($medicine['dosage_form_name']) ?></td>
                                             <td><?= esc($medicine['category_name']) ?></td>
                                             <td><?= esc($medicine['manufacturer_name']) ?></td>
                                             <td>
@@ -83,6 +85,13 @@
                                             </td>
                                             <td><?= esc($medicine['reorder_level']) ?></td>
                                             <td>
+                                                <?php if ($medicine['is_active']): ?>
+                                                    <span class="badge bg-success text-white">Active</span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-danger text-white">Inactive</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
                                                 <div class="btn-group" role="group" aria-label="Medicine Actions">
                                                     <a href="<?= site_url('pharmacy/medicines/batches/' . $medicine['id']) ?>" class="btn btn-info btn-sm" title="View Batches">
                                                         <i class="fas fa-boxes"></i>
@@ -90,16 +99,19 @@
                                                     <a href="<?= site_url('pharmacy/medicines/edit/' . $medicine['id']) ?>" class="btn btn-primary btn-sm" title="Edit Medicine">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <button type="button" class="btn btn-danger btn-sm delete-medicine" data-id="<?= esc($medicine['id']) ?>" title="Delete Medicine">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                                    <form action="<?= site_url('pharmacy/medicines/delete/' . $medicine['id']) ?>" method="post" onsubmit="return confirm('Are you sure you want to delete this medicine?');" style="display:inline;">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete Medicine">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="10" class="text-center">No medicines found.</td>
+                                        <td colspan="11" class="text-center">No medicines found.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -114,19 +126,18 @@
 
 <?= $this->section('scripts') ?>
 <script>
-    $(function () {
+    $(function() {
         $("#medicinesTable").DataTable({
-            "responsive": true, 
-            "lengthChange": false, 
+            "responsive": true,
+            "lengthChange": false,
             "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#medicinesTable_wrapper .col-md-6:eq(0)');
 
-        // SweetAlert for delete confirmation
-        $(document).on('click', '.delete-medicine', function (e) {
+        $(document).on('click', '.delete-medicine', function(e) {
             e.preventDefault();
             const medicineId = $(this).data('id');
-            
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this! Deleting a medicine will also remove all its associated batches.",
@@ -137,13 +148,11 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Create a form dynamically to send a POST request for deletion
                     const form = $('<form>', {
                         'action': '<?= site_url('pharmacy/medicines/delete/') ?>' + medicineId,
                         'method': 'post',
                         'style': 'display:none;'
                     });
-                    // Add CSRF token
                     form.append($('<input>', {
                         'type': 'hidden',
                         'name': '<?= csrf_token() ?>',

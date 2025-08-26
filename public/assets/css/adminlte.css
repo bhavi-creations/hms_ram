@@ -15385,7 +15385,7 @@ html.maximized-card {
 
 .nav-item .nav-link p {
     color: white !important;  
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .nav-item .nav-link .nav-icon {

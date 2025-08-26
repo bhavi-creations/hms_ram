@@ -16,7 +16,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -50,7 +51,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>S.no</th>
                                 <th>Name</th>
                                 <th>Contact Person</th>
                                 <th>Phone</th>
@@ -61,9 +62,9 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($suppliers) && is_array($suppliers)) : ?>
-                                <?php foreach ($suppliers as $supplier) : ?>
+                                <?php $serial_number = 1; ?> <?php foreach ($suppliers as $supplier) : ?>
                                     <tr>
-                                        <td><?= esc($supplier['id']) ?></td>
+                                        <td><?= $serial_number++ ?></td>
                                         <td><?= esc($supplier['name']) ?></td>
                                         <td><?= esc($supplier['contact_person']) ?></td>
                                         <td><?= esc($supplier['phone']) ?></td>
@@ -89,5 +90,5 @@
             </div>
         </div>
     </section>
-    </div>
+</div>
 <?= $this->endSection() ?>

@@ -1,4 +1,6 @@
-<?php namespace App\Controllers\Pharmacy;
+<?php
+
+namespace App\Controllers\Pharmacy;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\RawSql; // For direct SQL in update
@@ -28,77 +30,93 @@ class Sales extends BaseController
         $this->saleItemModel = new PharmacySaleItemModel();
         $this->batchModel    = new PharmacyBatchModel();
         $this->medicineModel = new PharmacyMedicineModel();
-        $this->patientModel  = new PatientModel(); // Instantiate your existing Patient Model
-        $this->doctorModel   = new DoctorModel();  // Instantiate your existing Doctor Model
+        $this->patientModel  = new PatientModel();  
+        $this->doctorModel   = new DoctorModel();   
     }
 
     /**
      * Displays the sales Point of Sale (POS) panel.
      */
+    // ...
     public function index()
     {
+        $medicinesWithPrice = $this->medicineModel
+            ->select('pharmacy_medicines.*, pharmacy_batches.selling_price')
+            ->join('pharmacy_batches', 'pharmacy_batches.medicine_id = pharmacy_medicines.id', 'left')
+            ->where('pharmacy_batches.current_stock >', 0)
+            ->where('pharmacy_batches.expiry_date >', date('Y-m-d'))
+            ->groupBy('pharmacy_medicines.id')
+            ->findAll();
+
         $data = [
-            'title'         => 'Pharmacy Sales POS',
-            'medicines'     => $this->medicineModel->findAll(), // Or a more detailed query for stock
-            'validation'    => service('validation')
+            'title'      => 'Pharmacy Sales POS',
+            'medicines'  => $medicinesWithPrice,
+            'validation' => service('validation')
         ];
         return view('pharmacy/sales/pos', $data);
     }
 
+
     /**
      * Handles the submission of a new sales transaction.
      */
-    public function processSale()
+      public function processSale()
     {
+        // 1. Define and perform validation based on user input
         $rules = [
-            'prescription_type'   => 'required|in_list[in_hospital,outside_sale]',
+            'prescription_type' => 'required|in_list[in_hospital,outside_sale]',
             'items.*.medicine_id' => 'required|integer',
-            'items.*.batch_id'    => 'required|integer',
-            'items.*.quantity'    => 'required|integer|greater_than[0]',
+            'items.*.batch_id' => 'required|integer',
+            'items.*.quantity' => 'required|integer|greater_than[0]',
             'items.*.unit_selling_price' => 'required|decimal|greater_than[0]',
-            'payment_method'      => 'required|max_length[50]',
+            'payment_method' => 'required|max_length[50]',
         ];
 
-        // Conditional validation for patient/doctor details
-        if ($this->request->getPost('prescription_type') === 'in_hospital') {
-            $rules['patient_id_code'] = 'required|max_length[50]'; // User inputs patient_id_code
-            $rules['doctor_id'] = 'permit_empty|integer'; // Doctor might be optional for in-hospital
-        } else { // outside_sale
+        // Add conditional validation rules for patient/doctor details
+        $prescriptionType = $this->request->getPost('prescription_type');
+        if ($prescriptionType === 'in_hospital') {
+            $rules['patient_id_code'] = 'required|max_length[50]';
+            // doctor_id is now optional for in-hospital sales
+            $rules['doctor_id'] = 'permit_empty|integer'; 
+        } else { // 'outside_sale'
             $rules['outside_patient_name'] = 'required|min_length[3]|max_length[255]';
-            $rules['outside_patient_phone'] = 'permit_empty|max_length[20]'; // Optional
+            // Phone and address are optional for outside sales
+            $rules['outside_patient_phone'] = 'permit_empty|max_length[20]'; 
+            $rules['outside_patient_address'] = 'permit_empty|max_length[255]';
         }
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
+            // If validation fails, redirect back with the errors and old input
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $saleData = $this->request->getPost();
         $saleItems = $this->request->getPost('items');
 
-        // Prepare main sale data
+        // Prepare the main sale data array
         $mainSaleData = [
-            // 'invoice_number'  => 'INV-' . time() . rand(100, 999), 
-            'sale_date'       => date('Y-m-d H:i:s'),
-            'sales_person_id' => session()->get('user_id'), // Assuming user_id is in session
+            // 'invoice_number' => 'INV-' . time() . rand(100, 999), // Uncomment if you want to generate an invoice number
+            'sale_date' => date('Y-m-d H:i:s'),
+            'sales_person_id' => session()->get('user_id'), // Assuming user_id is stored in the session
             'prescription_type' => $saleData['prescription_type'],
-            'payment_method'  => $saleData['payment_method'],
-            'notes'           => $saleData['notes'] ?? null,
-            'total_amount'    => 0, // Will calculate below
+            'payment_method' => $saleData['payment_method'],
+            'notes' => $saleData['notes'] ?? null,
             'discount_amount' => $saleData['total_discount'] ?? 0,
-            'net_amount'      => 0, // Will calculate below
+            'total_amount' => 0, // Will be calculated dynamically
+            'net_amount' => 0, // Will be calculated dynamically
         ];
 
         // Handle patient details based on prescription type
-        if ($saleData['prescription_type'] === 'in_hospital') {
-            // Fetch patient ID from patient_id_code
+        if ($prescriptionType === 'in_hospital') {
+            // Fetch patient ID from the unique patient_id_code
             $patient = $this->patientModel->where('patient_id_code', $saleData['patient_id_code'])->first();
             if (empty($patient)) {
                 return redirect()->back()->withInput()->with('error', 'Invalid In-Hospital Patient ID Code.');
             }
             $mainSaleData['patient_id'] = $patient['id'];
-            $mainSaleData['doctor_id']  = $saleData['doctor_id'] ?? null;
-        } else {
-            $mainSaleData['outside_patient_name']  = $saleData['outside_patient_name'];
+            $mainSaleData['doctor_id'] = $saleData['doctor_id'] ?? null;
+        } else { // outside_sale
+            $mainSaleData['outside_patient_name'] = $saleData['outside_patient_name'];
             $mainSaleData['outside_patient_phone'] = $saleData['outside_patient_phone'] ?? null;
             $mainSaleData['outside_patient_address'] = $saleData['outside_patient_address'] ?? null;
         }
@@ -106,60 +124,69 @@ class Sales extends BaseController
         $totalAmount = 0;
         $netAmount = 0;
 
-        // Start database transaction
+        // Start a database transaction to ensure all operations succeed or fail together
         $this->salesModel->db->transStart();
 
         try {
-            // 1. Insert into pharmacy_sales
+            // 2. Insert the main sale record and get the new sale ID
             $saleId = $this->salesModel->insert($mainSaleData);
             if (!$saleId) {
+                // If the insert fails, throw an exception to trigger the rollback
                 throw new \Exception('Failed to create sale record.');
             }
 
-            // 2. Process each sale item
+            // 3. Loop through each sale item, add to the sale, and deduct stock
             foreach ($saleItems as $item) {
                 $batch = $this->batchModel->find($item['batch_id']);
+                
+                // Check for insufficient stock before proceeding with the item
                 if (empty($batch) || $batch['current_stock'] < $item['quantity']) {
-                    throw new \Exception('Insufficient stock for medicine ' . $item['medicine_id'] . ' in batch ' . $item['batch_id']);
+                    throw new \Exception('Insufficient stock for medicine in batch ' . $item['batch_id'] . '.');
                 }
 
                 $itemSubTotal = ($item['quantity'] * $item['unit_selling_price']) - ($item['discount_per_item'] ?? 0);
-                $totalAmount += ($item['quantity'] * $item['unit_selling_price']); // Sum of unit_selling_price * quantity
-                $netAmount += $itemSubTotal; // Sum of final item price after discount
+                
+                // Accumulate totals for the main sale record
+                $totalAmount += ($item['quantity'] * $item['unit_selling_price']);
+                $netAmount += $itemSubTotal;
 
                 $saleItemData = [
-                    'sale_id'            => $saleId,
-                    'medicine_id'        => $item['medicine_id'],
-                    'batch_id'           => $item['batch_id'],
-                    'quantity'           => $item['quantity'],
+                    'sale_id' => $saleId,
+                    'medicine_id' => $item['medicine_id'],
+                    'batch_id' => $item['batch_id'],
+                    'quantity' => $item['quantity'],
                     'unit_selling_price' => $item['unit_selling_price'],
-                    'discount_per_item'  => $item['discount_per_item'] ?? 0,
-                    'sub_total'          => $itemSubTotal,
+                    'discount_per_item' => $item['discount_per_item'] ?? 0,
+                    'sub_total' => $itemSubTotal,
                 ];
 
+                // Insert the sale item record
                 if (!$this->saleItemModel->insert($saleItemData)) {
                     throw new \Exception('Failed to add sale item.');
                 }
 
-                // Deduct stock from the batch
+                // Deduct stock from the batch. Using RawSql is a good practice for atomic updates.
                 $this->batchModel->update($item['batch_id'], ['current_stock' => new RawSql('current_stock - ' . $item['quantity'])]);
             }
 
-            // Update total_amount and net_amount in the sales record
+            // 4. Update the main sales record with the final calculated amounts
+            $finalNetAmount = $netAmount - ($mainSaleData['discount_amount'] ?? 0);
             $this->salesModel->update($saleId, [
                 'total_amount' => $totalAmount,
-                'net_amount'   => $netAmount - ($mainSaleData['discount_amount'] ?? 0) // Apply total discount to net amount
+                'net_amount' => $finalNetAmount
             ]);
 
+            // 5. Complete the transaction. This commits all changes if no errors occurred.
             $this->salesModel->db->transComplete();
 
             if ($this->salesModel->db->transStatus() === false) {
-                throw new \Exception('Transaction failed after completion check.');
+                throw new \Exception('Transaction failed. Database status check returned false.');
             }
 
+            // Redirect on success with a success message
             return redirect()->to(site_url('pharmacy/sales/invoice/' . $saleId))->with('success', 'Sale processed successfully!');
-
         } catch (\Exception $e) {
+            // On any exception, roll back the transaction to undo all changes
             $this->salesModel->db->transRollback();
             return redirect()->back()->withInput()->with('error', 'Sale failed: ' . $e->getMessage());
         }
@@ -193,11 +220,11 @@ class Sales extends BaseController
 
         // Fetch sale items with medicine details
         $saleItems = $this->saleItemModel
-                            ->select('pharmacy_sale_items.*, pm.generic_name, pm.brand_name, pm.strength, pm.unit_of_measure, pb.batch_number')
-                            ->join('pharmacy_medicines pm', 'pm.id = pharmacy_sale_items.medicine_id')
-                            ->join('pharmacy_batches pb', 'pb.id = pharmacy_sale_items.batch_id')
-                            ->where('sale_id', $saleId)
-                            ->findAll();
+            ->select('pharmacy_sale_items.*, pm.generic_name, pm.brand_name, pm.strength, pm.unit_of_measure, pb.batch_number')
+            ->join('pharmacy_medicines pm', 'pm.id = pharmacy_sale_items.medicine_id')
+            ->join('pharmacy_batches pb', 'pb.id = pharmacy_sale_items.batch_id')
+            ->where('sale_id', $saleId)
+            ->findAll();
 
         $data = [
             'title'        => 'Sales Invoice',
@@ -216,7 +243,7 @@ class Sales extends BaseController
      */
     public function listSales()
     {
-        $sales = $this->salesModel->findAll(); 
+        $sales = $this->salesModel->findAll();
 
         $data = [
             'title' => 'Sales History',

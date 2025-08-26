@@ -3,15 +3,15 @@
 namespace App\Controllers\Pharmacy;
 
 use App\Controllers\BaseController;
-use CodeIgniter\Database\RawSql; // Import RawSql if you plan to use it for summing, or just use GROUP BY and SUM directly in builder
-
-// Import all necessary Pharmacy Models
+use CodeIgniter\Database\RawSql;
 use App\Models\Pharmacy\PharmacyMedicineModel;
 use App\Models\Pharmacy\PharmacyManufacturerModel;
 use App\Models\Pharmacy\PharmacyCategoryModel;
 use App\Models\Pharmacy\PharmacyBatchModel;
-use App\Models\Pharmacy\PharmacyStockAdjustmentModel; // For stock adjustments
+use App\Models\Pharmacy\PharmacyStockAdjustmentModel;
 use App\Models\Pharmacy\PharmacySupplierModel;
+use App\Models\Pharmacy\PharmacyDosageFormModel;
+use App\Models\Pharmacy\PharmacyUnitOfMeasureModel;
 
 class Medicines extends BaseController
 {
@@ -21,19 +21,19 @@ class Medicines extends BaseController
     protected $batchModel;
     protected $stockAdjustmentModel;
     protected $supplierModel;
-
+    protected $dosageFormModel;
+    protected $unitOfMeasureModel;
 
     public function __construct()
     {
-        // Ensure parent constructor runs for session, etc.
-        // parent::__construct();
-
-        $this->medicineModel        = new PharmacyMedicineModel();
-        $this->manufacturerModel    = new PharmacyManufacturerModel();
-        $this->categoryModel        = new PharmacyCategoryModel();
-        $this->batchModel           = new PharmacyBatchModel();
+        $this->medicineModel = new PharmacyMedicineModel();
+        $this->manufacturerModel = new PharmacyManufacturerModel();
+        $this->categoryModel = new PharmacyCategoryModel();
+        $this->batchModel = new PharmacyBatchModel();
         $this->stockAdjustmentModel = new PharmacyStockAdjustmentModel();
-        $this->supplierModel        = new PharmacySupplierModel();
+        $this->supplierModel = new PharmacySupplierModel();
+        $this->dosageFormModel = new PharmacyDosageFormModel();
+        $this->unitOfMeasureModel = new PharmacyUnitOfMeasureModel();
     }
 
     /**
@@ -42,21 +42,22 @@ class Medicines extends BaseController
     public function index()
     {
         $medicines = $this->medicineModel
-            ->select('pharmacy_medicines.*, pm.name as manufacturer_name, pc.name as category_name, SUM(pb.current_stock) as total_stock')
+            ->select('pharmacy_medicines.*, pm.name as manufacturer_name, pc.name as category_name, SUM(pb.current_stock) as total_stock, p_df.name as dosage_form_name, p_uom.name as unit_of_measure_name')
             ->join('pharmacy_manufacturers pm', 'pm.id = pharmacy_medicines.manufacturer_id')
             ->join('pharmacy_categories pc', 'pc.id = pharmacy_medicines.category_id')
-            ->join('pharmacy_batches pb', 'pb.medicine_id = pharmacy_medicines.id', 'left') // LEFT JOIN to include medicines with no batches yet
-            ->groupBy('pharmacy_medicines.id') // Group by medicine to sum batches
+            ->join('pharmacy_dosage_forms p_df', 'p_df.id = pharmacy_medicines.dosage_form_id')
+            ->join('pharmacy_units_of_measure p_uom', 'p_uom.id = pharmacy_medicines.unit_of_measure_id')
+            ->join('pharmacy_batches pb', 'pb.medicine_id = pharmacy_medicines.id', 'left')
+            ->groupBy('pharmacy_medicines.id')
             ->findAll();
 
-        // Ensure total_stock is an integer, default to 0 if null (no batches)
         foreach ($medicines as &$medicine) {
             $medicine['total_stock'] = (int) ($medicine['total_stock'] ?? 0);
         }
-        unset($medicine); // Unset the reference
+        unset($medicine);
 
         $data = [
-            'title'     => 'Manage Medicines',
+            'title' => 'Manage Medicines',
             'medicines' => $medicines
         ];
         return view('pharmacy/medicines/index', $data);
@@ -68,107 +69,175 @@ class Medicines extends BaseController
     public function create()
     {
         $data = [
-            'title'         => 'Add New Medicine',
+            'title' => 'Add New Medicine',
             'manufacturers' => $this->manufacturerModel->findAll(),
-            'categories'    => $this->categoryModel->findAll(),
-            'validation'    => service('validation')
+            'categories' => $this->categoryModel->findAll(),
+            'dosageForms' => $this->dosageFormModel->findAll(),
+            'units' => $this->unitOfMeasureModel->findAll(),
+            'validation' => service('validation')
         ];
         return view('pharmacy/medicines/create', $data);
     }
-    // ... rest of your controller methods
-
 
     /**
      * Handles the submission of a new medicine form.
      */
-    public function store()
+      public function store()
     {
+        // Define validation rules, including the new gst_rate and hsn_code fields.
         $rules = [
-            'generic_name'    => 'required|min_length[3]|max_length[255]',
-            'dosage_form'     => 'required|max_length[100]',
-            'strength'        => 'required|max_length[100]',
-            'unit_of_measure' => 'required|max_length[50]',
-            'manufacturer_id' => 'required|integer',
-            'category_id'     => 'required|integer',
-            'reorder_level'   => 'required|integer|greater_than_equal_to[0]'
+            'generic_name' => 'required|min_length[3]|max_length[255]',
+            'brand_name' => 'permit_empty|max_length[255]',
+            'dosage_form_id' => 'required|is_natural_no_zero',
+            'strength' => 'required|max_length[100]',
+            'unit_of_measure_id' => 'required|is_natural_no_zero',
+            'manufacturer_id' => 'required|is_natural_no_zero',
+            'category_id' => 'required|is_natural_no_zero',
+            'reorder_level' => 'required|integer|greater_than_equal_to[0]',
+            'description' => 'permit_empty',
+            'is_active' => 'permit_empty|integer',
+            'gst_rate' => 'required|decimal|greater_than_equal_to[0]', // Added validation for GST rate.
+            'hsn_code' => 'required|string|max_length[255]', // Added validation for HSN code.
         ];
 
-        if (! $this->validate($rules)) {
+        // Run the validation
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $this->medicineModel->save([
-            'generic_name'       => $this->request->getPost('generic_name'),
-            'brand_name'         => $this->request->getPost('brand_name'),
-            'dosage_form'        => $this->request->getPost('dosage_form'),
-            'strength'           => $this->request->getPost('strength'),
-            'unit_of_measure'    => $this->request->getPost('unit_of_measure'),
-            'manufacturer_id'    => $this->request->getPost('manufacturer_id'),
-            'category_id'        => $this->request->getPost('category_id'),
-            'reorder_level'      => $this->request->getPost('reorder_level'),
-            'is_active'          => $this->request->getPost('is_active') ? 1 : 0,
-            'description'        => $this->request->getPost('description'),
-            'created_by_user_id' => session()->get('user_id') // Assuming user_id is in session
-        ]);
+        // Get the user ID from the session. If not found, redirect to an error page or login.
+        $userId = session()->get('user_id');
+        if (empty($userId)) {
+            return redirect()->to(site_url('login'))->with('error', 'You must be logged in to add a medicine.');
+        }
 
-        return redirect()->to(site_url('pharmacy/medicines'))->with('success', 'Medicine added successfully.');
+        // Get all post data and prepare for insertion
+        // We explicitly cast integer and float values to ensure they are handled correctly.
+        $data = [
+            'generic_name' => $this->request->getPost('generic_name'),
+            'brand_name' => $this->request->getPost('brand_name'),
+            'dosage_form_id' => (int) $this->request->getPost('dosage_form_id'),
+            'strength' => $this->request->getPost('strength'),
+            'unit_of_measure_id' => (int) $this->request->getPost('unit_of_measure_id'),
+            'manufacturer_id' => (int) $this->request->getPost('manufacturer_id'),
+            'category_id' => (int) $this->request->getPost('category_id'),
+            'reorder_level' => (int) $this->request->getPost('reorder_level'),
+            'description' => $this->request->getPost('description'),
+            'is_active' => $this->request->getPost('is_active') ? 1 : 0,
+            'gst_rate' => (float) $this->request->getPost('gst_rate'), // Added to data array.
+            'hsn_code' => $this->request->getPost('hsn_code'),       // Added to data array.
+            'created_by_user_id' => $userId,
+        ];
+
+        // Insert the new medicine record into the database
+        if ($this->medicineModel->insert($data)) {
+            return redirect()->to(site_url('pharmacy/medicines'))->with('success', 'Medicine added successfully.');
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Failed to add medicine.');
+        }
     }
 
-    /**
-     * Displays a form to edit an existing medicine.
-     */
-    public function edit($id = null)
+
+
+    public function edit($id)
     {
         $medicine = $this->medicineModel->find($id);
 
-        if (empty($medicine)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the medicine item: ' . $id);
+        if (!$medicine) {
+            return redirect()->to(site_url('pharmacy/medicines'))->with('error', 'Medicine not found.');
         }
 
         $data = [
-            'title'         => 'Edit Medicine',
-            'medicine'      => $medicine,
+            'title' => 'Edit Medicine',
+            'medicine' => $medicine,
             'manufacturers' => $this->manufacturerModel->findAll(),
-            'categories'    => $this->categoryModel->findAll(),
-            'validation'    => service('validation')
+            'categories' => $this->categoryModel->findAll(),
+            'dosageForms' => $this->dosageFormModel->findAll(),
+            'units' => $this->unitOfMeasureModel->findAll(),
+            'validation' => service('validation')
         ];
         return view('pharmacy/medicines/edit', $data);
     }
 
-    /**
-     * Handles the update of an existing medicine.
-     */
-    public function update($id = null)
+
+       public function update($id = null)
     {
+        // Get the ID from the URL segment.
+        $medicine = $this->medicineModel->find($id);
+        if (!$medicine) {
+            return redirect()->back()->with('error', 'Medicine not found.');
+        }
+
+        // Define validation rules for the update process, including new fields.
         $rules = [
-            'generic_name'    => 'required|min_length[3]|max_length[255]',
-            // ... (rest of your validation rules for update)
+            'generic_name' => 'required|min_length[3]|max_length[255]',
+            'brand_name' => 'permit_empty|min_length[3]|max_length[255]',
+            'dosage_form_id' => 'required|integer',
+            'strength' => 'required|max_length[100]',
+            'unit_of_measure_id' => 'required|integer',
+            'manufacturer_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'reorder_level' => 'required|integer|greater_than_equal_to[0]',
+            'is_active' => 'permit_empty|integer',
+            'description' => 'permit_empty|max_length[1000]',
+            'gst_rate' => 'required|decimal|greater_than_equal_to[0]', // Added validation.
+            'hsn_code' => 'required|string|max_length[255]', // Added validation.
         ];
 
-        if (! $this->validate($rules)) {
+        // Validate the incoming data from the form.
+        if (!$this->validate($rules)) {
+            // Redirect back with the input data and validation errors.
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $this->medicineModel->update($id, [
-            'generic_name'       => $this->request->getPost('generic_name'),
-            'brand_name'         => $this->request->getPost('brand_name'),
-            'dosage_form'        => $this->request->getPost('dosage_form'),
-            'strength'           => $this->request->getPost('strength'),
-            'unit_of_measure'    => $this->request->getPost('unit_of_measure'),
-            'manufacturer_id'    => $this->request->getPost('manufacturer_id'),
-            'category_id'        => $this->request->getPost('category_id'),
-            'reorder_level'      => $this->request->getPost('reorder_level'),
-            'is_active'          => $this->request->getPost('is_active') ? 1 : 0,
-            'description'        => $this->request->getPost('description'),
-            // created_by_user_id is set only on creation, not update.
-        ]);
+        // Prepare the data array for updating the record.
+        $data = [
+            'generic_name' => $this->request->getPost('generic_name'),
+            'brand_name' => $this->request->getPost('brand_name'),
+            'dosage_form_id' => (int) $this->request->getPost('dosage_form_id'),
+            'strength' => $this->request->getPost('strength'),
+            'unit_of_measure_id' => (int) $this->request->getPost('unit_of_measure_id'),
+            'manufacturer_id' => (int) $this->request->getPost('manufacturer_id'),
+            'category_id' => (int) $this->request->getPost('category_id'),
+            'reorder_level' => (int) $this->request->getPost('reorder_level'),
+            'is_active' => $this->request->getPost('is_active') ? 1 : 0,
+            'description' => $this->request->getPost('description'),
+            'gst_rate' => (float) $this->request->getPost('gst_rate'), // Added to data array.
+            'hsn_code' => $this->request->getPost('hsn_code'),       // Added to data array.
+            'updated_by_user_id' => session()->get('user_id'), // Set the user who updated the record.
+        ];
 
-        return redirect()->to(site_url('pharmacy/medicines'))->with('success', 'Medicine updated successfully.');
+        // Perform the update using the model.
+        if ($this->medicineModel->update($id, $data)) {
+            // Redirect on success with a flash message.
+            return redirect()->to(site_url('pharmacy/medicines'))->with('success', 'Medicine updated successfully!');
+        } else {
+            // Redirect on failure with a flash message.
+            return redirect()->back()->withInput()->with('error', 'Failed to update medicine.');
+        }
+    }
+  
+
+
+    
+
+    public function delete($id = null)
+    {
+        $medicine = $this->medicineModel->find($id);
+
+        if (empty($medicine)) {
+            return redirect()->back()->with('error', 'Medicine not found.');
+        }
+
+        $this->medicineModel->delete($id);
+
+        return redirect()->to(site_url('pharmacy/medicines'))->with('success', 'Medicine deleted successfully.');
     }
 
-    /**
-     * Displays batches for a specific medicine.
-     */
+
+
+
+
     public function batches($medicineId = null)
     {
         $medicine = $this->medicineModel->find($medicineId);
@@ -177,59 +246,23 @@ class Medicines extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Medicine not found for batches: ' . $medicineId);
         }
 
-        // Fetch batches for this medicine, joining with supplier name
+        // Fetch batches and join with suppliers to get the supplier name
         $batches = $this->batchModel
-            ->select('pharmacy_batches.*, ps.name as supplier_name') // Added select for supplier_name
-            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_batches.supplier_id', 'left') // Added join
+            ->select('pharmacy_batches.*, ps.name as supplier_name')
+            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_batches.supplier_id', 'left')
             ->where('medicine_id', $medicineId)
-            ->orderBy('expiry_date', 'ASC') // Added ordering by expiry date
+            ->orderBy('expiry_date', 'ASC')
             ->findAll();
 
         $data = [
-            'title'    => 'Manage Batches', // You can also make this 'Batches for ' . $medicine['brand_name']
+            'title' => 'Manage Batches',
             'medicine' => $medicine,
-            'batches'  => $batches
+            'batches' => $batches
         ];
         return view('pharmacy/medicines/batches', $data);
     }
 
-    public function deleteBatch($batchId = null)
-    {
-        // Ensure this is a POST request to prevent accidental deletion via GET
-        if ($this->request->getMethod() !== 'post') {
-            return redirect()->back()->with('error', 'Invalid request method.');
-        }
 
-        $batch = $this->batchModel->find($batchId);
-        if (empty($batch)) {
-            return redirect()->back()->with('error', 'Batch not found.');
-        }
-
-        // You might want to add a check if the batch has been used in sales
-        // If it has been used, you might prevent deletion or only allow if current_stock is 0.
-        // For now, it will simply delete if found.
-
-        $this->batchModel->db->transStart(); // Start database transaction
-        try {
-            if (!$this->batchModel->delete($batchId)) {
-                // If delete method returns false (e.g., due to database error)
-                throw new \Exception('Failed to delete batch.');
-            }
-
-            $this->batchModel->db->transComplete(); // Complete transaction
-
-            if ($this->batchModel->db->transStatus() === false) {
-                // Check transaction status for errors
-                throw new \Exception('Transaction failed after completion check.');
-            }
-
-            return redirect()->to(site_url('pharmacy/medicines/batches/' . $batch['medicine_id']))
-                ->with('success', 'Batch deleted successfully.');
-        } catch (\Exception $e) {
-            $this->batchModel->db->transRollback(); // Rollback on error
-            return redirect()->back()->with('error', 'Error deleting batch: ' . $e->getMessage());
-        }
-    }
 
     public function addBatch($medicineId = null)
     {
@@ -239,48 +272,84 @@ class Medicines extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Medicine not found for adding batch: ' . $medicineId);
         }
 
-        $supplierModel = new \App\Models\Pharmacy\PharmacySupplierModel(); // Assuming you have this model
+        // Use the protected model property instead of creating a new instance
+        $suppliers = $this->supplierModel->findAll();
 
         $data = [
-            'title'      => 'Add New Batch',
-            'medicine'   => $medicine,
-            'suppliers'  => $supplierModel->findAll(), // Pass all suppliers for the dropdown
+            'title' => 'Add New Batch',
+            'medicine' => $medicine,
+            'suppliers' => $suppliers,
             'validation' => service('validation')
         ];
         return view('pharmacy/medicines/add_batch', $data);
     }
 
-    // You will also need a storeBatch method to handle the form submission
     public function storeBatch()
     {
+        // Define validation rules for the form submission
         $rules = [
-            'medicine_id'           => 'required|integer|is_not_unique[pharmacy_medicines.id]',
-            'batch_number'          => 'required|max_length[100]|is_unique[pharmacy_batches.batch_number,id,{id}]', // Unique per medicine or globally? Assume globally for now.
-            'supplier_id'           => 'required|integer|is_not_unique[pharmacy_suppliers.id]',
-            'initial_stock'         => 'required|integer|greater_than[0]',
-            'cost_price_per_unit'   => 'required|numeric|greater_than_equal_to[0]',
-            'selling_price_per_unit' => 'required|numeric|greater_than_equal_to[0]|greater_than_equal_to[cost_price_per_unit]',
-            'manufacture_date'      => 'required|valid_date',
-            'expiry_date'           => 'required|valid_date|after_current_date', // Ensure expiry is in the future
+            'medicine_id'        => 'required|integer|is_not_unique[pharmacy_medicines.id]',
+            'batch_number'       => 'required|max_length[100]',
+            'supplier_id'        => 'required|integer|is_not_unique[pharmacy_suppliers.id]',
+            'initial_quantity'   => 'required|integer|greater_than_equal_to[1]',
+            'purchase_price'     => 'required|numeric|greater_than_equal_to[0]',
+            'selling_price'      => 'required|numeric|greater_than_equal_to[0]',
+            'manufacturing_date' => 'required|valid_date',
+            'expiry_date'        => 'required|valid_date',
+            'packaging_unit_name.*' => 'required|max_length[50]',
+            'packaging_unit_quantity.*' => 'required|integer|greater_than_equal_to[1]',
         ];
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('validation', $this->validator);
+        // Manual check for selling price vs purchase price and expiry date vs manufacturing date
+        $postData = $this->request->getPost();
+        $validationErrors = [];
+
+        if ($postData['selling_price'] < $postData['purchase_price']) {
+            $validationErrors['selling_price'] = 'Selling price must be greater than or equal to the purchase price.';
         }
 
-        $medicineId = $this->request->getPost('medicine_id');
-        $initialStock = $this->request->getPost('initial_stock');
+        if (strtotime($postData['expiry_date']) < strtotime($postData['manufacturing_date'])) {
+            $validationErrors['expiry_date'] = 'Expiry date must be after the manufacture date.';
+        }
 
+        if (empty($postData['packaging_unit_name'])) {
+            $validationErrors['packaging_levels'] = 'At least one packaging level is required.';
+        }
+
+        // Validate the incoming data from the form
+        if (!$this->validate($rules) || !empty($validationErrors)) {
+            // Merge validation errors from both the validator and manual checks
+            $validator = service('validation');
+            $errors = array_merge($validator->getErrors(), $validationErrors);
+            return redirect()->back()->withInput()->with('validation', $validator)->with('errors', $errors);
+        }
+
+        $medicineId = $postData['medicine_id'];
+        $initialQuantity = (int)$postData['initial_quantity'];
+
+        // Build the structured array for packaging levels
+        $packagingNames = $postData['packaging_unit_name'] ?? [];
+        $packagingQuantities = $postData['packaging_unit_quantity'] ?? [];
+        $packagingLevels = [];
+        for ($i = 0; $i < count($packagingNames); $i++) {
+            $packagingLevels[] = [
+                'unit' => $packagingNames[$i],
+                'quantity' => (int) $packagingQuantities[$i],
+            ];
+        }
+
+        // Prepare the data array for the database insertion
         $data = [
-            'medicine_id'            => $medicineId,
-            'batch_number'           => $this->request->getPost('batch_number'),
-            'supplier_id'            => $this->request->getPost('supplier_id'),
-            'initial_stock'          => $initialStock,
-            'current_stock'          => $initialStock, // Current stock is initially the same as initial stock
-            'cost_price_per_unit'    => $this->request->getPost('cost_price_per_unit'),
-            'selling_price_per_unit' => $this->request->getPost('selling_price_per_unit'),
-            'manufacture_date'       => $this->request->getPost('manufacture_date'),
-            'expiry_date'            => $this->request->getPost('expiry_date'),
+            'medicine_id'        => $medicineId,
+            'batch_number'       => $postData['batch_number'],
+            'supplier_id'        => $postData['supplier_id'],
+            'initial_quantity'   => $initialQuantity,
+            'current_stock'      => $initialQuantity, // Initial stock is the same as initial quantity
+            'purchase_price'     => $postData['purchase_price'],
+            'selling_price'      => $postData['selling_price'],
+            'manufacturing_date' => date('Y-m-d', strtotime($postData['manufacturing_date'])),
+            'expiry_date'        => date('Y-m-d', strtotime($postData['expiry_date'])),
+            'packaging_levels'   => json_encode($packagingLevels), // Store the packaging levels as a JSON string
         ];
 
         $this->batchModel->db->transStart();
@@ -288,9 +357,6 @@ class Medicines extends BaseController
             if (!$this->batchModel->save($data)) {
                 throw new \Exception('Failed to save new batch.');
             }
-
-            // Optionally, update total stock of medicine if you store it in medicine table
-            // $this->medicineModel->update($medicineId, ['total_stock' => new RawSql('total_stock + ' . $initialStock)]);
 
             $this->batchModel->db->transComplete();
 
@@ -320,143 +386,42 @@ class Medicines extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Associated medicine not found for batch: ' . $batch['medicine_id']);
         }
 
-        $supplierModel = new \App\Models\Pharmacy\PharmacySupplierModel();
+        // Use the protected model property instead of creating a new instance
+        $suppliers = $this->supplierModel->findAll();
 
         $data = [
-            'title'      => 'Edit Batch',
-            'batch'      => $batch,
-            'medicine'   => $medicine, // Pass medicine details for breadcrumbs and context
-            'suppliers'  => $supplierModel->findAll(),
+            'title' => 'Edit Batch',
+            'batch' => $batch,
+            'medicine' => $medicine,
+            'suppliers' => $suppliers,
             'validation' => service('validation')
         ];
         return view('pharmacy/medicines/edit_batch', $data);
     }
 
-    /**
-     * Handles the update of an existing batch.
-     */
-    public function updateBatch($batchId = null)
-    {
-        // Ensure this is a POST request
-        if ($this->request->getMethod() !== 'post') {
-            return redirect()->back()->with('error', 'Invalid request method.');
-        }
-
-        $batch = $this->batchModel->find($batchId);
-        if (empty($batch)) {
-            return redirect()->back()->with('error', 'Batch not found.');
-        }
-
-        $rules = [
-            // 'medicine_id' is hidden and should not change
-            'batch_number'          => 'required|max_length[100]|is_unique[pharmacy_batches.batch_number,id,' . $batchId . ']', // Unique per medicine or globally? Adjusted for update
-            'supplier_id'           => 'required|integer|is_not_unique[pharmacy_suppliers.id]',
-            // Initial stock and current stock are typically not edited directly here
-            'cost_price_per_unit'   => 'required|numeric|greater_than_equal_to[0]',
-            'selling_price_per_unit' => 'required|numeric|greater_than_equal_to[0]|greater_than_equal_to[cost_price_per_unit]',
-            'manufacture_date'      => 'required|valid_date',
-            'expiry_date'           => 'required|valid_date|after_current_date[if_not_past, ' . $batch['expiry_date'] . ']', // Custom rule if editing to past is allowed
-        ];
-
-        // Custom rule for expiry_date to allow keeping past date if already past
-        // Or just check if new date is in future
-        $this->validator->setRule('expiry_date', 'Expiry Date', 'required|valid_date');
-        if ($this->request->getPost('expiry_date') < date('Y-m-d') && $this->request->getPost('expiry_date') != $batch['expiry_date']) {
-            // If user tries to change to a *new* past date (and it's not the original past date)
-            $rules['expiry_date'] = 'required|valid_date|after_current_date';
-        }
-
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('validation', $this->validator);
-        }
-
-        $medicineId = $batch['medicine_id']; // Get medicine ID from the fetched batch
-
-        $data = [
-            'batch_number'           => $this->request->getPost('batch_number'),
-            'supplier_id'            => $this->request->getPost('supplier_id'),
-            'cost_price_per_unit'    => $this->request->getPost('cost_price_per_unit'),
-            'selling_price_per_unit' => $this->request->getPost('selling_price_per_unit'),
-            'manufacture_date'       => $this->request->getPost('manufacture_date'),
-            'expiry_date'            => $this->request->getPost('expiry_date'),
-        ];
-
-        $this->batchModel->db->transStart();
-        try {
-            if (!$this->batchModel->update($batchId, $data)) {
-                throw new \Exception('Failed to update batch.');
-            }
-
-            $this->batchModel->db->transComplete();
-
-            if ($this->batchModel->db->transStatus() === false) {
-                throw new \Exception('Transaction failed after completion check.');
-            }
-
-            return redirect()->to(site_url('pharmacy/medicines/batches/' . $medicineId))
-                ->with('success', 'Batch updated successfully!');
-        } catch (\Exception $e) {
-            $this->batchModel->db->transRollback();
-            return redirect()->back()->withInput()->with('error', 'Error updating batch: ' . $e->getMessage());
-        }
-    }
 
 
 
 
 
-
-    public function adjustStock()
-    {
-        $data = [
-            'title'                 => 'Adjust Medicine Stock',
-            'medicines'             => $this->medicineModel->findAll(), // Get all medicines for selection
-            // If there's old input from a failed validation, fetch batches for that medicine
-            'batches_for_old_medicine' => old('medicine_id') ? $this->batchModel->where('medicine_id', old('medicine_id'))->findAll() : [],
-            'validation'            => service('validation')
-        ];
-        return view('pharmacy/medicines/adjust_stock', $data);
-    }
-
-    /**
-     * AJAX endpoint to get batches for a specific medicine.
-     */
-    public function getBatchesByMedicine($medicineId = null)
-    {
-        if ($this->request->isAJAX()) {
-            $batches = $this->batchModel
-                ->select('id, batch_number, current_stock, expiry_date')
-                ->where('medicine_id', $medicineId)
-                ->where('current_stock >', 0) // Only show batches with stock
-                ->orderBy('expiry_date', 'ASC')
-                ->findAll();
-            return $this->response->setJSON(['batches' => $batches]);
-        }
-        throw new \CodeIgniter\Exceptions\PageNotFoundException();
-    }
-
-    /**
-     * Handles the submission of stock adjustment.
-     */
     public function storeAdjustment()
     {
         $rules = [
-            'medicine_id'       => 'required|integer|is_not_unique[pharmacy_medicines.id]',
-            'batch_id'          => 'required|integer|is_not_unique[pharmacy_batches.id]',
-            'adjustment_type'   => 'required|in_list[increase,decrease]',
-            'quantity'          => 'required|integer|greater_than[0]',
-            'reason'            => 'required|min_length[5]|max_length[500]',
+            'medicine_id' => 'required|integer|is_not_unique[pharmacy_medicines.id]',
+            'batch_id' => 'required|integer|is_not_unique[pharmacy_batches.id]',
+            'adjustment_type' => 'required|in_list[increase,decrease]',
+            'quantity' => 'required|integer|greater_than[0]',
+            'reason' => 'required|max_length[255]',
         ];
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
 
-        $batchId         = $this->request->getPost('batch_id');
-        $adjustmentType  = $this->request->getPost('adjustment_type');
-        $quantity        = (int) $this->request->getPost('quantity');
-        $reason          = $this->request->getPost('reason');
+        $batchId = $this->request->getPost('batch_id');
+        $adjustmentType = $this->request->getPost('adjustment_type');
+        $quantity = (int) $this->request->getPost('quantity');
+        $reason = $this->request->getPost('reason');
 
         $batch = $this->batchModel->find($batchId);
         if (empty($batch)) {
@@ -466,11 +431,13 @@ class Medicines extends BaseController
         $newStock = $batch['current_stock'];
         if ($adjustmentType === 'increase') {
             $newStock += $quantity;
-        } else { // decrease
-            if ($newStock < $quantity) {
-                return redirect()->back()->withInput()->with('error', 'Cannot decrease stock by more than available quantity. Available: ' . $newStock);
-            }
+        } else {
             $newStock -= $quantity;
+            // Check for insufficient stock on decrease
+            if ($newStock < 0) {
+                session()->setFlashdata('error', 'Insufficient stock to perform this adjustment.');
+                return redirect()->back()->withInput();
+            }
         }
 
         $this->batchModel->db->transStart();
@@ -482,24 +449,19 @@ class Medicines extends BaseController
 
             // 2. Record the adjustment in pharmacy_stock_adjustments table
             $adjustmentData = [
-                'medicine_id'       => $batch['medicine_id'],
-                'batch_id'          => $batchId,
-                'adjustment_type'   => $adjustmentType,
-                'quantity'          => $quantity,
+                'medicine_id' => $batch['medicine_id'],
+                'batch_id' => $batchId,
+                'adjustment_type' => $adjustmentType,
+                'quantity' => $quantity,
                 'current_stock_before' => $batch['current_stock'],
                 'current_stock_after' => $newStock,
-                'reason'            => $reason,
-                'adjusted_by_user_id' => session()->get('id') ?? null, // Assuming you store user ID in session
+                'reason' => $reason,
+                'adjusted_by_user_id' => session()->get('id') ?? null,
             ];
 
             if (!$this->stockAdjustmentModel->save($adjustmentData)) {
                 throw new \Exception('Failed to record stock adjustment.');
             }
-
-            // Optionally, if you maintain total_stock in the medicine table, update it here too.
-            // Example for increasing: $this->medicineModel->update($batch['medicine_id'], ['total_stock' => new RawSql('total_stock + ' . $quantity)]);
-            // Example for decreasing: $this->medicineModel->update($batch['medicine_id'], ['total_stock' => new RawSql('total_stock - ' . $quantity)]);
-
 
             $this->batchModel->db->transComplete();
 
@@ -513,5 +475,297 @@ class Medicines extends BaseController
             $this->batchModel->db->transRollback();
             return redirect()->back()->withInput()->with('error', 'Error adjusting stock: ' . $e->getMessage());
         }
+    }
+
+    public function updateBatch($batchId = null)
+    {
+        // Define validation rules for the form submission.
+        $rules = [
+            'batch_number' => [
+                'rules' => 'required|max_length[100]',
+                'errors' => [
+                    'required' => 'Batch number is required.',
+                ],
+            ],
+            'supplier_id' => [
+                'rules' => 'required|is_natural_no_zero',
+                'errors' => [
+                    'required' => 'Supplier is required.',
+                ],
+            ],
+            'purchase_price' => [
+                'rules' => 'required|numeric',
+                'errors' => [
+                    'required' => 'Purchase price is required.',
+                    'numeric' => 'Purchase price must be a number.',
+                ],
+            ],
+            'selling_price' => [
+                'rules' => 'required|numeric',
+                'errors' => [
+                    'required' => 'Selling price is required.',
+                    'numeric' => 'Selling price must be a number.',
+                ],
+            ],
+            'manufacturing_date' => [
+                'rules' => 'required|valid_date[Y-m-d]',
+                'errors' => [
+                    'required' => 'Manufacture date is required.',
+                    'valid_date' => 'Please provide a valid manufacture date.',
+                ],
+            ],
+            'expiry_date' => [
+                'rules' => 'required|valid_date[Y-m-d]',
+                'errors' => [
+                    'required' => 'Expiry date is required.',
+                    'valid_date' => 'Please provide a valid expiry date.',
+                ],
+            ],
+            'initial_quantity' => [
+                'rules' => 'required|integer|greater_than_equal_to[1]',
+                'errors' => [
+                    'required' => 'Initial quantity is required.',
+                    'integer' => 'Initial quantity must be a whole number.',
+                    'greater_than_equal_to' => 'Initial quantity must be at least 1.',
+                ],
+            ],
+            'packaging_unit_name.*' => [
+                'rules' => 'required|max_length[50]',
+                'errors' => [
+                    'required' => 'All packaging unit names are required.',
+                ],
+            ],
+            'packaging_unit_quantity.*' => [
+                'rules' => 'required|integer|greater_than[0]',
+                'errors' => [
+                    'required' => 'All packaging unit quantities are required.',
+                    'greater_than' => 'All packaging quantities must be greater than 0.',
+                ],
+            ],
+        ];
+
+        // --- NEW: Custom check for empty packaging levels ---
+        // This is a manual check to provide a more specific error message.
+        $packagingNames = $this->request->getPost('packaging_unit_name');
+        if (empty($packagingNames) || !is_array($packagingNames) || count($packagingNames) === 0) {
+            session()->setFlashdata('error', 'Please enter at least one packaging level to update the batch.');
+            return redirect()->back()->withInput();
+        }
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        $postData = $this->request->getPost();
+
+        // --- MANUAL VALIDATION CHECKS ---
+        if ($postData['selling_price'] < $postData['purchase_price']) {
+            session()->setFlashdata('error', 'Selling price must be greater than or equal to the purchase price.');
+            return redirect()->back()->withInput();
+        }
+
+        if ($postData['expiry_date'] < $postData['manufacturing_date']) {
+            session()->setFlashdata('error', 'Expiry date must be after the manufacture date.');
+            return redirect()->back()->withInput();
+        }
+        // --- END MANUAL VALIDATION CHECKS ---
+
+        // NEW LOGIC: Fetch the existing batch data before updating
+        $existingBatch = $this->batchModel->find($batchId);
+        if (!$existingBatch) {
+            session()->setFlashdata('error', 'Batch not found.');
+            return redirect()->back();
+        }
+
+        $oldInitialQuantity = $existingBatch['initial_quantity'];
+        $oldCurrentStock = $existingBatch['current_stock'];
+        $newInitialQuantity = (int)$postData['initial_quantity'];
+
+        // Calculate the change in quantity and update the current stock
+        $quantityDifference = $newInitialQuantity - $oldInitialQuantity;
+        $newCurrentStock = $oldCurrentStock + $quantityDifference;
+
+        // Check for negative stock and handle it
+        if ($newCurrentStock < 0) {
+            session()->setFlashdata('error', 'The updated quantity would result in a negative stock count. Please adjust your initial quantity.');
+            return redirect()->back()->withInput();
+        }
+
+        // Build the structured array for packaging levels
+        $packagingQuantities = $postData['packaging_unit_quantity'] ?? [];
+        $packagingLevels = [];
+        for ($i = 0; $i < count($packagingNames); $i++) {
+            $packagingLevels[] = [
+                'unit' => $packagingNames[$i],
+                'quantity' => (int) $packagingQuantities[$i],
+            ];
+        }
+
+        // Prepare the data array for the database update
+        $data = [
+            'batch_number' => $postData['batch_number'],
+            'supplier_id' => $postData['supplier_id'],
+            'purchase_price' => $postData['purchase_price'],
+            'selling_price' => $postData['selling_price'],
+            'manufacturing_date' => $postData['manufacturing_date'],
+            'expiry_date' => $postData['expiry_date'],
+            'initial_quantity' => $newInitialQuantity,
+            'current_stock' => $newCurrentStock,
+            'packaging_levels' => json_encode($packagingLevels),
+        ];
+
+        // Update the batch record in the database
+        $success = $this->batchModel->update($batchId, $data);
+
+        if ($success) {
+            session()->setFlashdata('success', 'Batch updated successfully!');
+        } else {
+            session()->setFlashdata('error', 'Failed to update batch. Please try again.');
+        }
+
+        // Redirect back to the batches list for this medicine
+        return redirect()->to(site_url('pharmacy/medicines/batches/' . esc($postData['medicine_id'])));
+    }
+
+    /**
+     * Deletes a batch via an AJAX request.
+     * @param int|null $id The ID of the batch to delete.
+     * @return mixed JSON response indicating success or failure.
+     */
+    public function deleteBatch($id = null)
+    {
+        // Use the model property instead of creating a new instance
+        $batch = $this->batchModel->find($id);
+
+        if (!$batch) {
+            $response = [
+                'success' => false,
+                'message' => 'Batch not found.'
+            ];
+            // Return a 404 Not Found status code
+            return $this->response->setJSON($response)->setStatusCode(404);
+        }
+
+        try {
+            // Attempt to delete the batch from the database
+            if ($this->batchModel->delete($id)) {
+                $response = [
+                    'success' => true,
+                    'message' => 'Batch successfully deleted.'
+                ];
+                return $this->response->setJSON($response);
+            } else {
+                // This case handles a silent failure from the model's delete() method
+                $response = [
+                    'success' => false,
+                    'message' => 'Failed to delete the batch.'
+                ];
+                return $this->response->setJSON($response)->setStatusCode(500);
+            }
+        } catch (\Exception $e) {
+            // Catch any exceptions (e.g., database connection issues)
+            $response = [
+                'success' => false,
+                'message' => 'An unexpected error occurred: ' . $e->getMessage()
+            ];
+            return $this->response->setJSON($response)->setStatusCode(500);
+        }
+    }
+
+
+    public function adjustStock($batchId = null)
+    {
+        // Handle POST request for form submission
+        if ($this->request->getMethod() === 'post') {
+            $rules = [
+                'batch_id' => 'required|integer',
+                'current_stock' => 'required|numeric',
+                'notes' => 'permit_empty|string'
+            ];
+
+            if (!$this->validate($rules)) {
+                return redirect()->back()->withInput()->with('validation', $this->validator);
+            }
+
+            $data = $this->validator->getValidated();
+            $batch = $this->batchModel->find($data['batch_id']);
+
+            if (!$batch) {
+                session()->setFlashdata('error', 'Batch not found.');
+                return redirect()->to(site_url('pharmacy/medicines'));
+            }
+
+            $oldStock = (int)$batch['current_stock'];
+            $newStock = (int)$data['current_stock'];
+            $adjustmentQuantity = $newStock - $oldStock;
+
+            // Update the batch stock
+            if (!$this->batchModel->update($batch['id'], ['current_stock' => $newStock])) {
+                session()->setFlashdata('error', 'Failed to update batch stock.');
+                return redirect()->back()->withInput();
+            }
+
+            // Record the stock adjustment in the log
+            $adjustmentData = [
+                'batch_id' => $batch['id'],
+                'medicine_id' => $batch['medicine_id'],
+                'quantity' => abs($adjustmentQuantity),
+                'adjustment_type' => ($adjustmentQuantity >= 0) ? 'addition' : 'subtraction',
+                'notes' => $data['notes'] ?? 'Stock adjusted via edit page.',
+                'created_by' => 'User',
+            ];
+            $this->stockAdjustmentModel->insert($adjustmentData);
+
+            session()->setFlashdata('success', 'Stock successfully adjusted!');
+            return redirect()->to(site_url('pharmacy/medicines'));
+        }
+
+        // Handle GET request to load the page
+        $data = [
+            'title' => 'Adjust Medicine Stock',
+            'batch' => null,
+            'medicine' => null,
+            'validation' => service('validation')
+        ];
+
+        if ($batchId) {
+            $batch = $this->batchModel->find($batchId);
+            if ($batch) {
+                $medicine = $this->medicineModel->find($batch['medicine_id']);
+                if ($medicine) {
+                    $data['batch'] = $batch;
+                    $data['medicine'] = $medicine;
+                } else {
+                    session()->setFlashdata('error', 'Associated medicine not found.');
+                    return redirect()->to(site_url('pharmacy/medicines'));
+                }
+            } else {
+                session()->setFlashdata('error', 'Batch not found.');
+                return redirect()->to(site_url('pharmacy/medicines'));
+            }
+        }
+
+        return view('pharmacy/medicines/adjust_stock', $data);
+    }
+
+ 
+
+
+       public function getBatchesByMedicine($medicineId = null)
+    {
+        if ($this->request->isAJAX()) {
+            // FIX: Added 'selling_price' to the select statement so it's
+            // available in the JSON response for the JavaScript to use.
+            $batches = $this->batchModel
+                ->select('id, batch_number, current_stock, expiry_date, selling_price')
+                ->where('medicine_id', $medicineId)
+                ->where('current_stock >', 0)
+                ->orderBy('expiry_date', 'ASC')
+                ->findAll();
+            return $this->response->setJSON(['batches' => $batches]);
+        }
+
+        // Return an error for non-AJAX requests
+        return $this->response->setStatusCode(403)->setJSON(['error' => 'Forbidden']);
     }
 }

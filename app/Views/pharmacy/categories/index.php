@@ -16,7 +16,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -50,7 +51,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>S.no</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Actions</th>
@@ -58,9 +59,10 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($categories) && is_array($categories)) : ?>
+                                <?php $serial_number = 1; ?>
                                 <?php foreach ($categories as $category) : ?>
                                     <tr>
-                                        <td><?= esc($category['id']) ?></td>
+                                        <td><?= $serial_number++ ?></td>
                                         <td><?= esc($category['name']) ?></td>
                                         <td><?= esc($category['description']) ?></td>
                                         <td>
@@ -83,5 +85,5 @@
             </div>
         </div>
     </section>
-    </div>
+</div>
 <?= $this->endSection() ?>

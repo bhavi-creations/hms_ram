@@ -1,11 +1,16 @@
-<?php namespace App\Controllers\Pharmacy;
+<?php
+
+namespace App\Controllers\Pharmacy;
 
 use App\Controllers\BaseController;
 use App\Models\Pharmacy\PharmacySupplierModel;
+use App\Models\Pharmacy\PharmacyBatchModel;
 
 class Suppliers extends BaseController
 {
     protected $supplierModel;
+    protected $batchModel;
+
 
     public function __construct()
     {
@@ -13,6 +18,7 @@ class Suppliers extends BaseController
         // parent::__construct();
 
         $this->supplierModel = new PharmacySupplierModel();
+         $this->batchModel = new PharmacyBatchModel(); 
     }
 
     /**
@@ -46,7 +52,7 @@ class Suppliers extends BaseController
     {
         $rules = [
             'name'          => 'required|min_length[3]|max_length[255]|is_unique[pharmacy_suppliers.name]',
-            'contact_person'=> 'permit_empty|max_length[100]',
+            'contact_person' => 'permit_empty|max_length[100]',
             'phone'         => 'permit_empty|max_length[20]',
             'email'         => 'permit_empty|valid_email|max_length[255]',
             'address'       => 'permit_empty|max_length[500]'
@@ -98,7 +104,7 @@ class Suppliers extends BaseController
 
         $rules = [
             'name'          => 'required|min_length[3]|max_length[255]',
-            'contact_person'=> 'permit_empty|max_length[100]',
+            'contact_person' => 'permit_empty|max_length[100]',
             'phone'         => 'permit_empty|max_length[20]',
             'email'         => 'permit_empty|valid_email|max_length[255]',
             'address'       => 'permit_empty|max_length[500]'

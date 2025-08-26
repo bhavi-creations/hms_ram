@@ -7,227 +7,254 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // Define the default route to point to the login page
-$routes->get('/', 'Auth::login');
+$routes->GET('/', 'Auth::login');
 
 // Authentication Routes
-$routes->get('/login', 'Auth::login');
-$routes->post('/auth/loginAttempt', 'Auth::loginAttempt');
-$routes->get('/logout', 'Auth::logout');
+$routes->GET('/login', 'Auth::login');
+$routes->POST('/auth/loginAttempt', 'Auth::loginAttempt');
+$routes->GET('/logout', 'Auth::logout');
 
 // Dashboard route (will be protected)
-$routes->get('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth' filter here
+$routes->GET('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth' filter here
 
 // New: Top-level route for Discharged Patients List
 // This matches the sidebar link base_url('discharged-patients')
-$routes->get('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
+$routes->GET('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
 
 
 // Patients
 $routes->group('patients', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Patients::index');
-    $routes->get('register', 'Patients::register');
-    $routes->post('save', 'Patients::save');
-    $routes->get('filter', 'Patients::filter');
-    $routes->get('view/(:num)', 'Patients::view/$1');
-    $routes->get('edit/(:num)', 'Patients::edit/$1');
-    $routes->get('delete/(:num)', 'Patients::delete/$1');
-    $routes->get('download-report/(:any)', 'Patients::downloadReport/$1');
-    $routes->post('deleteReportFile', 'Patients::deleteReportFile');
-    $routes->post('admitToIPD', 'Patients::admitToIPD');
-    $routes->get('getPatientsByPhone', 'Patients::getPatientsByPhone');
+    $routes->GET('/', 'Patients::index');
+    $routes->GET('register', 'Patients::register');
+    $routes->POST('save', 'Patients::save');
+    $routes->GET('filter', 'Patients::filter');
+    $routes->GET('view/(:num)', 'Patients::view/$1');
+    $routes->GET('edit/(:num)', 'Patients::edit/$1');
+    $routes->GET('delete/(:num)', 'Patients::delete/$1');
+    $routes->GET('download-report/(:any)', 'Patients::downloadReport/$1');
+    $routes->POST('deleteReportFile', 'Patients::deleteReportFile');
+    $routes->POST('admitToIPD', 'Patients::admitToIPD');
+    $routes->GET('getPatientsByPhone', 'Patients::getPatientsByPhone');
     // Removed the nested 'discharged' route here as it's now top-level
     // $routes->get('discharged', 'Patients::dischargedPatients');
 });
 
 // New: General Management Routes (now in its own controller)
 $routes->group('general', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'GeneralController::index');
+    $routes->GET('/', 'GeneralController::index');
 });
 
 
 $routes->group('opd', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'OpdController::index');
+    $routes->GET('/', 'OpdController::index');
 });
 
 // New: IPD Management Routes
 $routes->group('ipd', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'IpdController::index');
-    $routes->post('removeFromIPD', 'IpdController::removeFromIPD');
-    $routes->post('dischargePatient', 'IpdController::dischargePatient');
+    $routes->GET('/', 'IpdController::index');
+    $routes->POST('removeFromIPD', 'IpdController::removeFromIPD');
+    $routes->POST('dischargePatient', 'IpdController::dischargePatient');
 
     // --- Critical New Routes for Ward/Bed Assignment AJAX ---
-    $routes->get('getAvailableBedsByWard/(:num)', 'IpdController::getAvailableBedsByWard/$1');
-    $routes->get('getPatientAdmissionDetails/(:num)', 'IpdController::getPatientAdmissionDetails/$1');
+    $routes->GET('getAvailableBedsByWard/(:num)', 'IpdController::getAvailableBedsByWard/$1');
+    $routes->GET('getPatientAdmissionDetails/(:num)', 'IpdController::getPatientAdmissionDetails/$1');
 
     // Simplified POST route for assignWardBed
-    $routes->post('assignWardBed', 'IpdController::assignWardBed');
+    $routes->POST('assignWardBed', 'IpdController::assignWardBed');
     // --- END Critical New Routes ---
 });
 
 // New: Casualty Management Routes
 $routes->group('casualty', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'CasualtyController::index');
+    $routes->GET('/', 'CasualtyController::index');
 });
 
 
 // Doctors Routes (Admin view of doctors list)
 $routes->group('doctors', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Doctors::index');
-    $routes->get('new', 'Doctors::new');
-    $routes->post('save', 'Doctors::save');
-    $routes->post('delete/(:num)', 'Doctors::delete/$1');
-    $routes->get('edit/(:num)', 'Doctors::edit/$1');
-    $routes->get('view/(:num)', 'Doctors::view/$1');
-    $routes->post('delete_document_ajax', 'Doctors::deleteDocumentAjax');
+    $routes->GET('/', 'Doctors::index');
+    $routes->GET('new', 'Doctors::new');
+    $routes->POST('save', 'Doctors::save');
+    $routes->POST('delete/(:num)', 'Doctors::delete/$1');
+    $routes->GET('edit/(:num)', 'Doctors::edit/$1');
+    $routes->GET('view/(:num)', 'Doctors::view/$1');
+    $routes->POST('delete_document_ajax', 'Doctors::deleteDocumentAjax');
 });
 
 
 // Group for appointment management (Admin/General)
 $routes->group('appointments', ['namespace' => 'App\Controllers', 'filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'AppointmentController::index');
-    $routes->get('create', 'AppointmentController::create');
-    $routes->post('store', 'AppointmentController::store');
-    $routes->get('edit/(:num)', 'AppointmentController::edit/$1');
-    $routes->post('update/(:num)', 'AppointmentController::update/$1');
-    $routes->get('delete/(:num)', 'AppointmentController::delete/$1');
-    $routes->get('history', 'AppointmentController::history');
+    $routes->GET('/', 'AppointmentController::index');
+    $routes->GET('create', 'AppointmentController::create');
+    $routes->POST('store', 'AppointmentController::store');
+    $routes->GET('edit/(:num)', 'AppointmentController::edit/$1');
+    $routes->POST('update/(:num)', 'AppointmentController::update/$1');
+    $routes->GET('delete/(:num)', 'AppointmentController::delete/$1');
+    $routes->GET('history', 'AppointmentController::history');
 });
 
 // Patient-specific appointment routes
-$routes->get('patient/appointments', 'AppointmentController::patientAppointments');
+$routes->GET('patient/appointments', 'AppointmentController::patientAppointments');
 
 // Assets & Equipment Routes
 $routes->group('assets', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'AssetController::index');
-    $routes->get('create', 'AssetController::create');
-    $routes->post('store', 'AssetController::store');
-    $routes->get('edit/(:num)', 'AssetController::edit/$1');
-    $routes->post('update/(:num)', 'AssetController::update/$1');
-    $routes->get('delete/(:num)', 'AssetController::delete/$1');
+    $routes->GET('/', 'AssetController::index');
+    $routes->GET('create', 'AssetController::create');
+    $routes->POST('store', 'AssetController::store');
+    $routes->GET('edit/(:num)', 'AssetController::edit/$1');
+    $routes->POST('update/(:num)', 'AssetController::update/$1');
+    $routes->GET('delete/(:num)', 'AssetController::delete/$1');
 });
 // --- END HOSPITAL RESOURCES ROUTES ---
 
 // --- DOCTOR-SPECIFIC ROUTES ---
 $routes->group('doctor', ['filter' => 'auth'], function ($routes) {
-    $routes->get('dashboard', 'Home::doctorDashboard');
-    $routes->get('appointments', 'AppointmentController::doctorAppointments');
-    $routes->get('appointments/view/(:num)', 'AppointmentController::doctorViewAppointment/$1');
-    $routes->get('appointments/edit/(:num)', 'AppointmentController::doctorEditAppointment/$1');
-    $routes->post('appointments/update/(:num)', 'AppointmentController::doctorUpdateAppointment/$1');
-    $routes->get('appointments/history', 'AppointmentController::doctorAppointmentHistory');
-    $routes->get('patients', 'Patients::doctorPatientsList');
+    $routes->GET('dashboard', 'Home::doctorDashboard');
+    $routes->GET('appointments', 'AppointmentController::doctorAppointments');
+    $routes->GET('appointments/view/(:num)', 'AppointmentController::doctorViewAppointment/$1');
+    $routes->GET('appointments/edit/(:num)', 'AppointmentController::doctorEditAppointment/$1');
+    $routes->POST('appointments/update/(:num)', 'AppointmentController::doctorUpdateAppointment/$1');
+    $routes->GET('appointments/history', 'AppointmentController::doctorAppointmentHistory');
+    $routes->GET('patients', 'Patients::doctorPatientsList');
 });
 // --- END DOCTOR-SPECIFIC ROUTES ---
 
 // --- NEW HOSPITAL RESOURCES ROUTES: WARDS ---
 $routes->group('wards', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Wards::index');
-    $routes->get('create', 'Wards::create');
-    $routes->post('store', 'Wards::store');
-    $routes->get('edit/(:num)', 'Wards::edit/$1');
-    $routes->post('update/(:num)', 'Wards::update/$1');
-    $routes->get('delete/(:num)', 'Wards::delete/$1');
-    $routes->get('getWards', 'Wards::getWards');
+    $routes->GET('/', 'Wards::index');
+    $routes->GET('create', 'Wards::create');
+    $routes->POST('store', 'Wards::store');
+    $routes->GET('edit/(:num)', 'Wards::edit/$1');
+    $routes->POST('update/(:num)', 'Wards::update/$1');
+    $routes->GET('delete/(:num)', 'Wards::delete/$1');
+    $routes->GET('getWards', 'Wards::getWards');
 });
 
 // --- NEW HOSPITAL RESOURCES ROUTES: BEDS ---
 $routes->group('beds', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Beds::index');
+    $routes->GET('/', 'Beds::index');
     // Route for filtering beds by ward
-    $routes->get('filter/(:num)', 'Beds::filter/$1');
+    $routes->GET('filter/(:num)', 'Beds::filter/$1');
     // Route for updating bed status via AJAX
-    $routes->post('updateStatus/(:num)', 'Beds::updateStatus/$1');
-    $routes->get('getBedDetails/(:num)', 'Beds::getBedDetails/$1');
+    $routes->POST('updateStatus/(:num)', 'Beds::updateStatus/$1');
+    $routes->GET('getBedDetails/(:num)', 'Beds::getBedDetails/$1');
 });
 
-
-
-
-
-
-
-
-
-
+$routes->GET('pharmacy/medicines/getBatchesByMedicine/(:num)', 'Pharmacy\Medicines::getBatchesByMedicine/$1');
 
 // Pharmacy Routes
-
-
 $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function ($routes) {
 
     // Pharmacy Dashboard
-    $routes->get('/', 'Dashboard::index');
-    $routes->get('dashboard', 'Dashboard::index'); // Alias for /pharmacy
+    $routes->GET('/', 'Dashboard::index');
+    $routes->GET('dashboard', 'Dashboard::index'); // Alias for /pharmacy
 
     // Medicine Management (PharmacyMedicinesController)
-    $routes->get('medicines', 'Medicines::index');
-    $routes->get('medicines/create', 'Medicines::create');
-    $routes->post('medicines/store', 'Medicines::store');
-    $routes->get('medicines/edit/(:num)', 'Medicines::edit/$1');
-    $routes->post('medicines/update/(:num)', 'Medicines::update/$1');
-    $routes->post('medicines/delete/(:num)', 'Medicines::delete/$1'); // Using POST for delete for safety
+    $routes->GET('medicines', 'Medicines::index', ['as' => 'pharmacy.medicines.index']);
+    $routes->GET('medicines/create', 'Medicines::create', ['as' => 'pharmacy.medicines.create']);
+    $routes->POST('medicines/store', 'Medicines::store', ['as' => 'pharmacy.medicines.store']);
+    $routes->GET('medicines/edit/(:num)', 'Medicines::edit/$1', ['as' => 'pharmacy.medicines.edit']);
+    $routes->PUT('medicines/update/(:num)', 'Medicines::update/$1', ['as' => 'pharmacy.medicines.update']);
+    $routes->DELETE('medicines/delete/(:num)', 'Medicines::delete/$1', ['as' => 'pharmacy.medicines.delete']);
+
+    
 
     // Medicine Batches
-    $routes->get('medicines/batches/(:num)', 'Medicines::batches/$1');
-    $routes->get('medicines/add-batch/(:num)', 'Medicines::addBatch/$1');
-    $routes->post('medicines/store-batch', 'Medicines::storeBatch');
-    $routes->get('medicines/edit-batch/(:num)', 'Medicines::editBatch/$1');
-    $routes->post('medicines/update-batch/(:num)', 'Medicines::updateBatch/$1');
+    $routes->GET('medicines/batches/(:num)', 'Medicines::batches/$1');
+    $routes->GET('medicines/add-batch/(:num)', 'Medicines::addBatch/$1');
+    $routes->POST('medicines/store-batch', 'Medicines::storeBatch');
+    $routes->GET('medicines/edit-batch/(:num)', 'Medicines::editBatch/$1');
+    $routes->POST('medicines/update-batch/(:num)', 'Medicines::updateBatch/$1');
+    $routes->POST('medicines/delete-batch/(:num)', 'Medicines::deleteBatch/$1');
+  $routes->get('medicines', 'Medicines::index');
+
+    // Route for displaying the adjust stock page (GET)
+    $routes->get('medicines/adjustStock', 'Medicines::adjustStock');
+
+    // Route for submitting the adjust stock form (POST)
+    $routes->post('medicines/adjustStock', 'Medicines::adjustStock');
 
     // Stock Adjustments
-    $routes->match(['get', 'post'], 'medicines/adjust-stock', 'Medicines::adjustStock'); // Handles both form display and submission
+    $routes->match(['GET', 'POST'], 'medicines/adjust-stock', 'Medicines::adjustStock'); // Handles both form display and submission
+    // Stock Adjustment routes
+    // $routes->GET('medicines/adjust-stock', 'Medicines::adjustStock');
+    // $routes->POST('medicines/store-adjustment', 'Medicines::storeAdjustment');
 
     // Sales Management (PharmacySalesController)
-    $routes->get('sales', 'Sales::index'); // POS Panel
-    $routes->post('sales/process', 'Sales::processSale');
-    $routes->get('sales/invoice/(:num)', 'Sales::invoice/$1');
-    $routes->get('sales/list', 'Sales::listSales'); // Sales History/Reports view
+    $routes->GET('sales', 'Sales::index'); // POS Panel
+    $routes->POST('sales/process', 'Sales::processSale');
+    $routes->GET('sales/invoice/(:num)', 'Sales::invoice/$1');
+    $routes->GET('sales/list', 'Sales::listSales'); // Sales History/Reports view
 
     // Purchases Management (PharmacyPurchasesController)
-    $routes->get('purchases', 'Purchases::index');
-    $routes->get('purchases/create', 'Purchases::create');
-    $routes->post('purchases/store', 'Purchases::store');
-    $routes->get('purchases/view/(:num)', 'Purchases::view/$1');
-    $routes->match(['get', 'post'], 'purchases/receive-stock/(:num)', 'Purchases::receiveStock/$1'); // Handles stock receiving
+    $routes->GET('purchases', 'Purchases::index');
+    $routes->GET('purchases/create', 'Purchases::create');
+    $routes->POST('purchases/store', 'Purchases::store');
+    $routes->GET('purchases/view/(:num)', 'Purchases::view/$1');
+    $routes->match(['GET', 'POST'], 'purchases/receive-stock/(:num)', 'Purchases::receiveStock/$1'); // Handles stock receiving
 
-    // Supplier Management (PharmacySuppliersController)
-    $routes->get('suppliers', 'Suppliers::index');
-    $routes->get('suppliers/create', 'Suppliers::create');
-    $routes->post('suppliers/store', 'Suppliers::store');
-    $routes->get('suppliers/edit/(:num)', 'Suppliers::edit/$1');
-    $routes->post('suppliers/update/(:num)', 'Suppliers::update/$1');
-    $routes->post('suppliers/delete/(:num)', 'Suppliers::delete/$1');
+    // Supplier Management
+    $routes->GET('suppliers', 'Suppliers::index');
+    $routes->GET('suppliers/create', 'Suppliers::create');
+    $routes->POST('suppliers/store', 'Suppliers::store');
+    $routes->GET('suppliers/edit/(:num)', 'Suppliers::edit/$1');
+    $routes->POST('suppliers/update/(:num)', 'Suppliers::update/$1');
+    $routes->POST('suppliers/delete/(:num)', 'Suppliers::delete/$1');
+
+    // Manufacturer Management
+    $routes->GET('manufacturers', 'Manufacturers::index');
+    $routes->GET('manufacturers/create', 'Manufacturers::create');
+    $routes->POST('manufacturers/store', 'Manufacturers::store');
+    $routes->GET('manufacturers/edit/(:num)', 'Manufacturers::edit/$1');
+    $routes->POST('manufacturers/update/(:num)', 'Manufacturers::update/$1');
+    $routes->POST('manufacturers/delete/(:num)', 'Manufacturers::delete/$1');
+
+    // Dosage Form Management
+    $routes->GET('dosage_forms', 'DosageForms::index');
+    $routes->GET('dosage_forms/create', 'DosageForms::create');
+    $routes->POST('dosage_forms/store', 'DosageForms::store');
+    $routes->GET('dosage_forms/edit/(:num)', 'DosageForms::edit/$1');
+    $routes->POST('dosage_forms/update/(:num)', 'DosageForms::update/$1');
+    $routes->POST('dosage_forms/delete/(:num)', 'DosageForms::delete/$1');
+
+    // Units of Measure Management (added from previous conversation)
+    $routes->GET('units_of_measure', 'UnitsOfMeasure::index');
+    $routes->GET('units_of_measure/create', 'UnitsOfMeasure::create');
+    $routes->POST('units_of_measure/store', 'UnitsOfMeasure::store');
+    $routes->GET('units_of_measure/edit/(:num)', 'UnitsOfMeasure::edit/$1');
+    $routes->PUT('units_of_measure/update/(:num)', 'UnitsOfMeasure::update/$1');
+    $routes->DELETE('units_of_measure/delete/(:num)', 'UnitsOfMeasure::delete/$1');
 
     // Returns Management (PharmacyReturnsController)
-    $routes->get('returns', 'Returns::index'); // List pending/all returns
-    $routes->get('returns/create', 'Returns::create'); // Initiate a return
-    $routes->post('returns/store', 'Returns::store');
-    $routes->get('returns/approve/(:num)', 'Returns::approve/$1'); // Manager approval form
-    $routes->post('returns/process-approval/(:num)', 'Returns::processApproval/$1');
+    $routes->GET('returns', 'Returns::index'); // List pending/all returns
+    $routes->GET('returns/create', 'Returns::create'); // Initiate a return
+    $routes->POST('returns/store', 'Returns::store');
+    $routes->GET('returns/approve/(:num)', 'Returns::approve/$1'); // Manager approval form
+    $routes->POST('returns/process-approval/(:num)', 'Returns::processApproval/$1');
 
     // Reports (PharmacyReportsController)
-    $routes->get('reports', 'Reports::index');
-    $routes->get('reports/sales', 'Reports::sales');
-    $routes->get('reports/stock', 'Reports::stock');
-    $routes->get('reports/expiry', 'Reports::expiry');
-    $routes->get('reports/purchases', 'Reports::purchases');
+    $routes->GET('reports', 'Reports::index');
+    $routes->GET('reports/sales', 'Reports::sales');
+    $routes->GET('reports/stock', 'Reports::stock');
+    $routes->GET('reports/expiry', 'Reports::expiry');
+    $routes->GET('reports/purchases', 'Reports::purchases');
 
-    // Category Management (PharmacyCategoriesController - if kept separate)
-    $routes->get('categories', 'Categories::index');
-    $routes->get('categories/create', 'Categories::create');
-    $routes->post('categories/store', 'Categories::store');
-    $routes->get('categories/edit/(:num)', 'Categories::edit/$1');
-    $routes->post('categories/update/(:num)', 'Categories::update/$1');
-    $routes->post('categories/delete/(:num)', 'Categories::delete/$1');
+    // Category Management
+    $routes->GET('categories', 'Categories::index');
+    $routes->GET('categories/create', 'Categories::create');
+    $routes->POST('categories/store', 'Categories::store');
+    $routes->GET('categories/edit/(:num)', 'Categories::edit/$1');
+    $routes->POST('categories/update/(:num)', 'Categories::update/$1');
+    $routes->POST('categories/delete/(:num)', 'Categories::delete/$1');
 });
 
 
- 
-$routes->group('api', function($routes){
-    $routes->get('get-doctors', 'Api::getDoctors'); // Maps /api/get-doctors to Api controller's getDoctors method
+// API Routes
+$routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
+    $routes->GET('get-doctors', 'Api::getDoctors'); // Maps /api/get-doctors to Api controller's getDoctors method
 });
 
-$routes->group('pharmacy', function($routes){
-    $routes->get('medicines/get-batches-by-medicine/(:num)', 'Pharmacy\Medicine::getBatchesByMedicine/$1');
-    // Make sure this route is correct based on your controller structure
+// Pharmacy API Routes (grouped under the main pharmacy group)
+$routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function ($routes) {
+    $routes->GET('medicines/get-batches-by-medicine/(:num)', 'Medicines::getBatchesByMedicine/$1');
 });

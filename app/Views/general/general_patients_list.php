@@ -127,7 +127,8 @@
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
                             // Include CSRF token if enabled in CodeIgniter
-                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>'
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>' 
+                            
                         },
                         success: function(response) {
                             if (response.success) {

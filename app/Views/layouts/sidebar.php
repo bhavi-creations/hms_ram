@@ -177,15 +177,36 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('pharmacy/categories') ?>" class="nav-link <?= uri_string() == 'pharmacy/categories' ? 'active' : '' ?>">
+                                <a href="<?= base_url('pharmacy/categories') ?>" class="nav-link <?= uri_string() == 'pharmacy/categories' || url_is('pharmacy/categories/*') ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-tags"></i>
                                     <p>Medicine Categories</p>
                                 </a>
                             </li>
+                            <!-- New Dosage Forms link -->
                             <li class="nav-item">
-                                <a href="<?= base_url('pharmacy/suppliers') ?>" class="nav-link <?= uri_string() == 'pharmacy/suppliers' ? 'active' : '' ?>">
+                                <a href="<?= base_url('pharmacy/dosage_forms') ?>" class="nav-link <?= uri_string() == 'pharmacy/dosage_forms' || url_is('pharmacy/dosage_forms/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-flask"></i>
+                                    <p>Dosage Forms</p>
+                                </a>
+                            </li>
+                            <!-- New Units of Measure link -->
+                            <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/units_of_measure') ?>" class="nav-link <?= uri_string() == 'pharmacy/units_of_measure' || url_is('pharmacy/units_of_measure/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-balance-scale"></i>
+                                    <p>Units of Measure</p>
+                                </a>
+                            </li>
+                            <!-- End of new Dosage Forms link -->
+                            <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/suppliers') ?>" class="nav-link <?= uri_string() == 'pharmacy/suppliers' || url_is('pharmacy/suppliers/*') ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-truck"></i>
                                     <p>Suppliers</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/manufacturers') ?>" class="nav-link <?= uri_string() == 'pharmacy/manufacturers' || url_is('pharmacy/manufacturers/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-industry"></i>
+                                    <p>Manufacturers</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -220,6 +241,7 @@
                             </li>
                         </ul>
                     </li>
+
 
                     <!-- Laboratory Management (Admin only) -->
                     <?php $isLaboratoryManagementActive = url_is('laboratory*'); ?>

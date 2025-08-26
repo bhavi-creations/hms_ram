@@ -98,6 +98,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
+<script src="<?= base_url('public/plugins/datatables/datatables.min.js') ?>"></script>
 <script>
     $(function () {
         // Initialize DataTable
@@ -151,7 +152,9 @@
                         data: { patient_id: patientId },
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
-                            '<?= csrf_header() ?>': '<?= csrf_hash() ?>' // Add CSRF token
+                            '<?= csrf_header() ?>': '<?= csrf_hash() ?>' 
+                            
+                             
                         },
                         success: function(response) {
                             if (response.success) {

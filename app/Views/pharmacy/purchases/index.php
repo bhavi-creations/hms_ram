@@ -16,7 +16,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -50,7 +51,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>S.no</th>
                                 <th>Supplier</th>
                                 <th>Purchase Date</th>
                                 <th>Total Amount</th>
@@ -60,16 +61,17 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($purchases) && is_array($purchases)) : ?>
-                                <?php foreach ($purchases as $purchase) : ?>
+                                <?php $serial_number = 1; ?> <?php foreach ($purchases as $purchase) : ?>
                                     <tr>
-                                        <td><?= esc($purchase['id']) ?></td>
-                                        <td><?= esc($purchase['supplier_name']) ?></td> <td><?= esc(date('Y-m-d', strtotime($purchase['purchase_date']))) ?></td>
+                                        <td><?= $serial_number++ ?></td>
+                                        <td><?= esc($purchase['supplier_name']) ?></td>
+                                        <td><?= esc(date('Y-m-d', strtotime($purchase['purchase_date']))) ?></td>
                                         <td><?= esc(number_format($purchase['total_amount'], 2)) ?></td>
                                         <td><?= esc($purchase['status']) ?></td>
                                         <td>
                                             <a href="<?= site_url('pharmacy/purchases/view/' . $purchase['id']) ?>" class="btn btn-sm btn-info">View</a>
                                             <a href="<?= site_url('pharmacy/purchases/receive-stock/' . $purchase['id']) ?>" class="btn btn-sm btn-success">Receive Stock</a>
-                                            </td>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
@@ -83,5 +85,5 @@
             </div>
         </div>
     </section>
-    </div>
+</div>
 <?= $this->endSection() ?>

@@ -90,6 +90,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
+<script src="<?= base_url('public/plugins/datatables/datatables.min.js') ?>"></script>
 <script>
     $(function() {
         $("#casualtyPatientsTable").DataTable({
@@ -104,7 +105,8 @@
         }).buttons().container().appendTo('#casualtyPatientsTable_wrapper .col-md-6:eq(0)');
 
         // SweetAlert2 for "Add to IPD"
-        $('.admit-to-ipd-btn').on('click', function() {
+        // $('.admit-to-ipd-btn').on('click', function() 
+        $(document).on('click', '.admit-to-ipd-btn', function() {
             const patientId = $(this).data('patient-id');
             const patientName = $(this).closest('tr').find('td:eq(1)').text();
             const $clickedButton = $(this); // Store reference to the clicked button
@@ -127,7 +129,10 @@
                             patient_id: patientId
                         },
                         headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
+                            'X-Requested-With': 'XMLHttpRequest',
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>' 
+
+                            
                         },
                         success: function(response) {
                             if (response.success) {
