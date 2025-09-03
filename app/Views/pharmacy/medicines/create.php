@@ -133,6 +133,33 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <!-- New input for GST Rate -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="gst_rate">GST Rate (%) <span class="text-danger">*</span></label>
+                                <input type="number" step="0.01" min="0" class="form-control <?= (service('validation')->hasError('gst_rate')) ? 'is-invalid' : '' ?>" id="gst_rate" name="gst_rate" value="<?= old('gst_rate') ?>" required>
+                                <?php if (service('validation')->hasError('gst_rate')): ?>
+                                    <div class="invalid-feedback">
+                                        <?= service('validation')->getError('gst_rate') ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <!-- New input for HSN Code -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="hsn_code">HSN Code <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control <?= (service('validation')->hasError('hsn_code')) ? 'is-invalid' : '' ?>" id="hsn_code" name="hsn_code" value="<?= old('hsn_code') ?>" required>
+                                <?php if (service('validation')->hasError('hsn_code')): ?>
+                                    <div class="invalid-feedback">
+                                        <?= service('validation')->getError('hsn_code') ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-6">

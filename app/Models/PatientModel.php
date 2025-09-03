@@ -16,7 +16,7 @@ class PatientModel extends Model
     protected $allowedFields = [
         'patient_id_code',
         'patient_type',
-        'previous_patient_type', // <--- ADDED: To store the patient's type before IPD
+        'previous_patient_type', 
         'opd_id_code',
         'ipd_id_code',
         'gen_id_code',

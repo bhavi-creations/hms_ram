@@ -60,6 +60,8 @@
                                     <th>Form</th>
                                     <th>Category</th>
                                     <th>Manufacturer</th>
+                                    <th>HSN Code</th>
+                                    <th>GST Rate (%)</th>
                                     <th>Total Stock</th>
                                     <th>Reorder Level</th>
                                     <th>Status</th>
@@ -78,6 +80,8 @@
                                             <td><?= esc($medicine['dosage_form_name']) ?></td>
                                             <td><?= esc($medicine['category_name']) ?></td>
                                             <td><?= esc($medicine['manufacturer_name']) ?></td>
+                                            <td><?= esc($medicine['hsn_code'] ?? '') ?></td>
+                                            <td><?= esc($medicine['gst_rate'] ?? '') ?></td>
                                             <td>
                                                 <span class="badge <?= ($medicine['total_stock'] <= $medicine['reorder_level']) ? 'bg-danger' : 'bg-success' ?>">
                                                     <?= esc($medicine['total_stock']) ?>
@@ -111,7 +115,7 @@
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="11" class="text-center">No medicines found.</td>
+                                        <td colspan="13" class="text-center">No medicines found.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>

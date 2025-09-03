@@ -140,7 +140,8 @@ $routes->group('beds', ['filter' => 'auth'], function ($routes) {
     $routes->GET('getBedDetails/(:num)', 'Beds::getBedDetails/$1');
 });
 
-$routes->GET('pharmacy/medicines/getBatchesByMedicine/(:num)', 'Pharmacy\Medicines::getBatchesByMedicine/$1');
+
+
 
 // Pharmacy Routes
 $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function ($routes) {
@@ -148,6 +149,32 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     // Pharmacy Dashboard
     $routes->GET('/', 'Dashboard::index');
     $routes->GET('dashboard', 'Dashboard::index'); // Alias for /pharmacy
+
+
+    $routes->get('payments/makePayment/(:segment)', 'Payments::makePayment/$1');
+    $routes->post('payments/processPayment', 'Payments::processPayment');
+
+
+
+    // Sales Management (PharmacySalesController)
+    $routes->GET('sales', 'Sales::index'); // POS Panel
+    $routes->POST('sales/process-sale', 'Sales::processSale');
+    $routes->GET('sales/invoice/(:any)', 'Sales::invoice/$1');
+    $routes->GET('sales/list', 'Sales::listSales');
+    $routes->get('sales/billsByPatient/(:num)', 'Sales::billsByPatient/$1');
+    $routes->get('sales/printInvoice/(:any)', 'Sales::printInvoice/$1');
+
+
+
+    // ** NEW API ROUTES FOR SALES **
+    $routes->GET('sales/getMedicinesByCategory/(:num)', 'Sales::getMedicinesByCategory/$1');
+    $routes->GET('sales/getBatchesByMedicine/(:num)', 'Sales::getBatchesByMedicine/$1');
+    $routes->GET('sales/searchPatient/(:any)', 'Sales::searchPatient/$1');
+
+    $routes->GET('sales/listBills/(:any)', 'Sales::listBills/$1');
+
+
+
 
     // Medicine Management (PharmacyMedicinesController)
     $routes->GET('medicines', 'Medicines::index', ['as' => 'pharmacy.medicines.index']);
@@ -157,7 +184,9 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->PUT('medicines/update/(:num)', 'Medicines::update/$1', ['as' => 'pharmacy.medicines.update']);
     $routes->DELETE('medicines/delete/(:num)', 'Medicines::delete/$1', ['as' => 'pharmacy.medicines.delete']);
 
-    
+    // ** ADD THIS NEW ROUTE **
+    $routes->get('medicines/getPatientDetailsAndBills/(:any)', 'Medicines::getPatientDetailsAndBills/$1');
+
 
     // Medicine Batches
     $routes->GET('medicines/batches/(:num)', 'Medicines::batches/$1');
@@ -166,10 +195,10 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->GET('medicines/edit-batch/(:num)', 'Medicines::editBatch/$1');
     $routes->POST('medicines/update-batch/(:num)', 'Medicines::updateBatch/$1');
     $routes->POST('medicines/delete-batch/(:num)', 'Medicines::deleteBatch/$1');
-  $routes->get('medicines', 'Medicines::index');
+    $routes->GET('medicines', 'Medicines::index');
 
     // Route for displaying the adjust stock page (GET)
-    $routes->get('medicines/adjustStock', 'Medicines::adjustStock');
+    $routes->GET('medicines/adjustStock', 'Medicines::adjustStock');
 
     // Route for submitting the adjust stock form (POST)
     $routes->post('medicines/adjustStock', 'Medicines::adjustStock');
@@ -180,11 +209,14 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     // $routes->GET('medicines/adjust-stock', 'Medicines::adjustStock');
     // $routes->POST('medicines/store-adjustment', 'Medicines::storeAdjustment');
 
-    // Sales Management (PharmacySalesController)
-    $routes->GET('sales', 'Sales::index'); // POS Panel
-    $routes->POST('sales/process', 'Sales::processSale');
-    $routes->GET('sales/invoice/(:num)', 'Sales::invoice/$1');
-    $routes->GET('sales/list', 'Sales::listSales'); // Sales History/Reports view
+
+
+
+
+    // Add other existing pharmacy routes here as needed, following the same pattern
+    $routes->GET('dashboard', 'Dashboard::index');
+    $routes->GET('stock', 'Stock::index');
+    $routes->GET('reports', 'Reports::index');
 
     // Purchases Management (PharmacyPurchasesController)
     $routes->GET('purchases', 'Purchases::index');
@@ -246,15 +278,17 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->GET('categories/edit/(:num)', 'Categories::edit/$1');
     $routes->POST('categories/update/(:num)', 'Categories::update/$1');
     $routes->POST('categories/delete/(:num)', 'Categories::delete/$1');
+
+
+
+    // Combined API Routes for Pharmacy
+    $routes->GET('medicines/get-batches-by-medicine/(:num)', 'Medicines::getBatchesByMedicine/$1');
+    // $routes->GET('medicines/get-patient-details-and-bills/(:any)', 'Medicines::getPatientDetailsAndBills/$1');
+    $routes->GET('medicines/get-patient-details-and-bills/(:segment)', 'Medicines::getPatientDetailsAndBills/$1');
 });
 
 
 // API Routes
 $routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->GET('get-doctors', 'Api::getDoctors'); // Maps /api/get-doctors to Api controller's getDoctors method
-});
-
-// Pharmacy API Routes (grouped under the main pharmacy group)
-$routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function ($routes) {
-    $routes->GET('medicines/get-batches-by-medicine/(:num)', 'Medicines::getBatchesByMedicine/$1');
 });

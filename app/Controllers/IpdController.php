@@ -7,13 +7,17 @@ use App\Models\PatientModel;
 use App\Models\PatientAdmissionModel;
 use App\Models\WardModel;
 use App\Models\BedModel;
+use App\Models\Pharmacy\PharmacyBillingModel; // Corrected path
+use CodeIgniter\API\ResponseTrait;
 
 class IpdController extends BaseController
 {
+    use ResponseTrait;
     protected $patientModel;
     protected $patientAdmissionModel;
     protected $wardModel;
     protected $bedModel;
+    protected $pharmacyBillingModel; // Updated model name
     protected $db; // Re-declared the db property explicitly
 
     /**
@@ -38,7 +42,7 @@ class IpdController extends BaseController
         $this->patientAdmissionModel = new PatientAdmissionModel();
         $this->wardModel = new WardModel();
         $this->bedModel = new BedModel();
-
+        $this->pharmacyBillingModel = new PharmacyBillingModel();  
         // Explicitly connect to the database here.
         // This ensures $this->db is available even if BaseController doesn't provide it automatically.
         $this->db = \Config\Database::connect();
@@ -383,4 +387,6 @@ class IpdController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'No active admission found for this patient.']);
         }
     }
+
+  
 }

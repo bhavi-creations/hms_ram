@@ -41,6 +41,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Custom AdminLTE styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
     <link href="<?= base_url('public/assets/css/adminlte.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('public/assets/css/adminlte.css') ?>" rel="stylesheet">
     <!-- Datatables -->
@@ -159,7 +160,7 @@
     <!-- AdminLTE App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
 
- 
+
 
     <!-- This is where your custom page scripts are rendered -->
     <?= $this->renderSection('scripts') ?>

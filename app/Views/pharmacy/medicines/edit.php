@@ -31,6 +31,7 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <!-- Display Validation Errors from the session -->
                         <?php if (session()->getFlashdata('errors')) : ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <h4 class="alert-heading">Validation Errors:</h4>
@@ -122,6 +123,22 @@
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- New Row for HSN Code and GST Rate -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="hsn_code">HSN Code <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="hsn_code" name="hsn_code" value="<?= old('hsn_code', $medicine['hsn_code'] ?? '') ?>" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gst_rate">GST Rate (%) <span class="text-danger">*</span></label>
+                                    <input type="number" step="0.01" class="form-control" id="gst_rate" name="gst_rate" value="<?= old('gst_rate', $medicine['gst_rate'] ?? '') ?>" required>
                                 </div>
                             </div>
                         </div>

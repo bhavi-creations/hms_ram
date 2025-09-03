@@ -4,6 +4,9 @@ namespace App\Controllers\Pharmacy;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\RawSql;
+use App\Models\PatientModel;
+use App\Models\DoctorModel;
+use App\Models\PatientAdmissionModel;
 use App\Models\Pharmacy\PharmacyMedicineModel;
 use App\Models\Pharmacy\PharmacyManufacturerModel;
 use App\Models\Pharmacy\PharmacyCategoryModel;
@@ -12,6 +15,7 @@ use App\Models\Pharmacy\PharmacyStockAdjustmentModel;
 use App\Models\Pharmacy\PharmacySupplierModel;
 use App\Models\Pharmacy\PharmacyDosageFormModel;
 use App\Models\Pharmacy\PharmacyUnitOfMeasureModel;
+use App\Models\Pharmacy\PharmacyBillingModel; // Add the PharmacyBillingModel
 
 class Medicines extends BaseController
 {
@@ -23,6 +27,10 @@ class Medicines extends BaseController
     protected $supplierModel;
     protected $dosageFormModel;
     protected $unitOfMeasureModel;
+    protected $patientModel;
+    protected $doctorModel;
+    protected $pharmacyBillingModel;
+    protected $patientAdmissionModel;
 
     public function __construct()
     {
@@ -34,6 +42,10 @@ class Medicines extends BaseController
         $this->supplierModel = new PharmacySupplierModel();
         $this->dosageFormModel = new PharmacyDosageFormModel();
         $this->unitOfMeasureModel = new PharmacyUnitOfMeasureModel();
+        $this->patientModel = new \App\Models\PatientModel();
+        $this->doctorModel = new DoctorModel();
+        $this->pharmacyBillingModel = new PharmacyBillingModel();
+        $this->patientAdmissionModel = new PatientAdmissionModel();
     }
 
     /**
@@ -82,7 +94,7 @@ class Medicines extends BaseController
     /**
      * Handles the submission of a new medicine form.
      */
-      public function store()
+    public function store()
     {
         // Define validation rules, including the new gst_rate and hsn_code fields.
         $rules = [
@@ -160,7 +172,7 @@ class Medicines extends BaseController
     }
 
 
-       public function update($id = null)
+    public function update($id = null)
     {
         // Get the ID from the URL segment.
         $medicine = $this->medicineModel->find($id);
@@ -216,10 +228,10 @@ class Medicines extends BaseController
             return redirect()->back()->withInput()->with('error', 'Failed to update medicine.');
         }
     }
-  
 
 
-    
+
+
 
     public function delete($id = null)
     {
@@ -748,14 +760,14 @@ class Medicines extends BaseController
         return view('pharmacy/medicines/adjust_stock', $data);
     }
 
- 
 
 
-       public function getBatchesByMedicine($medicineId = null)
+
+
+
+    public function getBatchesByMedicine($medicineId = null)
     {
         if ($this->request->isAJAX()) {
-            // FIX: Added 'selling_price' to the select statement so it's
-            // available in the JSON response for the JavaScript to use.
             $batches = $this->batchModel
                 ->select('id, batch_number, current_stock, expiry_date, selling_price')
                 ->where('medicine_id', $medicineId)
@@ -764,8 +776,51 @@ class Medicines extends BaseController
                 ->findAll();
             return $this->response->setJSON(['batches' => $batches]);
         }
-
-        // Return an error for non-AJAX requests
         return $this->response->setStatusCode(403)->setJSON(['error' => 'Forbidden']);
+    }
+
+    /**
+     * Retrieves patient details and bills based on IPD ID.
+     * It now correctly queries the 'patients' table using the 'ipd_id_code' column.
+     * @param string $ipdId The patient's IPD ID (e.g., 'IPD-250710-00043').
+     * @return \CodeIgniter\HTTP\Response
+     */
+    public function getPatientDetailsAndBills($ipdId = null)
+    {
+        if ($this->request->isAJAX()) {
+            if ($ipdId) {
+                // Find the patient record using 'ipd_code'
+                $patient = $this->patientModel->where('ipd_id_code', $ipdId)->first();
+
+                if ($patient) {
+                    // Get doctor's full name
+$doctor = $this->doctorModel->find($patient['referred_to_doctor_id']);
+                    $doctorName = "Dr. " . ($doctor['first_name'] ?? '') . ' ' . ($doctor['last_name'] ?? 'N/A');
+
+                    // Fetch patient bills linked by patient ID
+                    $bills = $this->pharmacyBillingModel->where('patient_id', $patient['id'])->findAll();
+
+                    // Prepare JSON response with IPD code included
+                    $data = [
+                        'status' => 'success',
+                        'patient' => [
+                            'name' => $patient['first_name'] . ' ' . $patient['last_name'],
+                            'phone' => $patient['phone_number'] ?? 'N/A',
+                            'doctor' => $doctorName,
+                           'ipd_id_code' => $patient['ipd_id_code'],
+                            'bills' => $bills,
+                        ],
+                    ];
+
+                    return $this->response->setJSON($data);
+                } else {
+                    return $this->response->setJSON(['status' => 'error', 'message' => 'Patient not found with this IPD.']);
+                }
+            } else {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'IPD is required.']);
+            }
+        }
+
+        return $this->response->setStatusCode(403)->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
     }
 }

@@ -227,6 +227,13 @@
                                     <p>POS Panel (Sales)</p>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="<?= site_url('pharmacy/sales/listBills/all') ?>" class="nav-link <?= (url_is('pharmacy/sales/listBills*')) ? 'active' : '' ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sales Bills</p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a href="<?= base_url('pharmacy/returns') ?>" class="nav-link <?= uri_string() == 'pharmacy/returns' || url_is('pharmacy/returns/*') ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-undo"></i>

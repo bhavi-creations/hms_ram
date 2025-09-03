@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/main') ?> // Ensure this points to your main layout file
+<?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
 <div class="content-wrapper">
@@ -6,23 +6,32 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Medicine Expiry Report</h1>
+                    <h1>Sales Bills</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url('/') ?>">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url('pharmacy/reports') ?>">Reports</a></li>
-                        <li class="breadcrumb-item active">Expiry</li>
+                        <li class="breadcrumb-item"><a href="<?= site_url('pharmacy/dashboard') ?>">Pharmacy</a></li>
+                        <li class="breadcrumb-item active">Sales Bills</li>
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Medicines Expiring Within <?= esc($monthsAhead ?? 3) ?> Months</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="card-title">List of Sales Bills</h3>
+                        <div class="card-tools">
+                            <a href="<?= site_url('pharmacy/sales') ?>" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> New Sale</a>
+                            <a href="<?= site_url('pharmacy/sales/listBills/outside_sale') ?>" class="btn btn-sm <?= ($currentType === 'outside_sale') ? 'btn-primary' : 'btn-outline-primary' ?>">Out-Patients</a>
+                            <a href="<?= site_url('pharmacy/sales/listBills/in_hospital') ?>" class="btn btn-sm <?= ($currentType === 'in_hospital') ? 'btn-primary' : 'btn-outline-primary' ?>">In-Patients</a>
+                            <a href="<?= site_url('pharmacy/sales/listBills/patients') ?>" class="btn btn-sm <?= ($currentType === 'patients') ? 'btn-primary' : 'btn-outline-primary' ?>">Patients List</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <?php if (session()->getFlashdata('success')) : ?>
@@ -42,59 +51,92 @@
                         </div>
                     <?php endif; ?>
 
-                    <form class="form-inline mb-3" action="<?= site_url('pharmacy/reports/expiry') ?>" method="get">
-                        <label for="months_ahead" class="mr-2">Expiring within:</label>
-                        <input type="number" class="form-control mr-2" id="months_ahead" name="months_ahead" value="<?= esc($monthsAhead ?? 3) ?>" min="1">
-                        <label class="mr-3">months</label>
-                        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                    </form>
-
-                    <table class="table table-bordered table-striped" id="expiryReportTable">
+                    <table class="table table-bordered table-striped" id="salesBillsTable">
                         <thead>
                             <tr>
-                                <th>Medicine Name</th>
-                                <th>Generic Name</th>
-                                <th>Strength</th>
-                                <th>Supplier</th>
-                                <th>Batch Number</th>
-                                <th>Current Stock</th>
-                                <th>Expiry Date</th>
-                                <th>Days Remaining</th>
+                                <th>S.No.</th>
+                                <?php if ($currentType === 'patients'): ?>
+                                    <th>IPD ID</th>
+                                    <th>Latest Bill Date</th>
+                                    <th>Patient Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Pending Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                <?php else: ?>
+                                    <th>Invoice No.</th>
+                                    <th>Date</th>
+                                    <th>Patient Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Total Amount</th>
+                                    <th>Net Amount</th>
+                                    <th>Actions</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($expiringBatches) && is_array($expiringBatches)) : ?>
-                                <?php foreach ($expiringBatches as $batch) :
-                                    $expiryDateObj = new DateTime($batch['expiry_date']);
-                                    $currentDateObj = new DateTime();
-                                    $interval = $currentDateObj->diff($expiryDateObj);
-                                    $daysRemaining = $interval->days;
-                                    if ($interval->invert) { // If expiry date is in the past
-                                        $daysRemaining = -$daysRemaining;
-                                    }
-                                ?>
-                                    <tr>
-                                        <td><?= esc($batch['brand_name']) ?></td>
-                                        <td><?= esc($batch['generic_name']) ?></td>
-                                        <td><?= esc($batch['strength']) ?></td>
-                                        <td><?= esc($batch['supplier_name']) ?></td>
-                                        <td><?= esc($batch['batch_number']) ?></td>
-                                        <td><?= esc($batch['current_stock']) ?></td>
-                                        <td><?= esc(date('Y-m-d', strtotime($batch['expiry_date']))) ?></td>
-                                        <td>
-                                            <?php if ($daysRemaining > 0) : ?>
-                                                <span class="badge badge-warning"><?= esc($daysRemaining) ?> days</span>
-                                            <?php elseif ($daysRemaining == 0) : ?>
-                                                <span class="badge badge-danger">Today</span>
-                                            <?php else : ?>
-                                                <span class="badge badge-danger"><?= esc(abs($daysRemaining)) ?> days Overdue</span>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
+                            <?php if (!empty($bills) && is_array($bills)) : ?>
+                                <?php $s_no = 1; ?>
+                                <?php foreach ($bills as $bill) : ?>
+                                    <?php if ($currentType === 'patients'): ?>
+                                        <?php
+                                        if (($bill['due_amount'] ?? 0) <= 0) {
+                                            $status_label = '<span class="badge badge-success">Paid</span>';
+                                            
+                                        } elseif (($bill['due_amount'] ?? 0) < ($bill['total_amount'] ?? 0)) {
+                                            $status_label = '<span class="badge badge-warning">Partial</span>';
+                                        } else {
+                                            $status_label = '<span class="badge badge-danger">Pending</span>';
+                                        }
+                                        ?>
+                                        <tr>
+                                            <td><?= $s_no++ ?></td>
+                                            <td><?= esc($bill['ipd_id_code'] ?? 'N/A') ?></td>
+                                            <td><?= esc(date('M d, Y', strtotime($bill['latest_bill_date'] ?? ''))) ?></td>
+                                            <td><?= esc($bill['first_name'] . ' ' . $bill['last_name']) ?></td>
+                                            <td><?= esc($bill['phone_number'] ?? 'N/A') ?></td>
+                                            <td>₹ <?= number_format($bill['total_amount'], 2) ?></td>
+                                            <td>₹ <?= number_format($bill['total_paid_amount'], 2) ?></td>
+                                            <td>₹ <?= number_format($bill['due_amount'], 2) ?></td>
+                                            <td><?= $status_label ?></td>
+                                            <td>
+                                                <a href="<?= site_url('pharmacy/sales/billsByPatient/' . $bill['id']) ?>" class="btn btn-info btn-sm btn_small">
+                                                    View Bills
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td><?= $s_no++ ?></td>
+                                            <td>
+                                                <?= esc($currentType === 'in_hospital' ? $bill['bill_id'] : ($bill['invoice_number'] ?? '')) ?>
+                                            </td>
+                                            <td data-order="<?= strtotime($currentType === 'in_hospital' ? $bill['bill_date'] : $bill['sale_date']) ?>">
+                                                <?= esc(date('M d, Y, h:i A', strtotime($currentType === 'in_hospital' ? $bill['bill_date'] : $bill['sale_date']))) ?>
+                                            </td>
+                                            <td>
+                                                <?= $currentType === 'in_hospital' ? esc($bill['first_name'] . ' ' . $bill['last_name']) : esc($bill['outside_patient_name']) ?>
+                                            </td>
+                                            <td>
+                                                <?= $currentType === 'in_hospital' ? esc($bill['phone_number'] ?? 'N/A') : esc($bill['outside_patient_phone'] ?? '') ?>
+                                            </td>
+                                            <td><?= number_format(esc($bill['total_amount']), 2) ?></td>
+                                            <td>
+                                                <?= number_format(esc($currentType === 'in_hospital' ? ($bill['total_amount'] ?? 0) : ($bill['net_amount'] ?? 0)), 2) ?>
+                                            </td>
+                                            <td>
+                                                <a href="<?= site_url('pharmacy/sales/invoice/' . urlencode($currentType === 'in_hospital' ? $bill['bill_id'] : $bill['invoice_number'])) ?>" class="btn btn-info btn-sm btn_small">
+                                                    View Bill
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="8" class="text-center">No medicines found expiring within the specified period or no stock.</td>
+                                    <td colspan="<?= $currentType === 'patients' ? 10 : 8 ?>" class="text-center">No records found for this category.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -103,23 +145,27 @@
             </div>
         </div>
     </section>
-    </div>
+</div>
+
 <?= $this->endSection() ?>
+
 
 <?= $this->section('scripts') ?>
 <script>
-    $(function () {
-        // Initialize DataTables if you're using it
+    $(function() {
+        // Initialize DataTables
         if ($.fn.DataTable) {
-            $('#expiryReportTable').DataTable({
+            $('#salesBillsTable').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": true,
                 "ordering": true,
+                "order": [
+                    [ $currentType === 'patients' ? 2 : 2, "desc" ] // Sort by Latest Bill Date or Date column descending
+                ],
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-                "order": [[7, 'asc']] // Order by Days Remaining column (index 7) ascending
             });
         }
     });
