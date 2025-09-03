@@ -88,7 +88,7 @@
                 box-shadow: none !important;
                 border: none !important;
                 background: #fff !important;
-                color-adjust: exact;
+             
             }
         }
 
