@@ -16,7 +16,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -50,29 +51,65 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>S.NO</th>
                                 <th>Sale ID</th>
                                 <th>Medicine Name</th>
                                 <th>Quantity</th>
                                 <th>Reason</th>
                                 <th>Status</th>
+                                <th>Notes</th>
+
                                 <th>Return Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($returns) && is_array($returns)) : ?>
+                                <?php $serial = 1; ?>
                                 <?php foreach ($returns as $return) : ?>
                                     <tr>
-                                        <td><?= esc($return['id']) ?></td>
-                                        <td><?= esc($return['sale_id']) ?></td>
-                                        <td><?= esc($return['medicine_name']) ?></td> <td><?= esc($return['quantity']) ?></td>
+                                        <td><?= esc($serial++) ?></td>
+                                        <td><?= esc($return['invoice_number'] ?? 'N/A') ?></td>
+                                        <td><?= esc($return['medicine_name']) ?></td>
+                                        <td><?= esc($return['quantity']) ?></td>
                                         <td><?= esc($return['reason']) ?></td>
                                         <td><?= esc($return['status']) ?></td>
+                                        <td>
+                                            <?php
+                                            $createNote = '';
+                                            $approvalNote = '';
+
+                                            if (!empty($return['notes'])) {
+                                                $parts = explode("\nApproval/Rejection Notes:", $return['notes']);
+                                                $createNote = trim($parts[0]);
+                                                $approvalNote = isset($parts[1]) ? trim($parts[1]) : '';
+                                            }
+                                            ?>
+
+                                            <?php if ($createNote !== ''): ?>
+                                                <p><strong>Return Rqst :</strong> <?= esc($createNote) ?></p>
+                                            <?php endif; ?>
+
+                                            <?php if ($approvalNote !== ''): ?>
+                                                <p><strong>Approval Note :</strong> <?= esc($approvalNote) ?></p>
+                                            <?php endif; ?>
+                                        </td>
+
                                         <td><?= esc(date('Y-m-d', strtotime($return['return_date']))) ?></td>
                                         <td>
-                                            <a href="<?= site_url('pharmacy/returns/approve/' . $return['id']) ?>" class="btn btn-sm btn-warning">Approve/Process</a>
-                                            </td>
+                                            <?php
+                                            $status = strtolower($return['status']);
+                                            $btnClass = 'btn-warning';
+                                            if ($status === 'approved') {
+                                                $btnClass = 'btn-success';
+                                            } elseif ($status === 'rejected') {
+                                                $btnClass = 'btn-danger';
+                                            }
+                                            ?>
+                                            <a href="<?= site_url('pharmacy/returns/approve/' . $return['id']) ?>" class="btn btn-sm <?= $btnClass ?>">
+                                                <?= ucfirst($status ?: 'Pending') ?>
+                                            </a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
@@ -86,5 +123,5 @@
             </div>
         </div>
     </section>
-    </div>
+</div>
 <?= $this->endSection() ?>

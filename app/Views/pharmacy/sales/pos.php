@@ -84,33 +84,7 @@
                                                 <p><strong>Name:</strong> <span id="patient-name"></span></p>
                                                 <p><strong>Phone:</strong> <span id="patient-phone"></span></p>
                                                 <p><strong>Referring Doctor:</strong> <span id="patient-doctor"></span></p>
-                                                <!-- Bill Section -->
-                                                <div class="card card-info collapsed-card">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">View Bills</h3>
-                                                        <div class="card-tools">
-                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                                <i class="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body p-0">
-                                                        <table class="table table-striped table-sm">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Bill ID</th>
-                                                                    <th>Date</th>
-                                                                    <th>Total</th>
-                                                                    <th>Paid</th>
-                                                                    <th>Due</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="patient-bills-table-body">
-                                                                <!-- Bill data will be loaded here via AJAX -->
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -665,16 +639,19 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.status === 'success' && response.medicines.length > 0) {
+                          
+
                             $.each(response.medicines, function(index, med) {
                                 $medicineSelect.append($('<option>', {
                                     value: med.id,
-                                    text: med.brand_name + ' (' + med.generic_name + ')',
+                                    text: med.brand_name + ' (' + med.generic_name + ', ' + med.strength + ')',
                                     'data-unit-price': med.selling_price,
                                     'data-gst-rate': med.gst_rate,
                                     'data-brand-name': med.brand_name,
                                     'data-hsn-code': med.hsn_code || '',
                                 }));
                             });
+
                         } else {
                             $medicineSelect.append($('<option>', {
                                 value: '',

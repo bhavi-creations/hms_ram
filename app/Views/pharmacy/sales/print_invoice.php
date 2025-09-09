@@ -26,18 +26,22 @@
         }
 
 
-           /* NEW FLEXBOX STYLES FOR TOTALS SECTION */
+        /* NEW FLEXBOX STYLES FOR TOTALS SECTION */
         .totals-section {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end; /* Aligns items to the bottom */
+            align-items: flex-end;
+            /* Aligns items to the bottom */
         }
-        
+
         .grand-total-words {
-            flex-grow: 1; /* Allows this section to take up available space */
+            flex-grow: 1;
+            /* Allows this section to take up available space */
             margin-right: 20px;
-            align-self: flex-end; /* Explicitly aligns this item to the end of the cross axis */
+            align-self: flex-end;
+            /* Explicitly aligns this item to the end of the cross axis */
         }
+
         .invoice-details {
             display: flex;
             justify-content: space-between;
@@ -88,90 +92,87 @@
                 box-shadow: none !important;
                 border: none !important;
                 background: #fff !important;
-             
+
             }
         }
-
-
-
     </style>
     <style>
-    /* Custom styles for the invoice page */
-    .invoice-card {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 30px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
-    }
+        /* Custom styles for the invoice page */
+        .invoice-card {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
 
-    .invoice-header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    .invoice-header h2 {
-        margin-bottom: 5px;
-    }
+        .invoice-header h2 {
+            margin-bottom: 5px;
+        }
 
-    .invoice-details {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #eee;
-        padding-bottom: 10px;
-    }
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
 
-    .invoice-details .left-side,
-    .invoice-details .right-side {
-        width: 48%;
-    }
+        .invoice-details .left-side,
+        .invoice-details .right-side {
+            width: 48%;
+        }
 
-    .invoice-details strong {
-        display: block;
-        margin-bottom: 5px;
-    }
+        .invoice-details strong {
+            display: block;
+            margin-bottom: 5px;
+        }
 
-    .invoice-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-    .invoice-table th,
-    .invoice-table td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-    }
+        .invoice-table th,
+        .invoice-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
 
-    .invoice-table th {
-        background-color: #f8f9fa;
-        font-weight: bold;
-    }
+        .invoice-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
 
-    .invoice-totals {
-        display: flex;
-        justify-content: flex-end;
-    }
+        .invoice-totals {
+            display: flex;
+            justify-content: flex-end;
+        }
 
-    .invoice-totals table {
-        width: 300px;
-    }
+        .invoice-totals table {
+            width: 300px;
+        }
 
-    .invoice-totals th,
-    .invoice-totals td {
-        padding: 5px;
-        text-align: right;
-    }
+        .invoice-totals th,
+        .invoice-totals td {
+            padding: 5px;
+            text-align: right;
+        }
 
-    .print-button {
-        text-align: center;
-        margin-top: 20px;
-    }
-</style>
+        .print-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -282,7 +283,51 @@
         </table>
 
 
-         <div class="totals-section">
+        <?php if (!empty($returns)): ?>
+            <h4 style="margin-top: 30px; color: #c0392b;">Returned Items</h4>
+            <table class="invoice-table" style="background: #fcf8e3;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Medicine</th>
+                        <th>Quantity Returned</th>
+                        <th>Unit Price</th>
+                        <th>Amount Subtracted</th>
+                        <th>Return Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $totalReturnAmount = 0;
+                    $ri = 1;
+                    ?>
+                    <?php foreach ($returns as $ret): ?>
+                        <?php
+                        $amount = $ret['quantity_returned'] * $ret['unit_selling_price'];
+                        $totalReturnAmount += $amount;
+                        ?>
+                        <tr>
+                            <td><?= $ri++ ?></td>
+                            <td><?= esc($ret['medicine_name']) ?></td>
+                            <td><?= esc($ret['quantity_returned']) ?></td>
+                            <td><?= number_format((float)$ret['unit_selling_price'], 2) ?></td>
+                            <td><?= number_format((float)$amount, 2) ?></td>
+                            <td><?= esc(date('M d, Y', strtotime($ret['approval_date'] ?? $ret['return_date']))) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" style="text-align: right;">Total Amount Returned</th>
+                        <th colspan="2"><?= number_format((float)$totalReturnAmount, 2) ?></th>
+                    </tr>
+                </tfoot>
+            </table>
+        <?php endif; ?>
+
+
+
+        <div class="totals-section">
             <div class="grand-total-words">
                 <p><strong>Grand Total (in words): </strong><?= esc($grandTotalInWords) ?></p>
             </div>

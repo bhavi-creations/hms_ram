@@ -104,9 +104,10 @@
                         <p>Invoice #
                             <?= esc($sale['invoice_number'] ?? $sale['bill_id'] ?? $sale['id']) ?>
                         </p>
+
                         <p>Date:
                             <?php
-                            if (isset($sale['prescription_type']) && $sale['prescription_type'] === 'in_hospital' && !empty($sale['bill_date'])) {
+                            if (!empty($sale['bill_date'])) {
                                 echo esc(date('M d, Y', strtotime($sale['bill_date'])));
                             } elseif (!empty($sale['sale_date'])) {
                                 echo esc(date('M d, Y', strtotime($sale['sale_date'])));
@@ -115,9 +116,18 @@
                             }
                             ?>
                         </p>
+
+
+
+
+
+
                         <?php if (!isset($sale['prescription_type']) || $sale['prescription_type'] !== 'in_hospital'): ?>
                             <p>Payment Method: <?= esc($sale['payment_method'] ?? 'N/A') ?></p>
                         <?php endif; ?>
+
+
+
 
                     </div>
 
@@ -183,7 +193,7 @@
                             <?php foreach ($saleItems as $item): ?>
                                 <tr>
                                     <td><?= $i++ ?></td>
-                                    <td><?= esc($item['brand_name']) ?> (<?= esc($item['strength']) ?>)</td>
+                                    <td><?= esc($item['generic_name'] ?? $item['medicine_name'] ?? '') ?> (<?= esc($item['strength'] ?? '') ?>)</td>
                                     <td><?= esc($item['batch_number']) ?></td>
                                     <td><?= esc(date('M Y', strtotime($item['expiry_date']))) ?></td>
                                     <?php if (isset($sale['prescription_type']) && $sale['prescription_type'] === 'outside_sale'): ?>
@@ -201,6 +211,48 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+
+                    <?php if (!empty($returns)): ?>
+                        <hr>
+                        <h5 class="mt-3" style="color:#c0392b;">Returned Items</h5>
+                        <table class="table table-bordered" style="background:#fcf8e3;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Medicine</th>
+                                    <th>Quantity Returned</th>
+                                    <th>Unit Price</th>
+                                    <th>Subtracted Amount</th>
+                                    <th>Date of Return</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $totalReturnAmount = 0;
+                                $ri = 1; ?>
+                                <?php foreach ($returns as $ret): ?>
+                                    <?php
+                                    $amt = $ret['quantity_returned'] * $ret['unit_selling_price'];
+                                    $totalReturnAmount += $amt;
+                                    ?>
+                                    <tr>
+                                        <td><?= $ri++ ?></td>
+                                        <td><?= esc($ret['medicine_name']) ?></td>
+                                        <td><?= esc($ret['quantity_returned']) ?></td>
+                                        <td><?= number_format((float)$ret['unit_selling_price'], 2) ?></td>
+                                        <td><?= number_format((float)$amt, 2) ?></td>
+                                        <td><?= esc(date('M d, Y', strtotime($ret['approval_date']))) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" class="text-right">Total Amount Returned</th>
+                                    <th colspan="2"><?= number_format((float)$totalReturnAmount, 2) ?></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    <?php endif; ?>
+
 
 
                     <div class="container">
@@ -251,7 +303,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Due Amount</th>
-                                                <td>₹ <?= number_format(esc($grandTotal) - esc($sale['paid_amount']), 2) ?></td>
+                                                <td>₹ <?= number_format(esc($dueAmount ?? $grandTotal), 2) ?></td>
                                             </tr>
                                         <?php endif; ?>
                                     </table>
@@ -259,6 +311,7 @@
                             </div>
                         </div>
                     </div>
+
 
 
 

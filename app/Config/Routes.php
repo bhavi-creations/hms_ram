@@ -151,8 +151,18 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->GET('dashboard', 'Dashboard::index'); // Alias for /pharmacy
 
 
-    $routes->get('payments/makePayment/(:segment)', 'Payments::makePayment/$1');
-    $routes->post('payments/processPayment', 'Payments::processPayment');
+    // Returns Management (PharmacyReturnsController)
+    $routes->GET('returns', 'Returns::index'); // List pending/all returns
+    $routes->GET('returns/create', 'Returns::create'); // Initiate a return
+    $routes->post('returns/store', 'Returns::store');
+    $routes->GET('returns/approve/(:num)', 'Returns::approve/$1'); // Manager approval form
+    $routes->POST('returns/process-approval/(:num)', 'Returns::processApproval/$1');
+    $routes->GET('returns/getMedicinesByInvoice/(:segment)', 'Returns::getMedicinesByInvoice/$1');
+    $routes->post('returns/processApproval/(:num)', 'Returns::processApproval/$1');
+
+
+    $routes->GET('payments/makePayment/(:segment)', 'Payments::makePayment/$1');
+    $routes->POST('payments/processPayment', 'Payments::processPayment');
 
 
 
@@ -170,7 +180,6 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->GET('sales/getMedicinesByCategory/(:num)', 'Sales::getMedicinesByCategory/$1');
     $routes->GET('sales/getBatchesByMedicine/(:num)', 'Sales::getBatchesByMedicine/$1');
     $routes->GET('sales/searchPatient/(:any)', 'Sales::searchPatient/$1');
-
     $routes->GET('sales/listBills/(:any)', 'Sales::listBills/$1');
 
 
@@ -257,12 +266,7 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->PUT('units_of_measure/update/(:num)', 'UnitsOfMeasure::update/$1');
     $routes->DELETE('units_of_measure/delete/(:num)', 'UnitsOfMeasure::delete/$1');
 
-    // Returns Management (PharmacyReturnsController)
-    $routes->GET('returns', 'Returns::index'); // List pending/all returns
-    $routes->GET('returns/create', 'Returns::create'); // Initiate a return
-    $routes->POST('returns/store', 'Returns::store');
-    $routes->GET('returns/approve/(:num)', 'Returns::approve/$1'); // Manager approval form
-    $routes->POST('returns/process-approval/(:num)', 'Returns::processApproval/$1');
+
 
     // Reports (PharmacyReportsController)
     $routes->GET('reports', 'Reports::index');

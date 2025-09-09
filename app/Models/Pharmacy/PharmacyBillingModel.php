@@ -14,7 +14,7 @@ class PharmacyBillingModel extends Model
         'patient_id',
         'bill_id', // Adjust these to match your actual column names
         'bill_date',
-        'total_amount',
+        'total_amount', 
         'paid_amount',
         'due_amount'
         // Add any other relevant fields from your billing table

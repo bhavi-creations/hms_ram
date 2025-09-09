@@ -14,6 +14,7 @@ class PharmacyReturnModel extends Model
 
     protected $allowedFields = [
         'sale_id',
+        'billing_id',          // <-- Add this line to allow billing_id updates
         'sale_item_id',
         'medicine_id',
         'batch_id',
@@ -31,7 +32,7 @@ class PharmacyReturnModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    protected $validationRules    = [];
+    protected $validationRules   = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
 }
