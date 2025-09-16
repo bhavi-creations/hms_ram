@@ -292,44 +292,90 @@
                         <th>Medicine</th>
                         <th>Quantity Returned</th>
                         <th>Unit Price</th>
-                        <th>Amount Subtracted</th>
-                        <th>Return Date</th>
+                        <th>Discount/Unit</th>
+                        <th>Refund/Unit</th>
+                        <th>Refunded Amount</th>
+                        <th>Date of Return</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    $totalReturnAmount = 0;
-                    $ri = 1;
-                    ?>
-                    <?php foreach ($returns as $ret): ?>
-                        <?php
-                        $amount = $ret['quantity_returned'] * $ret['unit_selling_price'];
-                        $totalReturnAmount += $amount;
-                        ?>
-                        <tr>
-                            <td><?= $ri++ ?></td>
-                            <td><?= esc($ret['medicine_name']) ?></td>
-                            <td><?= esc($ret['quantity_returned']) ?></td>
-                            <td><?= number_format((float)$ret['unit_selling_price'], 2) ?></td>
-                            <td><?= number_format((float)$amount, 2) ?></td>
-                            <td><?= esc(date('M d, Y', strtotime($ret['approval_date'] ?? $ret['return_date']))) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="4" style="text-align: right;">Total Amount Returned</th>
-                        <th colspan="2"><?= number_format((float)$totalReturnAmount, 2) ?></th>
-                    </tr>
-                </tfoot>
+                                    <?php
+                                    $ri = 1;
+                                    $totalReturnAmount = 0;
+                                    ?>
+                                    <?php foreach ($returns as $ret): ?>
+                                        <?php
+                                        $qty = $ret['quantity_returned'];
+                                        $price = $ret['unit_selling_price'];
+                                        $disc = $ret['discount_per_item'] ?? 0;
+                                        $returnPerUnit = $price - $disc;
+                                        $amt = $returnPerUnit * $qty;
+                                        $totalReturnAmount += $amt;
+                                        ?>
+                                        <tr>
+                                            <td><?= $ri++ ?></td>
+                                            <td><?= esc($ret['medicine_name']) ?></td>
+                                            <td><?= esc($qty) ?></td>
+                                            <td><?= number_format($price, 2) ?></td>
+                                            <td><?= number_format($disc, 2) ?></td>
+                                            <td><?= number_format($returnPerUnit, 2) ?></td>
+                                            <td><?= number_format($amt, 2) ?></td>
+                                            <td><?= esc(date('M d, Y', strtotime($ret['approval_date'] ?? $ret['return_date']))) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="6">Total Amount Returned</th>
+                                        <th colspan="2"><?= number_format($totalReturnAmount, 2) ?></th>
+                                    </tr>
+                                </tfoot>
             </table>
+
+
+
         <?php endif; ?>
 
+
+        <?php if (!empty($returns) && $totalReturnAmount > 0): ?>
+            <div class="payment-summary mt-4" style="border:1px solid #ccc; padding:15px; border-radius:8px; background:#fafafa; font-weight:bold;">
+                <?php if ($sale['prescription_type'] === 'in_hospital'): ?>
+                    <p>Total Amount Returned (Excl. GST): ₹ <?= number_format($totalReturnAmount, 2) ?></p>
+
+                    <?php if (isset($extraPaidBeforeReturn) && $extraPaidBeforeReturn > 0): ?>
+                        <p>Extra Amount Paid: ₹ <?= number_format($extraPaidBeforeReturn, 2) ?></p>
+                    <?php endif; ?>
+
+                    <?php if (isset($dueAmount) && $dueAmount > 0): ?>
+                        <p style="color: red;">Due Amount after all returns: ₹ <?= number_format($dueAmount, 2) ?></p>
+                    <?php elseif (isset($excessPaidAmount) && $excessPaidAmount > 0): ?>
+                        <p style="color: green;">Excess Paid (Refund Due to Patient): ₹ <?= number_format($excessPaidAmount, 2) ?></p>
+                        <p style="color: #1e7e34;">
+                            <strong>Final Amount to Return: <?= number_format($totalReturnAmount, 2) ?> + <?= number_format($excessPaidAmount, 2) ?> = ₹ <?= number_format($finalRefundAmount, 2) ?></strong>
+                        </p>
+                    <?php else: ?>
+                        <p style="color: #666;">No refund due or outstanding amount.</p>
+                    <?php endif; ?>
+
+                <?php else: /* OP bill block updated */ ?>
+                    <p>Total Amount Returned (Excl. GST): ₹ <?= number_format($totalReturnAmount, 2) ?></p>
+
+                    <?php if (isset($totalReturnGST) && $totalReturnGST > 0): ?>
+                        <p>GST Included in Returned Items: ₹ <?= number_format($totalReturnGST, 2) ?></p>
+                    <?php endif; ?>
+
+                    <p><strong>Total Refund Amount (Incl. GST): ₹ <?= number_format($totalReturnAmount + $totalReturnGST, 2) ?></strong></p>
+
+                    <p><em>Note: OP bills are fully paid — no due amount.</em></p>
+                <?php endif; ?>
+
+            </div>
+        <?php endif; ?>
 
 
         <div class="totals-section">
             <div class="grand-total-words">
-                <p><strong>Grand Total (in words): </strong><?= esc($grandTotalInWords) ?></p>
+                <p><strong>Grand Total (in words): </strong><?= esc($grandTotalWords) ?></p>
             </div>
             <div class="invoice-totals">
                 <table>
@@ -347,7 +393,7 @@
                     </tr>
                     <tr>
                         <th>Total Discount</th>
-                        <td>- <?= number_format(esc(isset($sale['discount_amount']) ? $sale['discount_amount'] : 0), 2) ?></td>
+                        <td>- <?= number_format(esc($totalDiscount ?? 0), 2) ?></td>
                     </tr>
                     <?php if (isset($sale['prescription_type']) && $sale['prescription_type'] === 'outside_sale'): ?>
                         <tr>
@@ -362,16 +408,17 @@
                     <?php if (!isset($sale['prescription_type']) || $sale['prescription_type'] !== 'outside_sale'): ?>
                         <tr>
                             <th>Paid Amount</th>
-                            <td>₹ <?= number_format(esc($sale['paid_amount']), 2) ?></td>
+                            <td>₹ <?= number_format(esc($paidAmount ?? 0), 2) ?></td>
                         </tr>
                         <tr>
                             <th>Due Amount</th>
-                            <td>₹ <?= number_format(esc($grandTotal) - esc($sale['paid_amount']), 2) ?></td>
+                            <td>₹ <?= number_format(esc($dueAmount ?? $grandTotal), 2) ?></td>
                         </tr>
                     <?php endif; ?>
                 </table>
             </div>
         </div>
+
 
 
 

@@ -27,9 +27,9 @@
                             <a href="<?= site_url('pharmacy/medicines/create') ?>" class="btn btn-sm btn-primary">
                                 <i class="fas fa-plus-circle mr-1"></i> Add New Medicine
                             </a>
-                            <a href="<?= site_url('pharmacy/medicines/adjust-stock') ?>" class="btn btn-sm btn-info ml-2">
-                                <i class="fas fa-boxes mr-1"></i> Adjust Stock
-                            </a>
+                                <!-- <a href="<?= site_url('pharmacy/medicines/adjust-stock') ?>" class="btn btn-sm btn-info ml-2">
+                                    <i class="fas fa-boxes mr-1"></i> Adjust Stock
+                                </a> -->
                         </div>
                     </div>
                     <div class="card-body">
@@ -64,7 +64,6 @@
                                     <th>GST Rate (%)</th>
                                     <th>Total Stock</th>
                                     <th>Reorder Level</th>
-                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -88,13 +87,7 @@
                                                 </span>
                                             </td>
                                             <td><?= esc($medicine['reorder_level']) ?></td>
-                                            <td>
-                                                <?php if ($medicine['is_active']): ?>
-                                                    <span class="badge bg-success text-white">Active</span>
-                                                <?php else: ?>
-                                                    <span class="badge bg-danger text-white">Inactive</span>
-                                                <?php endif; ?>
-                                            </td>
+                                            
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Medicine Actions">
                                                     <a href="<?= site_url('pharmacy/medicines/batches/' . $medicine['id']) ?>" class="btn btn-info btn-sm" title="View Batches">

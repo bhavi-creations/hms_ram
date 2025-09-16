@@ -1,4 +1,5 @@
-<?= $this->extend('layouts/main') ?> // Make sure this points to your main layout file
+<?= $this->extend('layouts/main') ?>
+
 
 <?= $this->section('content') ?>
 <div class="content-wrapper">
@@ -6,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Purchases</h1>
+                    <h1>Manage Purchases by Supplier</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -19,71 +20,67 @@
         </div>
     </section>
 
+
     <section class="content">
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Purchase Orders List</h3>
-                    <div class="card-tools">
-                        <a href="<?= site_url('pharmacy/purchases/create') ?>" class="btn btn-primary btn-sm">
-                            <i class="fas fa-plus"></i> Create New Purchase
-                        </a>
-                    </div>
+                    <h3 class="card-title">Suppliers Purchase Summary</h3>
                 </div>
                 <div class="card-body">
-                    <?php if (session()->getFlashdata('success')) : ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?= session()->getFlashdata('success') ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (session()->getFlashdata('error')) : ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?= session()->getFlashdata('error') ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php endif; ?>
-
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>S.no</th>
-                                <th>Supplier</th>
-                                <th>Purchase Date</th>
-                                <th>Total Amount</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($purchases) && is_array($purchases)) : ?>
-                                <?php $serial_number = 1; ?> <?php foreach ($purchases as $purchase) : ?>
+                    <?php if (!empty($suppliers)): ?>
+                        <table id="purchaseSuppliersTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>S.no</th>
+                                    <th>Supplier</th>
+                                    <th>Total Amount (₹)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $sn = 1;
+                                foreach ($suppliers as $supplier): ?>
                                     <tr>
-                                        <td><?= $serial_number++ ?></td>
-                                        <td><?= esc($purchase['supplier_name']) ?></td>
-                                        <td><?= esc(date('Y-m-d', strtotime($purchase['purchase_date']))) ?></td>
-                                        <td><?= esc(number_format($purchase['total_amount'], 2)) ?></td>
-                                        <td><?= esc($purchase['status']) ?></td>
+                                        <td><?= $sn++ ?></td>
+                                        <td><?= esc($supplier['supplier_name']) ?></td>
+                                        <td><?= number_format($supplier['total_amount'], 2) ?></td>
                                         <td>
-                                            <a href="<?= site_url('pharmacy/purchases/view/' . $purchase['id']) ?>" class="btn btn-sm btn-info">View</a>
-                                            <a href="<?= site_url('pharmacy/purchases/receive-stock/' . $purchase['id']) ?>" class="btn btn-sm btn-success">Receive Stock</a>
+                                            <a href="<?= site_url('pharmacy/purchases/bySupplier/' . $supplier['supplier_id']) ?>" class="btn btn-sm btn-info">
+                                                View Purchases
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
-                            <?php else : ?>
-                                <tr>
-                                    <td colspan="6" class="text-center">No purchase orders found.</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <p class="text-center">No purchase records found.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </section>
 </div>
+<?= $this->endSection() ?>
+
+
+<?= $this->section('scripts') ?>
+ 
+<script>
+    $(document).ready(function() {
+        $('#purchaseSuppliersTable').DataTable({
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            searching: true,
+            ordering: true,
+            paging: true,
+            info: true,
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+</script>
 <?= $this->endSection() ?>

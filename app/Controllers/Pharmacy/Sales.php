@@ -17,6 +17,8 @@ use App\Models\Pharmacy\PharmacyBillingModel;
 use App\Models\Pharmacy\PharmacyInvoiceSequenceModel;
 use App\Models\Pharmacy\PharmacyBillingPaymentModel;
 use App\Models\Pharmacy\PharmacyReturnModel;
+use App\Models\Pharmacy\PharmacyBrandModel;
+use App\Models\Pharmacy\PharmacyGenericModel;
 
 // Import HMS Core Models
 use App\Models\PatientModel;
@@ -39,6 +41,9 @@ class Sales extends BaseController
     protected $pharmacyInvoiceSequenceModel;
     protected $pharmacyBillingPaymentModel;
     protected $returnModel;
+    protected $brandModel;
+    protected $genericModel;
+
 
     protected $db;
 
@@ -59,6 +64,8 @@ class Sales extends BaseController
         $this->pharmacyInvoiceSequenceModel = new pharmacyInvoiceSequenceModel();
         $this->pharmacyBillingPaymentModel = new PharmacyBillingPaymentModel();
         $this->returnModel = new PharmacyReturnModel();
+        $this->brandModel        = new PharmacyBrandModel();
+        $this->genericModel      = new PharmacyGenericModel();
     }
 
 
@@ -79,339 +86,169 @@ class Sales extends BaseController
         }
     }
 
-
     public function processSale()
     {
-        // 1. Define and perform validation based on user input
+        // 1. Validation rules (same as your code)
         $rules = [
             'prescription_type' => 'required|in_list[in_hospital,outside_sale]',
             'items.*.medicine_id' => 'required|integer',
             'items.*.batch_id' => 'required|integer',
             'items.*.quantity' => 'required|integer|greater_than[0]',
             'items.*.unit_selling_price' => 'required|decimal|greater_than[0]',
-            // Make payment_method required only for outside_sale
             'payment_method' => $this->request->getPost('prescription_type') === 'outside_sale' ? 'required|max_length[50]' : 'permit_empty|max_length[50]',
         ];
-
-        // Add conditional validation rules for patient/doctor details
         $prescriptionType = $this->request->getPost('prescription_type');
         if ($prescriptionType === 'in_hospital') {
             $rules['patient_id_code'] = 'required|max_length[50]';
             $rules['doctor_id'] = 'permit_empty|integer';
-        } else { // 'outside_sale'
+        } else {
             $rules['outside_patient_name'] = 'required|min_length[3]|max_length[255]';
             $rules['outside_patient_phone'] = 'permit_empty|max_length[20]';
             $rules['outside_patient_address'] = 'permit_empty|max_length[255]';
         }
-
         if (!$this->validate($rules)) {
-            // This will now halt the script and show the exact validation errors.
             die(print_r($this->validator->getErrors(), true));
         }
 
         $saleData = $this->request->getPost();
         $saleItems = $this->request->getPost('items');
-
-        // Start a database transaction
         $this->db->transStart();
-        $recordId = null; // Variable to hold the final ID for redirect
-        $invoiceNumber = ''; // Variable to hold the final invoice number
+        $recordId = null;
+        $invoiceNumber = '';
 
         try {
-            // Calculate totals before inserting anything
-            $totalAmount = 0;
-            $netAmount = 0;
+            // 2. Totals calculation block - this is where accuracy matters!
+            $totalSubtotal = 0;     // Subtotal after discounts (before GST)
+            $totalDiscount = 0;     // Total discount value summed from each item
+            $totalGST = 0;          // Total GST for OP bills
+
             foreach ($saleItems as $item) {
-                $itemTotal = ($item['quantity'] * $item['unit_selling_price']);
-                $itemSubTotal = $itemTotal - ($item['discount_per_item'] ?? 0);
-                $totalAmount += $itemTotal;
-                $netAmount += $itemSubTotal;
+                $qty = $item['quantity'];
+                $unit = $item['unit_selling_price'];
+                $disc = $item['discount_per_item'] ?? 0;
+                $gstRate = $item['gst_rate'] ?? 0;
+
+                $itemDiscount  = $qty * $disc;
+                $itemSubTotal  = ($qty * $unit) - $itemDiscount;
+                $totalSubtotal += $itemSubTotal;    // running subtotal (after discount)
+                $totalDiscount += $itemDiscount;
+
+                // For OP only: calculate GST on discounted subtotal
+                if ($prescriptionType === 'outside_sale') {
+                    $itemGST  = $itemSubTotal * ($gstRate / 100);
+                    $totalGST += $itemGST;
+                }
             }
-            $finalNetAmount = $netAmount - ($saleData['total_discount'] ?? 0);
+            $grandTotal = $totalSubtotal + $totalGST;
 
+            // 3. Payment logic
             $paymentMethod = $saleData['payment_method'] ?? '';
-
-            // Determine paid and due amounts based on payment method
             if ($paymentMethod === 'Credit') {
                 $paidAmount = 0.00;
-                $dueAmount = $finalNetAmount;
+                $dueAmount  = $grandTotal;
             } else {
-                $paidAmount = $finalNetAmount;
-                $dueAmount = 0.00;
+                $paidAmount = $grandTotal;
+                $dueAmount  = 0.00;
             }
 
-            // Generate the invoice number first
             $invoiceNumber = $this->generateInvoiceNumber($prescriptionType);
 
-            // Conditional logic to save to the correct table
+            // ---- OP (outside_sale) Bill Save ----
             if ($prescriptionType === 'outside_sale') {
-                // Prepare data for the pharmacy_sales table
                 $mainSaleData = [
-                    'invoice_number' => $invoiceNumber,
-                    'sale_date' => date('Y-m-d H:i:s'),
-                    'sales_person_id' => session()->get('user_id'),
-                    'prescription_type' => $prescriptionType,
-                    'outside_patient_name' => $saleData['outside_patient_name'],
-                    'outside_patient_phone' => $saleData['outside_patient_phone'] ?? null,
+                    'invoice_number'     => $invoiceNumber,
+                    'sale_date'          => date('Y-m-d H:i:s'),
+                    'sales_person_id'    => session()->get('user_id'),
+                    'prescription_type'  => $prescriptionType,
+                    'outside_patient_name'   => $saleData['outside_patient_name'],
+                    'outside_patient_phone'  => $saleData['outside_patient_phone'] ?? null,
                     'outside_patient_address' => $saleData['outside_patient_address'] ?? null,
-                    'total_amount' => $totalAmount,
-                    'discount_amount' => $saleData['total_discount'] ?? 0,
-                    'net_amount' => $finalNetAmount,
-                    'payment_method' => $paymentMethod,
-                    'paid_amount' => $paidAmount,
-                    'due_amount' => $dueAmount,
-                    'notes' => $saleData['notes'] ?? null,
+                    // THE IMPORTANT FIELDS! Always set as below:
+                    'net_amount'         => $totalSubtotal,  // After discounts/before GST
+                    'discount_amount'    => $totalDiscount,  // Sum of line discounts
+                    'total_amount'       => $grandTotal,     // Discounted subtotal + GST
+                    'payment_method'     => $paymentMethod,
+                    'paid_amount'        => $paidAmount,
+                    'due_amount'         => $dueAmount,
+                    'notes'              => $saleData['notes'] ?? null,
                 ];
-
-                // Insert the main sale record
                 $recordId = $this->salesModel->insert($mainSaleData);
                 if (!$recordId) {
                     throw new \Exception('Failed to create sale record.');
                 }
-            } elseif ($prescriptionType === 'in_hospital') {
-                // Prepare data for the pharmacy_billings table
+            }
+            // ---- IP (in_hospital) Bill Save ----
+            elseif ($prescriptionType === 'in_hospital') {
                 $patient = $this->patientModel->where('ipd_id_code', $saleData['patient_id_code'])->first();
                 if (empty($patient)) {
                     throw new \Exception('Invalid In-Hospital Patient ID Code.');
                 }
-
                 $billingData = [
-                    'bill_id' => $invoiceNumber,
-                    'patient_id' => $patient['id'],
-                    'bill_date' => date('Y-m-d H:i:s'),
-                    'total_amount' => $finalNetAmount,
-                    'paid_amount' => $paidAmount,
-                    'due_amount' => $dueAmount,
+                    'bill_id'      => $invoiceNumber,
+                    'patient_id'   => $patient['id'],
+                    'bill_date'    => date('Y-m-d H:i:s'),
+                    'total_amount' => $grandTotal,
+                    'paid_amount'  => $paidAmount,
+                    'due_amount'   => $dueAmount,
                 ];
-
-                // Insert the main billing record
                 $recordId = $this->pharmacyBillingModel->insert($billingData);
                 if (!$recordId) {
                     throw new \Exception('Failed to create billing record.');
                 }
-
-                // Insert initial payment record with the paid amount (zero if Credit)
+                // Save payment entry
                 $paymentData = [
-                    'bill_id' => $invoiceNumber,
-                    'payment_date' => date('Y-m-d H:i:s'),
+                    'bill_id'        => $invoiceNumber,
+                    'payment_date'   => date('Y-m-d H:i:s'),
                     'payment_amount' => $paidAmount,
                     'payment_method' => $paymentMethod ?? null,
-                    'created_at' => date('Y-m-d H:i:s'),
+                    'created_at'     => date('Y-m-d H:i:s'),
                 ];
-
                 if (!$this->pharmacyBillingPaymentModel->insert($paymentData)) {
                     throw new \Exception('Failed to create billing payment record.');
                 }
             }
 
-            // Loop through each sale item, add to the correct table, and deduct stock
+            // 4. Sale items save (unchanged)
             foreach ($saleItems as $item) {
                 $batch = $this->batchModel->find($item['batch_id']);
                 if (empty($batch) || $batch['current_stock'] < $item['quantity']) {
                     throw new \Exception('Insufficient stock for medicine in batch ' . $item['batch_id'] . '.');
                 }
+                $qty  = $item['quantity'];
+                $unit = $item['unit_selling_price'];
+                $disc = $item['discount_per_item'] ?? 0;
+                $itemSubTotal = ($qty * $unit) - ($qty * $disc);
 
-                $itemSubTotal = ($item['quantity'] * $item['unit_selling_price']) - ($item['discount_per_item'] ?? 0);
-
-                // The saleItemModel needs to be able to handle both a sale_id and a billing_id
                 $saleItemData = [
-                    'sale_id' => ($prescriptionType === 'outside_sale') ? $recordId : null,
-                    'billing_id' => ($prescriptionType === 'in_hospital') ? $recordId : null,
-                    'medicine_id' => $item['medicine_id'],
-                    'batch_id' => $item['batch_id'],
-                    'quantity' => $item['quantity'],
+                    'sale_id'           => ($prescriptionType === 'outside_sale') ? $recordId : null,
+                    'billing_id'        => ($prescriptionType === 'in_hospital') ? $recordId : null,
+                    'medicine_id'       => $item['medicine_id'],
+                    'batch_id'          => $item['batch_id'],
+                    'quantity'          => $item['quantity'],
                     'unit_selling_price' => $item['unit_selling_price'],
                     'discount_per_item' => $item['discount_per_item'] ?? 0,
-                    'sub_total' => $itemSubTotal,
+                    'sub_total'         => $itemSubTotal,
                 ];
-
                 if (!$this->saleItemModel->insert($saleItemData)) {
-                    // Log the model errors for investigation
                     log_message('error', '[PharmacySaleItemModel validation errors] ' . json_encode($this->saleItemModel->errors()));
                     log_message('error', '[Sale item data failed to insert] ' . json_encode($saleItemData));
-                    // Also show the error details to the user (for debugging)
                     $errors = $this->saleItemModel->errors();
                     die('Failed to add sale item. Errors: ' . print_r($errors, true) . '<br>Data: ' . print_r($saleItemData, true));
                 }
-
                 $this->batchModel->update($item['batch_id'], ['current_stock' => new \CodeIgniter\Database\RawSql('current_stock - ' . $item['quantity'])]);
             }
 
+            // 5. Finalize transaction/redirect
             $this->db->transComplete();
-
             if ($this->db->transStatus() === false) {
                 throw new \Exception('Transaction failed. Database status check returned false.');
             }
-
             return redirect()->to(site_url('pharmacy/sales/invoice/' . $invoiceNumber))->with('success', 'Sale processed successfully!');
         } catch (\Exception $e) {
             $this->db->transRollback();
             die('Sale failed: ' . $e->getMessage());
         }
     }
-
-
-    public function invoice(string $invoiceNumber)
-    {
-        // Handle special error invoice
-        if ($invoiceNumber === 'ERROR-GEN') {
-            return view('pharmacy/sales/error_general', [
-                'title' => 'Invoice Generation Failed',
-                'message' => 'The system failed to generate a valid invoice number. Please check logs and try again.'
-            ]);
-        }
-
-        // Try fetching as outside sale
-        $saleRecord = $this->salesModel->where('invoice_number', $invoiceNumber)->first();
-        $isOutsideSale = !empty($saleRecord);
-        $isInHospital = false;
-
-        // If not found, try fetching as in-hospital billing
-        if (!$isOutsideSale) {
-            $saleRecord = $this->pharmacyBillingModel->where('bill_id', $invoiceNumber)->first();
-            $isInHospital = !empty($saleRecord);
-        }
-
-        if (empty($saleRecord)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Invoice not found: ' . $invoiceNumber);
-        }
-
-        // Set prescription type for view logic
-        if ($isOutsideSale) {
-            $saleRecord['prescription_type'] = 'outside_sale';
-        } elseif ($isInHospital) {
-            // Fresh billing record for latest fields
-            $saleRecord = $this->pharmacyBillingModel->find($saleRecord['id']);
-            $saleRecord['prescription_type'] = 'in_hospital';  // Set after reload
-            // log_message('debug', 'Billing bill_date: ' . ($saleRecord['bill_date'] ?? 'NOT SET'));
-        }
-
-
-        // Determine ID field for sale items
-        $idFieldName = $isOutsideSale ? 'sale_id' : 'billing_id';
-
-        // Fetch sale items with joined medicine, batch, and measure details
-        $sql = "
-            SELECT
-                psi.*,
-                pm.generic_name,
-                pm.brand_name,
-                pm.strength,
-                pm.hsn_code,
-                pm.gst_rate,
-                pb.batch_number,
-                pb.expiry_date,
-                um.name AS unit_name
-            FROM pharmacy_sale_items psi
-            JOIN pharmacy_medicines pm ON pm.id = psi.medicine_id
-            JOIN pharmacy_batches pb ON pb.id = psi.batch_id
-            LEFT JOIN pharmacy_units_of_measure um ON um.id = pm.unit_of_measure_id
-            WHERE psi.{$idFieldName} = ?
-        ";
-        $query = $this->db->query($sql, [$saleRecord['id']]);
-        $saleItems = $query->getResultArray();
-
-        // Fetch sales person for outside sales
-        $salesPerson = $isOutsideSale ? $this->userModel->find($saleRecord['sales_person_id']) : null;
-
-        // Fetch patient and doctor for in-hospital billing
-        $patientDetails = null;
-        $doctorDetails = null;
-        if ($isInHospital) {
-            $patientDetails = $this->patientModel->find($saleRecord['patient_id']);
-            if ($patientDetails) {
-                $patientDetails['name'] = trim(($patientDetails['first_name'] ?? '') . ' ' . ($patientDetails['last_name'] ?? ''));
-            }
-            if (!empty($patientDetails['referred_to_doctor_id'])) {
-                $doctorDetails = $this->doctorModel->find($patientDetails['referred_to_doctor_id']);
-                if ($doctorDetails) {
-                    $doctorDetails['name'] = trim(($doctorDetails['first_name'] ?? '') . ' ' . ($doctorDetails['last_name'] ?? ''));
-                }
-            }
-        }
-
-        // Fetch payments and calculate total paid for in-hospital billing
-        $payments = [];
-        $totalPaid = 0;
-        if ($isInHospital) {
-            $payments = $this->pharmacyBillingPaymentModel
-                ->where('bill_id', $saleRecord['bill_id'])
-                ->orderBy('payment_date', 'ASC')
-                ->findAll();
-
-            $totalPaid = 0;
-            foreach ($payments as $payment) {
-                $totalPaid += $payment['payment_amount'];
-            }
-        } else {
-            $payments = [];
-            $totalPaid = 0;
-        }
-
-
-        // Calculate totals and GST
-        $totalGST = 0;
-        $totalSubTotal = 0;
-        $totalQuantity = 0;
-        foreach ($saleItems as &$item) {
-            $gross = $item['quantity'] * $item['unit_selling_price'];
-            $subTotal = $gross - $item['discount_per_item'];
-            $item['item_sub_total'] = $subTotal;
-            $totalSubTotal += $subTotal;
-            $gstAmount = $isOutsideSale ? $subTotal * ($item['gst_rate'] / 100) : 0;
-            $item['gst_amount'] = $gstAmount;
-            $totalGST += $gstAmount;
-            $totalQuantity += $item['quantity'];
-        }
-
-        // Calculate grand total
-        $grandTotal = $totalSubTotal - ($saleRecord['discount_amount'] ?? 0) + $totalGST;
-
-        // Convert grand total to words (assuming this method exists)
-        $grandTotalWords = $this->numberToCurrencyWords($grandTotal);
-
-        // *** THIS IS THE FIX FOR YOUR ERROR ***
-        $totalItems = count($saleItems);
-        if ($isInHospital) {
-            $returns = $this->returnModel
-                ->select('pharmacy_returns.*, pharmacy_medicines.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price')
-                ->join('pharmacy_medicines', 'pharmacy_medicines.id = pharmacy_returns.medicine_id')
-                ->join('pharmacy_sale_items', 'pharmacy_sale_items.id = pharmacy_returns.sale_item_id')
-                ->where('pharmacy_returns.billing_id', $saleRecord['id'])
-                ->where('pharmacy_returns.approval_status', 'approved')
-                ->findAll();
-        } else {
-            $returns = $this->returnModel
-                ->select('pharmacy_returns.*, pharmacy_medicines.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price')
-                ->join('pharmacy_medicines', 'pharmacy_medicines.id = pharmacy_returns.medicine_id')
-                ->join('pharmacy_sale_items', 'pharmacy_sale_items.id = pharmacy_returns.sale_item_id')
-                ->where('pharmacy_returns.sale_id', $saleRecord['id'])
-                ->where('pharmacy_returns.approval_status', 'approved')
-                ->findAll();
-        }
-        // Prepare data array for view
-        $data = [
-            'title' => 'Invoice',
-            'sale' => $saleRecord,
-            'salesPerson' => $salesPerson,
-            'patientDetails' => $patientDetails,
-            'doctorDetails' => $doctorDetails,
-            'saleItems' => $saleItems,
-            'gstAmount' => $totalGST,
-            'grandTotal' => $grandTotal,
-            'grandTotalInWords' => $grandTotalWords,
-            'subTotal' => $totalSubTotal,
-            'totalItems' => $totalItems,  // <=== THIS LINE ADDED
-            'totalQuantity' => $totalQuantity,
-            'payments' => $payments,
-            'paidAmount' => $totalPaid,
-            'dueAmount' => $isInHospital ? max(0, $saleRecord['total_amount'] - $totalPaid) : null,
-            'returns' => $returns,
-        ];
-
-        return view('pharmacy/sales/invoice', $data);
-    }
-
 
 
 
@@ -466,6 +303,9 @@ class Sales extends BaseController
         ];
         return view('pharmacy/sales/list', $data);
     }
+
+
+
     public function listBills($type = 'all')
     {
         if (!session()->get('user_id')) {
@@ -533,22 +373,22 @@ class Sales extends BaseController
 
 
 
-
-
-
-    // Add this new method to your Sales.php controller
     public function getMedicinesByCategory($categoryId = null)
     {
-        // A simple validation to ensure categoryId is a valid integer
         if (!is_numeric($categoryId) || $categoryId <= 0) {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid category ID.']);
         }
 
         try {
             $query = $this->medicineModel
-                ->select('pharmacy_medicines.*, pharmacy_batches.selling_price')
+                ->select('pharmacy_medicines.id, pharmacy_medicines.strength, pharmacy_medicines.gst_rate, pharmacy_medicines.hsn_code,
+                      pb.brand_name, pg.generic_name, uom.name AS unit_of_measure_name,
+                      pharmacy_batches.selling_price')
+                ->join('pharmacy_brands pb', 'pb.id = pharmacy_medicines.brand_id', 'left')
+                ->join('pharmacy_generics pg', 'pg.id = pharmacy_medicines.generic_id', 'left')
+                ->join('pharmacy_units_of_measure uom', 'uom.id = pharmacy_medicines.unit_of_measure_id', 'left')
                 ->join('pharmacy_batches', 'pharmacy_batches.medicine_id = pharmacy_medicines.id', 'left')
-                ->where('pharmacy_medicines.category_id', $categoryId) // Filter by category ID
+                ->where('pharmacy_medicines.category_id', $categoryId)
                 ->where('pharmacy_batches.current_stock >', 0)
                 ->where('pharmacy_batches.expiry_date >', date('Y-m-d'))
                 ->groupBy('pharmacy_medicines.id')
@@ -580,13 +420,230 @@ class Sales extends BaseController
     }
 
 
+
+
+
+
+
+
+
+    public function invoice(string $invoiceNumber)
+    {
+        // Handle error invoice
+        if ($invoiceNumber === 'ERROR-GEN') {
+            return view('sales/error_general', [
+                'title' => 'Invoice Generation Failed',
+                'message' => 'The system failed to generate a valid invoice number. Please check logs and try again.'
+            ]);
+        }
+
+        // Fetch the sale record (outside or in-hospital)
+        $saleRecord = $this->salesModel->where('invoice_number', $invoiceNumber)->first();
+        $isOutsideSale = !empty($saleRecord);
+        $isInHospital = false;
+
+        if (!$isOutsideSale) {
+            $saleRecord = $this->pharmacyBillingModel->where('bill_id', $invoiceNumber)->first();
+            $isInHospital = !empty($saleRecord);
+        }
+
+        if (empty($saleRecord)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Invoice not found: ' . $invoiceNumber);
+        }
+
+        // Set prescription type for view logic
+        if ($isOutsideSale) {
+            $saleRecord['prescription_type'] = 'outside_sale';
+        } elseif ($isInHospital) {
+            $saleRecord['prescription_type'] = 'in_hospital';
+        }
+
+        // Get field for sale items
+        $idFieldName = $isOutsideSale ? 'sale_id' : 'billing_id';
+
+        // Fetch sale items with all details
+        $sql = "
+        SELECT
+            psi.*,
+            pg.generic_name,
+            pb.brand_name,
+            pm.strength,
+            pm.hsn_code,
+            pm.gst_rate,
+            b.batch_number,
+            b.expiry_date,
+            um.name AS unit_name
+        FROM pharmacy_sale_items psi
+        JOIN pharmacy_medicines pm ON pm.id = psi.medicine_id
+        JOIN pharmacy_generics pg ON pg.id = pm.generic_id
+        JOIN pharmacy_brands pb ON pb.id = pm.brand_id
+        JOIN pharmacy_batches b ON b.id = psi.batch_id
+        LEFT JOIN pharmacy_units_of_measure um ON um.id = pm.unit_of_measure_id
+        WHERE psi.{$idFieldName} = ?
+    ";
+        $query = $this->db->query($sql, [$saleRecord['id']]);
+        $saleItems = $query->getResultArray();
+
+        // Fetch salesperson for OP
+        $salesPerson = $isOutsideSale ? $this->userModel->find($saleRecord['sales_person_id']) : null;
+
+        // Fetch patient and doctor for IP
+        $patientDetails = null;
+        $doctorDetails = null;
+        if ($isInHospital) {
+            $patientDetails = $this->patientModel->find($saleRecord['patient_id']);
+            if ($patientDetails) {
+                $patientDetails['name'] = trim(($patientDetails['first_name'] ?? '') . ' ' . ($patientDetails['last_name'] ?? ''));
+            }
+            if (!empty($patientDetails['referred_to_doctor_id'])) {
+                $doctorDetails = $this->doctorModel->find($patientDetails['referred_to_doctor_id']);
+                if ($doctorDetails) {
+                    $doctorDetails['name'] = trim(($doctorDetails['first_name'] ?? '') . ' ' . ($doctorDetails['last_name'] ?? ''));
+                }
+            }
+        }
+
+        // Fetch payments and total paid (all installments for IP)
+        $payments = [];
+        $totalPaid = 0;
+        if ($isInHospital) {
+            $payments = $this->pharmacyBillingPaymentModel
+                ->where('bill_id', $saleRecord['bill_id'])
+                ->orderBy('payment_date', 'ASC')
+                ->findAll();
+            foreach ($payments as $payment) {
+                $totalPaid += $payment['payment_amount'];
+            }
+        }
+
+        // Calculate main sale totals
+        $totalGST = 0;
+        $totalSubtotal = 0;
+        $totalQuantity = 0;
+        $totalDiscount = 0;
+        foreach ($saleItems as &$item) {
+            $quantity = floatval($item['quantity'] ?? 0);
+            $unitPrice = floatval($item['unit_selling_price'] ?? 0);
+            $discountPerItem = floatval($item['discount_per_item'] ?? 0);
+
+            $grossAmount = $quantity * $unitPrice;
+            $itemDiscount = $quantity * $discountPerItem;
+            $itemSubTotal = $grossAmount - $itemDiscount;
+            $item['item_sub_total'] = $itemSubTotal;
+
+            $gstRate = floatval($item['gst_rate'] ?? 0);
+            $itemGSTAmount = ($isOutsideSale) ? ($itemSubTotal * $gstRate / 100) : 0;
+            $item['gst_amount'] = $itemGSTAmount;
+
+            $totalSubtotal += $itemSubTotal;
+            $totalGST += $itemGSTAmount;
+            $totalQuantity += $quantity;
+            $totalDiscount += $itemDiscount;
+        }
+
+        // Grand total before returns
+        $grandTotal = $totalSubtotal + $totalGST;
+        $grandTotalWords = $this->numberToCurrencyWords($grandTotal);
+
+        // Fetch returns with joins (include GST rate for OP)
+        $this->returnModel->resetQuery();
+        if ($isInHospital) {
+            $returns = $this->returnModel
+                ->select('pharmacy_returns.*, pg.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price, pharmacy_sale_items.discount_per_item')
+                ->join('pharmacy_medicines m', 'm.id = pharmacy_returns.medicine_id')
+                ->join('pharmacy_generics pg', 'pg.id = m.generic_id')
+                ->join('pharmacy_sale_items', 'pharmacy_sale_items.id = pharmacy_returns.sale_item_id')
+                ->where('pharmacy_returns.billing_id', $saleRecord['id'])
+                ->where('pharmacy_returns.approval_status', 'approved')
+                ->findAll();
+        } else {
+            $returns = $this->returnModel
+                ->select('pharmacy_returns.*, pg.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price, pharmacy_sale_items.discount_per_item, pm.gst_rate')
+                ->join('pharmacy_medicines pm', 'pm.id = pharmacy_returns.medicine_id')
+                ->join('pharmacy_generics pg', 'pg.id = pm.generic_id')
+                ->join('pharmacy_sale_items', 'pharmacy_sale_items.id = pharmacy_returns.sale_item_id')
+                ->where('pharmacy_returns.sale_id', $saleRecord['id'])
+                ->where('pharmacy_returns.approval_status', 'approved')
+                ->findAll();
+        }
+
+
+
+        // Calculate total amount returned (after discounts), and for OP calculate GST on returns if needed
+        $totalReturnAmount = 0;
+        $totalReturnGST = 0;
+        foreach ($returns as $return) {
+            $qty = $return['quantity_returned'] ?? 0;
+            $unitPrice = $return['unit_selling_price'] ?? 0;
+            $discountPerItem = $return['discount_per_item'] ?? 0;
+            $amt = ($unitPrice - $discountPerItem) * $qty;
+            $totalReturnAmount += $amt;
+
+            // For OP only, refund GST as well (if required)
+            if ($isOutsideSale && isset($return['gst_rate'])) {
+                $totalReturnGST += $amt * ($return['gst_rate'] / 100);
+            }
+        }
+
+
+        // For summary display, work with paid amount
+        $totalPaidAmount = $totalPaid ?? 0;
+        if ($isOutsideSale && !isset($totalPaid)) {
+            $totalPaidAmount = 0;
+        }
+
+        // Calculate accurate due and excess using original grand total (add back returns)
+        $originalGrandTotal = $grandTotal + $totalReturnAmount;
+
+        $combinedPaidAndReturned = $totalPaidAmount + $totalReturnAmount;
+
+        if ($combinedPaidAndReturned < $originalGrandTotal) {
+            $dueAmount = $originalGrandTotal - $combinedPaidAndReturned;
+            $excessPaidAmount = 0;
+        } else {
+            $dueAmount = 0;
+            $excessPaidAmount = $combinedPaidAndReturned - $originalGrandTotal;
+        }
+
+        $extraPaidBeforeReturn = max(0, $totalPaidAmount - $originalGrandTotal);
+        $finalRefundAmount = $totalReturnAmount + $excessPaidAmount;
+        $data['finalRefundAmount'] = $finalRefundAmount;
+
+        // Pass data to view
+        $data = [
+            'title' => 'Invoice',
+            'sale' => $saleRecord,
+            'salesPerson' => $salesPerson,
+            'patientDetails' => $patientDetails,
+            'doctorDetails' => $doctorDetails,
+            'saleItems' => $saleItems,
+            'gstAmount' => $totalGST,
+            'grandTotal' => $grandTotal,
+            'grandTotalWords' => $grandTotalWords,
+            'subTotal' => $totalSubtotal,
+            'totalQuantity' => $totalQuantity,
+            'totalItems' => count($saleItems),
+            'payments' => $payments,
+            'paidAmount' => $totalPaidAmount,
+            'returns' => $returns,
+            'totalDiscount' => $totalDiscount,
+            'totalReturnAmount' => $totalReturnAmount,
+            'totalReturnGST' => $totalReturnGST,
+            'extraPaidBeforeReturn' => $extraPaidBeforeReturn,
+            'excessPaidAmount' => $excessPaidAmount,
+            'dueAmount' => $dueAmount,
+            'finalRefundAmount' => $finalRefundAmount,
+        ];
+
+        return view('pharmacy/sales/invoice', $data);
+    }
+
     public function printInvoice(string $invoiceNumber)
     {
-        // Try to fetch outside sale first
+        // Fetch sale record: outside sale first then in-hospital billing
         $saleRecord = $this->salesModel->where('invoice_number', $invoiceNumber)->first();
         $isOutsideSale = !empty($saleRecord);
 
-        // If not found, try as in-hospital billing
         if (!$isOutsideSale) {
             $saleRecord = $this->pharmacyBillingModel->where('bill_id', $invoiceNumber)->first();
             $isInHospital = !empty($saleRecord);
@@ -598,129 +655,187 @@ class Sales extends BaseController
             throw new PageNotFoundException('Sale invoice not found for printing: ' . $invoiceNumber);
         }
 
-        // Set the type for logic below
+        // Set prescription type for view logic
         if ($isOutsideSale) {
             $saleRecord['prescription_type'] = 'outside_sale';
         } elseif ($isInHospital) {
             $saleRecord['prescription_type'] = 'in_hospital';
         }
 
-        // Fetch sale items for the sale
+        // Determine the ID field for sale items
         $idFieldName = $isOutsideSale ? 'sale_id' : 'billing_id';
-        $items = $this->saleItemModel->where($idFieldName, $saleRecord['id'])->findAll();
 
-        // Get all patient/doctor details
+        // Fetch sale items with details including GST rate
+           $sql = "
+        SELECT
+            psi.*,
+            pg.generic_name,
+            pb.brand_name,
+            pm.strength,
+            pm.hsn_code,
+            pm.gst_rate,
+            b.batch_number,
+            b.expiry_date,
+            um.name AS unit_name
+            FROM pharmacy_sale_items psi
+            JOIN pharmacy_medicines pm ON pm.id = psi.medicine_id
+            JOIN pharmacy_generics pg ON pg.id = pm.generic_id
+            JOIN pharmacy_brands pb ON pb.id = pm.brand_id
+            JOIN pharmacy_batches b ON b.id = psi.batch_id
+            LEFT JOIN pharmacy_units_of_measure um ON um.id = pm.unit_of_measure_id
+            WHERE psi.{$idFieldName} = ?
+        ";
+        $query = $this->db->query($sql, [$saleRecord['id']]);
+        $saleItems = $query->getResultArray();
+
+        // Fetch salesperson for OP
         $salesPerson = $isOutsideSale ? $this->userModel->find($saleRecord['sales_person_id']) : null;
+
+        // Fetch patient and doctor for IP
         $patientDetails = null;
         $doctorDetails = null;
-
         if ($isInHospital) {
             $patientDetails = $this->patientModel->find($saleRecord['patient_id']);
             if ($patientDetails) {
                 $patientDetails['name'] = trim(($patientDetails['first_name'] ?? '') . ' ' . ($patientDetails['last_name'] ?? ''));
             }
-
             if (!empty($patientDetails['referred_to_doctor_id'])) {
                 $doctorDetails = $this->doctorModel->find($patientDetails['referred_to_doctor_id']);
-                if (!empty($doctorDetails)) {
+                if ($doctorDetails) {
                     $doctorDetails['name'] = trim(($doctorDetails['first_name'] ?? '') . ' ' . ($doctorDetails['last_name'] ?? ''));
                 }
             }
-
-            $payments = $this->pharmacyBillingPaymentModel
-                ->where('bill_id', $saleRecord['bill_id'])->orderBy('payment_date', 'ASC')->findAll();
-            $totalPaid = array_sum(array_column($payments, 'payment_amount'));
         }
 
-        // Same SQL and calculations as in invoice() for detailed items
-        $sql = "
-        SELECT
-            psi.*,
-            pm.generic_name,
-            pm.brand_name,
-            pm.strength,
-            pm.hsn_code,
-            pm.gst_rate,
-            pb.batch_number,
-            pb.expiry_date,
-            um.name AS unit_of_measure
-        FROM
-            pharmacy_sale_items psi
-        JOIN
-            pharmacy_medicines pm ON pm.id = psi.medicine_id
-        JOIN
-            pharmacy_batches pb ON pb.id = psi.batch_id
-        LEFT JOIN
-            pharmacy_units_of_measure um ON um.id = pm.unit_of_measure_id
-        WHERE
-            psi.{$idFieldName} = ?
-    ";
-        $query = $this->db->query($sql, [$saleRecord['id']]);
-        $saleItems = $query->getResultArray();
+        // Fetch payments and total paid (all installments for IP)
+        $payments = [];
+        $totalPaid = 0;
+        if ($isInHospital) {
+            $payments = $this->pharmacyBillingPaymentModel
+                ->where('bill_id', $saleRecord['bill_id'])
+                ->orderBy('payment_date', 'ASC')
+                ->findAll();
+            foreach ($payments as $payment) {
+                $totalPaid += $payment['payment_amount'];
+            }
+        }
 
-        // Calculate GST, subtotal, and quantities
-        $totalGstAmount = 0;
-        $totalSubTotal = 0;
+        // Calculate main sale totals
+        $totalGST = 0;
+        $totalSubtotal = 0;
         $totalQuantity = 0;
-
+        $totalDiscount = 0;
         foreach ($saleItems as &$item) {
-            $itemGross = $item['quantity'] * $item['unit_selling_price'];
-            $itemSubTotal = $itemGross - $item['discount_per_item'];
-            $item['item_sub_total'] = $itemSubTotal;
-            $totalSubTotal += $itemSubTotal;
+            $quantity = floatval($item['quantity'] ?? 0);
+            $unitPrice = floatval($item['unit_selling_price'] ?? 0);
+            $discountPerItem = floatval($item['discount_per_item'] ?? 0);
 
-            $prescriptionType = $isOutsideSale ? 'outside_sale' : 'in_hospital';
-            $itemGSTAmount = ($prescriptionType === 'outside_sale') ? $itemSubTotal * ($item['gst_rate'] / 100) : 0;
-            $totalGstAmount += $itemGSTAmount;
+            $grossAmount = $quantity * $unitPrice;
+            $itemDiscount = $quantity * $discountPerItem;
+            $itemSubTotal = $grossAmount - $itemDiscount;
+            $item['item_sub_total'] = $itemSubTotal;
+
+            $gstRate = floatval($item['gst_rate'] ?? 0);
+            $itemGSTAmount = ($isOutsideSale) ? ($itemSubTotal * $gstRate / 100) : 0;
             $item['gst_amount'] = $itemGSTAmount;
 
-            $totalQuantity += $item['quantity'];
+            $totalSubtotal += $itemSubTotal;
+            $totalGST += $itemGSTAmount;
+            $totalQuantity += $quantity;
+            $totalDiscount += $itemDiscount;
         }
 
-        $grandTotal = $totalSubTotal - ($saleRecord['discount_amount'] ?? 0) + $totalGstAmount;
-        $grandTotalInWords = $this->numberToCurrencyWords($grandTotal);
+        // Grand total before returns
+        $grandTotal = $totalSubtotal + $totalGST;
+        $grandTotalWords = $this->numberToCurrencyWords($grandTotal);
 
-
+        // Fetch returns with joins (include GST rate for OP)
+        $this->returnModel->resetQuery();
         if ($isInHospital) {
             $returns = $this->returnModel
-                ->select('pharmacy_returns.*, pharmacy_medicines.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price')
-                ->join('pharmacy_medicines', 'pharmacy_medicines.id = pharmacy_returns.medicine_id')
+                ->select('pharmacy_returns.*, pg.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price, pharmacy_sale_items.discount_per_item')
+                ->join('pharmacy_medicines m', 'm.id = pharmacy_returns.medicine_id')
+                ->join('pharmacy_generics pg', 'pg.id = m.generic_id')
                 ->join('pharmacy_sale_items', 'pharmacy_sale_items.id = pharmacy_returns.sale_item_id')
                 ->where('pharmacy_returns.billing_id', $saleRecord['id'])
                 ->where('pharmacy_returns.approval_status', 'approved')
                 ->findAll();
         } else {
             $returns = $this->returnModel
-                ->select('pharmacy_returns.*, pharmacy_medicines.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price')
-                ->join('pharmacy_medicines', 'pharmacy_medicines.id = pharmacy_returns.medicine_id')
+                ->select('pharmacy_returns.*, pg.generic_name as medicine_name, pharmacy_sale_items.unit_selling_price, pharmacy_sale_items.discount_per_item, pm.gst_rate')
+                ->join('pharmacy_medicines pm', 'pm.id = pharmacy_returns.medicine_id')
+                ->join('pharmacy_generics pg', 'pg.id = pm.generic_id')
                 ->join('pharmacy_sale_items', 'pharmacy_sale_items.id = pharmacy_returns.sale_item_id')
                 ->where('pharmacy_returns.sale_id', $saleRecord['id'])
                 ->where('pharmacy_returns.approval_status', 'approved')
                 ->findAll();
         }
+         // Calculate total amount returned (after discounts), and for OP calculate GST on returns if needed
+        $totalReturnAmount = 0;
+        $totalReturnGST = 0;
+        foreach ($returns as $return) {
+            $qty = $return['quantity_returned'] ?? 0;
+            $unitPrice = $return['unit_selling_price'] ?? 0;
+            $discountPerItem = $return['discount_per_item'] ?? 0;
+            $amt = ($unitPrice - $discountPerItem) * $qty;
+            $totalReturnAmount += $amt;
+
+            // For OP only, refund GST as well (if required)
+            if ($isOutsideSale && isset($return['gst_rate'])) {
+                $totalReturnGST += $amt * ($return['gst_rate'] / 100);
+            }
+        }
+
+
+        // For summary display, work with paid amount
+        $totalPaidAmount = $totalPaid ?? 0;
+        if ($isOutsideSale && !isset($totalPaid)) {
+            $totalPaidAmount = 0;
+        }
+
+        // Calculate accurate due and excess using original grand total (add back returns)
+        $originalGrandTotal = $grandTotal + $totalReturnAmount;
+
+        $combinedPaidAndReturned = $totalPaidAmount + $totalReturnAmount;
+
+        if ($combinedPaidAndReturned < $originalGrandTotal) {
+            $dueAmount = $originalGrandTotal - $combinedPaidAndReturned;
+            $excessPaidAmount = 0;
+        } else {
+            $dueAmount = 0;
+            $excessPaidAmount = $combinedPaidAndReturned - $originalGrandTotal;
+        }
+
+        $extraPaidBeforeReturn = max(0, $totalPaidAmount - $originalGrandTotal);
+        $finalRefundAmount = $totalReturnAmount + $excessPaidAmount;
+        $data['finalRefundAmount'] = $finalRefundAmount;
+
+        // Pass data to view
         $data = [
-            'title' => 'Print Sales Invoice',
+            'title' => 'Invoice',
             'sale' => $saleRecord,
             'salesPerson' => $salesPerson,
             'patientDetails' => $patientDetails,
             'doctorDetails' => $doctorDetails,
             'saleItems' => $saleItems,
-            'gstAmount' => $totalGstAmount,
+            'gstAmount' => $totalGST,
             'grandTotal' => $grandTotal,
-            'subTotal' => $totalSubTotal,
-            'totalItems' => count($saleItems),
+            'grandTotalWords' => $grandTotalWords,
+            'subTotal' => $totalSubtotal,
             'totalQuantity' => $totalQuantity,
-            'grandTotalInWords' => $grandTotalInWords,
+            'totalItems' => count($saleItems),
+            'payments' => $payments,
+            'paidAmount' => $totalPaidAmount,
             'returns' => $returns,
+            'totalDiscount' => $totalDiscount,
+            'totalReturnAmount' => $totalReturnAmount,
+            'totalReturnGST' => $totalReturnGST,
+            'extraPaidBeforeReturn' => $extraPaidBeforeReturn,
+            'excessPaidAmount' => $excessPaidAmount,
+            'dueAmount' => $dueAmount,
+            'finalRefundAmount' => $finalRefundAmount,
         ];
 
-        if ($isInHospital) {
-            $data['payments'] = $payments ?? [];
-            $data['paidAmount'] = $totalPaid ?? 0;
-            $data['dueAmount'] = $saleRecord['total_amount'] - ($totalPaid ?? 0);
-        }
-
-        // Use the minimal print view (no sidebars/navs)
         return view('pharmacy/sales/print_invoice', $data);
     }
 }

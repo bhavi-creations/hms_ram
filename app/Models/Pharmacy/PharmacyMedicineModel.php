@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models\Pharmacy;
 
@@ -16,16 +16,14 @@ class PharmacyMedicineModel extends Model
 
     // Corrected the allowedFields array to match the controller's data keys and added new fields
     protected $allowedFields = [
-        'generic_name',
-        'brand_name',
+        'generic_id',
+        'brand_id',
         'dosage_form_id',
         'strength',
         'unit_of_measure_id',
         'manufacturer_id',
         'category_id',
         'reorder_level',
-        'is_active',
-        'description',
         'created_by_user_id',
         'updated_by_user_id',
         'gst_rate', // New field for GST percentage
@@ -41,4 +39,3 @@ class PharmacyMedicineModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 }
-

@@ -15,7 +15,9 @@ use App\Models\Pharmacy\PharmacyStockAdjustmentModel;
 use App\Models\Pharmacy\PharmacySupplierModel;
 use App\Models\Pharmacy\PharmacyDosageFormModel;
 use App\Models\Pharmacy\PharmacyUnitOfMeasureModel;
-use App\Models\Pharmacy\PharmacyBillingModel; // Add the PharmacyBillingModel
+use App\Models\Pharmacy\PharmacyBillingModel;
+use App\Models\Pharmacy\PharmacyBrandModel;
+use App\Models\Pharmacy\PharmacyGenericModel;
 
 class Medicines extends BaseController
 {
@@ -31,6 +33,8 @@ class Medicines extends BaseController
     protected $doctorModel;
     protected $pharmacyBillingModel;
     protected $patientAdmissionModel;
+    protected $brandModel;
+    protected $genericModel;
 
     public function __construct()
     {
@@ -46,6 +50,8 @@ class Medicines extends BaseController
         $this->doctorModel = new DoctorModel();
         $this->pharmacyBillingModel = new PharmacyBillingModel();
         $this->patientAdmissionModel = new PatientAdmissionModel();
+        $this->brandModel = new PharmacyBrandModel();
+        $this->genericModel = new PharmacyGenericModel();
     }
 
     /**
@@ -54,12 +60,21 @@ class Medicines extends BaseController
     public function index()
     {
         $medicines = $this->medicineModel
-            ->select('pharmacy_medicines.*, pm.name as manufacturer_name, pc.name as category_name, SUM(pb.current_stock) as total_stock, p_df.name as dosage_form_name, p_uom.name as unit_of_measure_name')
+            ->select('pharmacy_medicines.*, 
+                  pm.name as manufacturer_name, 
+                  pc.name as category_name, 
+                  pg.generic_name, 
+                  pb.brand_name, 
+                  p_df.name as dosage_form_name, 
+                  p_uom.name as unit_of_measure_name, 
+                  SUM(pbch.current_stock) as total_stock')
             ->join('pharmacy_manufacturers pm', 'pm.id = pharmacy_medicines.manufacturer_id')
             ->join('pharmacy_categories pc', 'pc.id = pharmacy_medicines.category_id')
+            ->join('pharmacy_generics pg', 'pg.id = pharmacy_medicines.generic_id')
+            ->join('pharmacy_brands pb', 'pb.id = pharmacy_medicines.brand_id')
             ->join('pharmacy_dosage_forms p_df', 'p_df.id = pharmacy_medicines.dosage_form_id')
             ->join('pharmacy_units_of_measure p_uom', 'p_uom.id = pharmacy_medicines.unit_of_measure_id')
-            ->join('pharmacy_batches pb', 'pb.medicine_id = pharmacy_medicines.id', 'left')
+            ->join('pharmacy_batches pbch', 'pbch.medicine_id = pharmacy_medicines.id', 'left')
             ->groupBy('pharmacy_medicines.id')
             ->findAll();
 
@@ -72,8 +87,10 @@ class Medicines extends BaseController
             'title' => 'Manage Medicines',
             'medicines' => $medicines
         ];
+
         return view('pharmacy/medicines/index', $data);
     }
+
 
     /**
      * Shows the form to add a new medicine.
@@ -86,6 +103,8 @@ class Medicines extends BaseController
             'categories' => $this->categoryModel->findAll(),
             'dosageForms' => $this->dosageFormModel->findAll(),
             'units' => $this->unitOfMeasureModel->findAll(),
+            'brands' => $this->brandModel->findAll(),          // add brands
+            'generics' => $this->genericModel->findAll(),
             'validation' => service('validation')
         ];
         return view('pharmacy/medicines/create', $data);
@@ -98,16 +117,14 @@ class Medicines extends BaseController
     {
         // Define validation rules, including the new gst_rate and hsn_code fields.
         $rules = [
-            'generic_name' => 'required|min_length[3]|max_length[255]',
-            'brand_name' => 'permit_empty|max_length[255]',
+            'generic_id' => 'required|is_natural_no_zero',
+            'brand_id' => 'required|is_natural_no_zero',
             'dosage_form_id' => 'required|is_natural_no_zero',
             'strength' => 'required|max_length[100]',
             'unit_of_measure_id' => 'required|is_natural_no_zero',
             'manufacturer_id' => 'required|is_natural_no_zero',
             'category_id' => 'required|is_natural_no_zero',
             'reorder_level' => 'required|integer|greater_than_equal_to[0]',
-            'description' => 'permit_empty',
-            'is_active' => 'permit_empty|integer',
             'gst_rate' => 'required|decimal|greater_than_equal_to[0]', // Added validation for GST rate.
             'hsn_code' => 'required|string|max_length[255]', // Added validation for HSN code.
         ];
@@ -126,16 +143,14 @@ class Medicines extends BaseController
         // Get all post data and prepare for insertion
         // We explicitly cast integer and float values to ensure they are handled correctly.
         $data = [
-            'generic_name' => $this->request->getPost('generic_name'),
-            'brand_name' => $this->request->getPost('brand_name'),
+            'generic_id' => (int) $this->request->getPost('generic_id'),
+            'brand_id' => (int) $this->request->getPost('brand_id'),
             'dosage_form_id' => (int) $this->request->getPost('dosage_form_id'),
             'strength' => $this->request->getPost('strength'),
             'unit_of_measure_id' => (int) $this->request->getPost('unit_of_measure_id'),
             'manufacturer_id' => (int) $this->request->getPost('manufacturer_id'),
             'category_id' => (int) $this->request->getPost('category_id'),
             'reorder_level' => (int) $this->request->getPost('reorder_level'),
-            'description' => $this->request->getPost('description'),
-            'is_active' => $this->request->getPost('is_active') ? 1 : 0,
             'gst_rate' => (float) $this->request->getPost('gst_rate'), // Added to data array.
             'hsn_code' => $this->request->getPost('hsn_code'),       // Added to data array.
             'created_by_user_id' => $userId,
@@ -153,7 +168,12 @@ class Medicines extends BaseController
 
     public function edit($id)
     {
-        $medicine = $this->medicineModel->find($id);
+        $medicine = $this->medicineModel
+            ->select('pharmacy_medicines.*, pg.generic_name, pb.brand_name')
+            ->join('pharmacy_generics pg', 'pg.id = pharmacy_medicines.generic_id')
+            ->join('pharmacy_brands pb', 'pb.id = pharmacy_medicines.brand_id')
+            ->where('pharmacy_medicines.id', $id)
+            ->first();
 
         if (!$medicine) {
             return redirect()->to(site_url('pharmacy/medicines'))->with('error', 'Medicine not found.');
@@ -166,8 +186,11 @@ class Medicines extends BaseController
             'categories' => $this->categoryModel->findAll(),
             'dosageForms' => $this->dosageFormModel->findAll(),
             'units' => $this->unitOfMeasureModel->findAll(),
+            'brands' => $this->brandModel->findAll(),          // add brands
+            'generics' => $this->genericModel->findAll(),
             'validation' => service('validation')
         ];
+
         return view('pharmacy/medicines/edit', $data);
     }
 
@@ -182,16 +205,14 @@ class Medicines extends BaseController
 
         // Define validation rules for the update process, including new fields.
         $rules = [
-            'generic_name' => 'required|min_length[3]|max_length[255]',
-            'brand_name' => 'permit_empty|min_length[3]|max_length[255]',
+            'generic_id' => 'required|is_natural_no_zero',
+            'brand_id' => 'required|is_natural_no_zero',
             'dosage_form_id' => 'required|integer',
             'strength' => 'required|max_length[100]',
             'unit_of_measure_id' => 'required|integer',
             'manufacturer_id' => 'required|integer',
             'category_id' => 'required|integer',
             'reorder_level' => 'required|integer|greater_than_equal_to[0]',
-            'is_active' => 'permit_empty|integer',
-            'description' => 'permit_empty|max_length[1000]',
             'gst_rate' => 'required|decimal|greater_than_equal_to[0]', // Added validation.
             'hsn_code' => 'required|string|max_length[255]', // Added validation.
         ];
@@ -204,16 +225,14 @@ class Medicines extends BaseController
 
         // Prepare the data array for updating the record.
         $data = [
-            'generic_name' => $this->request->getPost('generic_name'),
-            'brand_name' => $this->request->getPost('brand_name'),
+            'generic_id' => (int) $this->request->getPost('generic_id'),
+            'brand_id' => (int) $this->request->getPost('brand_id'),
             'dosage_form_id' => (int) $this->request->getPost('dosage_form_id'),
             'strength' => $this->request->getPost('strength'),
             'unit_of_measure_id' => (int) $this->request->getPost('unit_of_measure_id'),
             'manufacturer_id' => (int) $this->request->getPost('manufacturer_id'),
             'category_id' => (int) $this->request->getPost('category_id'),
             'reorder_level' => (int) $this->request->getPost('reorder_level'),
-            'is_active' => $this->request->getPost('is_active') ? 1 : 0,
-            'description' => $this->request->getPost('description'),
             'gst_rate' => (float) $this->request->getPost('gst_rate'), // Added to data array.
             'hsn_code' => $this->request->getPost('hsn_code'),       // Added to data array.
             'updated_by_user_id' => session()->get('user_id'), // Set the user who updated the record.
@@ -228,8 +247,6 @@ class Medicines extends BaseController
             return redirect()->back()->withInput()->with('error', 'Failed to update medicine.');
         }
     }
-
-
 
 
 
@@ -250,9 +267,17 @@ class Medicines extends BaseController
 
 
 
+
+
+
     public function batches($medicineId = null)
     {
-        $medicine = $this->medicineModel->find($medicineId);
+        $medicine = $this->medicineModel
+            ->select('pharmacy_medicines.*, pb.brand_name, pg.generic_name')
+            ->join('pharmacy_brands pb', 'pb.id = pharmacy_medicines.brand_id')
+            ->join('pharmacy_generics pg', 'pg.id = pharmacy_medicines.generic_id')
+            ->where('pharmacy_medicines.id', $medicineId)
+            ->first();
 
         if (empty($medicine)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Medicine not found for batches: ' . $medicineId);
@@ -276,15 +301,20 @@ class Medicines extends BaseController
 
 
 
+
     public function addBatch($medicineId = null)
     {
-        $medicine = $this->medicineModel->find($medicineId);
+        $medicine = $this->medicineModel
+            ->select('pharmacy_medicines.*, pb.brand_name, pg.generic_name')
+            ->join('pharmacy_brands pb', 'pb.id = pharmacy_medicines.brand_id')
+            ->join('pharmacy_generics pg', 'pg.id = pharmacy_medicines.generic_id')
+            ->where('pharmacy_medicines.id', $medicineId)
+            ->first();
 
         if (empty($medicine)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Medicine not found for adding batch: ' . $medicineId);
         }
 
-        // Use the protected model property instead of creating a new instance
         $suppliers = $this->supplierModel->findAll();
 
         $data = [
@@ -295,6 +325,7 @@ class Medicines extends BaseController
         ];
         return view('pharmacy/medicines/add_batch', $data);
     }
+
 
     public function storeBatch()
     {
@@ -383,8 +414,6 @@ class Medicines extends BaseController
             return redirect()->back()->withInput()->with('error', 'Error adding batch: ' . $e->getMessage());
         }
     }
-
-
     public function editBatch($batchId = null)
     {
         $batch = $this->batchModel->find($batchId);
@@ -393,12 +422,17 @@ class Medicines extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Batch not found: ' . $batchId);
         }
 
-        $medicine = $this->medicineModel->find($batch['medicine_id']);
+        $medicine = $this->medicineModel
+            ->select('pharmacy_medicines.*, pb.brand_name, pg.generic_name')
+            ->join('pharmacy_brands pb', 'pb.id = pharmacy_medicines.brand_id')
+            ->join('pharmacy_generics pg', 'pg.id = pharmacy_medicines.generic_id')
+            ->where('pharmacy_medicines.id', $batch['medicine_id'])
+            ->first();
+
         if (empty($medicine)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Associated medicine not found for batch: ' . $batch['medicine_id']);
         }
 
-        // Use the protected model property instead of creating a new instance
         $suppliers = $this->supplierModel->findAll();
 
         $data = [
@@ -410,10 +444,6 @@ class Medicines extends BaseController
         ];
         return view('pharmacy/medicines/edit_batch', $data);
     }
-
-
-
-
 
 
     public function storeAdjustment()
@@ -639,11 +669,6 @@ class Medicines extends BaseController
         return redirect()->to(site_url('pharmacy/medicines/batches/' . esc($postData['medicine_id'])));
     }
 
-    /**
-     * Deletes a batch via an AJAX request.
-     * @param int|null $id The ID of the batch to delete.
-     * @return mixed JSON response indicating success or failure.
-     */
     public function deleteBatch($id = null)
     {
         // Use the model property instead of creating a new instance
@@ -762,9 +787,6 @@ class Medicines extends BaseController
 
 
 
-
-
-
     public function getBatchesByMedicine($medicineId = null)
     {
         if ($this->request->isAJAX()) {
@@ -779,12 +801,7 @@ class Medicines extends BaseController
         return $this->response->setStatusCode(403)->setJSON(['error' => 'Forbidden']);
     }
 
-    /**
-     * Retrieves patient details and bills based on IPD ID.
-     * It now correctly queries the 'patients' table using the 'ipd_id_code' column.
-     * @param string $ipdId The patient's IPD ID (e.g., 'IPD-250710-00043').
-     * @return \CodeIgniter\HTTP\Response
-     */
+
     public function getPatientDetailsAndBills($ipdId = null)
     {
         if ($this->request->isAJAX()) {
@@ -794,7 +811,7 @@ class Medicines extends BaseController
 
                 if ($patient) {
                     // Get doctor's full name
-$doctor = $this->doctorModel->find($patient['referred_to_doctor_id']);
+                    $doctor = $this->doctorModel->find($patient['referred_to_doctor_id']);
                     $doctorName = "Dr. " . ($doctor['first_name'] ?? '') . ' ' . ($doctor['last_name'] ?? 'N/A');
 
                     // Fetch patient bills linked by patient ID
@@ -807,7 +824,7 @@ $doctor = $this->doctorModel->find($patient['referred_to_doctor_id']);
                             'name' => $patient['first_name'] . ' ' . $patient['last_name'],
                             'phone' => $patient['phone_number'] ?? 'N/A',
                             'doctor' => $doctorName,
-                           'ipd_id_code' => $patient['ipd_id_code'],
+                            'ipd_id_code' => $patient['ipd_id_code'],
                             'bills' => $bills,
                         ],
                     ];

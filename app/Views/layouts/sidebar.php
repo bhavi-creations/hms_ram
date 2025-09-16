@@ -171,6 +171,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/brands') ?>"
+                                    class="nav-link <?= uri_string() == 'pharmacy/brands' || url_is('pharmacy/brands/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-tags"></i>
+                                    <p>Manage Brands</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="<?= base_url('pharmacy/generics') ?>"
+                                    class="nav-link <?= uri_string() == 'pharmacy/generics' || url_is('pharmacy/generics/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-capsules"></i>
+                                    <p>Manage Generics</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="<?= base_url('pharmacy/medicines') ?>" class="nav-link <?= uri_string() == 'pharmacy/medicines' || url_is('pharmacy/medicines/*') ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-capsules"></i>
                                     <p>Manage Medicines</p>

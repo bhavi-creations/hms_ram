@@ -52,9 +52,11 @@
                                 <input type="text" class="form-control" id="batch_number" name="batch_number"
                                     value="<?= old('batch_number') ?>" placeholder="Enter batch number">
                             </div>
+                           
+
                             <div class="form-group">
                                 <label for="supplier_id">Supplier <span class="text-danger">*</span></label>
-                                <select class="form-control" id="supplier_id" name="supplier_id">
+                                <select class="form-control select2" id="supplier_id" name="supplier_id" style="width: 100%;">
                                     <option value="">Select Supplier</option>
                                     <?php if (!empty($suppliers)): ?>
                                         <?php foreach ($suppliers as $supplier): ?>
@@ -65,6 +67,7 @@
                                     <?php endif; ?>
                                 </select>
                             </div>
+
 
                             <!-- Dynamic Calculation Section -->
                             <div class="form-group">
@@ -127,12 +130,12 @@
                                 <input type="number" class="form-control" id="selling_price" name="selling_price"
                                     value="<?= old('selling_price') ?>" step="0.01" placeholder="Enter selling price">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="manufacturing_date">Manufacture Date <span class="text-danger">*</span></label>
                                 <div class="input-group date" id="manufacturing_date_picker" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" id="manufacturing_date" name="manufacturing_date"
-                                        data-target="#manufacturing_date_picker" value="<?= old('manufacturing_date') ?>" required/>
+                                        data-target="#manufacturing_date_picker" value="<?= old('manufacturing_date') ?>" required />
                                     <div class="input-group-append" data-target="#manufacturing_date_picker" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -143,7 +146,7 @@
                                 <label for="expiry_date">Expiry Date <span class="text-danger">*</span></label>
                                 <div class="input-group date" id="expiry_date_picker" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" id="expiry_date" name="expiry_date"
-                                        data-target="#expiry_date_picker" value="<?= old('expiry_date') ?>" required/>
+                                        data-target="#expiry_date_picker" value="<?= old('expiry_date') ?>" required />
                                     <div class="input-group-append" data-target="#expiry_date_picker" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -167,7 +170,7 @@
 <script>
     $(document).ready(function() {
         console.log('add_batch.php script loaded. jQuery is ready.');
-        
+
         // --- Date Picker Initialization ---
         // Initialize Tempus Dominus Datepickers
         $('#manufacturing_date_picker').datetimepicker({
@@ -179,7 +182,7 @@
             format: 'YYYY-MM-DD',
             minDate: moment().add(1, 'days') // Expiry date must be after today
         });
-        
+
         // Use event listeners to ensure manufacture date is before expiry date
         $('#manufacturing_date_picker').on("change.datetimepicker", function(e) {
             $('#expiry_date_picker').datetimepicker('minDate', e.date);
@@ -200,7 +203,7 @@
         if (oldExpiryDate) {
             $('#expiry_date_picker').datetimepicker('date', moment(oldExpiryDate));
         }
-        
+
         // Init Select2 for the supplier dropdown
         $('#supplier_id').select2();
 
@@ -254,7 +257,7 @@
         container.on('input', '.packaging-input', updateCalculation);
 
         updateCalculation();
-        
+
         // CRUCIAL FIX: Force a final calculation before form submission
         $('#addBatchForm').on('submit', function(event) {
             updateCalculation();

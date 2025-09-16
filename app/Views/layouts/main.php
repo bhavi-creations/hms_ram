@@ -161,6 +161,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
 
 
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap4', // since you have bootstrap4 CSS included
+                width: '100%',
+                placeholder: 'Select an option',
+                allowClear: true
+            });
+        });
+    </script>
 
     <!-- This is where your custom page scripts are rendered -->
     <?= $this->renderSection('scripts') ?>

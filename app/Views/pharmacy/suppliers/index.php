@@ -48,7 +48,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <table class="table table-bordered table-striped">
+                    <table id="purchaseSuppliersTable"  class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>S.no</th>
@@ -91,4 +91,27 @@
         </div>
     </section>
 </div>
+<?= $this->endSection() ?>
+
+
+
+
+<?= $this->section('scripts') ?>
+ 
+<script>
+    $(document).ready(function() {
+        $('#purchaseSuppliersTable').DataTable({
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            searching: true,
+            ordering: true,
+            paging: true,
+            info: true,
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+</script>
 <?= $this->endSection() ?>

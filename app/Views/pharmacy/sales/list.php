@@ -51,7 +51,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <table class="table table-bordered table-striped" id="salesBillsTable">
+                    <table class="table table-bordered table-striped" id="manageReturnsTable" >
                         <thead>
                             <tr>
                                 <th>S.No.</th>
@@ -60,7 +60,7 @@
                                     <th>Latest Bill Date</th>
                                     <th>Patient Name</th>
                                     <th>Phone Number</th>
-                                    <th>Total Amount</th>
+                                    <th>Grand Total</th>
                                     <th>Paid Amount</th>
                                     <th>Pending Amount</th>
                                     <th>Status</th>
@@ -70,8 +70,11 @@
                                     <th>Date</th>
                                     <th>Patient Name</th>
                                     <th>Phone Number</th>
-                                    <th>Total Amount</th>
-                                    <th>Net Amount</th>
+                                    <th>Grand Total</th>
+                                    <?php if ($currentType !== 'in_hospital'): ?>
+                                        <th>Net Amount</th>
+                                    <?php endif; ?>
+
                                     <th>Actions</th>
                                 <?php endif; ?>
                             </tr>
@@ -84,7 +87,6 @@
                                         <?php
                                         if (($bill['due_amount'] ?? 0) <= 0) {
                                             $status_label = '<span class="badge badge-success">Paid</span>';
-                                            
                                         } elseif (($bill['due_amount'] ?? 0) < ($bill['total_amount'] ?? 0)) {
                                             $status_label = '<span class="badge badge-warning">Partial</span>';
                                         } else {
@@ -122,10 +124,11 @@
                                             <td>
                                                 <?= $currentType === 'in_hospital' ? esc($bill['phone_number'] ?? 'N/A') : esc($bill['outside_patient_phone'] ?? '') ?>
                                             </td>
-                                            <td><?= number_format(esc($bill['total_amount']), 2) ?></td>
-                                            <td>
-                                                <?= number_format(esc($currentType === 'in_hospital' ? ($bill['total_amount'] ?? 0) : ($bill['net_amount'] ?? 0)), 2) ?>
-                                            </td>
+                                            <td><?= number_format(($bill['total_amount'] ?? 0), 2) ?></td>
+                                            <?php if ($currentType !== 'in_hospital'): ?>
+                                                <td><?= number_format(($bill['net_amount'] ?? 0), 2) ?></td>
+                                            <?php endif; ?>
+
                                             <td>
                                                 <a href="<?= site_url('pharmacy/sales/invoice/' . urlencode($currentType === 'in_hospital' ? $bill['bill_id'] : $bill['invoice_number'])) ?>" class="btn btn-info btn-sm btn_small">
                                                     View Bill
@@ -151,9 +154,9 @@
 
 
 <?= $this->section('scripts') ?>
-<script>
+<!-- <script>
     $(function() {
-        // Initialize DataTables
+       
         if ($.fn.DataTable) {
             $('#salesBillsTable').DataTable({
                 "paging": true,
@@ -161,13 +164,32 @@
                 "searching": true,
                 "ordering": true,
                 "order": [
-                    [ $currentType === 'patients' ? 2 : 2, "desc" ] // Sort by Latest Bill Date or Date column descending
+                    [$currentType === 'patients' ? 2 : 2, "desc"]  
                 ],
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
             });
         }
+    });
+</script> -->
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#manageReturnsTable').DataTable({
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            searching: true,
+            ordering: true,
+            paging: true,
+            info: true,
+            order: [
+                [1, 'asc']
+            ]
+        });
     });
 </script>
 <?= $this->endSection() ?>

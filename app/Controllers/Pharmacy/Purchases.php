@@ -11,6 +11,8 @@ use App\Models\Pharmacy\PharmacyPurchaseItemModel;
 use App\Models\Pharmacy\PharmacySupplierModel;
 use App\Models\Pharmacy\PharmacyMedicineModel;
 use App\Models\Pharmacy\PharmacyBatchModel;
+use App\Models\Pharmacy\PharmacyBrandModel;
+use App\Models\Pharmacy\PharmacyGenericModel;
 
 class Purchases extends BaseController
 {
@@ -19,59 +21,156 @@ class Purchases extends BaseController
     protected $supplierModel;
     protected $medicineModel;
     protected $batchModel;
+    protected $brandModel;
+    protected $genericModel;
 
     public function __construct()
     {
-        // Ensure parent constructor runs for session, etc.
-        // parent::__construct();
+
 
         $this->purchaseModel     = new PharmacyPurchaseModel();
         $this->purchaseItemModel = new PharmacyPurchaseItemModel();
         $this->supplierModel     = new PharmacySupplierModel();
         $this->medicineModel     = new PharmacyMedicineModel();
         $this->batchModel        = new PharmacyBatchModel();
+        $this->brandModel        = new PharmacyBrandModel();
+        $this->genericModel      = new PharmacyGenericModel();
     }
 
-    /**
-     * Displays a list of all purchase orders.
-     */
+
+
     public function index()
     {
-        $purchases = $this->purchaseModel
-            ->select('pharmacy_purchases.*, ps.name as supplier_name, u_ordered.first_name as ordered_by_first_name, u_ordered.last_name as ordered_by_last_name')
-            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_purchases.supplier_id')
-            ->join('users u_ordered', 'u_ordered.id = pharmacy_purchases.ordered_by_user_id')
-            ->orderBy('purchase_date', 'DESC')
-            ->findAll();
+        $builder = $this->batchModel->builder();
+
+        $builder->select('ps.id as supplier_id, ps.name as supplier_name,
+                 SUM(pharmacy_batches.purchase_price * pharmacy_batches.initial_quantity) as total_amount');
+
+        $builder->join('pharmacy_suppliers ps', 'ps.id = pharmacy_batches.supplier_id');
+        $builder->groupBy('ps.id, ps.name');
+        $builder->orderBy('ps.name', 'ASC');
+
+        $suppliers = $builder->get()->getResultArray();
 
         $data = [
-            'title'     => 'Manage Purchases',
-            'purchases' => $purchases
+            'title' => 'Manage Purchases by Supplier',
+            'suppliers' => $suppliers,
         ];
+
         return view('pharmacy/purchases/index', $data);
     }
 
-    /**
-     * Displays the form to create a new purchase order.
-     */
-    public function create()
+
+
+    public function bySupplier($supplierId)
     {
-        // Make sure you have PharmacySupplierModel and PharmacyMedicineModel loaded in constructor
-        $suppliers = $this->supplierModel->findAll();
-        $medicines = $this->medicineModel->findAll();
+        $supplier = $this->supplierModel->find($supplierId);
+        if (!$supplier) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Supplier not found');
+        }
+
+        // Fetch batch details joined with medicines and related tables for this supplier
+        $builder = $this->batchModel
+            ->select('pharmacy_batches.*, pm.generic_id, pm.brand_id, pm.strength, uom.name AS unit_of_measure_name, pm.dosage_form_id, pm.category_id, pm.manufacturer_id,
+              pb.brand_name, pg.generic_name, df.name AS dosage_form_name, cat.name AS category_name, man.name AS manufacturer_name,
+              (pharmacy_batches.initial_quantity) AS total_purchased_qty, 
+              (pharmacy_batches.current_stock) AS remaining_qty')
+            ->join('pharmacy_medicines pm', 'pm.id = pharmacy_batches.medicine_id')
+            ->join('pharmacy_brands pb', 'pb.id = pm.brand_id')
+            ->join('pharmacy_generics pg', 'pg.id = pm.generic_id')
+            ->join('pharmacy_units_of_measure uom', 'uom.id = pm.unit_of_measure_id', 'left')
+            ->join('pharmacy_dosage_forms df', 'df.id = pm.dosage_form_id', 'left')
+            ->join('pharmacy_categories cat', 'cat.id = pm.category_id', 'left')
+            ->join('pharmacy_manufacturers man', 'man.id = pm.manufacturer_id', 'left')
+            ->where('pharmacy_batches.supplier_id', $supplierId)
+            ->orderBy('pharmacy_batches.expiry_date', 'ASC');
+
+
+
+
+
+        $batches = $builder->findAll();
 
         $data = [
-            'title' => 'Create New Purchase Order',
-            'suppliers' => $suppliers,
-            'medicines' => $medicines,
-            'validation' => \Config\Services::validation() // For form validation errors
+            'title' => 'Purchase Details by ' . esc($supplier['name']),
+            'supplier' => $supplier,
+            'batches' => $batches,
         ];
-        return view('pharmacy/purchases/create', $data);
+
+        return view('pharmacy/purchases/by_supplier', $data);
     }
 
-    /**
-     * Handles the submission of a new purchase order form.
-     */
+
+
+    public function viewBatch($batchId)
+    {
+        $batch = $this->batchModel->find($batchId);
+        if (!$batch) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Batch not found');
+        }
+
+        $medicine = $this->medicineModel
+            ->select('pharmacy_medicines.*, pb.brand_name, pg.generic_name, uom.name AS unit_of_measure_name, df.name AS dosage_form_name,
+                  cat.name AS category_name, man.name AS manufacturer_name')
+            ->join('pharmacy_brands pb', 'pb.id = pharmacy_medicines.brand_id')
+            ->join('pharmacy_generics pg', 'pg.id = pharmacy_medicines.generic_id')
+            ->join('pharmacy_units_of_measure uom', 'uom.id = pharmacy_medicines.unit_of_measure_id', 'left')
+            ->join('pharmacy_dosage_forms df', 'df.id = pharmacy_medicines.dosage_form_id', 'left')
+            ->join('pharmacy_categories cat', 'cat.id = pharmacy_medicines.category_id', 'left')
+            ->join('pharmacy_manufacturers man', 'man.id = pharmacy_medicines.manufacturer_id', 'left')
+            ->where('pharmacy_medicines.id', $batch['medicine_id'])
+            ->first();
+
+        $supplier = $this->supplierModel->find($batch['supplier_id']);
+
+        $data = [
+            'title' => 'Batch Details: ' . esc($batch['batch_number']),
+            'batch' => $batch,
+            'medicine' => $medicine,
+            'supplier' => $supplier,
+        ];
+
+        return view('pharmacy/purchases/view_batch', $data);
+    }
+
+    public function byGeneric($genericId)
+    {
+        $generic = $this->genericModel->find($genericId);
+        if (!$generic) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Generic not found');
+        }
+
+        $builder = $this->batchModel
+            ->select('pharmacy_batches.*, pm.strength, pm.generic_id, pm.brand_id, 
+              pb.brand_name, pg.generic_name, uom.name AS unit_of_measure_name, df.name AS dosage_form_name,
+              cat.name AS category_name, man.name AS manufacturer_name')
+            ->join('pharmacy_medicines pm', 'pm.id = pharmacy_batches.medicine_id', 'left')
+            ->join('pharmacy_brands pb', 'pb.id = pm.brand_id', 'left')
+            ->join('pharmacy_generics pg', 'pg.id = pm.generic_id', 'left')
+            ->join('pharmacy_units_of_measure uom', 'uom.id = pm.unit_of_measure_id', 'left')
+            ->join('pharmacy_dosage_forms df', 'df.id = pm.dosage_form_id', 'left')
+            ->join('pharmacy_categories cat', 'cat.id = pm.category_id', 'left')
+            ->join('pharmacy_manufacturers man', 'man.id = pm.manufacturer_id', 'left')
+            ->where('pm.generic_id', $genericId)
+            ->orderBy('pharmacy_batches.expiry_date', 'ASC');
+
+        $batches = $builder->get()->getResultArray();
+ 
+        $data = [
+            'title' => 'Details for Generic: ' . esc($generic['generic_name']),
+            'generic' => $generic,
+            'batches' => $batches,
+        ];
+
+        return view('pharmacy/purchases/by_generic', $data);
+    }
+
+
+
+
+
+
+
     public function store()
     {
         $rules = [
@@ -141,9 +240,7 @@ class Purchases extends BaseController
         }
     }
 
-    /**
-     * Displays details of a specific purchase order.
-     */
+
     public function view($id = null)
     {
         $purchase = $this->purchaseModel
@@ -171,9 +268,6 @@ class Purchases extends BaseController
         return view('pharmacy/purchases/view', $data);
     }
 
-    /**
-     * Displays form/handles receiving stock for a purchase order.
-     */
     public function receiveStock($id = null)
     {
         $purchase = $this->purchaseModel->find($id);
@@ -314,10 +408,7 @@ class Purchases extends BaseController
         return view('pharmacy/purchases/receive_stock', $data);
     }
 
-    /**
-     * Placeholder for deleting a purchase order.
-     * Consider soft deletes or restrictions if items have been received.
-     */
+
     public function delete($id = null)
     {
         $purchase = $this->purchaseModel->find($id);

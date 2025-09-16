@@ -49,25 +49,52 @@
                         <?= form_open(url_to('pharmacy.medicines.update', $medicine['id'])) ?>
                         <?= form_hidden('_method', 'PUT') ?>
                         <div class="row">
+
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="generic_name">Generic Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="generic_name" name="generic_name" value="<?= old('generic_name', $medicine['generic_name'] ?? '') ?>" required>
+                                    <label for="brand_id">Brand Name <span class="text-danger">*</span></label>
+                                    <select id="brand_id" name="brand_id" class="form-control select2 <?= (service('validation')->hasError('brand_id')) ? 'is-invalid' : '' ?>" required>
+                                        <option value="">Select Brand</option>
+                                        <?php foreach ($brands as $brand) : ?>
+                                            <option value="<?= esc($brand['id']) ?>" <?= (old('brand_id', $medicine['brand_id'] ?? '') == $brand['id']) ? 'selected' : '' ?>>
+                                                <?= esc($brand['brand_name']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php if (service('validation')->hasError('brand_id')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= service('validation')->getError('brand_id') ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="brand_name">Brand Name</label>
-                                    <input type="text" class="form-control" id="brand_name" name="brand_name" value="<?= old('brand_name', $medicine['brand_name'] ?? '') ?>">
+                                    <label for="generic_id">Generic Name <span class="text-danger">*</span></label>
+                                    <select id="generic_id" name="generic_id" class="form-control select2 <?= (service('validation')->hasError('generic_id')) ? 'is-invalid' : '' ?>" required>
+                                        <option value="">Select Generic</option>
+                                        <?php foreach ($generics as $generic) : ?>
+                                            <option value="<?= esc($generic['id']) ?>" <?= (old('generic_id', $medicine['generic_id'] ?? '') == $generic['id']) ? 'selected' : '' ?>>
+                                                <?= esc($generic['generic_name']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php if (service('validation')->hasError('generic_id')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= service('validation')->getError('generic_id') ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="dosage_form_id">Dosage Form <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="dosage_form_id" name="dosage_form_id" required>
+                                    <select id="dosage_form_id" name="dosage_form_id" class="form-control select2 <?= (service('validation')->hasError('dosage_form_id')) ? 'is-invalid' : '' ?>" required>
                                         <option value="">Select Dosage Form</option>
                                         <?php foreach ($dosageForms as $form) : ?>
                                             <option value="<?= esc($form['id']) ?>" <?= (old('dosage_form_id', $medicine['dosage_form_id'] ?? '') == $form['id']) ? 'selected' : '' ?>>
@@ -75,6 +102,11 @@
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <?php if (service('validation')->hasError('dosage_form_id')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= service('validation')->getError('dosage_form_id') ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -86,7 +118,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="unit_of_measure_id">Unit of Measure</label>
-                                    <select name="unit_of_measure_id" id="unit_of_measure_id" class="form-control">
+                                    <select id="unit_of_measure_id" name="unit_of_measure_id" class="form-control select2 <?= (service('validation')->hasError('unit_of_measure_id')) ? 'is-invalid' : '' ?>">
                                         <option value="">-- Select Unit --</option>
                                         <?php foreach ($units as $unit) : ?>
                                             <option value="<?= esc($unit['id']) ?>" <?= (old('unit_of_measure_id', $medicine['unit_of_measure_id'] ?? '') == $unit['id']) ? 'selected' : '' ?>>
@@ -94,6 +126,11 @@
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <?php if (service('validation')->hasError('unit_of_measure_id')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= service('validation')->getError('unit_of_measure_id') ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +139,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="manufacturer_id">Manufacturer <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="manufacturer_id" name="manufacturer_id" required>
+                                    <select id="manufacturer_id" name="manufacturer_id" class="form-control select2 <?= (service('validation')->hasError('manufacturer_id')) ? 'is-invalid' : '' ?>" required>
                                         <option value="">Select Manufacturer</option>
                                         <?php foreach ($manufacturers as $manufacturer) : ?>
                                             <option value="<?= esc($manufacturer['id']) ?>" <?= (old('manufacturer_id', $medicine['manufacturer_id'] ?? '') == $manufacturer['id']) ? 'selected' : '' ?>>
@@ -110,12 +147,18 @@
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <?php if (service('validation')->hasError('manufacturer_id')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= service('validation')->getError('manufacturer_id') ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="category_id">Category <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="category_id" name="category_id" required>
+                                    <select id="category_id" name="category_id" class="form-control select2 <?= (service('validation')->hasError('category_id')) ? 'is-invalid' : '' ?>" required>
                                         <option value="">Select Category</option>
                                         <?php foreach ($categories as $category) : ?>
                                             <option value="<?= esc($category['id']) ?>" <?= (old('category_id', $medicine['category_id'] ?? '') == $category['id']) ? 'selected' : '' ?>>
@@ -123,9 +166,15 @@
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <?php if (service('validation')->hasError('category_id')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= service('validation')->getError('category_id') ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
+
 
                         <!-- New Row for HSN Code and GST Rate -->
                         <div class="row">
@@ -150,20 +199,10 @@
                                     <input type="number" class="form-control" id="reorder_level" name="reorder_level" value="<?= old('reorder_level', $medicine['reorder_level'] ?? '') ?>" required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-check mt-4">
-                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" <?= (old('is_active', $medicine['is_active'] ?? '') == 1) ? 'checked' : '' ?>>
-                                    <label class="form-check-label" for="is_active">
-                                        Is Active
-                                    </label>
-                                </div>
-                            </div>
+
                         </div>
 
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"><?= old('description', $medicine['description'] ?? '') ?></textarea>
-                        </div>
+
 
                         <button type="submit" class="btn btn-primary mt-3">Update Medicine</button>
                         <a href="<?= url_to('pharmacy.medicines.index') ?>" class="btn btn-secondary mt-3">Cancel</a>

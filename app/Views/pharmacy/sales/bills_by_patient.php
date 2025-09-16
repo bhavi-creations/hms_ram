@@ -14,7 +14,7 @@
                 <th>S.No</th>
                 <th>Bill ID</th>
                 <th>Bill Date</th>
-                <th>Total Amount (₹)</th>
+                <th>Grand Total (₹)</th>
                 <th>Paid Amount (₹)</th>
                 <th>Due Amount (₹)</th>
                 <th>Status</th>
@@ -31,8 +31,14 @@
                     $paymentsModel = new \App\Models\Pharmacy\PharmacyBillingPaymentModel();
                     $payments = $paymentsModel->where('bill_id', $bill['bill_id'])->findAll();
 
+
+
+
+
                     $totalPaid = $payments ? array_sum(array_column($payments, 'payment_amount')) : 0;
-                    $dueAmount = $bill['total_amount'] - $totalPaid;
+                    $totalAmount = $bill['total_amount']; // Make sure this is your POS-style grandTotal
+                    $dueAmount = max(0, $totalAmount - $totalPaid); // Prevents showing a negative value
+
 
                     if ($dueAmount <= 0) {
                         $status = '<span class="badge badge-success">Paid</span>';
@@ -46,9 +52,10 @@
                         <td><?= esc($count++) ?></td>
                         <td><?= esc($bill['bill_id']) ?></td>
                         <td><?= esc(date('d-M-Y', strtotime($bill['bill_date']))) ?></td>
-                        <td><?= number_format($bill['total_amount'], 2) ?></td>
+                        <td><?= number_format($totalAmount, 2) ?></td>
                         <td><?= number_format($totalPaid, 2) ?></td>
                         <td><?= number_format($dueAmount, 2) ?></td>
+
                         <td><?= $status ?></td>
                         <td>
                             <a href="<?= site_url('pharmacy/sales/invoice/' . urlencode($bill['bill_id'])) ?>" class="btn btn-info btn-sm">View Invoice</a>

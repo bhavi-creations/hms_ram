@@ -48,7 +48,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <table class="table table-bordered table-striped">
+                    <table id="manageReturnsTable"   class="table table-bordered table-striped " >
                         <thead>
                             <tr>
                                 <th>S.NO</th>
@@ -124,4 +124,25 @@
         </div>
     </section>
 </div>
+<?= $this->endSection() ?>
+
+
+<?= $this->section('scripts') ?>
+ 
+<script>
+    $(document).ready(function() {
+        $('#manageReturnsTable').DataTable({
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            searching: true,
+            ordering: true,
+            paging: true,
+            info: true,
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+</script>
 <?= $this->endSection() ?>

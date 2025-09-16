@@ -220,6 +220,14 @@
                                             <input type="text" class="form-control" id="total_units" value="0" readonly>
                                         </div>
                                     </div>
+
+                                    <div class="form-group row">
+                                        <label for="total_discount" class="col-sm-6 col-form-label">Total Discount:</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" class="form-control" id="total_discount" name="total_discount"
+                                                value="<?= old('total_discount', 0) ?>" step="0.01" min="0">
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label for="total_gst_amount" class="col-sm-6 col-form-label">Total GST Amount:</label>
                                         <div class="col-sm-6">
@@ -232,13 +240,7 @@
                                             <input type="text" class="form-control" id="sub_total_without_gst" value="0.00" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="total_discount" class="col-sm-6 col-form-label">Total Discount:</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" class="form-control" id="total_discount" name="total_discount"
-                                                value="<?= old('total_discount', 0) ?>" step="0.01" min="0">
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row">
                                         <label for="total_final_amount" class="col-sm-6 col-form-label">Total Final Amount:</label>
                                         <div class="col-sm-6">
@@ -446,8 +448,9 @@
         });
 
 
-        // Form submission validation
+        // Form submission validation and GST collection
         $('#posForm').on('submit', function(e) {
+            // In-hospital validation as before
             if ($('#prescription_type').val() === 'in_hospital') {
                 var val = $('input[name="patient_id_code"]').val();
                 if (!val || val.trim() === '') {
@@ -456,7 +459,23 @@
                     return false;
                 }
             }
+
+            // OUTSIDE SALE GST injection for items (this is the NEW part!)
+            if ($('#prescription_type').val() === 'outside_sale') {
+                $('.medicine-item').each(function(idx) {
+                    var itemRow = $(this);
+                    var gstRate = parseFloat(itemRow.find('.medicine-select option:selected').data('gst-rate')) || 0;
+                    // Dynamically add or update a hidden input for gst_rate in the DOM for each item
+                    var gstInputName = itemRow.find('.medicine-select').attr('name').replace('[medicine_id]', '[gst_rate]');
+                    // Remove if already present to avoid duplicates
+                    itemRow.find('input[name="' + gstInputName + '"]').remove();
+                    // Add hidden input with correct gst_rate
+                    itemRow.append('<input type="hidden" name="' + gstInputName + '" value="' + gstRate + '">');
+                });
+                // Now PHP will receive items[0][gst_rate], items[1][gst_rate], etc.
+            }
         });
+
 
 
 
@@ -499,7 +518,7 @@
             let totalUnits = 0;
             let totalGST = 0;
             let totalSubTotal = 0;
-            let totalDiscount = 0;
+            let totalDiscount = 0; // This will hold sum of all item discounts
 
             let sno = 1;
 
@@ -509,7 +528,10 @@
                 const discountPerItem = parseFloat($(this).find('.item-discount-per-item').val()) || 0;
 
                 const medicineSelect = $(this).find('.medicine-select option:selected');
-                const medicineName = medicineSelect.data('brand-name') || '';
+                const genericName = medicineSelect.data('generic-name') || '';
+                const strength = medicineSelect.data('strength') || '';
+                const medicineName = genericName + (strength ? ' (' + strength + ')' : '');
+
                 const hsnCode = medicineSelect.data('hsn-code') || '';
                 const gstRate = parseFloat(medicineSelect.data('gst-rate')) || 0;
 
@@ -517,48 +539,47 @@
                 const batchNumber = batchSelect.text().split(' ')[0] || '';
                 const expiryDate = batchSelect.data('expiry-date') || '';
 
-                const grossAmount = (quantity * unitPrice);
-                const itemDiscount = (quantity * discountPerItem);
+                const grossAmount = quantity * unitPrice;
+                const itemDiscount = quantity * discountPerItem;
                 const itemSubTotal = grossAmount - itemDiscount;
                 const itemGSTAmount = (prescriptionType === 'outside_sale') ? itemSubTotal * (gstRate / 100) : 0;
 
                 $(this).find('.item-sub-total').val(itemSubTotal.toFixed(2));
 
-                const newRow = `
-                <tr>
-                    <td>${sno++}</td>
-                    <td>${medicineName}</td>
-                    <td>${batchNumber}</td>
-                    <td>${quantity}</td>
-                    <td>₹ ${unitPrice.toFixed(2)}</td>
-                    <td>₹ ${discountPerItem.toFixed(2)}</td>
-                    <td>${hsnCode}</td>
-                    <td>${(prescriptionType === 'outside_sale') ? gstRate : 0}%</td>
-                    <td>${expiryDate ? moment(expiryDate).format('MMM YYYY') : 'N/A'}</td>
-                    <td>₹ ${(itemSubTotal + itemGSTAmount).toFixed(2)}</td>
-                </tr>
-            `;
-                detailedTableBody.append(newRow);
+                detailedTableBody.append(`
+            <tr>
+                <td>${sno++}</td>
+                <td>${medicineName}</td>
+                <td>${batchNumber}</td>
+                <td>${quantity}</td>
+                <td>₹ ${unitPrice.toFixed(2)}</td>
+                <td>₹ ${discountPerItem.toFixed(2)}</td>
+                <td>${hsnCode}</td>
+                <td>${(prescriptionType === 'outside_sale') ? gstRate : 0}%</td>
+                <td>${expiryDate ? moment(expiryDate).format('MMM YYYY') : 'N/A'}</td>
+                <td>₹ ${(itemSubTotal + itemGSTAmount).toFixed(2)}</td>
+            </tr>
+        `);
 
                 totalItems++;
                 totalUnits += quantity;
                 totalGST += itemGSTAmount;
                 totalSubTotal += itemSubTotal;
-                totalDiscount += itemDiscount;
+                totalDiscount += itemDiscount; // sum item discounts
             });
 
-            const totalSaleDiscount = parseFloat($('#total_discount').val()) || 0;
-            totalDiscount += totalSaleDiscount;
+            // AUTOMATICALLY SET total discount input to sum of item discounts (no manual discount)
+            $('#total_discount').val(totalDiscount.toFixed(2));
 
-            const finalAmount = totalSubTotal + totalGST - totalSaleDiscount;
+            const finalAmount = totalSubTotal + totalGST;
 
             $('#total_items').val(totalItems);
             $('#total_units').val(totalUnits);
             $('#total_gst_amount').val(totalGST.toFixed(2));
             $('#sub_total_without_gst').val(totalSubTotal.toFixed(2));
-            $('#total_discount').val(totalSaleDiscount.toFixed(2));
             $('#total_final_amount').val(finalAmount.toFixed(2));
         }
+
 
         // Add Medicine Item button click
         $('#add-medicine-item').on('click', function() {
@@ -639,12 +660,14 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.status === 'success' && response.medicines.length > 0) {
-                          
+
 
                             $.each(response.medicines, function(index, med) {
                                 $medicineSelect.append($('<option>', {
                                     value: med.id,
                                     text: med.brand_name + ' (' + med.generic_name + ', ' + med.strength + ')',
+                                    'data-generic-name': med.generic_name,
+                                    'data-strength': med.strength,
                                     'data-unit-price': med.selling_price,
                                     'data-gst-rate': med.gst_rate,
                                     'data-brand-name': med.brand_name,

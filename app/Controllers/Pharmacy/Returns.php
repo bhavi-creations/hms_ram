@@ -23,6 +23,7 @@ class Returns extends BaseController
     protected $medicineModel;
     protected $billingModel;  // Add this
     protected $billingPaymentModel;
+    protected $db;
 
     public function __construct()
     {
@@ -33,6 +34,7 @@ class Returns extends BaseController
         $this->medicineModel = new PharmacyMedicineModel();
         $this->billingModel = new PharmacyBillingModel();   // Initialize it
         $this->billingPaymentModel = new PharmacyBillingPaymentModel();
+        $this->db = \Config\Database::connect();
     }
 
     /**
@@ -43,16 +45,18 @@ class Returns extends BaseController
         // Select columns, joining pharmacy_sales and pharmacy_billings
         $returns = $this->returnModel
             ->select('
-            pharmacy_returns.*,
-            pharmacy_returns.quantity_returned as quantity,
-            pharmacy_returns.return_reason as reason,
-            pharmacy_returns.approval_status as status,
-            pm.generic_name as medicine_name,
-            pb.batch_number,
-            ps.invoice_number,
-            pbill.bill_id as billing_invoice_number
-        ')
+                pharmacy_returns.*,
+                pharmacy_returns.quantity_returned as quantity,
+                pharmacy_returns.return_reason as reason,
+                pharmacy_returns.approval_status as status,
+                CONCAT(pb2.brand_name, " (", pg.generic_name, ", ", pm.strength, ")") as medicine_name,
+                pb.batch_number,
+                ps.invoice_number,
+                pbill.bill_id as billing_invoice_number
+            ')
             ->join('pharmacy_medicines pm', 'pm.id = pharmacy_returns.medicine_id')
+            ->join('pharmacy_generics pg', 'pg.id = pm.generic_id', 'left')
+            ->join('pharmacy_brands pb2', 'pb2.id = pm.brand_id', 'left')
             ->join('pharmacy_batches pb', 'pb.id = pharmacy_returns.batch_id', 'left')
             ->join('pharmacy_sales ps', 'ps.id = pharmacy_returns.sale_id', 'left')
             ->join('pharmacy_billings pbill', 'pbill.id = pharmacy_returns.billing_id', 'left')
@@ -160,13 +164,18 @@ class Returns extends BaseController
     public function approve($id = null)
     {
         $returnRequest = $this->returnModel
-            ->select('pharmacy_returns.*, ps.invoice_number, pm.generic_name as medicine_name, pm.brand_name, pb.batch_number, psale_item.quantity as sold_quantity')
-            ->join('pharmacy_sales ps', 'ps.id = pharmacy_returns.sale_id', 'left')
+            ->select('pharmacy_returns.*, ps.invoice_number, 
+        CONCAT(pb2.brand_name, " (", pg.generic_name, ", ", pm.strength, ")") as medicine_name,
+        pb.batch_number, psale_item.quantity as sold_quantity')
             ->join('pharmacy_sale_items psale_item', 'psale_item.id = pharmacy_returns.sale_item_id', 'left')
             ->join('pharmacy_medicines pm', 'pm.id = pharmacy_returns.medicine_id', 'left')
+            ->join('pharmacy_generics pg', 'pg.id = pm.generic_id', 'left')
+            ->join('pharmacy_brands pb2', 'pb2.id = pm.brand_id', 'left')
             ->join('pharmacy_batches pb', 'pb.id = pharmacy_returns.batch_id', 'left')
+            ->join('pharmacy_sales ps', 'ps.id = pharmacy_returns.sale_id', 'left')
             ->where('pharmacy_returns.id', $id)
             ->first();
+
 
         if (empty($returnRequest)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Return request not found: ' . $id);
@@ -340,7 +349,6 @@ class Returns extends BaseController
 
     public function getMedicinesByInvoice($invoiceNumber = null)
     {
-        // Only accept AJAX requests and ensure invoice number is provided
         if (!$this->request->isAJAX() || $invoiceNumber === null) {
             log_message('error', 'Invalid AJAX request or missing invoice number');
             return $this->response->setStatusCode(400)->setJSON([
@@ -364,13 +372,25 @@ class Returns extends BaseController
             foreach ($saleItems as $item) {
                 $medicine = $this->medicineModel->find($item['medicine_id']);
                 $batch = $this->batchModel->find($item['batch_id']);
+                $genericName = '';
+                $brandName = '';
+                $strength = '';
+                if ($medicine) {
+                    // Fetch generic and brand name
+                    $generic = !empty($medicine['generic_id']) ? $this->db->table('pharmacy_generics')->where('id', $medicine['generic_id'])->get()->getRowArray() : null;
+                    $brand = !empty($medicine['brand_id']) ? $this->db->table('pharmacy_brands')->where('id', $medicine['brand_id'])->get()->getRowArray() : null;
+                    $genericName = $generic['generic_name'] ?? '';
+                    $brandName = $brand['brand_name'] ?? '';
+                    $strength = $medicine['strength'] ?? '';
+                }
                 if ($medicine && $batch) {
+                    $displayName = trim($brandName) . ($genericName ? " ($genericName" : "") . ($strength ? ", $strength" : "") . ($genericName ? ")" : "");
                     $medicines[] = [
                         'sale_item_id' => $item['id'],
-                        'medicine_name' => $medicine['generic_name'],
+                        'medicine_name' => $displayName,
                         'batch_number' => $batch['batch_number'],
                         'quantity' => $item['quantity'], // Total sold quantity
-                        'sale_id' => $item['sale_id'], // Add this for JS use
+                        'sale_id' => $item['sale_id'],
                     ];
                 } else {
                     log_message('warning', "Medicine or batch not found for sale item ID: {$item['id']}");
@@ -386,13 +406,24 @@ class Returns extends BaseController
                 foreach ($billingItems as $item) {
                     $medicine = $this->medicineModel->find($item['medicine_id']);
                     $batch = $this->batchModel->find($item['batch_id']);
+                    $genericName = '';
+                    $brandName = '';
+                    $strength = '';
+                    if ($medicine) {
+                        $generic = !empty($medicine['generic_id']) ? $this->db->table('pharmacy_generics')->where('id', $medicine['generic_id'])->get()->getRowArray() : null;
+                        $brand = !empty($medicine['brand_id']) ? $this->db->table('pharmacy_brands')->where('id', $medicine['brand_id'])->get()->getRowArray() : null;
+                        $genericName = $generic['generic_name'] ?? '';
+                        $brandName = $brand['brand_name'] ?? '';
+                        $strength = $medicine['strength'] ?? '';
+                    }
                     if ($medicine && $batch) {
+                        $displayName = trim($brandName) . ($genericName ? " ($genericName" : "") . ($strength ? ", $strength" : "") . ($genericName ? ")" : "");
                         $medicines[] = [
                             'sale_item_id' => $item['id'],
-                            'medicine_name' => $medicine['generic_name'],
+                            'medicine_name' => $displayName,
                             'batch_number' => $batch['batch_number'],
                             'quantity' => $item['quantity'],
-                            'billing_id' => $item['billing_id'], // Add this for JS use
+                            'billing_id' => $item['billing_id'],
                         ];
                     } else {
                         log_message('warning', "Medicine or batch not found for billing item ID: {$item['id']}");
@@ -402,7 +433,6 @@ class Returns extends BaseController
                 log_message('debug', "No outside sale or in-hospital billing found for invoice: {$invoiceNumber}");
             }
         }
-
 
         if (empty($medicines)) {
             return $this->response->setJSON([

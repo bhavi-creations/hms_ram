@@ -151,6 +151,36 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->GET('dashboard', 'Dashboard::index'); // Alias for /pharmacy
 
 
+
+    // Purchases Management (PharmacyPurchasesController)
+    $routes->GET('purchases', 'Purchases::index');
+    $routes->GET('purchases/view/(:num)', 'Purchases::view/$1');
+    $routes->GET('purchases/bySupplier/(:num)', 'Purchases::bySupplier/$1');
+    
+    $routes->GET('purchases/viewBatch/(:num)', 'Purchases::viewBatch/$1');
+    $routes->GET('purchases/byGeneric/(:num)', 'Purchases::byGeneric/$1');
+    $routes->match(['GET', 'POST'], 'purchases/receive-stock/(:num)', 'Purchases::receiveStock/$1');
+
+
+
+
+
+    // Brands routes
+    $routes->GET('brands', 'Brands::index');
+    $routes->GET('brands/create', 'Brands::create');
+    $routes->POST('brands/store', 'Brands::store');
+    $routes->GET('brands/edit/(:num)', 'Brands::edit/$1');
+    $routes->POST('brands/update/(:num)', 'Brands::update/$1');
+    $routes->GET('brands/delete/(:num)', 'Brands::delete/$1');
+
+    // Generics routes
+    $routes->GET('generics', 'Generics::index');
+    $routes->GET('generics/create', 'Generics::create');
+    $routes->POST('generics/store', 'Generics::store');
+    $routes->GET('generics/edit/(:num)', 'Generics::edit/$1');
+    $routes->post('generics/update/(:num)', 'Generics::update/$1');
+    $routes->GET('generics/delete/(:num)', 'Generics::delete/$1');
+
     // Returns Management (PharmacyReturnsController)
     $routes->GET('returns', 'Returns::index'); // List pending/all returns
     $routes->GET('returns/create', 'Returns::create'); // Initiate a return
@@ -227,12 +257,6 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->GET('stock', 'Stock::index');
     $routes->GET('reports', 'Reports::index');
 
-    // Purchases Management (PharmacyPurchasesController)
-    $routes->GET('purchases', 'Purchases::index');
-    $routes->GET('purchases/create', 'Purchases::create');
-    $routes->POST('purchases/store', 'Purchases::store');
-    $routes->GET('purchases/view/(:num)', 'Purchases::view/$1');
-    $routes->match(['GET', 'POST'], 'purchases/receive-stock/(:num)', 'Purchases::receiveStock/$1'); // Handles stock receiving
 
     // Supplier Management
     $routes->GET('suppliers', 'Suppliers::index');
