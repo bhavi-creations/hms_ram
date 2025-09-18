@@ -1204,3 +1204,221 @@ DEBUG - 2025-09-16 11:38:59 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2025-09-16 11:39:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-09-16 11:39:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-09-16 11:39:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:50:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:52:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:54:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:54:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:55:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:56:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:56:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 11:58:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 12:01:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 12:01:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-09-16 12:01:41 --> mysqli_sql_exception: Unknown column 'pharmacy_medicines.generic_name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pharmac...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pharmac...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pharmac...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmac...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\Pharmacy\Reports.php(94): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->stock()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-16 12:01:41 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'pharmacy_medicines.generic_name' in 'field list'
+[Method: GET, Route: pharmacy/reports/stock]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Pharmacy\Reports.php(94): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->stock()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 12:01:41 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'pharmacy_medicines.generic_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Pharmacy\Reports.php(94): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->stock()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 12:01:41 --> [Caused by] mysqli_sql_exception: Unknown column 'pharmacy_medicines.generic_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmacy_medicines`.`id`, `pharmacy_medicines`.`generic_name`, `pharmacy_medicines`.`brand_name`, `pharmacy_medicines`.`strength`, `pharmacy_medicines`.`reorder_level`, `pm`.`name` as `manufacturer_name`, `pc`.`name` as `category_name`, SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches
+FROM `pharmacy_medicines`
+LEFT JOIN `pharmacy_batches` `pb` ON `pb`.`medicine_id` = `pharmacy_medicines`.`id`
+JOIN `pharmacy_manufacturers` `pm` ON `pm`.`id` = `pharmacy_medicines`.`manufacturer_id`
+JOIN `pharmacy_categories` `pc` ON `pc`.`id` = `pharmacy_medicines`.`category_id`
+GROUP BY `pharmacy_medicines`.`id`', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Pharmacy\Reports.php(94): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->stock()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-09-16 12:01:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 12:01:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-09-16 12:01:44 --> mysqli_sql_exception: Unknown column 'pm.generic_name' in 'field list' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pharmac...', 0)
+#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pharmac...')
+#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pharmac...')
+#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmac...', Array, false)
+#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\hms_ram\app\Controllers\Pharmacy\Reports.php(120): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->expiry()
+#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-16 12:01:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'pm.generic_name' in 'field list'
+[Method: GET, Route: pharmacy/reports/expiry]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= :expiry_date:
+AND `current_stock` > :current_stock:
+ORDER BY `expiry_date` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Pharmacy\Reports.php(120): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->expiry()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 12:01:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'pm.generic_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= \'2025-12-16\'
+AND `current_stock` > 0
+ORDER BY `expiry_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= \'2025-12-16\'
+AND `current_stock` > 0
+ORDER BY `expiry_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= :expiry_date:
+AND `current_stock` > :current_stock:
+ORDER BY `expiry_date` ASC', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Pharmacy\Reports.php(120): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->expiry()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-16 12:01:44 --> [Caused by] mysqli_sql_exception: Unknown column 'pm.generic_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= \'2025-12-16\'
+AND `current_stock` > 0
+ORDER BY `expiry_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= \'2025-12-16\'
+AND `current_stock` > 0
+ORDER BY `expiry_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= \'2025-12-16\'
+AND `current_stock` > 0
+ORDER BY `expiry_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pharmacy_batches`.*, `pm`.`generic_name`, `pm`.`brand_name`, `pm`.`strength`, `ps`.`name` as `supplier_name`
+FROM `pharmacy_batches`
+JOIN `pharmacy_medicines` `pm` ON `pm`.`id` = `pharmacy_batches`.`medicine_id`
+LEFT JOIN `pharmacy_suppliers` `ps` ON `ps`.`id` = `pharmacy_batches`.`supplier_id`
+WHERE `expiry_date` <= :expiry_date:
+AND `current_stock` > :current_stock:
+ORDER BY `expiry_date` ASC', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Pharmacy\Reports.php(120): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Reports->expiry()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Reports))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-09-16 12:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-16 12:01:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

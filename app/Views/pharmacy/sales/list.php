@@ -154,25 +154,7 @@
 
 
 <?= $this->section('scripts') ?>
-<!-- <script>
-    $(function() {
-       
-        if ($.fn.DataTable) {
-            $('#salesBillsTable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "order": [
-                    [$currentType === 'patients' ? 2 : 2, "desc"]  
-                ],
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        }
-    });
-</script> -->
+ 
 
 
 

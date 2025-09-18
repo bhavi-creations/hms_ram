@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/main') ?> // Ensure this points to your main layout file
+<?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
 <div class="content-wrapper">
@@ -6,23 +6,61 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Sales Report</h1>
+                    <h1>Sales Bills</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url('/') ?>">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url('pharmacy/reports') ?>">Reports</a></li>
-                        <li class="breadcrumb-item active">Sales</li>
+                        <li class="breadcrumb-item"><a href="<?= site_url('pharmacy/dashboard') ?>">Pharmacy</a></li>
+                        <li class="breadcrumb-item active">Sales Bills</li>
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Sales Transactions Overview</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="card-title">Filter Sales Data</h3>
+                    </div>
+                    <?= form_open('pharmacy/reports/sales/' . esc($currentType), ['method' => 'get']) ?>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="start_date">Start Date</label>
+                                    <input type="date" name="start_date" id="start_date" class="form-control" value="<?= esc($startDate) ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="end_date">End Date</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control" value="<?= esc($endDate) ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary mr-2">Filter</button>
+                                <a href="<?= site_url('pharmacy/reports/sales/' . esc($currentType)) ?>" class="btn btn-secondary">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                    <?= form_close() ?>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="card-title">List of Sales Bills</h3>
+                        <div class="card-tools">
+                            <a href="<?= site_url('pharmacy/sales') ?>" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> New Sale</a>
+                            <a href="<?= site_url('pharmacy/reports/sales/outside_sale') ?>" class="btn btn-sm <?= ($currentType === 'outside_sale') ? 'btn-primary' : 'btn-outline-primary' ?>">Out-Patients</a>
+                            <a href="<?= site_url('pharmacy/reports/sales/in_hospital') ?>" class="btn btn-sm <?= ($currentType === 'in_hospital') ? 'btn-primary' : 'btn-outline-primary' ?>">In-Patients</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <?php if (session()->getFlashdata('success')) : ?>
@@ -42,84 +80,93 @@
                         </div>
                     <?php endif; ?>
 
-                    <form class="form-inline mb-3" action="<?= site_url('pharmacy/reports/sales') ?>" method="get">
-                        <label for="start_date" class="mr-2">Start Date:</label>
-                        <input type="date" class="form-control mr-2" id="start_date" name="start_date" value="<?= esc($startDate ?? date('Y-m-01')) ?>">
-
-                        <label for="end_date" class="mr-2">End Date:</label>
-                        <input type="date" class="form-control mr-2" id="end_date" name="end_date" value="<?= esc($endDate ?? date('Y-m-d')) ?>">
-
-                        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                    </form>
-
-                    <table class="table table-bordered table-striped" id="salesReportTable">
+                    <table class="table table-bordered table-striped" id="manageSalesTable">
                         <thead>
                             <tr>
+                                <th>S.No.</th>
                                 <th>Invoice No.</th>
-                                <th>Sale Date</th>
-                                <th>Customer Name</th>
-                                <th>Total Amount</th>
-                                <th>Payment Method</th>
+                                <th>Date</th>
+                                <th>Patient Name</th>
+                                <th>Phone Number</th>
                                 <th>Sales Person</th>
+                                <th>Total Amount</th>
+                                <?php if ($currentType === 'outside_sale') : ?>
+                                    <th>Net Amount</th>
+                                <?php endif; ?>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($sales) && is_array($sales)) : ?>
-                                <?php
-                                $totalSalesAmount = 0;
-                                foreach ($sales as $sale) :
-                                    $totalSalesAmount += $sale['total_amount'];
-                                ?>
+                            <?php if (!empty($bills) && is_array($bills)) : ?>
+                                <?php $s_no = 1; ?>
+                                <?php foreach ($bills as $bill) : ?>
                                     <tr>
-                                        <td><?= esc($sale['invoice_number']) ?></td>
-                                        <td><?= esc(date('Y-m-d H:i', strtotime($sale['sale_date']))) ?></td>
-                                        <td><?= esc($sale['customer_name'] ?? 'N/A') ?></td>
-                                        <td><?= esc(number_format($sale['total_amount'], 2)) ?></td>
-                                        <td><?= esc($sale['payment_method']) ?></td>
-                                        <td><?= esc($sale['sales_person_first_name'] . ' ' . $sale['sales_person_last_name']) ?></td>
+                                        <td><?= $s_no++ ?></td>
+                                        <td><?= esc($bill['invoice_number'] ?? $bill['bill_id']) ?></td>
+                                        <td><?= esc(date('M d, Y, h:i A', strtotime($bill['sale_date'] ?? $bill['bill_date']))) ?></td>
                                         <td>
-                                            <a href="<?= site_url('pharmacy/sales/invoice/' . $sale['id']) ?>" class="btn btn-sm btn-info">View Invoice</a>
+                                            <?php 
+                                                // Display either the registered patient name or the outside patient name
+                                                if ($currentType === 'in_hospital') {
+                                                    echo esc($bill['first_name'] . ' ' . $bill['last_name']);
+                                                } else {
+                                                    echo esc($bill['outside_patient_name']);
+                                                }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                                if ($currentType === 'in_hospital') {
+                                                    echo esc($bill['phone_number'] ?? 'N/A');
+                                                } else {
+                                                    echo esc($bill['outside_patient_phone'] ?? 'N/A');
+                                                }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?= esc($bill['sales_person_first_name'] . ' ' . $bill['sales_person_last_name'] ?? 'N/A') ?>
+                                        </td>
+                                        <td><?= number_format(($bill['total_amount'] ?? 0), 2) ?></td>
+                                        <?php if ($currentType === 'outside_sale') : ?>
+                                            <td><?= number_format(($bill['net_amount'] ?? 0), 2) ?></td>
+                                        <?php endif; ?>
+                                        <td>
+                                            <a href="<?= site_url('pharmacy/reports/viewInvoice/' . urlencode($bill['invoice_number'] ?? $bill['bill_id'])) ?>" class="btn btn-info btn-sm btn_small">
+                                                View Bill
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="7" class="text-center">No sales records found for the selected period.</td>
+                                    <td colspan="9" class="text-center">No records found for this category.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="3" class="text-right">Total Sales:</th>
-                                <th><?= esc(number_format($totalSalesAmount ?? 0, 2)) ?></th>
-                                <th colspan="3"></th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </section>
-    </div>
+</div>
+
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
 <script>
-    $(function () {
-        // Initialize DataTables if you're using it (recommended for lists)
-        if ($.fn.DataTable) {
-            $('#salesReportTable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "order": [[1, 'desc']] // Order by Sale Date descending
-            });
-        }
+    $(document).ready(function() {
+        $('#manageSalesTable').DataTable({
+            responsive: true,
+            lengthChange: true,
+            autoWidth: false,
+            searching: true,
+            ordering: true,
+            paging: true,
+            info: true,
+            order: [
+                [1, 'desc']
+            ] // Sort by date column
+        });
     });
 </script>
 <?= $this->endSection() ?>

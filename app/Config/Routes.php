@@ -22,6 +22,12 @@ $routes->GET('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth'
 $routes->GET('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
 
 
+
+// Universal Profile Route
+$routes->get('profile', 'ProfileController::index');
+$routes->get('profile/edit', 'ProfileController::edit');
+$routes->post('profile/update', 'ProfileController::update');
+
 // Patients
 $routes->group('patients', ['filter' => 'auth'], function ($routes) {
     $routes->GET('/', 'Patients::index');
@@ -143,7 +149,8 @@ $routes->group('beds', ['filter' => 'auth'], function ($routes) {
 
 
 
-// Pharmacy Routes
+
+
 $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function ($routes) {
 
     // Pharmacy Dashboard
@@ -152,15 +159,35 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
 
 
 
+
+
+    // Reports (PharmacyReportsController)
+    $routes->GET('reports', 'Reports::index');
+    $routes->GET('reports/sales', 'Reports::sales');
+    $routes->GET('reports/sales/(:any)', 'Reports::sales/$1');
+    $routes->GET('reports/stock', 'Reports::stock');
+    $routes->GET('reports/expiry', 'Reports::expiry');
+    $routes->GET('reports/purchases', 'Reports::purchases');
+    $routes->GET('reports/viewInvoice/(:any)', 'Reports::viewInvoice/$1');
+
+
+
+    // Salespersons routes
+    $routes->GET('salespersons', 'SalesPersons::index');
+    $routes->GET('salespersons/create', 'SalesPersons::create');
+    $routes->POST('salespersons/store', 'SalesPersons::store');
+    $routes->GET('salespersons/edit/(:num)', 'SalesPersons::edit/$1');
+    $routes->POST('salespersons/update/(:num)', 'SalesPersons::update/$1');
+    $routes->GET('salespersons/delete/(:num)', 'SalesPersons::delete/$1');
+    $routes->GET('salespersons/toggle-status/(:num)', 'SalesPersons::toggleStatus/$1');
+
     // Purchases Management (PharmacyPurchasesController)
     $routes->GET('purchases', 'Purchases::index');
     $routes->GET('purchases/view/(:num)', 'Purchases::view/$1');
     $routes->GET('purchases/bySupplier/(:num)', 'Purchases::bySupplier/$1');
-    
     $routes->GET('purchases/viewBatch/(:num)', 'Purchases::viewBatch/$1');
     $routes->GET('purchases/byGeneric/(:num)', 'Purchases::byGeneric/$1');
     $routes->match(['GET', 'POST'], 'purchases/receive-stock/(:num)', 'Purchases::receiveStock/$1');
-
 
 
 
@@ -292,12 +319,6 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
 
 
 
-    // Reports (PharmacyReportsController)
-    $routes->GET('reports', 'Reports::index');
-    $routes->GET('reports/sales', 'Reports::sales');
-    $routes->GET('reports/stock', 'Reports::stock');
-    $routes->GET('reports/expiry', 'Reports::expiry');
-    $routes->GET('reports/purchases', 'Reports::purchases');
 
     // Category Management
     $routes->GET('categories', 'Categories::index');
