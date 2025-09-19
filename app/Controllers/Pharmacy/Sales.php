@@ -307,72 +307,6 @@ class Sales extends BaseController
 
 
 
-    public function listBills($type = 'all')
-    {
-        if (!session()->get('user_id')) {
-            return redirect()->to(site_url('unauthorized'))->with('error', 'You are not authorized to view this page.');
-        }
-
-        $bills = [];
-
-        if ($type === 'in_hospital') {
-            $bills = $this->db->table('pharmacy_billings')
-                ->select('pharmacy_billings.*, patients.*')
-                ->join('patients', 'patients.id = pharmacy_billings.patient_id')
-                ->orderBy('bill_date', 'DESC')
-                ->get()
-                ->getResultArray();
-        } elseif ($type === 'patients') {
-            // Fetch patients billing summary with total billed amount and latest bill date
-            $bills = $this->db->table('pharmacy_billings pb')
-                ->select('
-                p.id,
-                p.first_name,
-                p.last_name,
-                p.ipd_id_code,
-                p.phone_number,
-                MAX(pb.bill_date) AS latest_bill_date,
-                SUM(pb.total_amount) AS total_amount
-            ')
-                ->join('patients p', 'p.id = pb.patient_id')
-                ->groupBy('pb.patient_id')
-                ->orderBy('latest_bill_date', 'DESC')
-                ->get()
-                ->getResultArray();
-
-            $paymentModel = new \App\Models\Pharmacy\PharmacyBillingPaymentModel();
-
-            // Calculate total paid and due for each patient
-            foreach ($bills as &$bill) {
-                $payments = $paymentModel->selectSum('payment_amount')
-                    ->whereIn('bill_id', function ($builder) use ($bill) {
-                        $builder->select('bill_id')
-                            ->from('pharmacy_billings')
-                            ->where('patient_id', $bill['id']);
-                    })->first();
-
-                $totalPaid = $payments['payment_amount'] ?? 0;
-                $bill['total_paid_amount'] = $totalPaid;
-                $bill['due_amount'] = $bill['total_amount'] - $totalPaid;
-            }
-        } else {
-            $query = $this->db->table('pharmacy_sales');
-            if ($type === 'outside_sale') {
-                $query->where('prescription_type', 'outside_sale');
-            }
-            $bills = $query->orderBy('sale_date', 'DESC')->get()->getResultArray();
-        }
-
-        $data = [
-            'title' => 'Sales Bills',
-            'bills' => $bills,
-            'currentType' => $type
-        ];
-
-        return view('pharmacy/sales/list', $data);
-    }
-
-
 
     public function getMedicinesByCategory($categoryId = null)
     {
@@ -419,12 +353,6 @@ class Sales extends BaseController
             'bills' => $bills,
         ]);
     }
-
-
-
-
-
-
 
 
 
@@ -838,5 +766,127 @@ class Sales extends BaseController
         ];
 
         return view('pharmacy/sales/print_invoice', $data);
+    }
+
+
+
+
+
+    public function listBills($type = 'all')
+    {
+        // Check if the user is authenticated.
+        if (!session()->get('user_id')) {
+            return redirect()->to(site_url('unauthorized'))->with('error', 'You are not authorized to view this page.');
+        }
+
+        $bills = [];
+        $title = 'Sales Bills';
+
+        // Fetch data based on the type of sales
+        if ($type === 'in_hospital') {
+            $bills = $this->db->table('pharmacy_billings pb')
+                ->select('pb.*, p.first_name, p.last_name, p.phone_number, p.ipd_id_code')
+                ->join('patients p', 'p.id = pb.patient_id')
+                ->orderBy('pb.bill_date', 'DESC')
+                ->get()
+                ->getResultArray();
+            $title = 'In-Patients Bills';
+        } elseif ($type === 'patients') {
+            // Fetch patients billing summary with total billed amount and latest bill date
+            $bills = $this->db->table('pharmacy_billings pb')
+                ->select('
+                    p.id,
+                    p.first_name,
+                    p.last_name,
+                    p.ipd_id_code,
+                    p.phone_number,
+                    MAX(pb.bill_date) AS latest_bill_date,
+                    SUM(pb.total_amount) AS total_amount
+                ')
+                ->join('patients p', 'p.id = pb.patient_id')
+                ->groupBy('pb.patient_id')
+                ->orderBy('latest_bill_date', 'DESC')
+                ->get()
+                ->getResultArray();
+
+            $paymentModel = new \App\Models\Pharmacy\PharmacyBillingPaymentModel();
+
+            // Calculate total paid and due for each patient
+            foreach ($bills as &$bill) {
+                $payments = $paymentModel->selectSum('payment_amount')
+                    ->whereIn('bill_id', function ($builder) use ($bill) {
+                        $builder->select('bill_id')
+                            ->from('pharmacy_billings')
+                            ->where('patient_id', $bill['id']);
+                    })->first();
+
+                $totalPaid = $payments['payment_amount'] ?? 0;
+                $bill['total_paid_amount'] = $totalPaid;
+                $bill['due_amount'] = $bill['total_amount'] - $totalPaid;
+            }
+            $title = 'Patients List';
+        } elseif ($type === 'outside_sale') {
+            $bills = $this->db->table('pharmacy_sales')
+                ->where('prescription_type', 'outside_sale')
+                ->orderBy('sale_date', 'DESC')
+                ->get()
+                ->getResultArray();
+            $title = 'Out-Patients Bills';
+        } else {
+            // Default to 'all' bills if no type is specified or it's 'all'
+            $bills = $this->db->table('pharmacy_sales')
+                ->orderBy('sale_date', 'DESC')
+                ->get()
+                ->getResultArray();
+        }
+
+        $data = [
+            'title'       => $title,
+            'bills'       => $bills,
+            'currentType' => $type
+        ];
+
+        return view('pharmacy/sales/list', $data);
+    }
+
+    public function listToday()
+    {
+        // Check if the user is authenticated.
+        if (!session()->get('user_id')) {
+            return redirect()->to(site_url('unauthorized'))->with('error', 'You are not authorized to view this page.');
+        }
+
+        $today = date('Y-m-d');
+
+        // Fetch all outside sales for today
+        $outsideSales = $this->db->table('pharmacy_sales ps')
+            ->select('ps.invoice_number AS bill_id, ps.sale_date AS date, ps.outside_patient_name AS patient_name, ps.outside_patient_phone AS phone_number, ps.total_amount, u.first_name AS user_name, "Out-Patient" as type')->join('users u', 'u.id = ps.sales_person_id')
+            ->where('DATE(ps.sale_date)', $today)
+            ->get()
+            ->getResultArray();
+
+        // Fetch all in-hospital bills for today
+        $inHospitalBills = $this->db->table('pharmacy_billings pb')
+            ->select('pb.bill_id, pb.bill_date AS date, CONCAT(p.first_name, " ", p.last_name) AS patient_name, p.phone_number, pb.total_amount, u.first_name AS user_name, "In-Patient" as type')
+            ->join('patients p', 'p.id = pb.patient_id')
+            ->join('users u', 'u.id = pb.sales_person_id')
+            ->where('DATE(pb.bill_date)', $today)
+            ->get()
+            ->getResultArray();
+
+        // Combine and sort the results
+        $bills = array_merge($outsideSales, $inHospitalBills);
+
+        usort($bills, function ($a, $b) {
+            return strtotime($b['date']) - strtotime($a['date']);
+        });
+
+        $data = [
+            'title' => 'Today\'s Sales',
+            'bills' => $bills,
+            'currentType' => 'today'
+        ];
+
+        return view('pharmacy/sales/todays_sales', $data);
     }
 }

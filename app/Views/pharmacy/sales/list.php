@@ -27,9 +27,9 @@
                         <h3 class="card-title">List of Sales Bills</h3>
                         <div class="card-tools">
                             <a href="<?= site_url('pharmacy/sales') ?>" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> New Sale</a>
-                            <a href="<?= site_url('pharmacy/sales/listBills/outside_sale') ?>" class="btn btn-sm <?= ($currentType === 'outside_sale') ? 'btn-primary' : 'btn-outline-primary' ?>">Out-Patients</a>
-                            <a href="<?= site_url('pharmacy/sales/listBills/in_hospital') ?>" class="btn btn-sm <?= ($currentType === 'in_hospital') ? 'btn-primary' : 'btn-outline-primary' ?>">In-Patients</a>
-                            <a href="<?= site_url('pharmacy/sales/listBills/patients') ?>" class="btn btn-sm <?= ($currentType === 'patients') ? 'btn-primary' : 'btn-outline-primary' ?>">Patients List</a>
+                            <a href="<?= site_url('pharmacy/sales/listBills/outside_sale') ?>" class="btn btn-sm <?= (isset($currentType) && $currentType === 'outside_sale') ? 'btn-primary' : 'btn-outline-primary' ?>">Out-Patients</a>
+                            <a href="<?= site_url('pharmacy/sales/listBills/in_hospital') ?>" class="btn btn-sm <?= (isset($currentType) && $currentType === 'in_hospital') ? 'btn-primary' : 'btn-outline-primary' ?>">In-Patients</a>
+                            <a href="<?= site_url('pharmacy/sales/listBills/patients') ?>" class="btn btn-sm <?= (isset($currentType) && $currentType === 'patients') ? 'btn-primary' : 'btn-outline-primary' ?>">Patients List</a>
                         </div>
                     </div>
                 </div>
@@ -51,11 +51,11 @@
                         </div>
                     <?php endif; ?>
 
-                    <table class="table table-bordered table-striped" id="manageReturnsTable" >
+                    <table class="table table-bordered table-striped" id="manageReturnsTable">
                         <thead>
                             <tr>
                                 <th>S.No.</th>
-                                <?php if ($currentType === 'patients'): ?>
+                                <?php if (isset($currentType) && $currentType === 'patients'): ?>
                                     <th>IPD ID</th>
                                     <th>Latest Bill Date</th>
                                     <th>Patient Name</th>
@@ -71,10 +71,9 @@
                                     <th>Patient Name</th>
                                     <th>Phone Number</th>
                                     <th>Grand Total</th>
-                                    <?php if ($currentType !== 'in_hospital'): ?>
+                                    <?php if (isset($currentType) && $currentType !== 'in_hospital'): ?>
                                         <th>Net Amount</th>
                                     <?php endif; ?>
-
                                     <th>Actions</th>
                                 <?php endif; ?>
                             </tr>
@@ -83,7 +82,7 @@
                             <?php if (!empty($bills) && is_array($bills)) : ?>
                                 <?php $s_no = 1; ?>
                                 <?php foreach ($bills as $bill) : ?>
-                                    <?php if ($currentType === 'patients'): ?>
+                                    <?php if (isset($currentType) && $currentType === 'patients'): ?>
                                         <?php
                                         if (($bill['due_amount'] ?? 0) <= 0) {
                                             $status_label = '<span class="badge badge-success">Paid</span>';
@@ -113,24 +112,23 @@
                                         <tr>
                                             <td><?= $s_no++ ?></td>
                                             <td>
-                                                <?= esc($currentType === 'in_hospital' ? $bill['bill_id'] : ($bill['invoice_number'] ?? '')) ?>
+                                                <?= esc(isset($currentType) && $currentType === 'in_hospital' ? ($bill['bill_id'] ?? '') : ($bill['invoice_number'] ?? '')) ?>
                                             </td>
-                                            <td data-order="<?= strtotime($currentType === 'in_hospital' ? $bill['bill_date'] : $bill['sale_date']) ?>">
-                                                <?= esc(date('M d, Y, h:i A', strtotime($currentType === 'in_hospital' ? $bill['bill_date'] : $bill['sale_date']))) ?>
-                                            </td>
-                                            <td>
-                                                <?= $currentType === 'in_hospital' ? esc($bill['first_name'] . ' ' . $bill['last_name']) : esc($bill['outside_patient_name']) ?>
+                                            <td data-order="<?= strtotime(isset($currentType) && $currentType === 'in_hospital' ? $bill['bill_date'] : $bill['sale_date']) ?>">
+                                                <?= esc(date('M d, Y, h:i A', strtotime(isset($currentType) && $currentType === 'in_hospital' ? $bill['bill_date'] : $bill['sale_date']))) ?>
                                             </td>
                                             <td>
-                                                <?= $currentType === 'in_hospital' ? esc($bill['phone_number'] ?? 'N/A') : esc($bill['outside_patient_phone'] ?? '') ?>
+                                                <?= isset($currentType) && $currentType === 'in_hospital' ? esc($bill['first_name'] . ' ' . $bill['last_name']) : esc($bill['outside_patient_name'] ?? '') ?>
                                             </td>
-                                            <td><?= number_format(($bill['total_amount'] ?? 0), 2) ?></td>
-                                            <?php if ($currentType !== 'in_hospital'): ?>
-                                                <td><?= number_format(($bill['net_amount'] ?? 0), 2) ?></td>
+                                            <td>
+                                                <?= isset($currentType) && $currentType === 'in_hospital' ? esc($bill['phone_number'] ?? 'N/A') : esc($bill['outside_patient_phone'] ?? '') ?>
+                                            </td>
+                                            <td>₹ <?= number_format(($bill['total_amount'] ?? 0), 2) ?></td>
+                                            <?php if (isset($currentType) && $currentType !== 'in_hospital'): ?>
+                                                <td>₹ <?= number_format(($bill['net_amount'] ?? 0), 2) ?></td>
                                             <?php endif; ?>
-
                                             <td>
-                                                <a href="<?= site_url('pharmacy/sales/invoice/' . urlencode($currentType === 'in_hospital' ? $bill['bill_id'] : $bill['invoice_number'])) ?>" class="btn btn-info btn-sm btn_small">
+                                                <a href="<?= site_url('pharmacy/sales/invoice/' . urlencode(isset($currentType) && $currentType === 'in_hospital' ? $bill['bill_id'] : $bill['invoice_number'])) ?>" class="btn btn-info btn-sm btn_small">
                                                     View Bill
                                                 </a>
                                             </td>
@@ -139,7 +137,7 @@
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="<?= $currentType === 'patients' ? 10 : 8 ?>" class="text-center">No records found for this category.</td>
+                                    <td colspan="<?= (isset($currentType) && $currentType === 'patients') ? 10 : 8 ?>" class="text-center">No records found for this category.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -152,12 +150,7 @@
 
 <?= $this->endSection() ?>
 
-
 <?= $this->section('scripts') ?>
- 
-
-
-
 <script>
     $(document).ready(function() {
         $('#manageReturnsTable').DataTable({

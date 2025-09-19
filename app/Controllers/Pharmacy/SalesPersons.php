@@ -245,3 +245,4 @@ class SalesPersons extends BaseController
         return view('pharmacy/self_report/self_report', $data);
     }
 }
+    

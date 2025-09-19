@@ -159,6 +159,15 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
 
 
 
+    // Sales Management (PharmacySalesController)
+    $routes->GET('sales', 'Sales::index'); // POS Panel
+    $routes->POST('sales/process-sale', 'Sales::processSale');
+    $routes->GET('sales/invoice/(:any)', 'Sales::invoice/$1');
+    $routes->GET('sales/list', 'Sales::listSales');
+    $routes->get('sales/listToday', 'Sales::listToday');
+    $routes->get('sales/listBills/(:any)', 'Sales::listBills/$1');
+    $routes->get('sales/billsByPatient/(:num)', 'Sales::billsByPatient/$1');
+    $routes->get('sales/printInvoice/(:any)', 'Sales::printInvoice/$1');
 
 
     // Reports (PharmacyReportsController)
@@ -225,13 +234,6 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
 
 
 
-    // Sales Management (PharmacySalesController)
-    $routes->GET('sales', 'Sales::index'); // POS Panel
-    $routes->POST('sales/process-sale', 'Sales::processSale');
-    $routes->GET('sales/invoice/(:any)', 'Sales::invoice/$1');
-    $routes->GET('sales/list', 'Sales::listSales');
-    $routes->get('sales/billsByPatient/(:num)', 'Sales::billsByPatient/$1');
-    $routes->get('sales/printInvoice/(:any)', 'Sales::printInvoice/$1');
 
 
 
