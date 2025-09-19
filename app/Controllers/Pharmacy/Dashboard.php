@@ -11,7 +11,7 @@ use App\Models\Pharmacy\PharmacySalesModel;
 use App\Models\Pharmacy\PharmacyBillingModel;
 use App\Models\Pharmacy\PharmacyBatchModel;
 use App\Models\Pharmacy\PharmacyGenericModel;
-use App\Models\PatientModel; // New import
+use App\Models\PatientModel;
 
 class Dashboard extends BaseController
 {
@@ -20,7 +20,7 @@ class Dashboard extends BaseController
     protected $billingModel;
     protected $batchModel;
     protected $genericModel;
-    protected $patientModel; // New property
+    protected $patientModel;
 
     /**
      * Constructor to initialize models.
@@ -32,7 +32,7 @@ class Dashboard extends BaseController
         $this->billingModel  = new PharmacyBillingModel();
         $this->batchModel    = new PharmacyBatchModel();
         $this->genericModel  = new PharmacyGenericModel();
-        $this->patientModel  = new PatientModel(); // New instantiation
+        $this->patientModel  = new PatientModel();
     }
 
     /**
@@ -72,13 +72,33 @@ class Dashboard extends BaseController
             ->countAllResults();
 
         // 5. Fetch Recent Sales Transactions (e.g., last 5)
-        // Corrected to join the 'patients' table to get the patient's name
-        $recentSales = $this->salesModel
-            ->select('pharmacy_sales.invoice_number, pharmacy_sales.total_amount, pharmacy_sales.created_at, CONCAT(patients.first_name, " ", patients.last_name) AS patient_name')
-            ->join('patients', 'patients.id = pharmacy_sales.patient_id')
-            ->orderBy('pharmacy_sales.created_at', 'DESC')
-            ->limit(5)
-            ->findAll();
+        $db = \Config\Database::connect();
+
+        $recentSalesQuery = $db->query("
+            (SELECT
+                ps.invoice_number AS bill_id,
+                ps.total_amount,
+                ps.sale_date,
+                CONCAT(p.first_name, ' ', p.last_name) AS patient_name,
+                'OP Sale' as sale_type
+            FROM
+                pharmacy_sales ps
+            LEFT JOIN patients p ON p.id = ps.patient_id)
+            UNION
+            (SELECT
+                pb.bill_id,
+                pb.total_amount,
+                pb.bill_date AS sale_date,
+                CONCAT(p.first_name, ' ', p.last_name) AS patient_name,
+                'IP Bill' as sale_type
+            FROM
+                pharmacy_billings pb
+            LEFT JOIN patients p ON p.id = pb.patient_id)
+            ORDER BY sale_date DESC
+            LIMIT 5
+        ");
+        
+        $recentSales = $recentSalesQuery->getResultArray();
 
         // 6. Fetch Upcoming Expiry Batches (e.g., next 5)
         $expiringSoonBatches = $this->batchModel

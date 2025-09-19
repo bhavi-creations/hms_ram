@@ -82,25 +82,27 @@
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th>Invoice #</th>
+                                    <th>Transaction ID</th>
                                     <th>Patient</th>
                                     <th>Total</th>
                                     <th>Date</th>
+                                    <th>Type</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if (!empty($recentSales)) : ?>
                                     <?php foreach ($recentSales as $sale) : ?>
                                         <tr>
-                                            <td><a href="<?= site_url('pharmacy/sales/view/' . $sale['invoice_number']) ?>"><?= esc($sale['invoice_number']) ?></a></td>
+                                            <td><a href="<?= site_url('pharmacy/sales/view/' . $sale['bill_id']) ?>"><?= esc($sale['bill_id']) ?></a></td>
                                             <td><?= esc($sale['patient_name']) ?></td>
                                             <td><?= esc(number_format($sale['total_amount'], 2)) ?></td>
-                                            <td><?= esc(date('M d, Y', strtotime($sale['created_at']))) ?></td>
+                                            <td><?= esc(date('M d, Y', strtotime($sale['sale_date']))) ?></td>
+                                            <td><?= esc($sale['sale_type']) ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
-                                        <td colspan="4" class="text-center">No recent sales found.</td>
+                                        <td colspan="5" class="text-center">No recent sales found.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
