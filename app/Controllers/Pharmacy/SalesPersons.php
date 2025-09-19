@@ -4,6 +4,9 @@ namespace App\Controllers\Pharmacy;
 
 use App\Controllers\BaseController;
 use App\Models\Pharmacy\PharmacySalesPersonModel;
+use App\Models\Pharmacy\PharmacyBillingModel;
+use App\Models\Pharmacy\PharmacySalesModel;
+use App\Models\UserModel;
 
 class SalesPersons extends BaseController
 {
@@ -127,8 +130,22 @@ class SalesPersons extends BaseController
 
     public function delete($id = null)
     {
+        $salesperson = $this->salesPersonModel->find($id);
+        if (!$salesperson) {
+            return redirect()->to('pharmacy/salespersons')->with('error', 'Salesperson not found.');
+        }
+
+        $userModel = new UserModel();
+        $user = $userModel->where('email', $salesperson['email'])->first();
+
+        // Delete the user record first
+        if ($user) {
+            $userModel->delete($user['id']);
+        }
+        
+        // Then delete the salesperson record
         if ($this->salesPersonModel->delete($id)) {
-            return redirect()->to('pharmacy/salespersons')->with('success', 'Salesperson deleted successfully!');
+            return redirect()->to('pharmacy/salespersons')->with('success', 'Salesperson and associated user record deleted successfully!');
         } else {
             return redirect()->to('pharmacy/salespersons')->with('error', 'Failed to delete salesperson.');
         }
@@ -146,7 +163,20 @@ class SalesPersons extends BaseController
         }
 
         $newStatus = ($salesperson['status'] == 1) ? 0 : 1;
+        $newLoginStatus = ($newStatus == 1) ? 'active' : 'inactive';
 
+        // Load the UserModel
+        $userModel = new UserModel();
+        
+        // Find the user record associated with this salesperson's email
+        $user = $userModel->where('email', $salesperson['email'])->first();
+        
+        if ($user) {
+            // Update the user's login status first
+            $userModel->update($user['id'], ['status' => $newLoginStatus]);
+        }
+
+        // Then, update the salesperson's record status
         $data = ['status' => $newStatus];
 
         if ($this->salesPersonModel->update($id, $data)) {
@@ -158,45 +188,60 @@ class SalesPersons extends BaseController
     }
 
     public function profile($userId = null)
-{
-    $session = session();
-    $loggedInUserId = $session->get('user_id');
-    $loggedInUserRoleId = $session->get('role_id');
-    
-    // Determine the ID of the salesperson to display
-    if ($userId === null) {
+    {
+        $session = session();
+        $loggedInUserId = $session->get('user_id');
+        $loggedInUserRoleId = $session->get('role_id');
+        
         // If no ID is provided, assume the logged-in user wants to see their own profile
-        $userId = $loggedInUserId;
+        if ($userId === null) {
+            $userId = $loggedInUserId;
+        }
+
+        // Check permissions: A Sales Person can only view their own profile
+        if ($loggedInUserRoleId == 8 && $userId != $loggedInUserId) {
+            return redirect()->back()->with('error', 'You are not authorized to view this profile.');
+        }
+
+        // Load the models
+        $userModel = new \App\Models\UserModel();
+        $salesPersonModel = new \App\Models\Pharmacy\PharmacySalesPersonModel();
+        $billingModel = new PharmacyBillingModel();
+        $salesModel = new PharmacySalesModel();
+
+        // Fetch user and salesperson data
+        $user = $userModel->find($userId);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Fetch the salesperson's profile from the pharmacy table based on user's email
+        $salesPerson = $salesPersonModel->where('email', $user['email'])->first();
+
+        if (!$salesPerson) {
+            // This user is not a salesperson, so a report won't exist.
+            return redirect()->back()->with('error', 'Sales person profile not found.');
+        }
+
+        // Get start and end dates from the URL query, or set a default
+        $startDate = $this->request->getGet('start_date') ?? date('Y-m-d', strtotime('-30 days'));
+        $endDate = $this->request->getGet('end_date') ?? date('Y-m-d');
+
+        // Fetch sales data using the integer user ID, which is correctly stored in the sales tables
+        $inHospitalSales = $billingModel->getInHospitalSalesBySalesPerson((int)$userId, $startDate, $endDate);
+        $outsideSales = $salesModel->getOutsideSalesBySalesPerson((int)$userId, $startDate, $endDate);
+        
+        $data = [
+            'title' => 'My Sales Report',
+            'salesPerson' => $salesPerson,
+            'user' => $user,
+            'inHospitalSales' => $inHospitalSales,
+            'outsideSales' => $outsideSales,
+            'startDate' => $startDate,
+            'endDate' => $endDate
+        ];
+
+        // Use your new view file
+        return view('pharmacy/self_report/self_report', $data);
     }
-
-    // Check permissions
-    if ($loggedInUserRoleId == 8 && $userId != $loggedInUserId) {
-        // A Sales Person can only view their own profile
-        return redirect()->back()->with('error', 'You are not authorized to view this profile.');
-    }
-
-    // Load the models
-    $userModel = new \App\Models\UserModel();
-    $salesPersonModel = new \App\Models\Pharmacy\PharmacySalesPersonModel();
-
-    // Fetch user and salesperson data
-    $user = $userModel->find($userId);
-    if (!$user || $user['role_id'] != 8) {
-        return redirect()->back()->with('error', 'Sales person not found or invalid user.');
-    }
-
-    $salesPerson = $salesPersonModel->where('email', $user['email'])->first();
-
-    if (!$salesPerson) {
-        return redirect()->back()->with('error', 'Sales person profile not found.');
-    }
-
-    $data = [
-        'title' => 'My Profile',
-        'salesPerson' => $salesPerson,
-        'user' => $user
-    ];
-
-    return view('pharmacy/sales_persons/profile', $data);
-}
 }

@@ -20,6 +20,9 @@ use App\Models\Pharmacy\PharmacyBrandModel;
 use App\Models\Pharmacy\PharmacyGenericModel;
 use App\Models\Pharmacy\PharmacySupplierModel;
 use App\Models\Pharmacy\PharmacyManufacturerModel;
+use App\Models\Pharmacy\PharmacyPurchaseModel;
+use CodeIgniter\I18n\Time;
+
 
 
 
@@ -38,6 +41,7 @@ class Reports extends BaseController
     protected $manufacturerModel;
     protected $categoryModel;
     protected $billingModel;
+    protected $purchaseModel;
     protected $patientModel;
     protected $userModel;
 
@@ -52,6 +56,7 @@ class Reports extends BaseController
         $this->categoryModel    = new PharmacyCategoryModel();
         $this->billingModel     = new PharmacyBillingModel();
         $this->patientModel     = new PatientModel();
+        $this->purchaseModel     = new PharmacyPurchaseModel();
         $this->userModel        = new UserModel();
     }
 
@@ -130,17 +135,27 @@ class Reports extends BaseController
 
     public function stock()
     {
-        $lowStockThreshold = $this->request->getGet('low_stock_threshold') ?? 10; // Default threshold
+        $lowStockThreshold = $this->request->getGet('low_stock_threshold') ?? 10;
 
-        // Example: Get current stock for all medicines by combining batch data
         $stockData = $this->medicineModel
-            ->select('pharmacy_medicines.id, pharmacy_medicines.generic_name, pharmacy_medicines.brand_name, pharmacy_medicines.strength, pharmacy_medicines.reorder_level,
-                                    pm.name as manufacturer_name, pc.name as category_name,
-                                    SUM(pb.current_stock) as total_stock, COUNT(pb.id) as num_batches')
-            ->join('pharmacy_batches pb', 'pb.medicine_id = pharmacy_medicines.id', 'left')
-            ->join('pharmacy_manufacturers pm', 'pm.id = pharmacy_medicines.manufacturer_id')
-            ->join('pharmacy_categories pc', 'pc.id = pharmacy_medicines.category_id')
+            ->select('
+                pharmacy_medicines.id,
+                pharmacy_generics.generic_name,
+                pharmacy_brands.brand_name,
+                pharmacy_medicines.strength,
+                pharmacy_medicines.reorder_level,
+                pharmacy_manufacturers.name AS manufacturer_name,
+                pharmacy_categories.name AS category_name,
+                SUM(pharmacy_batches.current_stock) as total_stock,
+                COUNT(pharmacy_batches.id) as num_batches
+            ')
+            ->join('pharmacy_generics', 'pharmacy_generics.id = pharmacy_medicines.generic_id', 'left')
+            ->join('pharmacy_brands', 'pharmacy_brands.id = pharmacy_medicines.brand_id', 'left')
+            ->join('pharmacy_manufacturers', 'pharmacy_manufacturers.id = pharmacy_medicines.manufacturer_id', 'left')
+            ->join('pharmacy_categories', 'pharmacy_categories.id = pharmacy_medicines.category_id', 'left')
+            ->join('pharmacy_batches', 'pharmacy_batches.medicine_id = pharmacy_medicines.id', 'left')
             ->groupBy('pharmacy_medicines.id')
+            ->orderBy('total_stock', 'ASC')
             ->findAll();
 
         $data = [
@@ -151,57 +166,71 @@ class Reports extends BaseController
         return view('pharmacy/reports/stock', $data);
     }
 
-
     public function expiry()
     {
-        $monthsAhead = $this->request->getGet('months_ahead') ?? 3; // Default: next 3 months
-        $expiryDateCutoff = date('Y-m-d', strtotime('+' . $monthsAhead . ' months'));
-
-        $expiringBatches = $this->batchModel
-            ->select('pharmacy_batches.*, pm.generic_name, pm.brand_name, pm.strength, ps.name as supplier_name')
-            ->join('pharmacy_medicines pm', 'pm.id = pharmacy_batches.medicine_id')
-            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_batches.supplier_id', 'left')
-            ->where('expiry_date <=', $expiryDateCutoff)
-            ->where('current_stock >', 0) // Only show if there's stock
-            ->orderBy('expiry_date', 'ASC')
+        // Query to get expiring and expired batches
+        // The error you encountered was because the query was likely trying to access
+        // 'pm.generic_name' directly. We must join the 'pharmacy_generics' table.
+        $batches = $this->batchModel
+            ->select('
+                pharmacy_batches.id,
+                pharmacy_batches.batch_number,
+                pharmacy_batches.expiry_date,
+                pharmacy_batches.current_stock,
+                pharmacy_generics.generic_name,
+                pharmacy_manufacturers.name AS manufacturer_name
+            ')
+            ->join('pharmacy_medicines', 'pharmacy_medicines.id = pharmacy_batches.medicine_id')
+            ->join('pharmacy_generics', 'pharmacy_generics.id = pharmacy_medicines.generic_id')
+            ->join('pharmacy_manufacturers', 'pharmacy_manufacturers.id = pharmacy_medicines.manufacturer_id')
+            // Filter for batches expiring in the next 6 months or already expired
+            ->where('pharmacy_batches.expiry_date <', Time::now()->addMonths(6)->toDateString())
+            ->orderBy('pharmacy_batches.expiry_date', 'ASC')
             ->findAll();
 
         $data = [
-            'title'          => 'Medicine Expiry Report',
-            'expiringBatches' => $expiringBatches,
-            'monthsAhead'    => $monthsAhead,
-            'expiryCutoff'   => $expiryDateCutoff
+            'title' => 'Expiry Reports',
+            'batches' => $batches,
         ];
+
         return view('pharmacy/reports/expiry', $data);
     }
 
 
-    // public function purchases()
-    // {
-    //     $startDate = $this->request->getGet('start_date') ?? date('Y-m-01');
-    //     $endDate   = $this->request->getGet('end_date') ?? date('Y-m-d');
-    //     $supplierId = $this->request->getGet('supplier_id');
+    public function purchases()
+    {
+        $startDate = $this->request->getGet('start_date') ?? date('Y-m-01');
+        $endDate   = $this->request->getGet('end_date') ?? date('Y-m-d');
+        $supplierId = $this->request->getGet('supplier_id');
 
-    //     $purchases = $this->purchaseModel
-    //         ->select('pharmacy_purchases.*, ps.name as supplier_name, u_ordered.first_name as ordered_by_first_name, u_ordered.last_name as ordered_by_last_name')
-    //         ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_purchases.supplier_id')
-    //         ->join('users u_ordered', 'u_ordered.id = pharmacy_purchases.ordered_by_user_id')
-    //         ->where('purchase_date >=', $startDate . ' 00:00:00')
-    //         ->where('purchase_date <=', $endDate . ' 23:59:59')
-    //         ->when($supplierId, function ($query, $supplierId) {
-    //             return $query->where('supplier_id', $supplierId);
-    //         })
-    //         ->orderBy('purchase_date', 'DESC')
-    //         ->findAll();
+        $purchases = $this->purchaseModel
+            ->select('
+                pharmacy_purchases.*,
+                ps.name as supplier_name,
+                u_ordered.first_name as ordered_by_first_name,
+                u_ordered.last_name as ordered_by_last_name
+            ')
+            ->join('pharmacy_suppliers ps', 'ps.id = pharmacy_purchases.supplier_id')
+            ->join('users u_ordered', 'u_ordered.id = pharmacy_purchases.ordered_by_user_id')
+            ->where('purchase_date >=', $startDate . ' 00:00:00')
+            ->where('purchase_date <=', $endDate . ' 23:59:59')
+            ->when($supplierId, function ($query, $supplierId) {
+                return $query->where('supplier_id', $supplierId);
+            })
+            ->orderBy('purchase_date', 'DESC')
+            ->findAll();
 
-    //     $data = [
-    //         'title'     => 'Purchases Report',
-    //         'purchases' => $purchases,
-    //         'startDate' => $startDate,
-    //         'endDate'   => $endDate,
-    //         'suppliers' => $this->supplierModel->findAll(), // For filter dropdown
-    //         'selectedSupplierId' => $supplierId
-    //     ];
-    //     return view('pharmacy/reports/purchases', $data);
-    // }
+        $suppliers = $this->supplierModel->orderBy('name', 'ASC')->findAll();
+
+        $data = [
+            'title'         => 'Purchase Reports',
+            'purchases'     => $purchases,
+            'suppliers'     => $suppliers,
+            'startDate'     => $startDate,
+            'endDate'       => $endDate,
+            'supplierId'    => $supplierId,
+        ];
+
+        return view('pharmacy/reports/purchases', $data);
+    }
 }

@@ -16,7 +16,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -58,14 +59,14 @@
                                 <span class="info-box-icon bg-warning"><i class="fas fa-file-invoice-dollar"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Purchase Reports</span>
-                                    <a href="<?= site_url('pharmacy/reports/purchases') ?>" class="info-box-number text-sm">Analyze Purchase Data <i class="fas fa-arrow-circle-right"></i></a>
+                                    <a href="<?= site_url('pharmacy/purchases') ?>" class="info-box-number text-sm">Analyze Purchase Data <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    </div>
+</div>
 <?= $this->endSection() ?>

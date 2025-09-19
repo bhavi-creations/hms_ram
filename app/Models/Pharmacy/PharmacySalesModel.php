@@ -4,10 +4,10 @@ use CodeIgniter\Model;
 
 class PharmacySalesModel extends Model
 {
-    protected $table        = 'pharmacy_sales';
-    protected $primaryKey   = 'id';
+    protected $table = 'pharmacy_sales';
+    protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType     = 'array';
+    protected $returnType = 'array';
     protected $useSoftDeletes = false;
     protected $allowedFields = [
         'invoice_number',
@@ -27,13 +27,13 @@ class PharmacySalesModel extends Model
         'notes'
     ];
     protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $validationRules    = [];
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
+    protected $validationRules = [];
     protected $validationMessages = [];
-    protected $skipValidation     = false;
+    protected $skipValidation = false;
     protected $allowCallbacks = true;
-    protected $beforeInsert   = ['generateInvoiceNumber'];
+    protected $beforeInsert = ['generateInvoiceNumber'];
 
     /**
      * Callback to generate a unique invoice number before inserting a new sale.
@@ -49,12 +49,17 @@ class PharmacySalesModel extends Model
     }
 
     /**
-     * Fetches outside sales bills with sales person name within a date range.
+     * Fetches outside sales bills for a specific sales person within a date range.
+     * @param int $salesPersonId The ID of the sales person.
+     * @param string $startDate The start date of the range.
+     * @param string $endDate The end date of the range.
+     * @return array An array of sales data.
      */
-    public function getOutsideSalesByDateRange(string $startDate, string $endDate)
+    public function getOutsideSalesBySalesPerson(int $salesPersonId, string $startDate, string $endDate)
     {
         return $this->select('pharmacy_sales.*, users.first_name as sales_person_first_name, users.last_name as sales_person_last_name')
                     ->join('users', 'users.id = pharmacy_sales.sales_person_id')
+                    ->where('pharmacy_sales.sales_person_id', $salesPersonId) // Filter by sales person ID
                     ->where('prescription_type', 'outside_sale')
                     ->where('sale_date >=', $startDate . ' 00:00:00')
                     ->where('sale_date <=', $endDate . ' 23:59:59')
@@ -71,5 +76,17 @@ class PharmacySalesModel extends Model
                     ->join('users', 'users.id = pharmacy_sales.sales_person_id')
                     ->where('invoice_number', $invoiceNumber)
                     ->first();
+    }
+
+    // You can keep the original general method if you need it elsewhere
+    public function getOutsideSalesByDateRange(string $startDate, string $endDate)
+    {
+        return $this->select('pharmacy_sales.*, users.first_name as sales_person_first_name, users.last_name as sales_person_last_name')
+                    ->join('users', 'users.id = pharmacy_sales.sales_person_id')
+                    ->where('prescription_type', 'outside_sale')
+                    ->where('sale_date >=', $startDate . ' 00:00:00')
+                    ->where('sale_date <=', $endDate . ' 23:59:59')
+                    ->orderBy('sale_date', 'DESC')
+                    ->findAll();
     }
 }

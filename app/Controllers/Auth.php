@@ -38,6 +38,12 @@ class Auth extends BaseController
             ->first();
 
         if ($user) {
+            // Check if the user's status is 'inactive'
+            if ($user['status'] == 'inactive') {
+                $session->setFlashdata('error', 'Your account has been deactivated. Please contact an administrator.');
+                return redirect()->to('/login');
+            }
+            
             // User found, verify password
             if (password_verify($password, $user['password'])) {
                 // Password matches, prepare session data

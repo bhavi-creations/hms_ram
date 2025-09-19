@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/main') ?> // Ensure this points to your main layout file
+<?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
 <div class="content-wrapper">
@@ -16,7 +16,8 @@
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
@@ -51,6 +52,7 @@
                     <table class="table table-bordered table-striped" id="stockReportTable">
                         <thead>
                             <tr>
+                                <th>S.No.</th>
                                 <th>Medicine Name</th>
                                 <th>Generic Name</th>
                                 <th>Strength</th>
@@ -63,6 +65,7 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($stockData) && is_array($stockData)) : ?>
+                                <?php $s_no = 1; ?>
                                 <?php foreach ($stockData as $item) :
                                     $statusClass = '';
                                     $statusText = 'In Stock';
@@ -74,9 +77,11 @@
                                         $statusText = 'Low Stock';
                                     } else {
                                         $statusClass = 'badge-success';
+                                        $statusText = 'In Stock';
                                     }
                                 ?>
                                     <tr>
+                                        <td><?= $s_no++ ?></td>
                                         <td><?= esc($item['brand_name']) ?></td>
                                         <td><?= esc($item['generic_name']) ?></td>
                                         <td><?= esc($item['strength']) ?></td>
@@ -89,7 +94,7 @@
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="8" class="text-center">No medicine stock data found.</td>
+                                    <td colspan="9" class="text-center">No medicine stock data found.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -98,7 +103,8 @@
             </div>
         </div>
     </section>
-    </div>
+</div>
+
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>

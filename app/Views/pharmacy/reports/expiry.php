@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/main') ?> // Ensure this points to your main layout file
+<?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
 <div class="content-wrapper">
@@ -6,23 +6,25 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Expiring Soon Medicines Report</h1>
+                    <h1><?= esc($title) ?></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url('/') ?>">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url('pharmacy/reports') ?>">Reports</a></li>
-                        <li class="breadcrumb-item active">Expiring Soon</li>
+                        <li class="breadcrumb-item"><a href="<?= site_url('pharmacy/dashboard') ?>">Pharmacy</a></li>
+                        <li class="breadcrumb-item active">Reports</li>
+                        <li class="breadcrumb-item active"><?= esc($title) ?></li>
                     </ol>
                 </div>
             </div>
-        </div></section>
+        </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Medicines Expiring Within <?= esc($daysThreshold ?? 90) ?> Days</h3>
+                    <h3 class="card-title">Expiring and Expired Medicines</h3>
                 </div>
                 <div class="card-body">
                     <?php if (session()->getFlashdata('success')) : ?>
@@ -42,37 +44,33 @@
                         </div>
                     <?php endif; ?>
 
-                    <form class="form-inline mb-3" action="<?= site_url('pharmacy/reports/expiry') ?>" method="get">
-                        <label for="days" class="mr-2">Expiring within:</label>
-                        <input type="number" class="form-control mr-2" id="days" name="days" value="<?= esc($daysThreshold ?? 90) ?>" min="1">
-                        <label class="mr-3">days</label>
-                        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                    </form>
-
-                    <table class="table table-bordered table-striped" id="expiryReportTable">
+                    <table class="table table-bordered table-striped" id="expiryTable">
                         <thead>
                             <tr>
-                                <th>Medicine Name</th>
-                                <th>Batch Number</th>
-                                <th>Current Stock</th>
+                                <th>S.No.</th>
+                                <th>Medicine</th>
+                                <th>Batch No.</th>
+                                <th>Manufacturer</th>
+                                <th>Stock Qty</th>
                                 <th>Expiry Date</th>
-                                <th>Days Remaining</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($expiringItems) && is_array($expiringItems)) : ?>
-                                <?php foreach ($expiringItems as $item) : ?>
-                                    <tr>
-                                        <td><?= esc($item['medicine_name']) ?></td>
-                                        <td><?= esc($item['batch_number']) ?></td>
-                                        <td><?= esc($item['current_stock']) ?></td>
-                                        <td><?= esc(date('Y-m-d', strtotime($item['expiry_date']))) ?></td>
-                                        <td><?= esc($item['days_remaining']) ?></td>
+                            <?php if (!empty($batches) && is_array($batches)) : ?>
+                                <?php $s_no = 1; ?>
+                                <?php foreach ($batches as $batch) : ?>
+                                    <tr class="<?= (new DateTime($batch['expiry_date']))->format('Y-m-d') < date('Y-m-d') ? 'table-danger' : '' ?>">
+                                        <td><?= $s_no++ ?></td>
+                                        <td><?= esc($batch['generic_name']) ?></td>
+                                        <td><?= esc($batch['batch_number']) ?></td>
+                                        <td><?= esc($batch['manufacturer_name']) ?></td>
+                                        <td><?= esc($batch['current_stock']) ?></td>
+                                        <td><?= esc(date('M Y', strtotime($batch['expiry_date']))) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="5" class="text-center">No medicines found expiring within the specified period.</td>
+                                    <td colspan="6" class="text-center">No expiring or expired medicines found.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -81,25 +79,25 @@
             </div>
         </div>
     </section>
-    </div>
+</div>
+
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
 <script>
-    $(function () {
-        // Initialize DataTables if you're using it
-        if ($.fn.DataTable) {
-            $('#expiryReportTable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "order": [[4, 'asc']] // Order by Days Remaining ascending
-            });
-        }
+    $(document).ready(function() {
+        $('#expiryTable').DataTable({
+            responsive: true,
+            lengthChange: true,
+            autoWidth: false,
+            searching: true,
+            ordering: true,
+            paging: true,
+            info: true,
+            order: [
+                [5, 'asc']
+            ] // Sort by expiry date column
+        });
     });
 </script>
 <?= $this->endSection() ?>

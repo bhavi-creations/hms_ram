@@ -131,7 +131,8 @@
                                             <td><?= number_format(($bill['net_amount'] ?? 0), 2) ?></td>
                                         <?php endif; ?>
                                         <td>
-                                            <a href="<?= site_url('pharmacy/reports/viewInvoice/' . urlencode($bill['invoice_number'] ?? $bill['bill_id'])) ?>" class="btn btn-info btn-sm btn_small">
+                                            <!-- CORRECTED THIS LINE TO USE 'invoice' INSTEAD OF 'viewInvoice' -->
+                                            <a href="<?= site_url('pharmacy/sales/invoice/' . urlencode($bill['invoice_number'] ?? $bill['bill_id'])) ?>" class="btn btn-info btn-sm btn_small">
                                                 View Bill
                                             </a>
                                         </td>

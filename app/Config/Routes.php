@@ -180,6 +180,8 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->POST('salespersons/update/(:num)', 'SalesPersons::update/$1');
     $routes->GET('salespersons/delete/(:num)', 'SalesPersons::delete/$1');
     $routes->GET('salespersons/toggle-status/(:num)', 'SalesPersons::toggleStatus/$1');
+    $routes->GET('salespersons/profile', 'SalesPersons::profile');
+    $routes->GET('salespersons/profile/(:num)', 'SalesPersons::profile/$1');
 
     // Purchases Management (PharmacyPurchasesController)
     $routes->GET('purchases', 'Purchases::index');

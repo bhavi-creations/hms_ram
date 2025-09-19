@@ -72,6 +72,7 @@ class Sales extends BaseController
 
 
 
+
     protected function generateInvoiceNumber(string $prescriptionType): string
     {
         $prefix = ($prescriptionType === 'outside_sale') ? 'PHM-OP' : 'PHM-IP';
@@ -118,9 +119,9 @@ class Sales extends BaseController
 
         try {
             // 2. Totals calculation block - this is where accuracy matters!
-            $totalSubtotal = 0;     // Subtotal after discounts (before GST)
-            $totalDiscount = 0;     // Total discount value summed from each item
-            $totalGST = 0;          // Total GST for OP bills
+            $totalSubtotal = 0;    // Subtotal after discounts (before GST)
+            $totalDiscount = 0;    // Total discount value summed from each item
+            $totalGST = 0;        // Total GST for OP bills
 
             foreach ($saleItems as $item) {
                 $qty = $item['quantity'];
@@ -128,14 +129,14 @@ class Sales extends BaseController
                 $disc = $item['discount_per_item'] ?? 0;
                 $gstRate = $item['gst_rate'] ?? 0;
 
-                $itemDiscount  = $qty * $disc;
-                $itemSubTotal  = ($qty * $unit) - $itemDiscount;
+                $itemDiscount = $qty * $disc;
+                $itemSubTotal = ($qty * $unit) - $itemDiscount;
                 $totalSubtotal += $itemSubTotal;    // running subtotal (after discount)
                 $totalDiscount += $itemDiscount;
 
                 // For OP only: calculate GST on discounted subtotal
                 if ($prescriptionType === 'outside_sale') {
-                    $itemGST  = $itemSubTotal * ($gstRate / 100);
+                    $itemGST = $itemSubTotal * ($gstRate / 100);
                     $totalGST += $itemGST;
                 }
             }
@@ -145,10 +146,10 @@ class Sales extends BaseController
             $paymentMethod = $saleData['payment_method'] ?? '';
             if ($paymentMethod === 'Credit') {
                 $paidAmount = 0.00;
-                $dueAmount  = $grandTotal;
+                $dueAmount = $grandTotal;
             } else {
                 $paidAmount = $grandTotal;
-                $dueAmount  = 0.00;
+                $dueAmount = 0.00;
             }
 
             $invoiceNumber = $this->generateInvoiceNumber($prescriptionType);
@@ -156,21 +157,21 @@ class Sales extends BaseController
             // ---- OP (outside_sale) Bill Save ----
             if ($prescriptionType === 'outside_sale') {
                 $mainSaleData = [
-                    'invoice_number'     => $invoiceNumber,
-                    'sale_date'          => date('Y-m-d H:i:s'),
-                    'sales_person_id'    => session()->get('user_id'),
-                    'prescription_type'  => $prescriptionType,
-                    'outside_patient_name'   => $saleData['outside_patient_name'],
-                    'outside_patient_phone'  => $saleData['outside_patient_phone'] ?? null,
+                    'invoice_number' => $invoiceNumber,
+                    'sale_date' => date('Y-m-d H:i:s'),
+                    'sales_person_id' => session()->get('user_id'),
+                    'prescription_type' => $prescriptionType,
+                    'outside_patient_name' => $saleData['outside_patient_name'],
+                    'outside_patient_phone' => $saleData['outside_patient_phone'] ?? null,
                     'outside_patient_address' => $saleData['outside_patient_address'] ?? null,
                     // THE IMPORTANT FIELDS! Always set as below:
-                    'net_amount'         => $totalSubtotal,  // After discounts/before GST
-                    'discount_amount'    => $totalDiscount,  // Sum of line discounts
-                    'total_amount'       => $grandTotal,     // Discounted subtotal + GST
-                    'payment_method'     => $paymentMethod,
-                    'paid_amount'        => $paidAmount,
-                    'due_amount'         => $dueAmount,
-                    'notes'              => $saleData['notes'] ?? null,
+                    'net_amount' => $totalSubtotal, // After discounts/before GST
+                    'discount_amount' => $totalDiscount, // Sum of line discounts
+                    'total_amount' => $grandTotal, // Discounted subtotal + GST
+                    'payment_method' => $paymentMethod,
+                    'paid_amount' => $paidAmount,
+                    'due_amount' => $dueAmount,
+                    'notes' => $saleData['notes'] ?? null,
                 ];
                 $recordId = $this->salesModel->insert($mainSaleData);
                 if (!$recordId) {
@@ -184,12 +185,13 @@ class Sales extends BaseController
                     throw new \Exception('Invalid In-Hospital Patient ID Code.');
                 }
                 $billingData = [
-                    'bill_id'      => $invoiceNumber,
-                    'patient_id'   => $patient['id'],
-                    'bill_date'    => date('Y-m-d H:i:s'),
+                    'bill_id' => $invoiceNumber,
+                    'patient_id' => $patient['id'],
+                    'sales_person_id' => session()->get('user_id'), // ADDED THIS LINE
+                    'bill_date' => date('Y-m-d H:i:s'),
                     'total_amount' => $grandTotal,
-                    'paid_amount'  => $paidAmount,
-                    'due_amount'   => $dueAmount,
+                    'paid_amount' => $paidAmount,
+                    'due_amount' => $dueAmount,
                 ];
                 $recordId = $this->pharmacyBillingModel->insert($billingData);
                 if (!$recordId) {
@@ -197,11 +199,11 @@ class Sales extends BaseController
                 }
                 // Save payment entry
                 $paymentData = [
-                    'bill_id'        => $invoiceNumber,
-                    'payment_date'   => date('Y-m-d H:i:s'),
+                    'bill_id' => $invoiceNumber,
+                    'payment_date' => date('Y-m-d H:i:s'),
                     'payment_amount' => $paidAmount,
                     'payment_method' => $paymentMethod ?? null,
-                    'created_at'     => date('Y-m-d H:i:s'),
+                    'created_at' => date('Y-m-d H:i:s'),
                 ];
                 if (!$this->pharmacyBillingPaymentModel->insert($paymentData)) {
                     throw new \Exception('Failed to create billing payment record.');
@@ -214,20 +216,20 @@ class Sales extends BaseController
                 if (empty($batch) || $batch['current_stock'] < $item['quantity']) {
                     throw new \Exception('Insufficient stock for medicine in batch ' . $item['batch_id'] . '.');
                 }
-                $qty  = $item['quantity'];
+                $qty = $item['quantity'];
                 $unit = $item['unit_selling_price'];
                 $disc = $item['discount_per_item'] ?? 0;
                 $itemSubTotal = ($qty * $unit) - ($qty * $disc);
 
                 $saleItemData = [
-                    'sale_id'           => ($prescriptionType === 'outside_sale') ? $recordId : null,
-                    'billing_id'        => ($prescriptionType === 'in_hospital') ? $recordId : null,
-                    'medicine_id'       => $item['medicine_id'],
-                    'batch_id'          => $item['batch_id'],
-                    'quantity'          => $item['quantity'],
+                    'sale_id' => ($prescriptionType === 'outside_sale') ? $recordId : null,
+                    'billing_id' => ($prescriptionType === 'in_hospital') ? $recordId : null,
+                    'medicine_id' => $item['medicine_id'],
+                    'batch_id' => $item['batch_id'],
+                    'quantity' => $item['quantity'],
                     'unit_selling_price' => $item['unit_selling_price'],
                     'discount_per_item' => $item['discount_per_item'] ?? 0,
-                    'sub_total'         => $itemSubTotal,
+                    'sub_total' => $itemSubTotal,
                 ];
                 if (!$this->saleItemModel->insert($saleItemData)) {
                     log_message('error', '[PharmacySaleItemModel validation errors] ' . json_encode($this->saleItemModel->errors()));
@@ -249,7 +251,6 @@ class Sales extends BaseController
             die('Sale failed: ' . $e->getMessage());
         }
     }
-
 
 
 
@@ -666,7 +667,7 @@ class Sales extends BaseController
         $idFieldName = $isOutsideSale ? 'sale_id' : 'billing_id';
 
         // Fetch sale items with details including GST rate
-           $sql = "
+        $sql = "
         SELECT
             psi.*,
             pg.generic_name,
@@ -770,7 +771,7 @@ class Sales extends BaseController
                 ->where('pharmacy_returns.approval_status', 'approved')
                 ->findAll();
         }
-         // Calculate total amount returned (after discounts), and for OP calculate GST on returns if needed
+        // Calculate total amount returned (after discounts), and for OP calculate GST on returns if needed
         $totalReturnAmount = 0;
         $totalReturnGST = 0;
         foreach ($returns as $return) {
