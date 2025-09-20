@@ -40,6 +40,7 @@
                         <i class="ion ion-bag"></i>
                     </div>
                     <a href="<?= site_url('pharmacy/sales/listToday') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                
                 </div>
             </div>
             <div class="col-lg-3 col-6">
@@ -93,7 +94,8 @@
                                 <?php if (!empty($recentSales)) : ?>
                                     <?php foreach ($recentSales as $sale) : ?>
                                         <tr>
-                                            <td><a href="<?= site_url('pharmacy/sales/view/' . $sale['bill_id']) ?>"><?= esc($sale['bill_id']) ?></a></td>
+                                            <!-- <td><a href="<?= site_url('pharmacy/sales/view/' . $sale['bill_id']) ?>"><?= esc($sale['bill_id']) ?></a></td> -->
+                                            <td> <?= esc($sale['bill_id']) ?> </td>
                                             <td><?= esc($sale['patient_name']) ?></td>
                                             <td><?= esc(number_format($sale['total_amount'], 2)) ?></td>
                                             <td><?= esc(date('M d, Y', strtotime($sale['sale_date']))) ?></td>
@@ -107,7 +109,15 @@
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                        <a href="<?= site_url('pharmacy/sales/list') ?>" class="btn btn-sm btn-primary mt-3">View All Sales</a>
+
+
+                        <a href="<?= site_url('pharmacy/sales/listBills/all') ?>" class="btn btn-sm btn-primary <?= (url_is('pharmacy/sales/listBills*')) ? 'active' : '' ?>">
+
+                            View All Sales
+                        </a>
+
+
+
                     </div>
                 </div>
             </div>

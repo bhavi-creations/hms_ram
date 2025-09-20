@@ -770,9 +770,7 @@ class Sales extends BaseController
 
 
 
-
-
-    public function listBills($type = 'all')
+  public function listBills($type = 'all')
     {
         // Check if the user is authenticated.
         if (!session()->get('user_id')) {
@@ -809,7 +807,7 @@ class Sales extends BaseController
                 ->get()
                 ->getResultArray();
 
-            $paymentModel = new \App\Models\Pharmacy\PharmacyBillingPaymentModel();
+            $paymentModel = new PharmacyBillingPaymentModel();
 
             // Calculate total paid and due for each patient
             foreach ($bills as &$bill) {
@@ -833,11 +831,44 @@ class Sales extends BaseController
                 ->getResultArray();
             $title = 'Out-Patients Bills';
         } else {
-            // Default to 'all' bills if no type is specified or it's 'all'
-            $bills = $this->db->table('pharmacy_sales')
+            // This is the updated logic for the 'all' bills view
+            // 1. Fetch Out-Patient bills
+            $outsideBills = $this->db->table('pharmacy_sales')
                 ->orderBy('sale_date', 'DESC')
                 ->get()
                 ->getResultArray();
+            
+            // 2. Fetch In-Patient bills with patient details
+            $inHospitalBills = $this->db->table('pharmacy_billings pb')
+                ->select('pb.*, p.first_name, p.last_name, p.phone_number')
+                ->join('patients p', 'p.id = pb.patient_id')
+                ->orderBy('pb.bill_date', 'DESC')
+                ->get()
+                ->getResultArray();
+
+            // 3. Add a type key to each bill to unify the data
+            foreach ($outsideBills as &$bill) {
+                $bill['bill_id'] = $bill['invoice_number']; // Unify the ID key
+                $bill['sale_type'] = 'Out-Patient';
+                $bill['patient_name'] = $bill['outside_patient_name'];
+                $bill['phone_number'] = $bill['outside_patient_phone'];
+            }
+            foreach ($inHospitalBills as &$bill) {
+                $bill['bill_id'] = $bill['bill_id'];
+                $bill['sale_type'] = 'In-Patient';
+                $bill['patient_name'] = $bill['first_name'] . ' ' . $bill['last_name'];
+                $bill['phone_number'] = $bill['phone_number'];
+            }
+
+            // 4. Merge the two arrays into one
+            $bills = array_merge($outsideBills, $inHospitalBills);
+
+            // 5. Sort the merged array by date
+            usort($bills, function ($a, $b) {
+                $dateA = strtotime($a['sale_date'] ?? $a['bill_date']);
+                $dateB = strtotime($b['sale_date'] ?? $b['bill_date']);
+                return $dateB <=> $dateA;
+            });
         }
 
         $data = [
@@ -848,6 +879,9 @@ class Sales extends BaseController
 
         return view('pharmacy/sales/list', $data);
     }
+
+
+
 
     public function listToday()
     {

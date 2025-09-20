@@ -96,7 +96,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#manageReturnsTable').DataTable({
             responsive: true,
@@ -111,5 +111,5 @@
             ]
         });
     });
-</script>
+</script> -->
 <?= $this->endSection() ?>
