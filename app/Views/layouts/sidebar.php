@@ -616,7 +616,7 @@
 
 
 
-                <?php if ($roleId == 7 || $roleId == 8): // Pharmacy Manager or Sales Person Only 
+                <?php if (  $roleId == 8): // Pharmacy Manager or Sales Person Only 
                 ?>
                     <li class="nav-item">
                         <a href="<?= site_url('pharmacy/salespersons/profile') ?>" class="nav-link <?= uri_string() == 'pharmacy/salespersons/profile' ? 'active' : '' ?>">
