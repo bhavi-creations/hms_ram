@@ -28,6 +28,78 @@ $routes->get('profile', 'ProfileController::index');
 $routes->get('profile/edit', 'ProfileController::edit');
 $routes->post('profile/update', 'ProfileController::update');
 
+
+ 
+
+// laboratory Route
+$routes->group('laboratory', ['filter' => 'auth'], function ($routes) {
+
+    $routes->get('results', 'Laboratory\Laboratory::results');
+    $routes->get('results/enter/(:num)', 'Laboratory\Laboratory::enterResult/$1');
+    $routes->post('save_result', 'Laboratory\Laboratory::saveResult');
+    $routes->get('delete_file/(:num)', 'Laboratory\Laboratory::deleteFile/$1');
+    $routes->match(['GET', 'POST'], 'results/enter/(:num)', 'Laboratory\Laboratory::enterResult/$1');
+    $routes->get('reports', 'Laboratory\Laboratory::reports');
+    $routes->get('report/(:num)', 'Laboratory\Laboratory::viewReport/$1');
+    $routes->get('reports/view/(:num)', 'Laboratory\Laboratory::viewReport/$1'); // Added route to match the button URL
+    $routes->get('report/edit/(:num)', 'Laboratory\Laboratory::edit_report_page/$1');
+    $routes->get('delete_report/(:num)', 'Laboratory\Laboratory::delete_report/$1');
+    $routes->get('results/delete_file/(:num)', 'Laboratory\Laboratory::deleteFile/$1');
+
+    $routes->get('types', 'Laboratory\Laboratory::types');
+    $routes->get('types/create', 'Laboratory\Laboratory::createType');
+    $routes->post('types/save', 'Laboratory\Laboratory::saveType');
+    $routes->get('types/edit/(:num)', 'Laboratory\Laboratory::editType/$1');
+    $routes->post('types/update/(:num)', 'Laboratory\Laboratory::updateType/$1');
+    $routes->get('types/delete/(:num)', 'Laboratory\Laboratory::deleteType/$1');
+    $routes->get('tests', 'Laboratory\LabTests::index');
+    $routes->get('tests/create', 'Laboratory\LabTests::create');
+    $routes->post('tests/save', 'Laboratory\LabTests::save');
+    $routes->get('tests/edit/(:num)', 'Laboratory\LabTests::edit/$1');
+    $routes->post('tests/update/(:num)', 'Laboratory\LabTests::update/$1');
+    $routes->get('tests/delete/(:num)', 'Laboratory\LabTests::delete/$1');
+
+    $routes->get('orders', 'Laboratory\Laboratory::orders');
+    $routes->get('orders/new', 'Laboratory\Laboratory::newOrder');
+    $routes->post('orders/save', 'Laboratory\Laboratory::saveOrder');
+    $routes->get('view_order_page/(:num)', 'Laboratory\Laboratory::view_order_page/$1');
+    $routes->post('update_order/(:num)', 'Laboratory\Laboratory::update_order/$1');
+    $routes->get('orders/delete/(:num)', 'Laboratory\Laboratory::deleteOrder/$1');
+});
+
+
+
+// staff-related routes 
+$routes->group('staff', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Staff\Staff::index');
+    $routes->get('register', 'Staff\Staff::register');
+    $routes->post('save', 'Staff\Staff::save');
+    $routes->get('edit/(:num)', 'Staff\Staff::edit/$1');
+    $routes->get('view/(:num)', 'Staff\Staff::view/$1');
+    $routes->get('delete/(:num)', 'Staff\Staff::delete/$1');
+    $routes->get('attendance', 'Staff\Attendance::index');
+});
+
+$routes->group('users', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Users\Users::index');
+    $routes->get('register', 'Users\Users::register');
+    $routes->post('save', 'Users\Users::save');
+    $routes->get('view/(:num)', 'Users\Users::view/$1');   // Add this line
+    $routes->get('edit/(:num)', 'Users\Users::edit/$1');
+    // Other user routes
+});
+
+
+
+$routes->group('roles', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/', 'Roles\Roles::index');
+    $routes->get('create', 'Roles\Roles::create');
+    $routes->post('save', 'Roles\Roles::save');
+    $routes->get('edit/(:num)', 'Roles\Roles::edit/$1');
+    $routes->get('delete/(:num)', 'Roles\Roles::delete/$1');
+});
+
+
 // Patients
 $routes->group('patients', ['filter' => 'auth'], function ($routes) {
     $routes->GET('/', 'Patients::index');
@@ -41,8 +113,7 @@ $routes->group('patients', ['filter' => 'auth'], function ($routes) {
     $routes->POST('deleteReportFile', 'Patients::deleteReportFile');
     $routes->POST('admitToIPD', 'Patients::admitToIPD');
     $routes->GET('getPatientsByPhone', 'Patients::getPatientsByPhone');
-    // Removed the nested 'discharged' route here as it's now top-level
-    // $routes->get('discharged', 'Patients::dischargedPatients');
+    $routes->get('search', 'Patients::search');
 });
 
 // New: General Management Routes (now in its own controller)

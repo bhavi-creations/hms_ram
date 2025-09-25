@@ -649,4 +649,35 @@ class Patients extends BaseController
         ];
         return view('patients/discharged_patients', $data);
     }
+
+
+    public function search()
+    {
+        $term = $this->request->getGet('q');
+        $patientModel = new \App\Models\PatientModel();
+
+        $builder = $patientModel->select('patients.id, patients.patient_id_code, patients.first_name, patients.last_name, patients.phone_number, doctors.first_name AS doctor_first_name, doctors.last_name AS doctor_last_name')
+            ->join('doctors', 'doctors.id = patients.referred_to_doctor_id', 'left')
+            ->groupStart()
+            ->like('patients.patient_id_code', $term)
+            ->orLike('patients.first_name', $term)
+            ->orLike('patients.last_name', $term)
+            ->groupEnd()
+            ->limit(10);
+
+        $patients = $builder->get()->getResult();
+
+        // Format JSON response for Select2
+        $data = [];
+        foreach ($patients as $patient) {
+            $data[] = [
+                'id' => $patient->id,
+                'text' => $patient->patient_id_code . ' - ' . $patient->first_name . ' ' . $patient->last_name,
+                'phone' => $patient->phone_number,
+                'doctor' => $patient->doctor_first_name . ' ' . $patient->doctor_last_name
+            ];
+        }
+
+        return $this->response->setJSON($data);
+    }
 }

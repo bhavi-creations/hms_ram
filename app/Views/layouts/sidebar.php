@@ -189,8 +189,34 @@
                                     <p>Test Types</p>
                                 </a>
                             </li>
+                            <li class="nav-item <?= (uri_string() == 'laboratory/tests' || uri_string() == 'laboratory/tests/create' || strpos(uri_string(), 'laboratory/tests/edit') === 0) ? 'menu-open' : '' ?>">
+                                <a href="#" class="nav-link <?= (uri_string() == 'laboratory/tests' || uri_string() == 'laboratory/tests/create' || strpos(uri_string(), 'laboratory/tests/edit') === 0) ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-microscope"></i>
+                                    <p>
+                                        Lab Tests & Types
+                                        <i class="nav-arrow fas fa-chevron-right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('laboratory/tests') ?>" class="nav-link <?= uri_string() == 'laboratory/tests' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-clipboard-list"></i>
+                                            <p>Manage Tests</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('laboratory/tests/create') ?>" class="nav-link <?= uri_string() == 'laboratory/tests/create' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-plus"></i>
+                                            <p>Add Test</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
                         </ul>
                     </li>
+
 
                     <?php $isBillingAccountsActive = url_is('billing*') || url_is('invoices*'); ?>
                     <li class="nav-item <?= $isBillingAccountsActive ? 'menu-open' : '' ?>">
@@ -616,7 +642,7 @@
 
 
 
-                <?php if (  $roleId == 8): // Pharmacy Manager or Sales Person Only 
+                <?php if ($roleId == 8): // Pharmacy Manager or Sales Person Only 
                 ?>
                     <li class="nav-item">
                         <a href="<?= site_url('pharmacy/salespersons/profile') ?>" class="nav-link <?= uri_string() == 'pharmacy/salespersons/profile' ? 'active' : '' ?>">
