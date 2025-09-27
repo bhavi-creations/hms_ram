@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2025 at 01:26 PM
+-- Generation Time: Sep 27, 2025 at 02:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1474,7 +1474,8 @@ INSERT INTO `roles` (`id`, `name`, `description`, `created_at`, `updated_at`) VA
 (5, 'Lab Technician', 'Manages lab tests and enters results.', '2025-06-25 13:05:41', '2025-06-25 13:05:41'),
 (6, 'Nurse', 'Provides patient care and manages medical records (basic).', '2025-06-25 13:05:41', '2025-06-25 13:05:41'),
 (7, 'Pharmacy_Manager', 'Manages pharmacy inventory, suppliers, staff, and approves returns.', '2025-07-29 15:54:23', '2025-07-29 15:54:23'),
-(8, 'Pharmacy_Sales_Person', 'Handles medicine sales, billing, and basic patient interactions.', '2025-07-29 15:54:23', '2025-07-29 15:54:23');
+(8, 'Pharmacy_Sales_Person', 'Handles medicine sales, billing, and basic patient interactions.', '2025-07-29 15:54:23', '2025-07-29 15:54:23'),
+(9, 'Diagnostic Technician', 'Manages the Diagnostics & Imaging and enters the results\r\n', '2025-09-27 11:32:11', '2025-09-27 17:02:28');
 
 -- --------------------------------------------------------
 
@@ -1523,7 +1524,9 @@ INSERT INTO `users` (`id`, `role_id`, `first_name`, `last_name`, `username`, `em
 (18, 8, 'suresh', 'raja', 'PHY-20250918-0006', 'sureshgantaw@gmail.com', '$2y$10$zqELzrAPJSmR9VG4HvFKoe8.ucd.ODus4mLrbCqjqnc3GgtWqC75G', '7894561230', NULL, 'active', '2025-09-19 12:28:45', '2025-09-18 06:11:08', '2025-09-19 12:28:45'),
 (19, 8, 'range', 'rao', 'PHY-20250918-0006', 'rangarao@gmail.com', '$2y$10$2eSsEcN97Tpepv7BGIR1be2yV.qyAybHzIB9OY1weZRJpMPZFg8.q', '0000000000', 'rjy', 'active', NULL, '2025-09-18 12:06:29', '2025-09-23 06:52:10'),
 (20, 8, 'ramu', 'lankey', 'PHY-20250918-0007', 'ramaraoew@gmail.com', '$2y$10$QalH7X.IXGET5XpR4vIVz.eW./ilCsiu5ohBItrVAMokpRuyqhjri', '7894561237', NULL, 'active', '2025-09-19 04:13:26', '2025-09-18 12:26:45', '2025-09-19 04:13:26'),
-(21, 8, 'Bhanu', 'prakesh', 'PHY-20250919-0008', 'bhanu@gmail.com', '$2y$10$grTUWBU20qOMhcuDBdjbNO6hIq7J9Nl9xL282WJKPMUCMn2W31C9K', '1234567890', NULL, 'active', NULL, '2025-09-19 04:53:33', '2025-09-19 04:53:33');
+(21, 8, 'Bhanu', 'prakesh', 'PHY-20250919-0008', 'bhanu@gmail.com', '$2y$10$grTUWBU20qOMhcuDBdjbNO6hIq7J9Nl9xL282WJKPMUCMn2W31C9K', '1234567890', NULL, 'active', NULL, '2025-09-19 04:53:33', '2025-09-19 04:53:33'),
+(22, 5, 'Lisa', 'Lab', 'labtech', 'lisa.lab@hms.com', '$2y$10$80aZeDgy21oD6brVfwZEtuCu2szo5ZPfwXXvDPQ1zHt/X88/CxOfG', '9000000005', 'Main Lab', 'active', '2025-09-27 12:02:32', '2025-09-27 17:29:22', '2025-09-27 12:02:32'),
+(23, 9, 'Daniel', 'Diag', 'diagtech', 'daniel.diag@hms.com', '$2y$10$fYyRpzb2S.DHNY6j3iDEEu7aIWuB7/I3vF2pi6nnzmBTlKD9G86dS', '9000000009', 'Imaging Suite 3', 'active', '2025-09-27 12:02:59', '2025-09-27 17:29:22', '2025-09-27 12:02:59');
 
 -- --------------------------------------------------------
 
@@ -2101,13 +2104,13 @@ ALTER TABLE `referred_persons`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `wards`

@@ -14,11 +14,14 @@
                     $dashboardUrl = base_url('dashboard'); // Default dashboard
                     $currentUri = uri_string();
                     $isActive = $currentUri == 'dashboard';
+                    
+                    // Define role ID early for consistent RBAC checks across the entire menu
+                    $roleId = session()->get('role_id'); 
 
-                    if (session()->get('role_id') == 2) { // Doctor
+                    if ($roleId == 2) { // Doctor
                         $dashboardUrl = base_url('doctor/dashboard');
                         $isActive = $currentUri == 'doctor/dashboard';
-                    } elseif (session()->get('role_id') == 7 || session()->get('role_id') == 8) { // Pharmacy Roles
+                    } elseif ($roleId == 7 || $roleId == 8) { // Pharmacy Roles
                         $dashboardUrl = base_url('pharmacy/dashboard');
                         $isActive = url_is('pharmacy*');
                     }
@@ -29,7 +32,7 @@
                     </a>
                 </li>
 
-                <?php if (session()->get('role_id') == 1): // Admin-only sections 
+                <?php if ($roleId == 1): // Admin-only sections 
                 ?>
                     <?php $isPatientManagementActive = url_is('patients*') || url_is('opd*') || url_is('ipd*') || url_is('casualty*') || url_is('medical-records*') || url_is('general*') || url_is('discharged-patients*'); ?>
                     <li class="nav-item <?= $isPatientManagementActive ? 'menu-open' : '' ?>">
@@ -155,104 +158,6 @@
                         </ul>
                     </li>
 
-                    <?php $isLaboratoryManagementActive = url_is('laboratory*'); ?>
-                    <li class="nav-item <?= $isLaboratoryManagementActive ? 'menu-open' : '' ?>">
-                        <a href="#" class="nav-link <?= $isLaboratoryManagementActive ? 'active' : '' ?>">
-                            <i class="nav-icon fas fa-flask"></i>
-                            <p>
-                                Laboratory Management
-                                <i class="nav-arrow fas fa-chevron-right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= base_url('laboratory/orders') ?>" class="nav-link <?= uri_string() == 'laboratory/orders' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-vials"></i>
-                                    <p>Order Tests</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('laboratory/results') ?>" class="nav-link <?= uri_string() == 'laboratory/results' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-microscope"></i>
-                                    <p>Enter Results</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('laboratory/reports') ?>" class="nav-link <?= uri_string() == 'laboratory/reports' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-file-alt"></i>
-                                    <p>View Lab Reports</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('laboratory/types') ?>" class="nav-link <?= uri_string() == 'laboratory/types' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-tags"></i>
-                                    <p>Test Types</p>
-                                </a>
-                            </li>
-                            <li class="nav-item <?= (uri_string() == 'laboratory/tests' || uri_string() == 'laboratory/tests/create' || strpos(uri_string(), 'laboratory/tests/edit') === 0) ? 'menu-open' : '' ?>">
-                                <a href="#" class="nav-link <?= (uri_string() == 'laboratory/tests' || uri_string() == 'laboratory/tests/create' || strpos(uri_string(), 'laboratory/tests/edit') === 0) ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-microscope"></i>
-                                    <p>
-                                        Lab Tests & Types
-                                        <i class="nav-arrow fas fa-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('laboratory/tests') ?>" class="nav-link <?= uri_string() == 'laboratory/tests' ? 'active' : '' ?>">
-                                            <i class="nav-icon fas fa-clipboard-list"></i>
-                                            <p>Manage Tests</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= base_url('laboratory/tests/create') ?>" class="nav-link <?= uri_string() == 'laboratory/tests/create' ? 'active' : '' ?>">
-                                            <i class="nav-icon fas fa-plus"></i>
-                                            <p>Add Test</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-
-                        </ul>
-                    </li>
-
-
-
-                    <?php $isDiagnosticsActive = url_is('diagnostics*') || url_is('imaging*'); ?>
-                    <li class="nav-item <?= $isDiagnosticsActive ? 'menu-open' : '' ?>">
-                        <a href="#" class="nav-link <?= $isDiagnosticsActive ? 'active' : '' ?>">
-                            <i class="nav-icon fas fa-x-ray"></i>
-                            <p>
-                                Diagnostics & Imaging
-                                <i class="nav-arrow fas fa-chevron-right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= base_url('diagnostics/orders') ?>" class="nav-link <?= url_is('diagnostics/orders*') ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-notes-medical"></i>
-                                    <p>All Orders</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <!-- Updated URL_IS check to include the specific results/enter page -->
-                                <a href="<?= base_url('diagnostics/results') ?>" class="nav-link <?= url_is('diagnostics/results') || url_is('diagnostics/results/enter/*') ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-microscope"></i>
-                                    <p>Enter Results</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('diagnostics/tests') ?>" class="nav-link <?= url_is('diagnostics/tests') ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-vial"></i>
-                                    <p>View Tests</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
                     <?php $isBillingAccountsActive = url_is('billing*') || url_is('invoices*'); ?>
                     <li class="nav-item <?= $isBillingAccountsActive ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= $isBillingAccountsActive ? 'active' : '' ?>">
@@ -363,14 +268,113 @@
                             </li>
                         </ul>
                     </li>
+                <?php endif; // End Admin-only sections (non-shared modules) 
+                ?>
+
+                <!-- **[START] Laboratory Management - Accessible to Admin (1) and Lab Technician (5)** -->
+                <?php $isLaboratoryManagementActive = url_is('laboratory*'); ?>
+                <?php if ($roleId == 1 || $roleId == 5): ?>
+                    <li class="nav-item <?= $isLaboratoryManagementActive ? 'menu-open' : '' ?>">
+                        <a href="#" class="nav-link <?= $isLaboratoryManagementActive ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-flask"></i>
+                            <p>
+                                Laboratory Management
+                                <i class="nav-arrow fas fa-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('laboratory/orders') ?>" class="nav-link <?= uri_string() == 'laboratory/orders' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-vials"></i>
+                                    <p>Order Tests</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('laboratory/results') ?>" class="nav-link <?= uri_string() == 'laboratory/results' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-microscope"></i>
+                                    <p>Enter Results</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('laboratory/reports') ?>" class="nav-link <?= uri_string() == 'laboratory/reports' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <p>View Lab Reports</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('laboratory/types') ?>" class="nav-link <?= uri_string() == 'laboratory/types' ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-tags"></i>
+                                    <p>Test Types</p>
+                                </a>
+                            </li>
+                            <li class="nav-item <?= (uri_string() == 'laboratory/tests' || uri_string() == 'laboratory/tests/create' || strpos(uri_string(), 'laboratory/tests/edit') === 0) ? 'menu-open' : '' ?>">
+                                <a href="#" class="nav-link <?= (uri_string() == 'laboratory/tests' || uri_string() == 'laboratory/tests/create' || strpos(uri_string(), 'laboratory/tests/edit') === 0) ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-microscope"></i>
+                                    <p>
+                                        Lab Tests & Types
+                                        <i class="nav-arrow fas fa-chevron-right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('laboratory/tests') ?>" class="nav-link <?= uri_string() == 'laboratory/tests' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-clipboard-list"></i>
+                                            <p>Manage Tests</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= base_url('laboratory/tests/create') ?>" class="nav-link <?= uri_string() == 'laboratory/tests/create' ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-plus"></i>
+                                            <p>Add Test</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                <!-- **[END] Laboratory Management** -->
 
 
+                <!-- **[START] Diagnostics & Imaging - Accessible to Admin (1) and Diagnostic Technician (9)** -->
+                <?php $isDiagnosticsActive = url_is('diagnostics*') || url_is('imaging*'); ?>
+                <?php if ($roleId == 1 || $roleId == 9): ?>
+                    <li class="nav-item <?= $isDiagnosticsActive ? 'menu-open' : '' ?>">
+                        <a href="#" class="nav-link <?= $isDiagnosticsActive ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-x-ray"></i>
+                            <p>
+                                Diagnostics & Imaging
+                                <i class="nav-arrow fas fa-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('diagnostics/orders') ?>" class="nav-link <?= url_is('diagnostics/orders*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-notes-medical"></i>
+                                    <p>All Orders</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <!-- Updated URL_IS check to include the specific results/enter page -->
+                                <a href="<?= base_url('diagnostics/results') ?>" class="nav-link <?= url_is('diagnostics/results') || url_is('diagnostics/results/enter/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-microscope"></i>
+                                    <p>Enter Results</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('diagnostics/tests') ?>" class="nav-link <?= url_is('diagnostics/tests') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-vial"></i>
+                                    <p>View Tests</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                <!-- **[END] Diagnostics & Imaging** -->
 
 
-
-
-
-
+                <?php if ($roleId == 1): // Keep Reporting and System Config as Admin-Only if they were originally inside the block ?>
                     <?php $isReportingActive = url_is('reports*'); ?>
                     <li class="nav-item <?= $isReportingActive ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= $isReportingActive ? 'active' : '' ?>">
@@ -438,10 +442,11 @@
                             </li>
                         </ul>
                     </li>
-                <?php endif; // End Admin-only sections 
+                <?php endif; // End Admin-only sections (Reporting and System Config)
                 ?>
 
-                <?php if (session()->get('role_id') == 2): // Doctor-specific sections 
+
+                <?php if ($roleId == 2): // Doctor-specific sections 
                 ?>
                     <?php $isDoctorAppointmentActive = url_is('doctor/appointments*'); ?>
                     <li class="nav-item <?= $isDoctorAppointmentActive ? 'menu-open' : '' ?>">
@@ -535,7 +540,7 @@
 
                 <?php
                 $isPharmacyManagementActive = url_is('pharmacy*');
-                $roleId = session()->get('role_id');
+                // The $roleId variable is now defined at the top.
                 ?>
 
                 <?php if ($roleId == 1 || $roleId == 7 || $roleId == 8): // Admin, Pharmacy Manager, or Sales Person 
@@ -610,31 +615,31 @@
                                     <a href="<?= base_url('pharmacy/purchases') ?>" class="nav-link <?= uri_string() == 'pharmacy/purchases' || url_is('pharmacy/purchases/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-boxes"></i>
                                         <p>Purchases</p>
-                                    </a>
+                                </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/medicines/adjust-stock') ?>" class="nav-link <?= uri_string() == 'pharmacy/medicines/adjust-stock' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-exchange-alt"></i>
                                         <p>Stock Adjustments</p>
-                                    </a>
+                                </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/returns') ?>" class="nav-link <?= uri_string() == 'pharmacy/returns' || url_is('pharmacy/returns/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-undo"></i>
                                         <p>Returns</p>
-                                    </a>
+                                </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/reports') ?>" class="nav-link <?= uri_string() == 'pharmacy/reports' || url_is('pharmacy/reports/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-chart-pie"></i>
                                         <p>Reports</p>
-                                    </a>
+                                </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/salespersons') ?>" class="nav-link <?= uri_string() == 'pharmacy/salespersons' || url_is('pharmacy/salespersons/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>Sales Persons</p>
-                                    </a>
+                                </a>
                                 </li>
                             <?php endif; ?>
 
@@ -655,7 +660,7 @@
                 <?php endif; // End Pharmacy Management section 
                 ?>
 
-                <?php if ($roleId == 8): // Pharmacy Manager or Sales Person Only 
+                <?php if ($roleId == 8): // Pharmacy Sales Person Only 
                 ?>
                     <li class="nav-item">
                         <a href="<?= site_url('pharmacy/salespersons/profile') ?>" class="nav-link <?= uri_string() == 'pharmacy/salespersons/profile' ? 'active' : '' ?>">
@@ -667,7 +672,7 @@
 
 
 
-                
+
                 <li class="nav-item">
                     <a href="<?= base_url('profile') ?>" class="nav-link <?= uri_string() == 'profile' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-user-circle"></i>
