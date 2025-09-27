@@ -29,7 +29,46 @@ $routes->get('profile/edit', 'ProfileController::edit');
 $routes->post('profile/update', 'ProfileController::update');
 
 
- 
+// Diagnostics Module Routes
+$routes->group('diagnostics', ['filter' => 'auth', 'namespace' => 'App\Controllers\Diagnostics'], function ($routes) {
+    // Orders
+    $routes->get('orders', 'Diagnostics::orders');
+    $routes->get('orders/new', 'Diagnostics::newOrder');
+    $routes->post('orders/save', 'Diagnostics::saveOrder');
+
+    // Order Management Actions
+    $routes->get('orders/view/(:num)', 'Diagnostics::viewOrderDetails/$1');
+    $routes->get('orders/edit/(:num)', 'Diagnostics::editOrder/$1');
+    $routes->put('orders/update/(:num)', 'Diagnostics::updateOrder/$1');
+    $routes->get('orders/delete/(:num)', 'Diagnostics::deleteOrder/$1');
+
+
+    // Results and Reports
+    $routes->get('results', 'Diagnostics::resultsList');         // List of orders ready for results entry (Lab view)
+    $routes->get('results/enter/(:num)', 'Diagnostics::enterResults/$1'); // Form to enter results
+    $routes->post('results/save', 'Diagnostics::saveResult'); // Removed (::num)
+
+    // Consolidated Route for View Report
+    $routes->get('reports/view/(:num)', 'Diagnostics::viewReport/$1');
+
+    $routes->get('reports/file/(:num)', 'Diagnostics::viewFile/$1');
+
+
+    // File Upload/Delete (tied to results entry)
+    $routes->post('upload_file/(:num)', 'Diagnostics::uploadFile/$1');
+    $routes->get('delete_file/(:num)', 'Diagnostics::deleteFile/$1');
+
+    // Tests (Catalog Management)
+    $routes->get('tests', 'Diagnostics::tests');
+    $routes->get('tests/create', 'Diagnostics::createTest');
+    $routes->post('tests/save', 'Diagnostics::saveTest');
+    $routes->get('tests/edit/(:num)', 'Diagnostics::editTest/$1');
+    $routes->post('tests/update/(:num)', 'Diagnostics::updateTest/$1');
+    $routes->get('tests/delete/(:num)', 'Diagnostics::deleteTest/$1');
+});
+
+
+
 
 // laboratory Route
 $routes->group('laboratory', ['filter' => 'auth'], function ($routes) {

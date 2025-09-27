@@ -218,6 +218,41 @@
                     </li>
 
 
+
+                    <?php $isDiagnosticsActive = url_is('diagnostics*') || url_is('imaging*'); ?>
+                    <li class="nav-item <?= $isDiagnosticsActive ? 'menu-open' : '' ?>">
+                        <a href="#" class="nav-link <?= $isDiagnosticsActive ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-x-ray"></i>
+                            <p>
+                                Diagnostics & Imaging
+                                <i class="nav-arrow fas fa-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('diagnostics/orders') ?>" class="nav-link <?= url_is('diagnostics/orders*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-notes-medical"></i>
+                                    <p>All Orders</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <!-- Updated URL_IS check to include the specific results/enter page -->
+                                <a href="<?= base_url('diagnostics/results') ?>" class="nav-link <?= url_is('diagnostics/results') || url_is('diagnostics/results/enter/*') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-microscope"></i>
+                                    <p>Enter Results</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('diagnostics/tests') ?>" class="nav-link <?= url_is('diagnostics/tests') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-vial"></i>
+                                    <p>View Tests</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
                     <?php $isBillingAccountsActive = url_is('billing*') || url_is('invoices*'); ?>
                     <li class="nav-item <?= $isBillingAccountsActive ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= $isBillingAccountsActive ? 'active' : '' ?>">
@@ -329,30 +364,12 @@
                         </ul>
                     </li>
 
-                    <?php $isDiagnosticsActive = url_is('diagnostics*') || url_is('imaging*'); ?>
-                    <li class="nav-item <?= $isDiagnosticsActive ? 'menu-open' : '' ?>">
-                        <a href="#" class="nav-link <?= $isDiagnosticsActive ? 'active' : '' ?>">
-                            <i class="nav-icon fas fa-x-ray"></i>
-                            <p>
-                                Diagnostics & Imaging
-                                <i class="nav-arrow fas fa-chevron-right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= base_url('diagnostics/orders') ?>" class="nav-link <?= uri_string() == 'diagnostics/orders' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-notes-medical"></i>
-                                    <p>Order Imaging</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('diagnostics/results') ?>" class="nav-link <?= uri_string() == 'diagnostics/results' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-file-image"></i>
-                                    <p>View Results</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
+
+
+
+
+
 
                     <?php $isReportingActive = url_is('reports*'); ?>
                     <li class="nav-item <?= $isReportingActive ? 'menu-open' : '' ?>">
@@ -638,10 +655,6 @@
                 <?php endif; // End Pharmacy Management section 
                 ?>
 
-
-
-
-
                 <?php if ($roleId == 8): // Pharmacy Manager or Sales Person Only 
                 ?>
                     <li class="nav-item">
@@ -652,6 +665,9 @@
                     </li>
                 <?php endif; ?>
 
+
+
+                
                 <li class="nav-item">
                     <a href="<?= base_url('profile') ?>" class="nav-link <?= uri_string() == 'profile' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-user-circle"></i>
