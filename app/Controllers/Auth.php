@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel; // Import the UserModel
 use App\Models\DoctorModel; // Import the DoctorModel to fetch doctor_id
+use App\Models\RoleModel; // <-- NEW: Import the RoleModel
 
 class Auth extends BaseController
 {
@@ -21,6 +22,7 @@ class Auth extends BaseController
         $session = session();
         $userModel = new UserModel();
         $doctorModel = new DoctorModel(); // Instantiate DoctorModel
+        $roleModel = new RoleModel(); // <-- NEW: Instantiate RoleModel
 
         // Get credentials from the form
         $usernameOrEmail = $this->request->getPost('username_or_email');
@@ -46,15 +48,27 @@ class Auth extends BaseController
             
             // User found, verify password
             if (password_verify($password, $user['password'])) {
+                
+                // --- CRITICAL STEP 1: Fetch Role Data to get the management_level ---
+                $role = $roleModel->find($user['role_id']);
+            
+                if (!$role) {
+                     log_message('error', 'User ID ' . $user['id'] . ' has invalid role_id: ' . $user['role_id']);
+                     $session->setFlashdata('error', 'User role configuration error: Role data is missing.');
+                     return redirect()->to('/login');
+                }
+                // --- END CRITICAL STEP 1 ---
+
                 // Password matches, prepare session data
                 $ses_data = [
-                    'user_id'    => $user['id'],
-                    'username'   => $user['username'],
-                    'email'      => $user['email'],
-                    'first_name' => $user['first_name'],
-                    'last_name'  => $user['last_name'],
-                    'role_id'    => $user['role_id'],
-                    'isLoggedIn' => TRUE
+                    'user_id'      => $user['id'],
+                    'username'     => $user['username'],
+                    'email'        => $user['email'],
+                    'first_name'   => $user['first_name'],
+                    'last_name'    => $user['last_name'],
+                    'role_id'      => $user['role_id'],
+                    'management_level' => $role['management_level'], // <-- CRITICAL STEP 2: ADD MANAGEMENT LEVEL
+                    'isLoggedIn'   => TRUE
                 ];
 
                 // --- NEW LOGIC FOR DOCTOR ID ---

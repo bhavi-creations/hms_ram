@@ -22,12 +22,68 @@ $routes->GET('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth'
 $routes->GET('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
 
 
+// Universal Profile Routes (UPDATED to use Staff\Profile and Staff\Attendance controllers)
+$routes->group('/', ['filter' => 'auth'], function ($routes) {
+    // GET routes for viewing the profile
+    $routes->get('profile', 'Staff\Profile::index');
 
-// Universal Profile Route
-$routes->get('profile', 'ProfileController::index');
-$routes->get('profile/edit', 'ProfileController::edit');
-$routes->post('profile/update', 'ProfileController::update');
+    // *** FIX: Attendance View now maps to Staff\Attendance::index() ***
+    $routes->get('profile/attendance', 'Staff\Attendance::index');
 
+    // POST routes for profile updates
+    $routes->post('profile/update', 'Staff\Profile::updateProfile');
+    $routes->post('profile/update_password', 'Staff\Profile::changePassword'); // NOTE: Fixed typo from Staff::Profile::changePassword
+
+    // *** FIX: Clock-In/Clock-Out now maps to Staff\Attendance::checkIn/checkOut ***
+    $routes->post('profile/clock_in', 'Staff\Attendance::checkIn');
+    $routes->post('profile/clock_out', 'Staff\Attendance::checkOut');
+
+    // FIX: Removed unnecessary aliases (attendance, clock_in, clock_out) from the root group
+    // If you need the 'staff/profile' alias, keep it:
+    $routes->get('staff/profile', 'Staff\Profile::index');
+});
+
+
+// --------------------------------------------------------------------
+// ATTENDANCE ROUTES (for Staff Self-Clocking)
+// --------------------------------------------------------------------
+
+// These routes are for the currently logged-in user to view their own log
+// and perform clock-in/clock-out actions.
+$routes->get('attendance', 'Staff\Attendance::index');
+$routes->post('attendance/checkIn', 'Staff\Attendance::checkIn');
+$routes->post('attendance/checkOut', 'Staff\Attendance::checkOut');
+
+
+// --------------------------------------------------------------------
+// STAFF MANAGEMENT ROUTES (Admin/Manager Views)
+// --------------------------------------------------------------------
+
+// This block is used for administrative access to staff management and attendance logs.
+$routes->group('staff', ['filter' => 'auth'], function ($routes) {
+    // Staff Management (Staff\Staff Controller)
+    $routes->get('/', 'Staff\Staff::index');
+    $routes->get('register', 'Staff\Staff::register');
+    $routes->post('save', 'Staff\Staff::save');
+    $routes->get('edit/(:num)', 'Staff\Staff::edit/$1');
+    $routes->post('update/(:num)', 'Staff\Staff::update/$1');
+    $routes->get('view/(:num)', 'Staff\Staff::view/$1');
+    $routes->get('delete/(:num)', 'Staff\Staff::delete/$1');
+
+    // Attendance Management (Staff\Attendance Overview Controller)
+    // *** NEW ROUTE: This handles the Admin/Manager view logic using the hierarchy. ***
+    // $routes->get('attendance/overview', 'Staff\AttendanceOverview::overview');
+    $routes->get('attendance/overview', 'Staff\Attendance::overview');
+
+
+    // Legacy/Old Attendance Route (Commented out to prevent conflict with the new overview route)
+    // $routes->get('attendance', 'Staff\Attendance::index'); 
+
+    // Optional: Routes if an Admin/Manager needs to submit clocking actions for someone else.
+    // If these actions are only for the self-user, you can omit these two lines:
+    // $routes->post('checkin', 'Staff\Attendance::checkIn'); 
+    // $routes->post('checkout', 'Staff\Attendance::checkOut');
+});
 
 // Diagnostics Module Routes
 $routes->group('diagnostics', ['filter' => 'auth', 'namespace' => 'App\Controllers\Diagnostics'], function ($routes) {
@@ -44,7 +100,7 @@ $routes->group('diagnostics', ['filter' => 'auth', 'namespace' => 'App\Controlle
 
 
     // Results and Reports
-    $routes->get('results', 'Diagnostics::resultsList');         // List of orders ready for results entry (Lab view)
+    $routes->get('results', 'Diagnostics::resultsList');
     $routes->get('results/enter/(:num)', 'Diagnostics::enterResults/$1'); // Form to enter results
     $routes->post('results/save', 'Diagnostics::saveResult'); // Removed (::num)
 
@@ -108,22 +164,11 @@ $routes->group('laboratory', ['filter' => 'auth'], function ($routes) {
 
 
 
-// staff-related routes 
-$routes->group('staff', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'Staff\Staff::index');
-    $routes->get('register', 'Staff\Staff::register');
-    $routes->post('save', 'Staff\Staff::save');
-    $routes->get('edit/(:num)', 'Staff\Staff::edit/$1');
-    $routes->get('view/(:num)', 'Staff\Staff::view/$1');
-    $routes->get('delete/(:num)', 'Staff\Staff::delete/$1');
-    $routes->get('attendance', 'Staff\Attendance::index');
-});
-
 $routes->group('users', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Users\Users::index');
     $routes->get('register', 'Users\Users::register');
     $routes->post('save', 'Users\Users::save');
-    $routes->get('view/(:num)', 'Users\Users::view/$1');   // Add this line
+    $routes->get('view/(:num)', 'Users\Users::view/$1');
     $routes->get('edit/(:num)', 'Users\Users::edit/$1');
     // Other user routes
 });
@@ -136,6 +181,7 @@ $routes->group('roles', ['filter' => 'auth'], function ($routes) {
     $routes->post('save', 'Roles\Roles::save');
     $routes->get('edit/(:num)', 'Roles\Roles::edit/$1');
     $routes->get('delete/(:num)', 'Roles\Roles::delete/$1');
+    $routes->post('update/(:num)', 'Roles\Roles::save/$1');
 });
 
 
@@ -446,7 +492,6 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
 
     // Combined API Routes for Pharmacy
     $routes->GET('medicines/get-batches-by-medicine/(:num)', 'Medicines::getBatchesByMedicine/$1');
-    // $routes->GET('medicines/get-patient-details-and-bills/(:any)', 'Medicines::getPatientDetailsAndBills/$1');
     $routes->GET('medicines/get-patient-details-and-bills/(:segment)', 'Medicines::getPatientDetailsAndBills/$1');
 });
 

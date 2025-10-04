@@ -14,9 +14,9 @@
                     $dashboardUrl = base_url('dashboard'); // Default dashboard
                     $currentUri = uri_string();
                     $isActive = $currentUri == 'dashboard';
-                    
+
                     // Define role ID early for consistent RBAC checks across the entire menu
-                    $roleId = session()->get('role_id'); 
+                    $roleId = session()->get('role_id');
 
                     if ($roleId == 2) { // Doctor
                         $dashboardUrl = base_url('doctor/dashboard');
@@ -260,16 +260,44 @@
                                     <p>Roles & Permissions</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('staff/attendance') ?>" class="nav-link <?= uri_string() == 'staff/attendance' ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-clipboard-user"></i>
-                                    <p>Attendance</p>
-                                </a>
-                            </li>
+                            <!-- REMOVED THE ATTENDANCE LINK FROM STAFF MANAGEMENT AS REQUESTED -->
                         </ul>
                     </li>
                 <?php endif; // End Admin-only sections (non-shared modules) 
                 ?>
+
+                <!-- 
+                *** MODIFIED BLOCK: Attendance Link Moved and Visibility Adjusted ***
+                
+                The Staff Management menu is Admin-Only. 
+                We need to add a *separate* check for the Attendance link for Team Leaders (Admin: 1, Pharmacy Manager: 7).
+                -->
+                <?php
+                // The requirement is that the link is visible to everyone EXCEPT those with the 'Team Member' management level.
+
+                // 1. Get the user's management level. 
+                // NOTE: This value MUST be loaded into the session (e.g., during login) 
+                // using session()->set('management_level', $userRoleManagementLevel);
+                $managementLevel = session()->get('management_level');
+
+                // 2. Determine visibility: Link is visible if the level is anything other than 'Team Member'
+                // This correctly handles all roles that are NOT at the base "Team Member" level.
+                $isAttendanceVisible = ($managementLevel && $managementLevel !== 'Team Member');
+
+                if ($isAttendanceVisible):
+                ?>
+                    <li class="nav-item">
+                        <!-- LINK POINTS TO THE STAFF ATTENDANCE OVERVIEW FOR ALL MANAGEMENT/NON-TEAM MEMBER ROLES -->
+                        <a href="<?= base_url('staff/attendance/overview') ?>" class="nav-link <?= uri_string() == 'staff/attendance/overview' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-clipboard-user"></i>
+                            <p>Attendance Logs Report</p>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+
+                <!-- *** END MODIFIED BLOCK *** -->
+
 
                 <!-- **[START] Laboratory Management - Accessible to Admin (1) and Lab Technician (5)** -->
                 <?php $isLaboratoryManagementActive = url_is('laboratory*'); ?>
@@ -374,7 +402,8 @@
                 <!-- **[END] Diagnostics & Imaging** -->
 
 
-                <?php if ($roleId == 1): // Keep Reporting and System Config as Admin-Only if they were originally inside the block ?>
+                <?php if ($roleId == 1): // Keep Reporting and System Config as Admin-Only if they were originally inside the block 
+                ?>
                     <?php $isReportingActive = url_is('reports*'); ?>
                     <li class="nav-item <?= $isReportingActive ? 'menu-open' : '' ?>">
                         <a href="#" class="nav-link <?= $isReportingActive ? 'active' : '' ?>">
@@ -615,31 +644,31 @@
                                     <a href="<?= base_url('pharmacy/purchases') ?>" class="nav-link <?= uri_string() == 'pharmacy/purchases' || url_is('pharmacy/purchases/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-boxes"></i>
                                         <p>Purchases</p>
-                                </a>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/medicines/adjust-stock') ?>" class="nav-link <?= uri_string() == 'pharmacy/medicines/adjust-stock' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-exchange-alt"></i>
                                         <p>Stock Adjustments</p>
-                                </a>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/returns') ?>" class="nav-link <?= uri_string() == 'pharmacy/returns' || url_is('pharmacy/returns/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-undo"></i>
                                         <p>Returns</p>
-                                </a>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/reports') ?>" class="nav-link <?= uri_string() == 'pharmacy/reports' || url_is('pharmacy/reports/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-chart-pie"></i>
                                         <p>Reports</p>
-                                </a>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="<?= base_url('pharmacy/salespersons') ?>" class="nav-link <?= uri_string() == 'pharmacy/salespersons' || url_is('pharmacy/salespersons/*') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>Sales Persons</p>
-                                </a>
+                                    </a>
                                 </li>
                             <?php endif; ?>
 
@@ -671,13 +700,29 @@
                 <?php endif; ?>
 
 
-
-
-                <li class="nav-item">
-                    <a href="<?= base_url('profile') ?>" class="nav-link <?= uri_string() == 'profile' ? 'active' : '' ?>">
+                <?php $isProfileActive = url_is('profile') || url_is('profile/*'); ?>
+                <li class="nav-item <?= $isProfileActive ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= $isProfileActive ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-user-circle"></i>
-                        <p>My Profile</p>
+                        <p>
+                            My Account
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('profile') ?>" class="nav-link <?= uri_string() == 'profile' ? 'active' : '' ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>My Profile</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('profile/attendance') ?>" class="nav-link <?= uri_string() == 'profile/attendance' ? 'active' : '' ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>My Attendance</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item">
