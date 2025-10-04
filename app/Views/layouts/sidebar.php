@@ -80,12 +80,12 @@
                                     <p>Casualty / ER</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= base_url('medical-records') ?>" class="nav-link <?= uri_string() == 'medical-records' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-file-medical"></i>
                                     <p>Medical Records</p>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a href="<?= base_url('discharged-patients') ?>" class="nav-link <?= uri_string() == 'discharged-patients' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-user-check"></i>
@@ -118,12 +118,12 @@
                                     <p>Doctor List</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= base_url('doctors/schedule') ?>" class="nav-link <?= uri_string() == 'doctors/schedule' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-calendar-alt"></i>
                                     <p>Doctor Schedule</p>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
 
@@ -415,12 +415,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= base_url('reports/patients') ?>" class="nav-link <?= uri_string() == 'reports/patients' ? 'active' : '' ?>">
+                                <a href="<?= base_url('reports/') ?>" class="nav-link <?= uri_string() == 'reports/' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-chart-bar"></i>
-                                    <p>Patient Reports</p>
+                                    <p>Diagnostics Reports</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= base_url('reports/financial') ?>" class="nav-link <?= uri_string() == 'reports/financial' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-chart-pie"></i>
                                     <p>Financial Reports</p>
@@ -431,7 +431,7 @@
                                     <i class="nav-icon fas fa-chart-area"></i>
                                     <p>Pharmacy Reports</p>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a href="<?= base_url('reports/lab') ?>" class="nav-link <?= uri_string() == 'reports/lab' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-chart-line"></i>
@@ -523,21 +523,21 @@
 
                     <?php $isDoctorMedicalRecordsActive = url_is('doctor/medical-records*'); ?>
                     <li class="nav-item <?= $isDoctorMedicalRecordsActive ? 'menu-open' : '' ?>">
-                        <a href="#" class="nav-link <?= $isDoctorMedicalRecordsActive ? 'active' : '' ?>">
+                        <!-- <a href="#" class="nav-link <?= $isDoctorMedicalRecordsActive ? 'active' : '' ?>">
                             <i class="nav-icon fas fa-file-medical"></i>
                             <p>
                                 Medical Records
                                 <i class="nav-arrow fas fa-chevron-right"></i>
                             </p>
-                        </a>
-                        <ul class="nav nav-treeview">
+                        </a> -->
+                        <!-- <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="<?= base_url('doctor/medical-records') ?>" class="nav-link <?= uri_string() == 'doctor/medical-records' ? 'active' : '' ?>">
                                     <i class="nav-icon fas fa-notes-medical"></i>
                                     <p>View Records</p>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
 
                     <?php $isDoctorDiagnosticsActive = url_is('doctor/diagnostics*'); ?>
