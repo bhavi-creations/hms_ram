@@ -15,9 +15,9 @@ class RoleModel extends Model
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-    protected $validationRules      = [];
+    protected $validationRules       = [];
     protected $validationMessages = [];
-    protected $skipValidation     = false;
+    protected $skipValidation    = false;
 
     /**
      * Fetches all roles, joining with the roles table itself 
@@ -42,5 +42,25 @@ class RoleModel extends Model
         $builder->orderBy('roles.name', 'ASC');
 
         return $builder->get()->getResultArray();
+    }
+    
+    /**
+     * Retrieves the name of a role given its ID.
+     * @param int $roleId The ID of the role (e.g., 43).
+     * @return string The role name (e.g., 'Billing Staff') or a default message.
+     */
+    public function getRoleNameById(int $roleId): string
+    {
+        // 1. Query the database to find the role with the matching ID.
+        $role = $this->select('name')
+                     ->find($roleId);
+
+        // 2. Check if a role was found.
+        if ($role) {
+            return $role['name'];
+        }
+
+        // 3. Return a fallback string if the role is not found.
+        return 'Unknown Role (ID: ' . $roleId . ')';
     }
 }

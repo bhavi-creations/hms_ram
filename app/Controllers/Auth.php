@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel; // Import the UserModel
 use App\Models\DoctorModel; // Import the DoctorModel to fetch doctor_id
-use App\Models\RoleModel; // <-- NEW: Import the RoleModel
+use App\Models\RoleModel; // Import the RoleModel
 
 class Auth extends BaseController
 {
@@ -22,7 +22,7 @@ class Auth extends BaseController
         $session = session();
         $userModel = new UserModel();
         $doctorModel = new DoctorModel(); // Instantiate DoctorModel
-        $roleModel = new RoleModel(); // <-- NEW: Instantiate RoleModel
+        $roleModel = new RoleModel(); // Instantiate RoleModel
 
         // Get credentials from the form
         $usernameOrEmail = $this->request->getPost('username_or_email');
@@ -39,40 +39,56 @@ class Auth extends BaseController
             ->orWhere('email', $usernameOrEmail)
             ->first();
 
+
+        log_message('debug', 'Login attempt for username/email: ' . $usernameOrEmail);
+        if (!$user) {
+            log_message('debug', 'User not found for: ' . $usernameOrEmail);
+        } else {
+            log_message('debug', 'User found, verifying password for: ' . $user['username']);
+            if (!password_verify($password, $user['password'])) {
+                log_message('debug', 'Password mismatch for: ' . $user['username']);
+            } else {
+                log_message('debug', 'Password matched. Setting session for: ' . $user['username']);
+            }
+        }
+
+
+
         if ($user) {
             // Check if the user's status is 'inactive'
-            if ($user['status'] == 'inactive') {
+            if ($user['status'] === 'inactive') {
                 $session->setFlashdata('error', 'Your account has been deactivated. Please contact an administrator.');
                 return redirect()->to('/login');
             }
-            
+
             // User found, verify password
             if (password_verify($password, $user['password'])) {
-                
-                // --- CRITICAL STEP 1: Fetch Role Data to get the management_level ---
-                $role = $roleModel->find($user['role_id']);
-            
-                if (!$role) {
-                     log_message('error', 'User ID ' . $user['id'] . ' has invalid role_id: ' . $user['role_id']);
-                     $session->setFlashdata('error', 'User role configuration error: Role data is missing.');
-                     return redirect()->to('/login');
-                }
-                // --- END CRITICAL STEP 1 ---
 
-                // Password matches, prepare session data
+                // Fetch Role Data to get the management_level AND name
+                $role = $roleModel->find($user['role_id']);
+
+                if (!$role) {
+                    log_message('error', 'User ID ' . $user['id'] . ' has invalid role_id: ' . $user['role_id']);
+                    $session->setFlashdata('error', 'User role configuration error: Role data is missing.');
+                    return redirect()->to('/login');
+                }
+
+                // Prepare session data
                 $ses_data = [
-                    'user_id'      => $user['id'],
-                    'username'     => $user['username'],
-                    'email'        => $user['email'],
-                    'first_name'   => $user['first_name'],
-                    'last_name'    => $user['last_name'],
-                    'role_id'      => $user['role_id'],
-                    'management_level' => $role['management_level'], // <-- CRITICAL STEP 2: ADD MANAGEMENT LEVEL
-                    'isLoggedIn'   => TRUE
+                    'user_id' => $user['id'],
+                    'username' => $user['username'],
+                    'email' => $user['email'],
+                    'first_name' => $user['first_name'],
+                    'last_name' => $user['last_name'],
+                    'role_id' => $user['role_id'],
+                    // FIX: Add the role name to the session data
+                    'role_name' => $role['name'], 
+                    'management_level' => $role['management_level'],
+                    'isLoggedIn' => true,
                 ];
 
-                // --- NEW LOGIC FOR DOCTOR ID ---
-                if ($user['role_id'] == 2) { // Assuming 2 is Doctor
+                // Add doctor specific session data if role is doctor (role_id = 2)
+                if ($user['role_id'] == 2) {
                     $doctor = $doctorModel->where('user_id', $user['id'])->first();
                     if ($doctor) {
                         $ses_data['doctor_id'] = $doctor['id'];
@@ -82,7 +98,14 @@ class Auth extends BaseController
                         return redirect()->to('/login');
                     }
                 }
-                // --- END NEW LOGIC ---
+
+                // Add patient specific session data if role is patient portal (role_id = 10)
+                if ($user['role_id'] == 10) {
+                    // If you have patient_id column in users table, set it in session
+                    if (isset($user['patient_id'])) {
+                        $ses_data['patient_id'] = $user['patient_id'];
+                    }
+                }
 
                 // Determine allowed modules by role
                 $allowedModules = [];
@@ -90,13 +113,16 @@ class Auth extends BaseController
                     case 1: // HMS Admin
                         $allowedModules = ['all']; // Full access
                         break;
-                    case 7: // Pharmacy Manager (Corrected from 3)
-                        $allowedModules = ['pharmacy']; // Pharmacy full module
+                    case 7: // Pharmacy Manager
+                        $allowedModules = ['pharmacy'];
                         break;
-                    case 8: // Pharmacy Salesperson (Corrected from 4)
-                        $allowedModules = ['pharmacy_sales', 'pharmacy_reports']; // Limited pharmacy modules
+                    case 8: // Pharmacy Salesperson
+                        $allowedModules = ['pharmacy_sales', 'pharmacy_reports'];
                         break;
-                    // Add other roles if needed
+                    case 10: // Patient Portal
+                        // You can define limited module access or special flags here
+                        $allowedModules = ['patient_portal'];
+                        break;
                     default:
                         $allowedModules = [];
                         break;
@@ -109,15 +135,17 @@ class Auth extends BaseController
                 // Update last login time
                 $userModel->update($user['id'], ['last_login' => date('Y-m-d H:i:s')]);
 
-                // Redirect based on role_id (optional)
+                // Redirect based on role_id
                 if ($user['role_id'] == 1) { // Admin
                     return redirect()->to('/dashboard')->with('success', 'Welcome, ' . $user['first_name'] . ' (Admin)!');
                 } elseif ($user['role_id'] == 2) { // Doctor
                     return redirect()->to('/doctor/dashboard')->with('success', 'Welcome, Dr. ' . $user['last_name'] . '!');
-                } elseif ($user['role_id'] == 7) { // Pharmacy Manager (Corrected)
+                } elseif ($user['role_id'] == 7) { // Pharmacy Manager
                     return redirect()->to('/pharmacy/dashboard')->with('success', 'Welcome, ' . $user['first_name'] . ' (Pharmacy Manager)!');
-                } elseif ($user['role_id'] == 8) { // Pharmacy Salesperson (Corrected)
+                } elseif ($user['role_id'] == 8) { // Pharmacy Salesperson
                     return redirect()->to('/pharmacy/sales')->with('success', 'Welcome, ' . $user['first_name'] . ' (Salesperson)!');
+                } elseif ($user['role_id'] == 10) { // Patient Portal
+                    return redirect()->to('/patient-portal/dashboard')->with('success', 'Welcome to your Patient Portal, ' . $user['first_name'] . '!');
                 } else {
                     return redirect()->to('/dashboard')->with('success', 'Welcome, ' . $user['first_name'] . '!');
                 }

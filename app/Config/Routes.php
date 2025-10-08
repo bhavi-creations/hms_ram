@@ -22,6 +22,25 @@ $routes->GET('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth'
 $routes->GET('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
 
 
+$routes->group('patient-portal', ['filter' => 'patientauth', 'namespace' => 'App\Controllers\Patient_portal'], function ($routes) {
+    $routes->get('dashboard', 'PatientPortalController::dashboard');
+    
+    // --- ADD THESE THREE LINES ---
+    $routes->get('appointments', 'PatientPortalController::appointments');
+    $routes->get('labs', 'PatientPortalController::labs');
+    $routes->get('diagnostics', 'PatientPortalController::diagnostics');
+    // -----------------------------
+    
+    $routes->get('login', 'PatientAuth::login');
+    $routes->post('loginAttempt', 'PatientAuth::loginAttempt');
+    $routes->get('logout', 'PatientAuth::logout');
+    $routes->get('test-dashboard', 'PatientPortalController::dashboard');
+});
+
+
+
+
+
 // Universal Profile Routes (UPDATED to use Staff\Profile and Staff\Attendance controllers)
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
     // GET routes for viewing the profile

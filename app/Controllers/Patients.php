@@ -112,12 +112,10 @@ class Patients extends BaseController
         $session = session();
         $uploadDir = ROOTPATH . 'public/uploads/patient_reports/';
 
-        // Ensure upload directory exists
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
-        // Define file upload validation rules
         $fileValidationRules = [
             'upload_reports.*' => [
                 'rules' => 'max_size[upload_reports,5120]|ext_in[upload_reports,pdf,doc,docx,jpg,jpeg,png]',
@@ -128,7 +126,6 @@ class Patients extends BaseController
             ],
         ];
 
-        // Define appointment-related validation rules
         $appointmentValidation = [
             'referred_to_doctor_id' => 'permit_empty|integer',
             'appointment_date' => 'permit_empty|valid_date',
@@ -136,14 +133,12 @@ class Patients extends BaseController
             'reason_for_visit' => 'permit_empty|string|max_length[1000]',
         ];
 
-        // Merge all validation rules
         $validationRules = array_merge(
             $this->patientModel->validationRules,
             $fileValidationRules,
             $appointmentValidation
         );
 
-        // Run validation
         if (!$this->validate($validationRules)) {
             $session->setFlashdata('error', 'Please correct the errors in the form.');
             $fileErrors = $this->validator->getErrors('upload_reports.*');
@@ -155,8 +150,6 @@ class Patients extends BaseController
 
         $patientId = $this->request->getPost('id');
         $currentReportFilenames = [];
-
-        // If updating an existing patient, retrieve current reports
         if (!empty($patientId)) {
             $existingPatient = $this->patientModel->find($patientId);
             if ($existingPatient && !empty($existingPatient['reports'])) {
@@ -164,7 +157,6 @@ class Patients extends BaseController
             }
         }
 
-        // Handle file uploads
         $files = $this->request->getFiles();
         if (isset($files['upload_reports'])) {
             foreach ($files['upload_reports'] as $file) {
@@ -178,69 +170,91 @@ class Patients extends BaseController
             }
         }
 
-        // Calculate final amount based on fee and discount
         $fee = (float) $this->request->getPost('fee');
         $discountPercentage = (float) $this->request->getPost('discount_percentage');
         $finalAmount = round($fee - ($fee * ($discountPercentage / 100)), 2);
 
-        // Prepare patient data for saving
         $data = [
-            'first_name'                => $this->request->getPost('first_name'),
-            'last_name'                 => $this->request->getPost('last_name'),
-            'date_of_birth'             => $this->request->getPost('date_of_birth'),
-            'gender'                    => $this->request->getPost('gender'),
-            'patient_type'              => $this->request->getPost('patient_type'),
-            'blood_group'               => $this->request->getPost('blood_group'),
-            'marital_status'            => $this->request->getPost('marital_status'),
-            'occupation'                => $this->request->getPost('occupation'),
-            'address'                   => $this->request->getPost('address'),
-            'phone_number'              => $this->request->getPost('phone_number'),
-            'email'                     => $this->request->getPost('email'),
-            'emergency_contact_name'    => $this->request->getPost('emergency_contact_name'),
-            'emergency_contact_phone'   => $this->request->getPost('emergency_contact_phone'),
-            'known_allergies'           => $this->request->getPost('known_allergies'),
-            'pre_existing_conditions'   => $this->request->getPost('pre_existing_conditions'),
-            'referred_to_doctor_id'     => $this->request->getPost('referred_to_doctor_id') ?: null,
-            'referred_by_id'            => $this->request->getPost('referred_by_id') ?: null,
-            'remarks'                   => $this->request->getPost('remarks'),
-            'reports'                   => !empty($currentReportFilenames) ? json_encode($currentReportFilenames) : null,
-            'fee'                       => $fee,
-            'discount_percentage'       => $discountPercentage,
-            'final_amount'              => $finalAmount,
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'date_of_birth' => $this->request->getPost('date_of_birth'),
+            'gender' => $this->request->getPost('gender'),
+            'patient_type' => $this->request->getPost('patient_type'),
+            'blood_group' => $this->request->getPost('blood_group'),
+            'marital_status' => $this->request->getPost('marital_status'),
+            'occupation' => $this->request->getPost('occupation'),
+            'address' => $this->request->getPost('address'),
+            'phone_number' => $this->request->getPost('phone_number'),
+            'email' => $this->request->getPost('email'),
+            'emergency_contact_name' => $this->request->getPost('emergency_contact_name'),
+            'emergency_contact_phone' => $this->request->getPost('emergency_contact_phone'),
+            'known_allergies' => $this->request->getPost('known_allergies'),
+            'pre_existing_conditions' => $this->request->getPost('pre_existing_conditions'),
+            'referred_to_doctor_id' => $this->request->getPost('referred_to_doctor_id') ?: null,
+            'referred_by_id' => $this->request->getPost('referred_by_id') ?: null,
+            'remarks' => $this->request->getPost('remarks'),
+            'reports' => !empty($currentReportFilenames) ? json_encode($currentReportFilenames) : null,
+            'fee' => $fee,
+            'discount_percentage' => $discountPercentage,
+            'final_amount' => $finalAmount,
         ];
 
         $appointmentModel = new \App\Models\AppointmentModel();
+        $userModel = new \App\Models\UserModel();
 
-        // Handle INSERT (new patient)
         if (empty($patientId)) {
             if ($this->patientModel->save($data)) {
                 $newId = $this->patientModel->getInsertID();
+                // Fetch fresh patient data from DB after saving
+                $newPatient = $this->patientModel->find($newId);
 
-                // Create appointment if doctor, date, and time are provided
                 $referredDoctorId = $this->request->getPost('referred_to_doctor_id');
                 $appointmentDate = $this->request->getPost('appointment_date');
                 $appointmentTime = $this->request->getPost('appointment_time');
 
                 if (!empty($referredDoctorId) && !empty($appointmentDate) && !empty($appointmentTime)) {
                     $appointmentData = [
-                        'patient_id'        => $newId,
-                        'doctor_id'         => $referredDoctorId,
-                        'appointment_date'  => $appointmentDate,
-                        'appointment_time'  => $appointmentTime,
-                        'reason_for_visit'  => $this->request->getPost('reason_for_visit'),
-                        'status'            => 'Pending'
+                        'patient_id' => $newId,
+                        'doctor_id' => $referredDoctorId,
+                        'appointment_date' => $appointmentDate,
+                        'appointment_time' => $appointmentTime,
+                        'reason_for_visit' => $this->request->getPost('reason_for_visit'),
+                        'status' => 'Pending',
                     ];
                     $appointmentModel->insert($appointmentData);
                 }
 
-                // Prepare success message with generated IDs
-                $newPatient = $this->patientModel->find($newId);
+                // Use plain trimmed phone number here (no manual hashing)
+                $phoneNumber = trim($newPatient['phone_number']);
+                log_message('debug', 'Phone number used as raw password: "' . $phoneNumber . '"');
+
+                $userData = [
+                    'username' => $newPatient['patient_id_code'],
+                    'password' => $phoneNumber, // plain password: UserModel will hash this
+                    'role_id' => 10,
+                    'first_name' => $newPatient['first_name'],
+                    'last_name' => $newPatient['last_name'],
+                    'email' => $newPatient['email'],
+                    'phone_number' => $phoneNumber,
+                    'status' => 'active',
+                ];
+
+                log_message('debug', 'Inserting user with username: ' . $userData['username']);
+                $userModel->skipValidation(true);  // skip validation if needed
+                $userInsertSuccess = $userModel->insert($userData);
+
+                if ($userInsertSuccess === false) {
+                    log_message('error', 'User creation failed: ' . json_encode($userModel->errors()));
+                } else {
+                    log_message('debug', 'User created successfully for username: ' . $userData['username']);
+                }
+
                 $typeMsg = match ($newPatient['patient_type']) {
                     'OPD' => 'OPD ID: ' . ($newPatient['opd_id_code'] ?? 'N/A'),
                     'IPD' => 'IPD ID: ' . ($newPatient['ipd_id_code'] ?? 'N/A'),
                     'General' => 'General ID: ' . ($newPatient['gen_id_code'] ?? 'N/A'),
                     'Casualty' => 'Casualty ID: ' . ($newPatient['cus_id_code'] ?? 'N/A'),
-                    default => 'Type ID: N/A'
+                    default => 'Type ID: N/A',
                 };
 
                 $session->setFlashdata('success', 'Patient registered successfully! Primary ID: ' . $newPatient['patient_id_code'] . ' | ' . $typeMsg);
@@ -249,62 +263,46 @@ class Patients extends BaseController
                 $session->setFlashdata('error', 'Failed to register patient. Please try again.');
                 return redirect()->back()->withInput();
             }
-        }
-
-        // Handle UPDATE (existing patient)
-        else {
-            // Ensure previous_patient_type is handled correctly on update
+        } else {
             $existingPatient = $this->patientModel->find($patientId);
             if ($existingPatient && $data['patient_type'] === 'IPD' && $existingPatient['patient_type'] !== 'IPD') {
                 $data['previous_patient_type'] = $existingPatient['patient_type'];
             } elseif ($existingPatient && $data['patient_type'] !== 'IPD' && $existingPatient['patient_type'] === 'IPD') {
-                // If changing *from* IPD to another type (not discharged), clear previous_patient_type
                 $data['previous_patient_type'] = null;
             }
-
 
             if ($this->patientModel->update($patientId, $data)) {
                 $referredDoctorId = $this->request->getPost('referred_to_doctor_id');
                 $appointmentDate = $this->request->getPost('appointment_date');
                 $appointmentTime = $this->request->getPost('appointment_time');
 
-                // Update/insert appointment if details are provided
                 if (!empty($referredDoctorId) && !empty($appointmentDate) && !empty($appointmentTime)) {
                     $appointmentData = [
-                        'patient_id'        => $patientId,
-                        'doctor_id'         => $referredDoctorId,
-                        'appointment_date'  => $appointmentDate,
-                        'appointment_time'  => $appointmentTime,
-                        'reason_for_visit'  => $this->request->getPost('reason_for_visit'),
-                        'status'            => 'Confirmed' // Or keep existing status if editing
+                        'patient_id' => $patientId,
+                        'doctor_id' => $referredDoctorId,
+                        'appointment_date' => $appointmentDate,
+                        'appointment_time' => $appointmentTime,
+                        'reason_for_visit' => $this->request->getPost('reason_for_visit'),
+                        'status' => 'Confirmed',
                     ];
 
-                    $existingAppointment = $appointmentModel->where('patient_id', $patientId)->first();
+                    $existingAppointment = $appointmentModel->where('patient_id', $patientId)->orderBy('id', 'desc')->first();
 
                     if ($existingAppointment) {
                         $appointmentModel->update($existingAppointment['id'], $appointmentData);
                     } else {
                         $appointmentModel->insert($appointmentData);
                     }
-                } else {
-                    // If appointment details are removed from the form, and an existing appointment exists,
-                    // you might want to delete it or set its status to cancelled.
-                    $existingAppointment = $appointmentModel->where('patient_id', $patientId)->first();
-                    if ($existingAppointment && ($existingAppointment['status'] == 'Pending' || $existingAppointment['status'] == 'Confirmed')) {
-                        // Optionally set to cancelled if details are removed
-                        // $appointmentModel->update($existingAppointment['id'], ['status' => 'Cancelled']);
-                    }
                 }
 
-                // Prepare success message with updated IDs
                 $updatedPatient = $this->patientModel->find($patientId);
                 $typeMsg = match ($updatedPatient['patient_type']) {
                     'OPD' => 'OPD ID: ' . ($updatedPatient['opd_id_code'] ?? 'N/A'),
                     'IPD' => 'IPD ID: ' . ($updatedPatient['ipd_id_code'] ?? 'N/A'),
                     'General' => 'General ID: ' . ($updatedPatient['gen_id_code'] ?? 'N/A'),
                     'Casualty' => 'Casualty ID: ' . ($updatedPatient['cus_id_code'] ?? 'N/A'),
-                    'Discharged' => 'Discharged (No specific ID)', // Added for discharged patients
-                    default => 'Type ID: N/A'
+                    'Discharged' => 'Discharged (No specific ID)',
+                    default => 'Type ID: N/A',
                 };
 
                 $session->setFlashdata('success', 'Patient updated successfully! Primary ID: ' . ($updatedPatient['patient_id_code'] ?? 'N/A') . ' | ' . $typeMsg);
@@ -315,6 +313,10 @@ class Patients extends BaseController
             }
         }
     }
+
+
+
+
 
     /**
      * Handles admitting a patient to IPD from the Patients list.

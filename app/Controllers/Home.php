@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AppointmentModel; // Import this model
 use App\Models\PatientModel;     // Import this model
+use App\Models\RoleModel;        // Import the RoleModel
 
 class Home extends BaseController
 {
@@ -13,14 +14,23 @@ class Home extends BaseController
      */
     public function index()
     {
-        // The AuthFilter already handles the isLoggedIn check for this route.
-        // This method will display the admin/general dashboard.
-        $data['title'] = 'Admin Dashboard';
-        // You can fetch overall statistics here for the admin dashboard
-        // Example:
-        // $appointmentModel = new AppointmentModel();
-        // $data['totalAppointments'] = $appointmentModel->countAllResults();
+        $session = session();
+        $roleId = $session->get('role_id');
+        
+        // 1. Get the Role Name for the view (check session first)
+        $roleName = $session->get('role_name');
+        if (!$roleName && $roleId) {
+            // Lookup role name if missing from session
+            $roleModel = new RoleModel();
+            $roleName = $roleModel->getRoleNameById($roleId);
+        }
 
+        // The AuthFilter already handles the isLoggedIn check for this route.
+        $data['title'] = 'Admin Dashboard';
+        // Add the role name to the data array
+        $data['user_role_name'] = $roleName ?? 'Guest'; 
+        // You can fetch overall statistics here for the admin dashboard
+        
         return view('dashboard/index', $data); // Assuming you have an admin dashboard view
     }
 
@@ -33,6 +43,13 @@ class Home extends BaseController
         $session = session();
         $doctor_id = $session->get('doctor_id'); // Get the logged-in doctor's ID from session
         $role_id = $session->get('role_id');
+        
+        // Retrieve the role name from the session or look it up
+        $roleName = $session->get('role_name');
+        if (!$roleName && $role_id) {
+            $roleModel = new RoleModel();
+            $roleName = $roleModel->getRoleNameById($role_id);
+        }
 
         // Security Check: Ensure it's a doctor accessing this page
         if ($role_id != 2 || !$doctor_id) { // Assuming role_id 2 is for Doctors
@@ -53,6 +70,8 @@ class Home extends BaseController
 
         $data['title'] = 'Doctor Dashboard';
         $data['doctor_name'] = $session->get('first_name') . ' ' . $session->get('last_name');
+        // Add the role name to the data array for the doctor dashboard
+        $data['user_role_name'] = $roleName ?? 'Doctor';
 
         // --- IMPORTANT: CORRECTED VIEW PATH HERE ---
         return view('doctors/dashboard', $data); // Corrected path from 'doctor/dashboard' to 'doctors/dashboard'
