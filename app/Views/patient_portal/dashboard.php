@@ -166,7 +166,12 @@
                                                     <small class="text-muted"><?= esc($appointment['appointment_time'] ?? 'N/A') ?></small>
                                                 </td>
                                                 <td>
-                                                    <?= esc($appointment['doctor_name'] ?? 'ID: ' . ($appointment['doctor_id'] ?? 'N/A')) ?>
+                                                    <!-- 
+                                                        NOTE: The debug log "Appointment Doctor lookup failed for ID: 43" 
+                                                        suggests the 'doctor_name' is missing and the view is falling back to the 'doctor_id' (43).
+                                                        The fix for this is in the Controller/Model to correctly join doctor data.
+                                                    -->
+                                                    <?= esc($appointment['doctor_name'] ?? ($appointment['doctor_id'] ?? 'N/A')) ?>
                                                 </td>
                                                 <td><?= esc($appointment['purpose'] ?? 'General Check-up') ?></td>
                                                 <td>
@@ -213,7 +218,7 @@
                         </div>
                     </div>
                     <div class="card-body p-0">
-                           <div class="table-responsive">
+                            <div class="table-responsive">
                             <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
@@ -263,14 +268,14 @@
                 <div class="card card-outline card-danger">
                     <div class="card-header">
                         <h3 class="card-title"><i class="fas fa-notes-medical mr-1"></i> Latest Diagnostic Orders</h3>
-                         <div class="card-tools">
+                        <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
                     </div>
                     <div class="card-body p-0">
-                           <div class="table-responsive">
+                            <div class="table-responsive">
                             <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
@@ -319,19 +324,19 @@
 
         <!-- START: NEW INVOICES/BILLING ROW -->
         <div class="row">
-             <!-- Latest Invoices Card -->
+              <!-- Latest Invoices Card -->
             <div class="col-lg-12">
                 <div class="card card-outline card-info">
                     <div class="card-header">
                         <h3 class="card-title"><i class="fas fa-receipt mr-1"></i> Latest Invoices / Bills (Latest 5)</h3>
-                         <div class="card-tools">
+                        <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
                     </div>
                     <div class="card-body p-0">
-                           <div class="table-responsive">
+                            <div class="table-responsive">
                             <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
@@ -365,7 +370,7 @@
                                                     <span class="badge <?= $badgeClass ?>"><?= $status ?></span>
                                                 </td>
                                                 <td>
-                                                     <a href="<?= base_url('patient-portal/invoices/' . ($invoice['id'] ?? '')) ?>" class="btn btn-sm btn-outline-primary">View</a>
+                                                    <a href="<?= base_url('patient-portal/invoices/' . ($invoice['id'] ?? '')) ?>" class="btn btn-sm btn-outline-primary">View</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

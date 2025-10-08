@@ -43,4 +43,22 @@ class AppointmentModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
+
+
+
+    public function getPatientAppointmentsWithDoctorName($patientId)
+    {
+        // Concatenate first_name and last_name from the doctors table (aliased as d)
+        // and name the resulting column 'doctor_name'. CONCAT_WS is used for safety.
+        $doctorNameSelect = "CONCAT_WS(' ', d.first_name, d.last_name)";
+
+        return $this->select('appointments.*, ' . $doctorNameSelect . ' AS doctor_name')
+            ->join('doctors d', 'd.id = appointments.doctor_id', 'left')
+            ->where('appointments.patient_id', $patientId)
+            // Filter to show only appointments that are upcoming (Scheduled or Confirmed)
+            ->whereIn('appointments.status', ['Scheduled', 'Confirmed'])
+            ->orderBy('appointment_date', 'ASC')
+            ->orderBy('appointment_time', 'ASC')
+            ->findAll();
+    }
 }

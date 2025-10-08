@@ -3,10 +3,11 @@
 namespace App\Controllers\Patient_portal;
 
 use App\Controllers\BaseController;
-use App\Models\PatientModel; 
+use App\Models\PatientModel;
 use App\Models\AppointmentModel;
-use App\Models\Diagnostics\DiagnosticsOrderModel; // FIX: Updated to include the Diagnostics sub-namespace
-use App\Models\Laboratory\LabOrderModel;       // FIX: Updated to include the Laboratory sub-namespace
+use App\Models\DoctorModel; // ADDED: Required to correctly load doctor details
+use App\Models\Diagnostics\DiagnosticsOrderModel;
+use App\Models\Laboratory\LabOrderModel;
 use App\Models\UserModel; // Assuming doctors are managed via the UserModel
 
 class PatientPortalController extends BaseController
@@ -14,19 +15,21 @@ class PatientPortalController extends BaseController
     // 1. Declare protected properties for the models
     protected $patientModel;
     protected $appointmentModel;
+    protected $doctorModel; // ADDED Property
     protected $diagnosticsOrderModel;
     protected $labOrderModel;
     protected $userModel;
 
     // 2. Initialize the models in the constructor
-    public function __construct() {
+    public function __construct()
+    {
         $this->patientModel = new PatientModel();
         $this->appointmentModel = new AppointmentModel();
+        $this->doctorModel = new DoctorModel(); // ADDED Initialization
         $this->diagnosticsOrderModel = new DiagnosticsOrderModel();
         $this->labOrderModel = new LabOrderModel();
-        $this->userModel = new UserModel(); 
+        $this->userModel = new UserModel();
     }
-
     public function dashboard()
     {
         $session = session();
@@ -34,27 +37,21 @@ class PatientPortalController extends BaseController
         $isLoggedIn = $session->get('isLoggedIn');
         $roleId = $session->get('role_id');
 
-        // Defensive check: If the filter failed or session is corrupted
+        // ... (Session recovery logic remains unchanged) ...
+
         if (!$isLoggedIn || $roleId != 10) {
             log_message('error', 'PatientDashboard - Access denied: Filter missed unauthenticated access.');
             return redirect()->to('/patient-portal/login');
         }
 
         if (!$patientId) {
-            // FIX: Session recovery logic using the username/patient_id_code.
             $userId = $session->get('user_id');
-            $username = $session->get('username'); // This holds the patient_id_code
-
+            $username = $session->get('username');
             if ($userId && $username) {
                 log_message('info', 'PatientDashboard - Attempting to recover missing patient_id using patient_id_code: ' . $username);
-                
-                // CRITICAL FIX: Lookup patient using the unique patient_id_code (stored as username in session)
-                // This correctly uses your existing schema (patients.patient_id_code)
                 $patientRecord = $this->patientModel->where('patient_id_code', $username)->first();
-                
                 if ($patientRecord) {
-                    // The primary key for patients is 'id'
-                    $patientId = $patientRecord['id']; 
+                    $patientId = $patientRecord['id'];
                     $session->set('patient_id', $patientId);
                     log_message('info', 'PatientDashboard - Recovered missing patient_id: ' . $patientId);
                 } else {
@@ -69,8 +66,7 @@ class PatientPortalController extends BaseController
         }
 
         // --- Standard dashboard loading logic begins here ---
-        
-        // Use the recovered or existing patientId
+
         $patient = $this->patientModel->find($patientId);
 
         if (!$patient) {
@@ -80,49 +76,312 @@ class PatientPortalController extends BaseController
         }
 
         // --- Data Fetching (using initialized models) ---
-        $appointments = $this->appointmentModel->where('patient_id', $patientId)->orderBy('appointment_date', 'DESC')->findAll() ?? [];
+        // Appointments are now fixed using the new JOIN method.
+        $appointments = $this->appointmentModel->getPatientAppointmentsWithDoctorName($patientId) ?? [];
+
+        // Diagnostic and Lab orders still need to be fetched separately.
         $diagnostics = $this->diagnosticsOrderModel->where('patient_id', $patientId)->orderBy('order_date', 'DESC')->findAll() ?? [];
         $labs = $this->labOrderModel->where('patient_id', $patientId)->orderBy('order_date', 'DESC')->findAll() ?? [];
 
 
-        // --- Doctor Data Enrichment ---
-        $allRecords = array_merge($appointments, $diagnostics, $labs);
+        // --- Doctor Data Enrichment (Map creation) ---
+        // Appointments are now pre-enriched, so we only need to map doctors for diagnostics and labs.
+        $allRecords = array_merge($diagnostics, $labs); // Removed $appointments
+        // The helper below MUST use the same doctor ID key as the records (e.g., 'doctor_id')
         $uniqueDoctorIds = $this->_getUniqueDoctorIds($allRecords);
         $doctorMap = $this->_getDoctorMap($uniqueDoctorIds);
+        log_message('debug', 'Doctor IDs found in Map: ' . implode(', ', array_keys($doctorMap)));
         // -----------------------------
+
+        // --- LOGIC TO ATTACH DOCTOR NAME TO EACH RECORD ---
+
+        // ### CRITICAL STEP: Ensure 'doctor_id' matches the actual foreign key column in your tables. ###
+        $doctorIdKey = 'doctor_id';
+
+        // 1. Enrich Appointments (Loop removed, data is pre-joined)
+
+        // 2. Enrich Diagnostics
+        foreach ($diagnostics as &$diagnostic) {
+            $doctorId = $diagnostic[$doctorIdKey] ?? null;
+
+            log_message('debug', 'Diagnostic ID ' . ($diagnostic['id'] ?? 'N/A') . ' Foreign Key Value: ' . ($doctorId ?? 'NULL'));
+
+            if ($doctorId && isset($doctorMap[$doctorId])) {
+                $doctor = $doctorMap[$doctorId];
+                $firstName = $doctor['first_name'] ?? '';
+                $lastName = $doctor['last_name'] ?? '';
+                $diagnostic['doctor_name'] = esc(trim($firstName . ' ' . $lastName));
+                log_message('debug', 'Diagnostic Doctor Name set: ' . $diagnostic['doctor_name']);
+            } else {
+                $diagnostic['doctor_name'] = 'N/A';
+                log_message('debug', 'Diagnostic Doctor lookup failed for ID: ' . ($doctorId ?? 'NULL'));
+            }
+        }
+        unset($diagnostic);
+
+        // 3. Enrich Labs
+        foreach ($labs as &$lab) {
+            $doctorId = $lab[$doctorIdKey] ?? null;
+
+            log_message('debug', 'Lab ID ' . ($lab['id'] ?? 'N/A') . ' Foreign Key Value: ' . ($doctorId ?? 'NULL'));
+
+            if ($doctorId && isset($doctorMap[$doctorId])) {
+                $doctor = $doctorMap[$doctorId];
+                $firstName = $doctor['first_name'] ?? '';
+                $lastName = $doctor['last_name'] ?? '';
+                $lab['doctor_name'] = esc(trim($firstName . ' ' . $lastName));
+                log_message('debug', 'Lab Doctor Name set: ' . $lab['doctor_name']);
+            } else {
+                $lab['doctor_name'] = 'N/A';
+                log_message('debug', 'Lab Doctor lookup failed for ID: ' . ($doctorId ?? 'NULL'));
+            }
+        }
+        unset($lab);
+
+        // --- End Name Attachment Logic ---
 
         $data = [
             'patient' => $patient,
             'appointments' => $appointments,
             'diagnostics' => $diagnostics,
             'labs' => $labs,
-            'doctorMap' => $doctorMap, // <-- Pass the doctor lookup map to the view
+            'doctorMap' => $doctorMap,
         ];
 
         return view('patient_portal/dashboard', $data);
     }
-    
-    // Placeholder for helper methods if not present
-    private function _getUniqueDoctorIds(array $records) {
+
+    // NEW METHOD: Handles the /patient-portal/appointments URL
+    public function appointments()
+    {
+        $session = session();
+        $patientId = $session->get('patient_id');
+        $isLoggedIn = $session->get('isLoggedIn');
+        $roleId = $session->get('role_id');
+
+        // --- Security and Patient ID Validation (copied from dashboard) ---
+        if (!$isLoggedIn || $roleId != 10) {
+            log_message('error', 'PatientAppointments - Access denied: Filter missed unauthenticated access.');
+            return redirect()->to('/patient-portal/login');
+        }
+
+        if (!$patientId) {
+            $userId = $session->get('user_id');
+            $username = $session->get('username');
+            if ($userId && $username) {
+                // Attempt to recover patient_id
+                $patientRecord = $this->patientModel->where('patient_id_code', $username)->first();
+                if ($patientRecord) {
+                    $patientId = $patientRecord['id'];
+                    $session->set('patient_id', $patientId);
+                } else {
+                    $session->setFlashdata('error', 'Your patient record is not linked correctly. Please contact support.');
+                    return redirect()->to('/patient-portal/login');
+                }
+            } else {
+                return redirect()->to('/patient-portal/login');
+            }
+        }
+
+        $patient = $this->patientModel->find($patientId);
+        if (!$patient) {
+            $session->setFlashdata('error', 'Your patient record could not be loaded. Please contact support.');
+            return redirect()->to('/patient-portal/login');
+        }
+        // --- End Validation ---
+
+
+        // --- Fetch Appointments using the fixed method ---
+        // This method uses the JOIN and only returns Scheduled/Confirmed appointments.
+        $appointments = $this->appointmentModel->getPatientAppointmentsWithDoctorName($patientId) ?? [];
+
+        $data = [
+            'patient' => $patient,
+            'appointments' => $appointments,
+            'page_title' => 'My Upcoming Appointments', // Title for the view
+        ];
+
+        // NOTE: You will need to create the view file at: app/Views/patient_portal/appointments_list.php
+        return view('patient_portal/appointments_list', $data);
+    }
+
+    /**
+     * Displays the patient's list of lab orders.
+     * FIX: Removed strict ': string' return type hint to allow returning RedirectResponse.
+     * FIX: Aligned authorization and patient ID validation logic with the appointments() method.
+     */
+    public function labs()
+    {
+        $session = session();
+        $patientId = $session->get('patient_id');
+        $isLoggedIn = $session->get('isLoggedIn');
+        $roleId = $session->get('role_id');
+
+        // --- Security and Patient ID Validation (Aligned with appointments()) ---
+        if (!$isLoggedIn || $roleId != 10) {
+            log_message('error', 'PatientLabs - Access denied: Filter missed unauthenticated access.');
+            return redirect()->to('/patient-portal/login');
+        }
+
+        if (!$patientId) {
+            $userId = $session->get('user_id');
+            $username = $session->get('username');
+            if ($userId && $username) {
+                // Attempt to recover patient_id
+                $patientRecord = $this->patientModel->where('patient_id_code', $username)->first();
+                if ($patientRecord) {
+                    $patientId = $patientRecord['id'];
+                    $session->set('patient_id', $patientId);
+                } else {
+                    $session->setFlashdata('error', 'Your patient record is not linked correctly. Please contact support.');
+                    return redirect()->to('/patient-portal/login');
+                }
+            } else {
+                return redirect()->to('/patient-portal/login');
+            }
+        }
+        
+        $patient = $this->patientModel->find($patientId);
+        if (!$patient) {
+            $session->setFlashdata('error', 'Your patient record could not be loaded. Please contact support.');
+            return redirect()->to('/patient-portal/login');
+        }
+        // --- End Validation ---
+
+
+        // Use the model initialized in the constructor
+        $labOrderModel = $this->labOrderModel;
+
+        // Fetch lab orders for the patient. 
+        // NOTE: You must implement the 'getLabOrdersForPatient' method in your LabOrderModel.
+        // This method should also join data to show 'test_name' and 'doctor_name'.
+        $labs = $labOrderModel->getLabOrdersForPatient($patientId);
+
+        $data = [
+            'page_title' => 'My Lab Orders',
+            'labs'       => $labs,
+        ];
+
+        return view('patient_portal/labs', $data);
+    }
+
+
+    /**
+     * Helper to extract unique doctor IDs from records.
+     * Ensure the key used here matches the tables' foreign key column.
+     */
+    protected function _getUniqueDoctorIds(array $records): array
+    {
         $ids = [];
+        $doctorIdKey = 'doctor_id'; // <--- MUST match the key used in dashboard()
         foreach ($records as $record) {
-            if (isset($record['doctor_id'])) {
-                $ids[] = $record['doctor_id'];
+            if (isset($record[$doctorIdKey]) && !empty($record[$doctorIdKey])) {
+                $ids[] = $record[$doctorIdKey];
             }
         }
         return array_unique($ids);
     }
-    
-    private function _getDoctorMap(array $ids) {
-        // Implementation using the initialized $this->userModel (assuming doctors are users)
+
+    /**
+     * Fetches doctor records and creates a map keyed by ID.
+     * FIX: Now uses the dedicated DoctorModel.
+     */
+    protected function _getDoctorMap(array $ids)
+    {
         $map = [];
         if (!empty($ids)) {
-            // Assuming Doctor IDs in the appointments/orders refer to the `users.id` field
-            $doctors = $this->userModel->select('id, first_name, last_name')->whereIn('id', $ids)->findAll();
+            // We use the dedicated DoctorModel to query the doctors table directly.
+            // This is more reliable than querying the generic UserModel and applying a role filter.
+            $doctors = $this->doctorModel->select('id, first_name, last_name')
+                ->whereIn('id', $ids)
+                ->findAll();
+
             foreach ($doctors as $doctor) {
-                $map[$doctor['id']] = $doctor['first_name'] . ' ' . $doctor['last_name'];
+                // Store the entire doctor record array.
+                $map[$doctor['id']] = $doctor;
             }
         }
         return $map;
     }
+
+
+        public function diagnostics()
+    {
+        $session = session();
+        $patientId = $session->get('patient_id');
+        $isLoggedIn = $session->get('isLoggedIn');
+        $roleId = $session->get('role_id');
+
+        // --- Security and Patient ID Validation (Aligned with labs()) ---
+        if (!$isLoggedIn || $roleId != 10) {
+            log_message('error', 'PatientDiagnostics - Access denied: Filter missed unauthenticated access.');
+            return redirect()->to('/patient-portal/login');
+        }
+
+        if (!$patientId) {
+            $userId = $session->get('user_id');
+            $username = $session->get('username');
+            if ($userId && $username) {
+                // Attempt to recover patient_id
+                $patientRecord = $this->patientModel->where('patient_id_code', $username)->first();
+                if ($patientRecord) {
+                    $patientId = $patientRecord['id'];
+                    $session->set('patient_id', $patientId);
+                } else {
+                    $session->setFlashdata('error', 'Your patient record is not linked correctly. Please contact support.');
+                    return redirect()->to('/patient-portal/login');
+                }
+            } else {
+                return redirect()->to('/patient-portal/login');
+            }
+        }
+        
+        $patient = $this->patientModel->find($patientId);
+        if (!$patient) {
+            $session->setFlashdata('error', 'Your patient record could not be loaded. Please contact support.');
+            return redirect()->to('/patient-portal/login');
+        }
+        // --- End Validation ---
+
+        // Fetch diagnostic orders for the patient. 
+        // NOTE: The model method 'getDiagnosticsOrdersForPatient' must be implemented next.
+        $diagnostics = $this->diagnosticsOrderModel->getDiagnosticsOrdersForPatient($patientId);
+
+        $data = [
+            'page_title' => 'My Diagnostic Orders',
+            'diagnostics' => $diagnostics,
+        ];
+
+        // NOTE: You will need to create the view file at: app/Views/patient_portal/diagnostics.php
+        return view('patient_portal/diagnostics', $data);
+    }
+
+      public function invoices()
+    {
+        $session = session();
+        $patientId = $session->get('patient_id');
+        $isLoggedIn = $session->get('isLoggedIn');
+        $roleId = $session->get('role_id');
+
+        // --- Security and Patient ID Validation ---
+        if (!$isLoggedIn || $roleId != 10) {
+            log_message('error', 'PatientInvoices - Access denied: Filter missed unauthenticated access.');
+            return redirect()->to('/patient-portal/login');
+        }
+
+        // Basic check for patient data existence before loading the page
+        if (!$patientId) {
+            // Attempt recovery or redirect if patient ID is essential for the layout
+            return redirect()->to('/patient-portal/login')->with('error', 'Patient ID missing. Please log in again.');
+        }
+
+        $data = [
+            'page_title' => 'My Invoices & Billing',
+            'message' => 'The Invoices and Billing section is currently under development.',
+        ];
+
+        // NOTE: The view file app/Views/patient_portal/invoices.php is required.
+        return view('patient_portal/invoices', $data);
+    }
+    
 }

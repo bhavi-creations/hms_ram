@@ -59,6 +59,8 @@ class LabOrderModel extends Model
         return $data;
     }
 
+ 
+
     /**
      * Get lab orders with patient and user details for the orders page.
      *
@@ -72,4 +74,18 @@ class LabOrderModel extends Model
             ->orderBy('lab_orders.created_at', 'DESC')
             ->findAll();
     }
+
+        public function getLabOrdersForPatient(int $patientId)
+    {
+        // Use CONCAT_WS(' ', users.first_name, users.last_name) to combine first and last name
+        return $this->select("lab_orders.*, CONCAT_WS(' ', users.first_name, users.last_name) as doctor_name")
+            ->join('users', 'users.id = lab_orders.ordered_by')
+            ->where('lab_orders.patient_id', $patientId)
+            ->orderBy('lab_orders.order_date', 'DESC')
+            ->findAll();
+        
+        // FUTURE ENHANCEMENT: If you have a separate table linking lab orders to test names 
+        // (e.g., 'lab_order_details' and 'lab_tests'), you will need to add those joins here.
+    }
+
 }

@@ -1,3 +1,8 @@
+<!--
+    File: app/Views/patient_portal/appointments_list.php
+    Description: Displays a list of the patient's upcoming (Scheduled/Confirmed) appointments,
+    using AdminLTE styling.
+-->
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
@@ -32,34 +37,39 @@
                                 <th>Appointment ID</th>
                                 <th>Date</th>
                                 <th>Time</th>
-                                <th>Doctor ID</th>
+                                <!-- FIX: Changed header to reflect the joined name, not the raw ID -->
+                                <th>Doctor Name</th>
                                 <th>Reason</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <!-- <th>Actions</th> -->
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 1; foreach ($appointments as $appointment): ?>
                             <tr>
                                 <td><?= $i++ ?></td>
-                                <td><?= esc($appointment['appointment_id']) ?></td>
-                                <td><?= esc($appointment['appointment_date']) ?></td>
-                                <td><?= esc($appointment['appointment_time']) ?></td>
-                                <td><?= esc($appointment['doctor_id']) ?></td>
-                                <td><?= esc(substr($appointment['reason'], 0, 50)) . (strlen($appointment['reason']) > 50 ? '...' : '') ?></td>
+                                <!-- FIX: Changed array key from 'appointment_id' to the correct primary key 'id' -->
+                                <td><?= esc($appointment['id'] ?? 'N/A') ?></td>
+                                <td><?= esc($appointment['appointment_date'] ?? 'N/A') ?></td>
+                                <td><?= esc($appointment['appointment_time'] ?? 'N/A') ?></td>
+                                <!-- FIX: Changed array key from 'doctor_id' to the joined 'doctor_name' for display -->
+                                <td><?= esc($appointment['doctor_name'] ?? 'Doctor Unknown') ?></td>
+                                <td><?= esc(substr($appointment['reason'] ?? 'No reason provided', 0, 50)) . (strlen($appointment['reason'] ?? '') > 50 ? '...' : '') ?></td>
                                 <td>
                                     <?php 
-                                        $status = esc($appointment['status']);
+                                        $status = esc($appointment['status'] ?? 'Pending');
                                         $badgeClass = 'badge-secondary';
                                         if ($status == 'Scheduled') $badgeClass = 'badge-primary';
                                         if ($status == 'Completed') $badgeClass = 'badge-success';
                                         if ($status == 'Cancelled') $badgeClass = 'badge-danger';
+                                        if ($status == 'Confirmed') $badgeClass = 'badge-info'; 
                                     ?>
                                     <span class="badge <?= $badgeClass ?>"><?= $status ?></span>
                                 </td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="alert('Viewing details for Appointment ID: <?= esc($appointment['appointment_id']) ?>')">View</button>
-                                </td>
+                                <!-- <td>
+                                   
+                                    <a href="<?= base_url('patient-portal/appointments/view/' . esc($appointment['id'] ?? '0')) ?>" class="btn btn-sm btn-info">View</a>
+                                </td> -->
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

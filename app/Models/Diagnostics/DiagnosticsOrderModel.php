@@ -126,4 +126,16 @@ class DiagnosticsOrderModel extends Model
                     ->where('diagnostics_orders.id', $orderId)
                     ->first();
     }
+
+
+        public function getDiagnosticsOrdersForPatient(int $patientId)
+    {
+        // Join to the 'users' table using 'ordered_by' field to retrieve the doctor's name.
+        return $this->select("diagnostics_orders.*, CONCAT_WS(' ', users.first_name, users.last_name) as doctor_name")
+            ->join('users', 'users.id = diagnostics_orders.ordered_by', 'left')
+            ->where('diagnostics_orders.patient_id', $patientId)
+            ->orderBy('diagnostics_orders.order_date', 'DESC')
+            ->findAll();
+    }
+
 }

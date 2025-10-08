@@ -21,7 +21,6 @@ $routes->GET('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth'
 // This matches the sidebar link base_url('discharged-patients')
 $routes->GET('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
 
-
 $routes->group('patient-portal', ['namespace' => 'App\Controllers\Patient_portal'], function ($routes) {
     // Authentication Actions (Publicly accessible)
     $routes->get('login', 'PatientAuth::login');
@@ -39,9 +38,10 @@ $routes->group('patient-portal', ['filter' => 'patientauth', 'namespace' => 'App
     $routes->get('appointments', 'PatientPortalController::appointments');
     $routes->get('labs', 'PatientPortalController::labs');
     $routes->get('diagnostics', 'PatientPortalController::diagnostics');
+    // FIX: Added the missing route for invoices
+    $routes->get('invoices', 'PatientPortalController::invoices');
     $routes->get('test-dashboard', 'PatientPortalController::dashboard'); // Kept for your testing
 });
-
 
 
 
