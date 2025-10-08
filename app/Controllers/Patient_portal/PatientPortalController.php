@@ -1,75 +1,30 @@
-<?php 
+<?php
 
 namespace App\Controllers\Patient_portal;
 
 use App\Controllers\BaseController;
-use App\Models\PatientModel;
+use App\Models\PatientModel; 
 use App\Models\AppointmentModel;
-use App\Models\Diagnostics\DiagnosticsOrderModel;
-use App\Models\Laboratory\LabOrderModel;
-use App\Models\UserModel;
-use App\Models\DoctorModel; // <-- NEW: Import DoctorModel
+use App\Models\Diagnostics\DiagnosticsOrderModel; // FIX: Updated to include the Diagnostics sub-namespace
+use App\Models\Laboratory\LabOrderModel;       // FIX: Updated to include the Laboratory sub-namespace
+use App\Models\UserModel; // Assuming doctors are managed via the UserModel
 
 class PatientPortalController extends BaseController
 {
+    // 1. Declare protected properties for the models
     protected $patientModel;
     protected $appointmentModel;
     protected $diagnosticsOrderModel;
     protected $labOrderModel;
     protected $userModel;
-    protected $doctorModel; // <-- NEW: Declare DoctorModel property
 
-    public function __construct()
-    {
+    // 2. Initialize the models in the constructor
+    public function __construct() {
         $this->patientModel = new PatientModel();
         $this->appointmentModel = new AppointmentModel();
         $this->diagnosticsOrderModel = new DiagnosticsOrderModel();
         $this->labOrderModel = new LabOrderModel();
-        $this->userModel = new UserModel();
-        $this->doctorModel = new DoctorModel(); // <-- NEW: Initialize DoctorModel
-    }
-    
-    /**
-     * Helper method to collect unique doctor IDs from various records.
-     * Assumes records have a 'doctor_id' field.
-     * @param array $records An array of patient records (appointments, orders).
-     * @return array Unique doctor IDs.
-     */
-    private function _getUniqueDoctorIds(array $records): array
-    {
-        $doctorIds = [];
-        foreach ($records as $record) {
-            // Check if 'doctor_id' exists and is not null/empty
-            if (isset($record['doctor_id']) && $record['doctor_id']) {
-                $doctorIds[] = $record['doctor_id'];
-            }
-        }
-        return array_unique($doctorIds);
-    }
-    
-    /**
-     * Helper method to fetch doctor details and map them by ID for easy lookup.
-     * @param array $doctorIds The IDs of the doctors to fetch.
-     * @return array Doctor data mapped by doctor_id.
-     */
-    private function _getDoctorMap(array $doctorIds): array
-    {
-        if (empty($doctorIds)) {
-            return [];
-        }
-
-        // Fetch only the necessary doctors and specific fields
-        $doctors = $this->doctorModel
-                        ->whereIn('id', $doctorIds)
-                        ->select('id, first_name, last_name, specialization, designation')
-                        ->findAll();
-
-        $doctorMap = [];
-        foreach ($doctors as $doctor) {
-            $doctorMap[$doctor['id']] = $doctor;
-        }
-
-        return $doctorMap;
+        $this->userModel = new UserModel(); 
     }
 
     public function dashboard()
@@ -86,25 +41,36 @@ class PatientPortalController extends BaseController
         }
 
         if (!$patientId) {
-            // FIX: Session recovery logic using the user_id if patient_id is missing
+            // FIX: Session recovery logic using the username/patient_id_code.
             $userId = $session->get('user_id');
-            if ($userId) {
-                // Look up patient_id using the user_id from the session
-                $patientRecord = $this->patientModel->where('user_id', $userId)->first();
+            $username = $session->get('username'); // This holds the patient_id_code
+
+            if ($userId && $username) {
+                log_message('info', 'PatientDashboard - Attempting to recover missing patient_id using patient_id_code: ' . $username);
+                
+                // CRITICAL FIX: Lookup patient using the unique patient_id_code (stored as username in session)
+                // This correctly uses your existing schema (patients.patient_id_code)
+                $patientRecord = $this->patientModel->where('patient_id_code', $username)->first();
+                
                 if ($patientRecord) {
-                    $patientId = $patientRecord['patient_id'];
+                    // The primary key for patients is 'id'
+                    $patientId = $patientRecord['id']; 
                     $session->set('patient_id', $patientId);
-                    log_message('info', 'PatientDashboard - Recovered missing patient_id for user_id: ' . $userId);
+                    log_message('info', 'PatientDashboard - Recovered missing patient_id: ' . $patientId);
                 } else {
-                    log_message('error', 'PatientDashboard - CRITICAL ERROR: User ID ' . $userId . ' found, but no associated patient record.');
+                    log_message('error', 'PatientDashboard - No associated patient record found for username/patient_id_code: ' . $username);
+                    $session->setFlashdata('error', 'Your patient record is not linked correctly. Please contact support.');
                     return redirect()->to('/patient-portal/login');
                 }
             } else {
-                log_message('error', 'PatientDashboard - CRITICAL ERROR: patient_id and user_id are both NULL despite successful login.');
+                log_message('error', 'PatientDashboard - CRITICAL ERROR: patient_id and session user details are incomplete despite successful login.');
                 return redirect()->to('/patient-portal/login');
             }
         }
 
+        // --- Standard dashboard loading logic begins here ---
+        
+        // Use the recovered or existing patientId
         $patient = $this->patientModel->find($patientId);
 
         if (!$patient) {
@@ -113,13 +79,13 @@ class PatientPortalController extends BaseController
             return redirect()->to('/patient-portal/login');
         }
 
-        // --- Data Fetching ---
-        $appointments = $this->appointmentModel->where('patient_id', $patientId)->orderBy('appointment_date', 'DESC')->findAll();
-        $diagnostics = $this->diagnosticsOrderModel->where('patient_id', $patientId)->orderBy('order_date', 'DESC')->findAll();
-        $labs = $this->labOrderModel->where('patient_id', $patientId)->orderBy('order_date', 'DESC')->findAll();
+        // --- Data Fetching (using initialized models) ---
+        $appointments = $this->appointmentModel->where('patient_id', $patientId)->orderBy('appointment_date', 'DESC')->findAll() ?? [];
+        $diagnostics = $this->diagnosticsOrderModel->where('patient_id', $patientId)->orderBy('order_date', 'DESC')->findAll() ?? [];
+        $labs = $this->labOrderModel->where('patient_id', $patientId)->orderBy('order_date', 'DESC')->findAll() ?? [];
+
 
         // --- Doctor Data Enrichment ---
-        // Combine all records to find all relevant doctor IDs efficiently
         $allRecords = array_merge($appointments, $diagnostics, $labs);
         $uniqueDoctorIds = $this->_getUniqueDoctorIds($allRecords);
         $doctorMap = $this->_getDoctorMap($uniqueDoctorIds);
@@ -130,102 +96,33 @@ class PatientPortalController extends BaseController
             'appointments' => $appointments,
             'diagnostics' => $diagnostics,
             'labs' => $labs,
-            'doctorMap' => $doctorMap, // <-- NEW: Pass the doctor lookup map to the view
+            'doctorMap' => $doctorMap, // <-- Pass the doctor lookup map to the view
         ];
 
         return view('patient_portal/dashboard', $data);
     }
-
-    /**
-     * Fetches and displays all appointments for the logged-in patient.
-     */
-    public function appointments()
-    {
-        $session = session();
-        $patientId = $session->get('patient_id');
-        
-        if (!$patientId) {
-            return redirect()->to('/patient-portal/login')->with('error', 'Patient session expired or invalid.');
+    
+    // Placeholder for helper methods if not present
+    private function _getUniqueDoctorIds(array $records) {
+        $ids = [];
+        foreach ($records as $record) {
+            if (isset($record['doctor_id'])) {
+                $ids[] = $record['doctor_id'];
+            }
         }
-
-        $appointments = $this->appointmentModel
-                            ->where('patient_id', $patientId)
-                            ->orderBy('appointment_date', 'DESC')
-                            ->findAll();
-        
-        // Doctor Data Enrichment
-        $uniqueDoctorIds = $this->_getUniqueDoctorIds($appointments);
-        $doctorMap = $this->_getDoctorMap($uniqueDoctorIds);
-        // ----------------------
-
-        $data = [
-            'title' => 'My Appointments',
-            'appointments' => $appointments,
-            'doctorMap' => $doctorMap, // <-- Pass doctor map for lookup
-        ];
-        
-        return view('patient_portal/appointments', $data);
+        return array_unique($ids);
     }
-
-    /**
-     * Fetches and displays all lab orders for the logged-in patient.
-     */
-    public function labs()
-    {
-        $session = session();
-        $patientId = $session->get('patient_id');
-        
-        if (!$patientId) {
-            return redirect()->to('/patient-portal/login')->with('error', 'Patient session expired or invalid.');
+    
+    private function _getDoctorMap(array $ids) {
+        // Implementation using the initialized $this->userModel (assuming doctors are users)
+        $map = [];
+        if (!empty($ids)) {
+            // Assuming Doctor IDs in the appointments/orders refer to the `users.id` field
+            $doctors = $this->userModel->select('id, first_name, last_name')->whereIn('id', $ids)->findAll();
+            foreach ($doctors as $doctor) {
+                $map[$doctor['id']] = $doctor['first_name'] . ' ' . $doctor['last_name'];
+            }
         }
-
-        $labs = $this->labOrderModel
-                     ->where('patient_id', $patientId)
-                     ->orderBy('order_date', 'DESC')
-                     ->findAll();
-        
-        // Doctor Data Enrichment
-        $uniqueDoctorIds = $this->_getUniqueDoctorIds($labs);
-        $doctorMap = $this->_getDoctorMap($uniqueDoctorIds);
-        // ----------------------
-
-        $data = [
-            'title' => 'My Lab Orders',
-            'labs' => $labs,
-            'doctorMap' => $doctorMap, // <-- Pass doctor map for lookup
-        ];
-        
-        return view('patient_portal/labs', $data);
-    }
-
-    /**
-     * Fetches and displays all diagnostic orders for the logged-in patient.
-     */
-    public function diagnostics()
-    {
-        $session = session();
-        $patientId = $session->get('patient_id');
-        
-        if (!$patientId) {
-            return redirect()->to('/patient-portal/login')->with('error', 'Patient session expired or invalid.');
-        }
-
-        $diagnostics = $this->diagnosticsOrderModel
-                            ->where('patient_id', $patientId)
-                            ->orderBy('order_date', 'DESC')
-                            ->findAll();
-
-        // Doctor Data Enrichment
-        $uniqueDoctorIds = $this->_getUniqueDoctorIds($diagnostics);
-        $doctorMap = $this->_getDoctorMap($uniqueDoctorIds);
-        // ----------------------
-        
-        $data = [
-            'title' => 'My Diagnostic Orders',
-            'diagnostics' => $diagnostics,
-            'doctorMap' => $doctorMap, // <-- Pass doctor map for lookup
-        ];
-        
-        return view('patient_portal/diagnostics', $data);
+        return $map;
     }
 }

@@ -22,19 +22,24 @@ $routes->GET('/dashboard', 'Home::index', ['filter' => 'auth']); // Apply 'auth'
 $routes->GET('/discharged-patients', 'Patients::dischargedPatients', ['filter' => 'auth']);
 
 
-$routes->group('patient-portal', ['filter' => 'patientauth', 'namespace' => 'App\Controllers\Patient_portal'], function ($routes) {
-    $routes->get('dashboard', 'PatientPortalController::dashboard');
-    
-    // --- ADD THESE THREE LINES ---
-    $routes->get('appointments', 'PatientPortalController::appointments');
-    $routes->get('labs', 'PatientPortalController::labs');
-    $routes->get('diagnostics', 'PatientPortalController::diagnostics');
-    // -----------------------------
-    
+$routes->group('patient-portal', ['namespace' => 'App\Controllers\Patient_portal'], function ($routes) {
+    // Authentication Actions (Publicly accessible)
     $routes->get('login', 'PatientAuth::login');
     $routes->post('loginAttempt', 'PatientAuth::loginAttempt');
     $routes->get('logout', 'PatientAuth::logout');
-    $routes->get('test-dashboard', 'PatientPortalController::dashboard');
+});
+
+
+// ------------------------------------------------------------------
+// 2. PATIENT PORTAL PROTECTED ROUTES (FILTER APPLIED)
+// All routes in this group require the user to be authenticated (role_id=10)
+// ------------------------------------------------------------------
+$routes->group('patient-portal', ['filter' => 'patientauth', 'namespace' => 'App\Controllers\Patient_portal'], function ($routes) {
+    $routes->get('dashboard', 'PatientPortalController::dashboard');
+    $routes->get('appointments', 'PatientPortalController::appointments');
+    $routes->get('labs', 'PatientPortalController::labs');
+    $routes->get('diagnostics', 'PatientPortalController::diagnostics');
+    $routes->get('test-dashboard', 'PatientPortalController::dashboard'); // Kept for your testing
 });
 
 
