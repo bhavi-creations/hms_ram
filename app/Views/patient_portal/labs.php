@@ -32,7 +32,7 @@
                                 <th>Order Code</th>
                                 <th>Order Date</th>
                                 <th>Service/Test</th>
-                                <th>Prescribed By</th>
+                                <!-- <th>Prescribed By</th> -->
                                 <th>Status</th>
                                 <th>Results</th>
                             </tr>
@@ -44,7 +44,7 @@
                                 <td><?= esc($lab['order_id_code']) ?></td>
                                 <td><?= esc($lab['order_date']) ?></td>
                                 <td><?= esc($lab['test_name'] ?? 'N/A') ?></td>
-                                <td><?= esc($lab['doctor_id'] ?? 'N/A') ?></td>
+                                <!-- <td><?= esc($lab['doctor_id'] ?? 'N/A') ?></td> -->
                                 <td>
                                     <?php 
                                         $status = esc($lab['status']);

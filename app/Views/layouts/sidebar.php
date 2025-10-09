@@ -573,7 +573,7 @@
                             </ul> -->
                         </li>
 
-                        <?php $isDoctorDiagnosticsActive = url_is('doctor/diagnostics*'); ?>
+                        <!-- <?php $isDoctorDiagnosticsActive = url_is('doctor/diagnostics*'); ?>
                         <li class="nav-item <?= $isDiagnosticsActive ? 'menu-open' : '' ?>">
                             <a href="#" class="nav-link <?= $isDiagnosticsActive ? 'active' : '' ?>">
                                 <i class="nav-icon fas fa-x-ray"></i>
@@ -596,7 +596,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                     <?php endif;      ?>
 
                     <?php

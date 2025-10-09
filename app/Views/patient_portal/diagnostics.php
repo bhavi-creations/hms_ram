@@ -31,8 +31,8 @@
                                 <th>#</th>
                                 <th>Order Code</th>
                                 <th>Order Date</th>
-                                <th>Procedure</th>
-                                <th>Prescribed By</th>
+                                <th>Service/Test</th>
+                                <!-- <th>Prescribed By</th> -->
                                 <th>Status</th>
                                 <th>Report</th>
                             </tr>
@@ -44,7 +44,7 @@
                                 <td><?= esc($diag['order_id_code']) ?></td>
                                 <td><?= esc($diag['order_date']) ?></td>
                                 <td><?= esc($diag['procedure_name'] ?? 'N/A') ?></td>
-                                <td><?= esc($diag['doctor_id'] ?? 'N/A') ?></td>
+                                <!-- <td><?= esc($diag['doctor_id'] ?? 'N/A') ?></td> -->
                                 <td>
                                     <?php 
                                         $status = esc($diag['status']);
