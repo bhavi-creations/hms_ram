@@ -10,6 +10,8 @@
         <table id="usersTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <!-- NEW: S.no column added first -->
+                    <th style="width: 5%;">S.no</th> 
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -19,8 +21,11 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $sn = 1; // Initialize the serial number counter ?>
                 <?php foreach ($users as $user) : ?>
                     <tr>
+                        <!-- NEW: Display and increment S.no -->
+                        <td class="text-center"><?= $sn++ ?></td> 
                         <td><?= esc($user['id']) ?></td>
                         <td><?= esc($user['first_name'] . ' ' . $user['last_name']) ?></td>
                         <td><?= esc($user['email']) ?></td>
@@ -45,6 +50,9 @@
     $("#usersTable").DataTable({
         responsive: true,
         autoWidth: false,
+        // Since we added S.no as the first column, we tell DataTables not to order by it initially.
+        // It will usually default to the ID column, which is still displayed second.
+        "order": [[ 1, "asc" ]] 
     });
 </script>
 <?= $this->endSection() ?>

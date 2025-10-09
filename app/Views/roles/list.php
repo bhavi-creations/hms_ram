@@ -10,6 +10,8 @@
         <table id="rolesTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <!-- NEW: S.no column added -->
+                    <th style="width: 5%;">S.no</th>
                     <th>ID</th>
                     <th>Role Name</th>
                     <th>Management Level</th>
@@ -19,8 +21,11 @@
                 </tr> 
             </thead>
             <tbody>
+                <?php $sn = 1; // Initialize the serial number counter ?>
                 <?php foreach ($roles as $role) : ?>
                     <tr>
+                        <!-- NEW: Display and increment S.no -->
+                        <td class="text-center"><?= $sn++ ?></td>
                         <td><?= esc($role['id']) ?></td>
                         <td><?= esc($role['name']) ?></td>
                         <!-- Display Management Level -->
@@ -61,6 +66,8 @@
         $("#rolesTable").DataTable({
             responsive: true,
             autoWidth: false,
+            // Configure DataTables to order by the ID column (which is now index 1)
+            "order": [[ 1, "asc" ]]
         });
 
         // Custom modal confirmation for delete action

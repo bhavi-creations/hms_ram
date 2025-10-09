@@ -41,7 +41,8 @@
                         <table id="staffTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <!-- Changed ID to S.no -->
+                                    <th style="width: 5%;">S.no</th> 
                                     <th>Name</th>
                                     <th>Role</th>
                                     <th>Email</th>
@@ -52,9 +53,11 @@
                             </thead>
                             <tbody>
                                 <?php if (!empty($staff)): ?>
+                                    <?php $sn = 1; // Initialize Serial Number counter ?>
                                     <?php foreach ($staff as $member): ?>
                                         <tr>
-                                            <td><?= esc($member['id']) ?></td>
+                                            <!-- Display and increment the serial number -->
+                                            <td class="text-center"><?= $sn++ ?></td> 
                                             <td><?= esc($member['first_name'] . ' ' . $member['last_name']) ?></td>
                                             <td>
                                                 <!-- We joined the roles table in the controller to get the role_name -->
