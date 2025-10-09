@@ -51,7 +51,27 @@ $routes->resource('referred-persons', ['controller' => 'ReferredPerson']);
 
 
 
+$routes->group('departments', ['filter' => 'auth'], function ($routes) {
+    // READ: List all departments (Index)
+    $routes->GET('/', 'Department::index');
 
+    // CREATE: Display the creation form
+    $routes->GET('create', 'Department::create'); // <-- This is the route that fixed your 404
+
+    // CREATE: Handle the form submission and save new department (Store)
+    $routes->POST('store', 'Department::store');
+
+    // EDIT: Display the edit form for a specific department (Edit)
+    $routes->GET('edit/(:num)', 'Department::edit/$1');
+
+    // UPDATE: Handle the form submission for updating a department (Update)
+    // We use POST here, and the controller handles the method override for PUT
+    $routes->POST('update/(:num)', 'Department::update/$1');
+
+    // DELETE: Handle the soft-deletion of a department (Delete)
+    // We use POST here for the AJAX call, and the controller expects the ID
+    $routes->POST('delete/(:num)', 'Department::delete/$1');
+});
 
 
 

@@ -494,6 +494,18 @@
                             </a>
                         </li>
 
+
+                        <?php
+                        // Determine if the current URI is 'departments' or 'departments/create/edit/...'
+                        $isDepartmentActive = strpos(uri_string(), 'departments') !== false;
+                        ?>
+
+                        <li class="nav-item">
+                            <a href="<?= base_url('departments') ?>" class="nav-link <?= $isDepartmentActive ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-hospital"></i>
+                                <p>Hospital Departments</p>
+                            </a>
+                        </li>
                     <?php endif;     ?>
 
 
