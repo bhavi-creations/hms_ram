@@ -3,13 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\WardModel;
-use App\Models\BedModel; // Ensure BedModel is used if its methods are called within Wards controller
+use App\Models\BedModel;
 use CodeIgniter\Controller;
 
 class Wards extends BaseController
 {
     protected $wardModel;
-    protected $bedModel; // Keep this as it's used in your provided code (e.g., in delete, addBedsToWard)
+    protected $bedModel;
 
     public function __construct()
     {
@@ -22,7 +22,6 @@ class Wards extends BaseController
 
     /**
      * Displays a list of all wards.
-     * This is the main view for ward management.
      */
     public function index()
     {
@@ -50,8 +49,9 @@ class Wards extends BaseController
      */
     public function store()
     {
-        // Validate the incoming request data
-        // Assuming WardModel has validation rules defined
+        // Rely on Model's internal validation rules
+        $validation = \Config\Services::validation();
+
         if (!$this->validate($this->wardModel->validationRules)) {
             // If validation fails, redirect back to the form with input and errors
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -77,8 +77,13 @@ class Wards extends BaseController
             session()->setFlashdata('success', 'Ward and its beds created successfully!');
             return redirect()->to(base_url('wards'));
         } else {
-            // Set error flash message if ward creation fails
-            session()->setFlashdata('error', 'Failed to create ward. Please try again.');
+            // Use Model errors if available, otherwise show generic error
+            $errors = $this->wardModel->errors();
+            $errorMessage = 'Failed to create ward. Please try again.';
+            if (!empty($errors)) {
+                $errorMessage = "Failed to create ward due to validation issues: " . implode(', ', $errors);
+            }
+            session()->setFlashdata('error', $errorMessage);
             return redirect()->back()->withInput();
         }
     }
@@ -120,21 +125,10 @@ class Wards extends BaseController
             return redirect()->to(base_url('wards'));
         }
 
-        // IMPORTANT: Temporarily set the validation rule for 'name' to allow self-update
-        // This assumes your WardModel has a 'name' rule.
-        $validationRules = $this->wardModel->validationRules;
-        if (isset($validationRules['name'])) {
-            $validationRules['name'] = "required|min_length[3]|max_length[100]|is_unique[wards.name,id,{$id}]";
-        }
-        
-        // Validate the incoming request data using the modified rules
-        if (!$this->validate($validationRules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
         // Prepare data for ward update
         $newCapacity = (int)$this->request->getPost('capacity');
         $newPrefix   = strtoupper($this->request->getPost('bed_prefix'));
+        
         $wardData = [
             'name'        => $this->request->getPost('name'),
             'description' => $this->request->getPost('description'),
@@ -142,10 +136,17 @@ class Wards extends BaseController
             'bed_prefix'  => $newPrefix,
             'status'      => $this->request->getPost('status'),
         ];
+        
+        // =========================================================================
+        // USER REQUEST: Skip validation during the update process.
+        // This is done by setting the skipValidation flag on the model.
+        $this->wardModel->skipValidation(true); 
+        // =========================================================================
 
         // Update the ward data in the database
         if ($this->wardModel->update($id, $wardData)) {
-            // Handle bed capacity changes
+            
+            // Handle bed capacity changes only if the update succeeded
             $oldCapacity = (int)$oldWard['capacity'];
             $oldPrefix   = $oldWard['bed_prefix'];
 
@@ -161,10 +162,25 @@ class Wards extends BaseController
                 $this->regenerateAllBedsForWard($id, $newPrefix, $newCapacity);
             }
 
+            // Reset validation skipping after successful operation
+            $this->wardModel->skipValidation(false); 
             session()->setFlashdata('success', 'Ward and its beds updated successfully!');
             return redirect()->to(base_url('wards'));
         } else {
-            session()->setFlashdata('error', 'Failed to update ward. Please try again.');
+            // Reset validation skipping after failed operation (in case of a non-validation error)
+            $this->wardModel->skipValidation(false); 
+
+            // Get specific errors from the Model (mostly to capture non-validation issues, 
+            // though validation is now skipped)
+            $errors = $this->wardModel->errors();
+            
+            if (!empty($errors)) {
+                // Fallback for true database error or other internal failure
+                $errorMessage = "Failed to update ward. Database/Internal error: " . implode(', ', $errors);
+                session()->setFlashdata('error', $errorMessage);
+            } else {
+                session()->setFlashdata('error', 'Failed to update ward. Please try again. (Database operation failed)');
+            }
             return redirect()->back()->withInput();
         }
     }
@@ -197,9 +213,6 @@ class Wards extends BaseController
      */
     protected function generateBedsForWard(int $wardId, string $prefix, int $capacity)
     {
-        // Ensure BedModel has generateBedNumbers method or replace with direct logic
-        // For now, assuming generateBedNumbers exists and returns an array of bed numbers
-        // Example: ['BED-1', 'BED-2']
         $bedNumbers = [];
         for ($i = 1; $i <= $capacity; $i++) {
             $bedNumbers[] = strtoupper($prefix) . '-' . $i;
@@ -230,7 +243,6 @@ class Wards extends BaseController
     protected function addBedsToWard(int $wardId, string $prefix, int $newCapacity, int $oldCapacity)
     {
         // Get the highest bed number ever used for this ward, including soft-deleted ones
-        // This method should be in BedModel
         $highestExistingBed = $this->bedModel->where('ward_id', $wardId)
                                              ->withDeleted() // Include soft-deleted records
                                              ->orderBy('id', 'DESC') // Order by ID to get the latest created bed
@@ -241,14 +253,16 @@ class Wards extends BaseController
             // Extract numeric part from bed_number (e.g., "BED-5" -> 5)
             $parts = explode('-', $highestExistingBed['bed_number']);
             if (count($parts) > 1 && is_numeric(end($parts))) {
-                $highestExistingNumber = (int)end($parts);
+                // Find the highest numeric index used 
+                $numericPart = (int)end($parts);
+                if ($numericPart > $highestExistingNumber) {
+                     $highestExistingNumber = $numericPart;
+                }
             }
         }
-
-        $startNumberForNewBeds = $highestExistingNumber > 0 ? $highestExistingNumber + 1 : 1;
-
+        
         $bedsToInsert = [];
-        for ($i = $startNumberForNewBeds; $i <= $newCapacity; $i++) { // Loop up to newCapacity
+        for ($i = $oldCapacity + 1; $i <= $newCapacity; $i++) {
             $fullBedNumber = strtoupper($prefix) . '-' . $i;
 
             // Check if a bed with this full bed number already exists (even if soft-deleted)
@@ -289,13 +303,12 @@ class Wards extends BaseController
      */
     protected function removeBedsFromWard(int $wardId, string $prefix, int $newCapacity, int $oldCapacity)
     {
-        // Get all currently active beds for the ward, ordered by bed number descending
+        // Get all currently active beds for the ward
         $beds = $this->bedModel->where('ward_id', $wardId)
-                               ->orderBy('bed_number', 'DESC') // Order by bed_number to remove highest first
                                ->findAll();
 
         $bedsToDeleteIds = [];
-        $bedsToKeepCount = 0;
+        $cannotDeleteBeds = [];
 
         foreach ($beds as $bed) {
             // Extract the numeric part of the bed_number (e.g., from GEN-5 get 5)
@@ -303,15 +316,20 @@ class Wards extends BaseController
 
             if ($numericPart > $newCapacity) {
                 // If the numeric part is greater than the new capacity, mark for deletion
-                // But only if it's not currently occupied
                 if ($bed['status'] === 'Available' || $bed['status'] === 'Under Maintenance' || $bed['status'] === 'Dirty') {
-                     $bedsToDeleteIds[] = $bed['id'];
+                    $bedsToDeleteIds[] = $bed['id'];
                 } else {
-                    // Log or handle: Cannot delete occupied bed
-                    session()->setFlashdata('error', "Cannot reduce capacity. Bed " . $bed['bed_number'] . " is currently occupied.");
-                    // You might want to prevent the update entirely or just skip this bed
+                    // Cannot delete occupied bed
+                    $cannotDeleteBeds[] = $bed['bed_number'];
                 }
             }
+        }
+        
+        // If there are occupied beds preventing capacity reduction, return an error
+        if (!empty($cannotDeleteBeds)) {
+            // NOTE: This will not stop the ward update (which already happened), 
+            // but it will inform the user why beds weren't fully removed.
+            session()->setFlashdata('error', 'Warning: Capacity reduced, but the following beds could not be removed because they are occupied: ' . implode(', ', $cannotDeleteBeds));
         }
 
         // Perform soft delete for the identified beds
