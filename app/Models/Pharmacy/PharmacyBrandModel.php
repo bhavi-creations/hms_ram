@@ -2,47 +2,36 @@
 
 use CodeIgniter\Model;
 
-class PharmacyBrandModel extends Model{
-    protected $table = 'pharmacy_billings';
-    protected $primaryKey = 'id';
-    protected $returnType = 'array';
-    protected $allowedFields = [
-        'patient_id',
-        'bill_id',
-        'bill_date',
-        'total_amount', 
-        'paid_amount',
-        'due_amount',
-        'sales_person_id' // Added this field assuming you have it
+class PharmacyBrandModel extends Model
+{
+    // --- CORE CONFIGURATION FOR pharmacy_brands TABLE ---
+    protected $table          = 'pharmacy_brands';
+    protected $primaryKey     = 'id';
+    protected $returnType     = 'array';
+    
+    // IMPORTANT FIX: Only allow fields present in the pharmacy_brands table
+    protected $allowedFields = ['brand_name']; 
+
+    // Dates
+    protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    
+    // The pharmacy_brands table schema provided does NOT have a 'deleted_at' column.
+    protected $useSoftDeletes = false; 
+
+    // Validation (Recommended for Brand Name)
+    protected $validationRules    = [
+        'brand_name' => 'required|is_unique[pharmacy_brands.brand_name,id,{id}]|min_length[2]|max_length[255]',
+    ];
+    protected $validationMessages = [
+        'brand_name' => [
+            'required'  => 'Brand name is required.',
+            'is_unique' => 'This brand name already exists.',
+            'min_length' => 'Brand name must be at least 2 characters long.',
+        ],
     ];
 
-    protected $useTimestamps = true;
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
-
-    /**
-     * Fetches in-hospital sales bills with patient and sales person names within a date range.
-     */
-    public function getInHospitalSalesByDateRange(string $startDate, string $endDate)
-    {
-        return $this->select('pharmacy_billings.*, patients.first_name, patients.last_name, users.first_name as sales_person_first_name, users.last_name as sales_person_last_name')
-                    ->join('patients', 'patients.id = pharmacy_billings.patient_id') // Correct join field
-                    ->join('users', 'users.id = pharmacy_billings.sales_person_id') // Correct join field
-                    ->where('bill_date >=', $startDate . ' 00:00:00')
-                    ->where('bill_date <=', $endDate . ' 23:59:59')
-                    ->orderBy('bill_date', 'DESC')
-                    ->findAll();
-    }
-
-    /**
-     * Fetches a single invoice details for an in-hospital patient.
-     */
-    public function getInHospitalInvoiceDetails(string $invoiceNumber)
-    {
-        return $this->select('pharmacy_billings.*, patients.first_name, patients.last_name, users.first_name as sales_person_first_name, users.last_name as sales_person_last_name')
-                    ->join('patients', 'patients.id = pharmacy_billings.patient_id') // Correct join field
-                    ->join('users', 'users.id = pharmacy_billings.sales_person_id') // Correct join field
-                    ->where('bill_id', $invoiceNumber)
-                    ->first();
-    }
+    // --- REMOVED: All Bill-related methods (getInHospitalSalesByDateRange, getInHospitalInvoiceDetails) ---
+    // These methods belong in a separate PharmacyBillingModel.
 }
