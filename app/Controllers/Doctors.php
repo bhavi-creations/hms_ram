@@ -322,39 +322,22 @@ class Doctors extends BaseController
 
 
     public function view($id = null)
-
     {
-
         // Fetch doctor details, including the department name
-
         $doctor = $this->doctorModel
-
             ->select('doctors.*, hospital_departments.name AS department_name, users.username AS user_username, users.email AS user_email')
-
             ->join('hospital_departments', 'hospital_departments.id = doctors.department_id', 'left')
-
             ->join('users', 'users.id = doctors.user_id', 'left') // Join with users table to get username/email
-
             ->find($id);
 
-
-
         if (!$doctor) {
-
             return redirect()->to(base_url('doctors'))->with('error', 'Doctor not found.');
         }
 
-
-
         $data = [
-
             'title'  => 'Doctor Details',
-
             'doctor' => $doctor,
-
         ];
-
-
 
         return view('doctors/view', $data);
     }

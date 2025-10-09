@@ -29,6 +29,10 @@ class UserModel extends Model
 
     // Validation rules (critical updates here)
     protected $validationRules      = [
+        // CRITICAL FIX: Add validation rule for 'id'. This is required by the
+        // 'is_unique' rule's {id} placeholder when model validation runs.
+        'id'           => 'required|is_natural_no_zero', 
+
         // Ensure username is unique for new records, but ignore the current record's ID on update
         'username' => 'required|min_length[3]|max_length[100]|is_unique[users.username,id,{id}]', 
         
@@ -62,7 +66,7 @@ class UserModel extends Model
         
         // If the password field is empty or not provided on update, remove it from the data array
         else if (isset($data['data']['password']) && $data['data']['password'] === '') {
-             unset($data['data']['password']);
+              unset($data['data']['password']);
         }
 
         return $data;

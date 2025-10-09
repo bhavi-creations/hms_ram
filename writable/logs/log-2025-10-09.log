@@ -1,597 +1,133 @@
-DEBUG - 2025-10-09 09:24:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:23 --> Login attempt for username/email: admin
-DEBUG - 2025-10-09 09:24:23 --> User found, verifying password for: admin
-DEBUG - 2025-10-09 09:24:23 --> Password matched. Setting session for: admin
-DEBUG - 2025-10-09 09:24:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:24:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:25:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:25:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:30:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:30:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:30:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:31:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:31:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:33:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:33:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:34:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:34:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:34:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:34:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:34:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:34:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:35:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:36:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:36:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:36:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:36:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:36:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:36:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:36:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:37:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:40:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:41:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 09:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:01:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:01:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:01:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:02:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:03:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:05:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:05:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:05:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:05:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:05:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:05:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:06:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:07:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:10:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:13:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:14:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:15:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:15:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:22:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:56:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:56:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 10:59:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:02:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:02:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:02:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:02:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:03:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:03:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:03:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:03:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:03:14 --> Login attempt for username/email: ramesh
-DEBUG - 2025-10-09 11:03:14 --> User found, verifying password for: ramesh
-DEBUG - 2025-10-09 11:03:14 --> Password matched. Setting session for: ramesh
-DEBUG - 2025-10-09 11:03:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:03:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:03:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:04:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:04:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:04:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:05:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:05:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-WARNING - 2025-10-09 11:05:06 --> [DEPRECATED] str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in APPPATH\Views\doctors\edit.php on line 242.
- 1 APPPATH\Views\doctors\edit.php(242): str_replace(' ', 'T', null)
- 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hms_ram\\app\\Views\\doctors\\edit.php')
- 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('doctors/edit', [], true)
- 5 APPPATH\Controllers\Doctors.php(78): view('doctors/edit', [...])
- 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Doctors->edit('43')
- 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Doctors))
+DEBUG - 2025-10-09 16:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:07:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:07:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:07:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:07:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:07:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:07:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:07:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:10:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:12:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:14:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:14:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:14:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:15:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:15:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:15:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:16:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:16:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:19:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:19:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:23:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:23:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:26:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:26:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:26:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:26:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:26:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-09 16:26:19 --> CodeIgniter\Exceptions\LogicException: No validation rules for the placeholder: "id". You must set the validation rules for the field. See <https://codeigniter4.github.io/userguide/libraries/validation.html#validation-placeholders>.
+[Method: POST, Route: users/save]
+in SYSTEMPATH\Validation\Validation.php on line 803.
+ 1 SYSTEMPATH\Validation\Validation.php(155): CodeIgniter\Validation\Validation->fillPlaceholders([...], [...])
+ 2 SYSTEMPATH\BaseModel.php(1580): CodeIgniter\Validation\Validation->run([...], null, null)
+ 3 SYSTEMPATH\BaseModel.php(1003): CodeIgniter\BaseModel->validate([...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\Users\Users.php(48): CodeIgniter\Model->update('1', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Users\Users->save()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Users\Users))
  8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
 10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 11 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 11:05:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:05:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:05:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:05:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:05:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:09:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:09:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:09:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:09:27 --> Login attempt for username/email: PAT-251007-00042
-DEBUG - 2025-10-09 11:09:27 --> User found, verifying password for: PAT-251007-00042
-DEBUG - 2025-10-09 11:09:28 --> Password matched. Setting session for: PAT-251007-00042
-DEBUG - 2025-10-09 11:09:28 --> PatientAuthFilter: Attempting to process URI: /hms_ram/index.php/patient-portal/dashboard
-DEBUG - 2025-10-09 11:09:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:09:28 --> PatientAuthFilter: Authentication check successful. isLoggedIn=1, roleId=10.
-INFO - 2025-10-09 11:09:28 --> PatientDashboard - Attempting to recover missing patient_id using patient_id_code: PAT-251007-00042
-INFO - 2025-10-09 11:09:28 --> PatientDashboard - Recovered missing patient_id: 47
-DEBUG - 2025-10-09 11:09:28 --> Doctor IDs found in Map: 
-DEBUG - 2025-10-09 11:14:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:14:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 11:14:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:18:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:18:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:19:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-10-09 12:19:02 --> mysqli_sql_exception: Unknown column 'brand_name' in 'order clause' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
-Stack trace:
-#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
-#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
-#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
-#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
-#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
-#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
-#6 C:\xampp\htdocs\hms_ram\app\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
-#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
-#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
-#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
-#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#13 {main}
-CRITICAL - 2025-10-09 12:19:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand_name' in 'order clause'
-[Method: GET, Route: pharmacy/brands]
-in SYSTEMPATH\Database\BaseConnection.php on line 692.
- 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', [], false)
- 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
- 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
- 4 APPPATH\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
- 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
- 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
- 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
- 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 12:19:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand_name' in 'order clause'
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
- 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', [], false)
- 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
- 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
- 6 APPPATH\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 12:19:02 --> [Caused by] mysqli_sql_exception: Unknown column 'brand_name' in 'order clause'
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
- 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', 0)
- 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', [], false)
- 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
- 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
- 7 APPPATH\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
- 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
- 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
-10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 12:19:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:19:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-10-09 12:19:54 --> mysqli_sql_exception: Unknown column 'brand_name' in 'order clause' in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
-Stack trace:
-#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
-#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
-#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
-#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
-#4 C:\xampp\htdocs\hms_ram\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
-#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
-#6 C:\xampp\htdocs\hms_ram\app\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
-#7 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
-#8 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
-#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#10 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
-#11 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#12 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#13 {main}
-CRITICAL - 2025-10-09 12:19:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand_name' in 'order clause'
-[Method: GET, Route: pharmacy/brands]
-in SYSTEMPATH\Database\BaseConnection.php on line 692.
- 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', [], false)
- 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
- 3 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
- 4 APPPATH\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
- 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
- 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
- 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
- 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-10 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 12:19:54 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand_name' in 'order clause'
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
- 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', [], false)
- 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
- 5 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
- 6 APPPATH\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 12:19:54 --> [Caused by] mysqli_sql_exception: Unknown column 'brand_name' in 'order clause'
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
- 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', 0)
- 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`')
- 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
-FROM `pharmacy_billings`
-ORDER BY `brand_name`', [], false)
- 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
- 6 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFindAll(0, 0)
- 7 APPPATH\Controllers\Pharmacy\Brands.php(19): CodeIgniter\BaseModel->findAll()
- 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->index()
- 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
-10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-13 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 12:21:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:21:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:23:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:23:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:23:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:24:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:24:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:24:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:28:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:28:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:28:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2025-10-09 12:28:24 --> CodeIgniter\Database\Exceptions\DataException: There is no data to insert.
-[Method: POST, Route: pharmacy/brands/store]
-in SYSTEMPATH\BaseModel.php on line 829.
- 1 SYSTEMPATH\BaseModel.php(829): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('insert')
- 2 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([], true)
- 3 APPPATH\Controllers\Pharmacy\Brands.php(48): CodeIgniter\Model->insert([...])
- 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Pharmacy\Brands->store()
- 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pharmacy\Brands))
- 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
- 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
- 9 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 12:29:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:29:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:29:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:29:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:29:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:29:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:29:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 12:29:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:29:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:29:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:30:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:30:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:30:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:30:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:30:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:30:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:30:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:35:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:35:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:35:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:35:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:35:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:38:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:40:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:40:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:40:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:40:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:40:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:40:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:41:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:41:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:41:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:42:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:42:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:42:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:43:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:43:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:43:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:44:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:44:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:44:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:44:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:44:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:45:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:45:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:45:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:46:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:46:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:47:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-10-09 14:47:22 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
-Stack trace:
-#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
-#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
-#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
-#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
-#4 C:\xampp\htdocs\hms_ram\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
-#6 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
-#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
-#8 C:\xampp\htdocs\hms_ram\app\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save(Array)
-#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
-#10 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
-#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#12 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
-#13 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#14 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#15 {main}
-CRITICAL - 2025-10-09 14:47:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
-[Method: POST, Route: staff/save]
-in SYSTEMPATH\Database\BaseConnection.php on line 692.
- 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (:first_name:, :last_name:, :role_id:, :manager_id:, :username:, :email:, :phone_number:, :password:, :address:, :created_at:, :updated_at:)', [...], false)
- 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
- 3 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
- 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
- 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
- 6 APPPATH\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save([...])
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 14:47:22 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
- 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$5HFEm6gO2/8kf.9JGWJif.nrYM7G2RT1RRyCXbnN65Ubv.t1JUKfG\', \'\', \'2025-10-09 14:47:22\', \'2025-10-09 14:47:22\')')
- 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$5HFEm6gO2/8kf.9JGWJif.nrYM7G2RT1RRyCXbnN65Ubv.t1JUKfG\', \'\', \'2025-10-09 14:47:22\', \'2025-10-09 14:47:22\')')
- 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (:first_name:, :last_name:, :role_id:, :manager_id:, :username:, :email:, :phone_number:, :password:, :address:, :created_at:, :updated_at:)', [...], false)
- 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
- 5 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
- 6 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
- 7 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
- 8 APPPATH\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save([...])
- 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
-10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
-11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-14 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 14:47:22 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
- 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$5HFEm6gO2/8kf.9JGWJif.nrYM7G2RT1RRyCXbnN65Ubv.t1JUKfG\', \'\', \'2025-10-09 14:47:22\', \'2025-10-09 14:47:22\')', 0)
- 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$5HFEm6gO2/8kf.9JGWJif.nrYM7G2RT1RRyCXbnN65Ubv.t1JUKfG\', \'\', \'2025-10-09 14:47:22\', \'2025-10-09 14:47:22\')')
- 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$5HFEm6gO2/8kf.9JGWJif.nrYM7G2RT1RRyCXbnN65Ubv.t1JUKfG\', \'\', \'2025-10-09 14:47:22\', \'2025-10-09 14:47:22\')')
- 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (:first_name:, :last_name:, :role_id:, :manager_id:, :username:, :email:, :phone_number:, :password:, :address:, :created_at:, :updated_at:)', [...], false)
- 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
- 6 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
- 7 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
- 8 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
- 9 APPPATH\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save([...])
-10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
-11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
-12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-15 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 14:47:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:47:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:47:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-10-09 14:47:47 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE) in C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php:327
-Stack trace:
-#0 C:\xampp\htdocs\hms_ram\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
-#1 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
-#2 C:\xampp\htdocs\hms_ram\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
-#3 C:\xampp\htdocs\hms_ram\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
-#4 C:\xampp\htdocs\hms_ram\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 C:\xampp\htdocs\hms_ram\system\BaseModel.php(843): CodeIgniter\Model->doInsert(Array)
-#6 C:\xampp\htdocs\hms_ram\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, false)
-#7 C:\xampp\htdocs\hms_ram\system\BaseModel.php(754): CodeIgniter\Model->insert(Array, false)
-#8 C:\xampp\htdocs\hms_ram\app\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save(Array)
-#9 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
-#10 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
-#11 C:\xampp\htdocs\hms_ram\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#12 C:\xampp\htdocs\hms_ram\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
-#13 C:\xampp\htdocs\hms_ram\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#14 C:\xampp\htdocs\hms_ram\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#15 {main}
-CRITICAL - 2025-10-09 14:47:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
-[Method: POST, Route: staff/save]
-in SYSTEMPATH\Database\BaseConnection.php on line 692.
- 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (:first_name:, :last_name:, :role_id:, :manager_id:, :username:, :email:, :phone_number:, :password:, :address:, :created_at:, :updated_at:)', [...], false)
- 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
- 3 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
- 4 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
- 5 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
- 6 APPPATH\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save([...])
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 14:47:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
- 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$AVqlcU44slswekAuGhIJhOqMojHQL3/UXA/06urHNdcsBDPfTqVnC\', \'\', \'2025-10-09 14:47:47\', \'2025-10-09 14:47:47\')')
- 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$AVqlcU44slswekAuGhIJhOqMojHQL3/UXA/06urHNdcsBDPfTqVnC\', \'\', \'2025-10-09 14:47:47\', \'2025-10-09 14:47:47\')')
- 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (:first_name:, :last_name:, :role_id:, :manager_id:, :username:, :email:, :phone_number:, :password:, :address:, :created_at:, :updated_at:)', [...], false)
- 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
- 5 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
- 6 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
- 7 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
- 8 APPPATH\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save([...])
- 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
-10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
-11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-14 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-CRITICAL - 2025-10-09 14:47:47 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`hms_ram`.`users`, CONSTRAINT `fk_manager_user` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
-in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
- 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$AVqlcU44slswekAuGhIJhOqMojHQL3/UXA/06urHNdcsBDPfTqVnC\', \'\', \'2025-10-09 14:47:47\', \'2025-10-09 14:47:47\')', 0)
- 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$AVqlcU44slswekAuGhIJhOqMojHQL3/UXA/06urHNdcsBDPfTqVnC\', \'\', \'2025-10-09 14:47:47\', \'2025-10-09 14:47:47\')')
- 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (\'Rama Rao\', \'kankipati\', \'3\', \'\', \'ramarao\', \'vkconstruntioens@gmail.com\', \'3333333321\', \'$2y$10$AVqlcU44slswekAuGhIJhOqMojHQL3/UXA/06urHNdcsBDPfTqVnC\', \'\', \'2025-10-09 14:47:47\', \'2025-10-09 14:47:47\')')
- 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`first_name`, `last_name`, `role_id`, `manager_id`, `username`, `email`, `phone_number`, `password`, `address`, `created_at`, `updated_at`) VALUES (:first_name:, :last_name:, :role_id:, :manager_id:, :username:, :email:, :phone_number:, :password:, :address:, :created_at:, :updated_at:)', [...], false)
- 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
- 6 SYSTEMPATH\BaseModel.php(843): CodeIgniter\Model->doInsert([...])
- 7 SYSTEMPATH\Model.php(800): CodeIgniter\BaseModel->insert([...], false)
- 8 SYSTEMPATH\BaseModel.php(754): CodeIgniter\Model->insert([...], false)
- 9 APPPATH\Controllers\Staff\Staff.php(65): CodeIgniter\BaseModel->save([...])
-10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->save()
-11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
-12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-15 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 14:53:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:53:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:53:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:54:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:54:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:54:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:54:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:54:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:55:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:55:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2025-10-09 14:55:07 --> CodeIgniter\Exceptions\LogicException: No validation rules for the placeholder: "id". You must set the validation rules for the field. See <https://codeigniter4.github.io/userguide/libraries/validation.html#validation-placeholders>.
-[Method: POST, Route: staff/update/35]
-in SYSTEMPATH\Validation\Validation.php on line 803.
- 1 SYSTEMPATH\Validation\Validation.php(155): CodeIgniter\Validation\Validation->fillPlaceholders([...], [...])
- 2 SYSTEMPATH\BaseModel.php(1580): CodeIgniter\Validation\Validation->run([...], null, null)
- 3 SYSTEMPATH\BaseModel.php(1003): CodeIgniter\BaseModel->validate([...])
- 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
- 5 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->update('35', [...])
- 6 APPPATH\Controllers\Staff\Staff.php(114): CodeIgniter\BaseModel->save([...])
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->update('35')
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 14:55:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2025-10-09 14:55:11 --> CodeIgniter\Exceptions\LogicException: No validation rules for the placeholder: "id". You must set the validation rules for the field. See <https://codeigniter4.github.io/userguide/libraries/validation.html#validation-placeholders>.
-[Method: POST, Route: staff/update/35]
-in SYSTEMPATH\Validation\Validation.php on line 803.
- 1 SYSTEMPATH\Validation\Validation.php(155): CodeIgniter\Validation\Validation->fillPlaceholders([...], [...])
- 2 SYSTEMPATH\BaseModel.php(1580): CodeIgniter\Validation\Validation->run([...], null, null)
- 3 SYSTEMPATH\BaseModel.php(1003): CodeIgniter\BaseModel->validate([...])
- 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
- 5 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->update('35', [...])
- 6 APPPATH\Controllers\Staff\Staff.php(114): CodeIgniter\BaseModel->save([...])
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->update('35')
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 14:55:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2025-10-09 14:55:13 --> CodeIgniter\Exceptions\LogicException: No validation rules for the placeholder: "id". You must set the validation rules for the field. See <https://codeigniter4.github.io/userguide/libraries/validation.html#validation-placeholders>.
-[Method: POST, Route: staff/update/35]
-in SYSTEMPATH\Validation\Validation.php on line 803.
- 1 SYSTEMPATH\Validation\Validation.php(155): CodeIgniter\Validation\Validation->fillPlaceholders([...], [...])
- 2 SYSTEMPATH\BaseModel.php(1580): CodeIgniter\Validation\Validation->run([...], null, null)
- 3 SYSTEMPATH\BaseModel.php(1003): CodeIgniter\BaseModel->validate([...])
- 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
- 5 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->update('35', [...])
- 6 APPPATH\Controllers\Staff\Staff.php(114): CodeIgniter\BaseModel->save([...])
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->update('35')
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 14:55:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2025-10-09 14:55:16 --> CodeIgniter\Exceptions\LogicException: No validation rules for the placeholder: "id". You must set the validation rules for the field. See <https://codeigniter4.github.io/userguide/libraries/validation.html#validation-placeholders>.
-[Method: POST, Route: staff/update/35]
-in SYSTEMPATH\Validation\Validation.php on line 803.
- 1 SYSTEMPATH\Validation\Validation.php(155): CodeIgniter\Validation\Validation->fillPlaceholders([...], [...])
- 2 SYSTEMPATH\BaseModel.php(1580): CodeIgniter\Validation\Validation->run([...], null, null)
- 3 SYSTEMPATH\BaseModel.php(1003): CodeIgniter\BaseModel->validate([...])
- 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
- 5 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->update('35', [...])
- 6 APPPATH\Controllers\Staff\Staff.php(114): CodeIgniter\BaseModel->save([...])
- 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Staff\Staff->update('35')
- 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staff\Staff))
- 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
-10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-12 FCPATH\index.php(46): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-DEBUG - 2025-10-09 14:57:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:57:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:57:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:57:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:57:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:58:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:58:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:58:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:58:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-10-09 14:59:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:27:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:27:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:27:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:27:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:27:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:29:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:29:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:29:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:30:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:30:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:30:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:30:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:30:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:31:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:32:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:32:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:32:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:32:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:32:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:32:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:32:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:33:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:33:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:34:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:35:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:36:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:36:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:36:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:36:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:36:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:39:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:40:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:40:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:40:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:40:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:40:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:41:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-09 16:42:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
