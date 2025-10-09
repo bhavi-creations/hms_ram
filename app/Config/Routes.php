@@ -29,6 +29,35 @@ $routes->group('patient-portal', ['namespace' => 'App\Controllers\Patient_portal
 });
 
 
+
+
+
+
+
+// ...
+// Place these explicit GET routes BEFORE the resource route!
+
+$routes->get('referred-persons/create', 'ReferredPerson::create');
+$routes->post('referred-persons/store', 'ReferredPerson::store');
+ 
+$routes->get('referred-persons/edit/(:num)', 'ReferredPerson::edit/$1');
+$routes->post('referred-persons/update/(:num)', 'ReferredPerson::update/$1');
+$routes->delete('referred-persons/delete/(:num)', 'ReferredPerson::delete/$1'); 
+$routes->resource('referred-persons', ['controller' => 'ReferredPerson']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ... other routes
 // ------------------------------------------------------------------
 // 2. PATIENT PORTAL PROTECTED ROUTES (FILTER APPLIED)
 // All routes in this group require the user to be authenticated (role_id=10)

@@ -480,6 +480,20 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <?php
+                        // Determine if the current URI is 'referred-persons' to apply the 'active' class
+                        $isReferredPersonsActive = uri_string() === 'referred-persons' || uri_string() === 'referred-persons/create';
+                        ?>
+
+                        <!-- Insert this list item within the 'nav-treeview' under System Config & Audit -->
+                        <li class="nav-item">
+                            <a href="<?= base_url('referred-persons') ?>" class="nav-link <?= $isReferredPersonsActive ? 'active' : '' ?>">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>Referred Persons</p>
+                            </a>
+                        </li>
+
                     <?php endif;     ?>
 
 
@@ -744,7 +758,7 @@
 
 
 
-                
+
                 <li class="nav-item">
                     <a href="<?= base_url('logout') ?>" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
