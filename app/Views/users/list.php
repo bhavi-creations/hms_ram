@@ -29,7 +29,7 @@
                         <td><?= esc($user['id']) ?></td>
                         <td><?= esc($user['first_name'] . ' ' . $user['last_name']) ?></td>
                         <td><?= esc($user['email']) ?></td>
-                        <td><?= esc($user['role_id']) // You can join with Role name in controller ?></td>
+                        <td><?= esc($user['role_name']) // You can join with Role name in controller ?></td>
                         <td><?= esc($user['status']) ?></td>
                         <td>
                             <a href="<?= base_url('users/view/' . $user['id']) ?>" class="btn btn-sm btn-info">View</a>

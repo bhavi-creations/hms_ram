@@ -19,7 +19,11 @@ class Users extends BaseController
     {
         // Fetches users, relying on the overridden find() method in UserModel 
         // to automatically join role names, if the controller were fetching all users with role names.
-        $data['users'] = $this->userModel->findAll();
+        $data['users'] = $this->userModel
+            ->select('users.*, roles.name AS role_name')
+            ->join('roles', 'roles.id = users.role_id')
+            ->findAll();
+            
         return view('users/list', $data);
     }
 
@@ -59,8 +63,8 @@ class Users extends BaseController
         $updateData = [
             // CRITICAL: The 'id' must be in the data array to resolve the {id} placeholder 
             // used in the Model's is_unique rules for email and username.
-            'id'           => $userId, 
-            
+            'id'           => $userId,
+
             // Data from the form (uses post data)
             'first_name'   => $this->request->getPost('first_name'),
             'last_name'    => $this->request->getPost('last_name'),
@@ -68,25 +72,25 @@ class Users extends BaseController
             'address'      => $this->request->getPost('address'),
             'email'        => $this->request->getPost('email'),
             'status'       => $this->request->getPost('status'),
-            
+
             // CRITICAL FIX: Add existing required fields not in the form
-            'username'     => $existingUser['username'], 
+            'username'     => $existingUser['username'],
             'role_id'      => $existingUser['role_id'],
         ];
-        
+
         // Add password if provided (model handles hashing and 'permit_empty')
         if ($this->request->getPost('password')) {
             $updateData['password'] = $this->request->getPost('password');
         }
-        
+
         // --- 3. Perform the Update (Relying ONLY on Model's built-in validation) ---
         if ($this->userModel->update($userId, $updateData)) {
             return redirect()->to(base_url('users'))->with('success', 'User updated successfully!');
         }
-        
+
         // --- 4. Handle Failure ---
         $errors = $this->userModel->errors();
-        
+
         if (!empty($errors)) {
             // Failure was due to validation (e.g., duplicate username/email).
             // Pass the model's errors back to the view.
@@ -96,7 +100,7 @@ class Users extends BaseController
         // Final fallback error if the database update failed for a non-validation reason
         return redirect()->back()->withInput()->with('error', 'Failed to save user due to a system error.');
     }
-    
+
     public function register()
     {
         $roleModel = new \App\Models\RoleModel();
