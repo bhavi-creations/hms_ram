@@ -12,6 +12,8 @@ use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\I18n\Time;
 use App\Models\AppointmentModel;
 use App\Models\PatientAdmissionModel;
+use App\Models\Diagnostics\DiagnosticsOrderModel;
+use App\Models\Laboratory\LabOrderModel;
 
 class Patients extends BaseController
 {
@@ -23,6 +25,8 @@ class Patients extends BaseController
     protected $referredPersonModel;
     protected $patientIdSequenceModel;
     protected $patientAdmissionModel;
+    protected $diagnosticsOrderModel;
+    protected $labOrderModel;
 
     public function __construct()
     {
@@ -33,6 +37,8 @@ class Patients extends BaseController
         $this->referredPersonModel = new ReferredPersonModel();
         $this->patientIdSequenceModel = new PatientIdSequenceModel();
         $this->patientAdmissionModel = new PatientAdmissionModel();
+        $this->diagnosticsOrderModel = new DiagnosticsOrderModel();
+        $this->labOrderModel = new LabOrderModel();
 
         // Load helpers
         helper('form');
@@ -471,11 +477,19 @@ class Patients extends BaseController
             $referredByPerson = $referredPersonModel->find($patient['referred_by_id']);
         }
 
+        // --- FETCH DIAGNOSTIC AND LAB DATA ---
+        // Use the patient's ID to fetch all related reports
+        $diagnostics = $this->diagnosticsOrderModel->getDiagnosticsOrdersForPatient($id);
+        $labs = $this->labOrderModel->getLabOrdersForPatient($id);
+        // --- END FETCH ---
+
         return view('patients/view_patient', [
             'title' => 'Patient Details',
             'patient' => $patient,
             'referredDoctor' => $referredDoctor,
-            'referredByPerson' => $referredByPerson
+            'referredByPerson' => $referredByPerson,
+            'diagnostics' => $diagnostics, // Pass diagnostics data
+            'labs' => $labs // Pass lab data
         ]);
     }
 
