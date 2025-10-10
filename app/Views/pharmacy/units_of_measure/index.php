@@ -15,11 +15,7 @@
                     <?= session()->getFlashdata('success') ?>
                 </div>
             <?php endif; ?>
-            <?php if (session()->getFlashdata('error')): ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= session()->getFlashdata('error') ?>
-                </div>
-            <?php endif; ?>
+      
 
             <table class="table table-striped table-hover">
                 <thead>

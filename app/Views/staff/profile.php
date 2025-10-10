@@ -72,13 +72,7 @@
                         <?php endif; ?>
 
                         <!-- Global Error Message Display (for failed profile update) -->
-                        <?php if (session()->getFlashdata('error')): ?>
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                                <?= session()->getFlashdata('error') ?>
-                            </div>
-                        <?php endif; ?>
+                
 
                         <div class="tab-content">
                             <!-- 1. Personal Details Tab (Now Editable Form) -->

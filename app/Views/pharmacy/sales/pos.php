@@ -27,14 +27,7 @@
                     <form action="<?= site_url('pharmacy/sales/process-sale') ?>" method="post" id="posForm">
                         <?= csrf_field() ?>
                         <div class="card-body">
-                            <?php if (session()->getFlashdata('error')): ?>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <?= session()->getFlashdata('error') ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            <?php endif; ?>
+                                
 
                             <?php if (isset($errors)): ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">

@@ -90,9 +90,8 @@
 
 <?= $this->section('scripts') ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    // SweetAlert for success and error messages
-    $(document).ready(function() {
+<!-- <script>
+     $(document).ready(function() {
         <?php if (session()->getFlashdata('success')): ?>
             Swal.fire({
                 icon: 'success',
@@ -109,5 +108,5 @@
             });
         <?php endif; ?>
     });
-</script>
+</script> -->
 <?= $this->endSection() ?>

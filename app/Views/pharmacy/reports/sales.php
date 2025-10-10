@@ -71,14 +71,7 @@
                             </button>
                         </div>
                     <?php endif; ?>
-                    <?php if (session()->getFlashdata('error')) : ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?= session()->getFlashdata('error') ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php endif; ?>
+                   
 
                     <table class="table table-bordered table-striped" id="manageSalesTable">
                         <thead>
@@ -154,20 +147,5 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-<script>
-    $(document).ready(function() {
-        $('#manageSalesTable').DataTable({
-            responsive: true,
-            lengthChange: true,
-            autoWidth: false,
-            searching: true,
-            ordering: true,
-            paging: true,
-            info: true,
-            order: [
-                [1, 'desc']
-            ] // Sort by date column
-        });
-    });
-</script>
+ 
 <?= $this->endSection() ?>

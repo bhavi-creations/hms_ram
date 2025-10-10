@@ -34,15 +34,7 @@
                             </button>
                         </div>
                     <?php endif; ?>
-                    <?php if (session()->getFlashdata('error')) : ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?= session()->getFlashdata('error') ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php endif; ?>
-
+         
                     <form class="form-inline mb-3" action="<?= site_url('pharmacy/reports/stock') ?>" method="get">
                         <label for="low_stock_threshold" class="mr-2">Low Stock Threshold:</label>
                         <input type="number" class="form-control mr-2" id="low_stock_threshold" name="low_stock_threshold" value="<?= esc($lowStockThreshold ?? 10) ?>" min="0">
