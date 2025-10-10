@@ -23,6 +23,14 @@
                             <h4>Doctor Details</h4>
                             <hr>
                             <p><strong>Doctor Name:</strong> <?= esc($order['doctor_first_name'] . ' ' . $order['doctor_last_name']) ?></p>
+                            <p><strong>Order Status:</strong>
+                                <span class="badge 
+                                    <?php if ($order['status'] == 'Completed') echo 'bg-success';
+                                    elseif ($order['status'] == 'In Progress') echo 'bg-warning text-dark';
+                                    else echo 'bg-secondary'; ?>">
+                                    <?= esc($order['status']) ?>
+                                </span>
+                            </p>
                         </div>
                     </div>
 

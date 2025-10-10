@@ -611,6 +611,7 @@ class Diagnostics extends BaseController
     public function viewReport($orderId)
     {
         // 1. Fetch the Order details (including patient/doctor info)
+        // Assumes getReportData correctly joins users and aliases names to doctor_first_name/doctor_last_name
         $order = $this->orderModel->getReportData($orderId);
 
         if (!$order) {
@@ -625,7 +626,7 @@ class Diagnostics extends BaseController
         // 3. FETCH THE FILES
         $orderFiles = $this->orderFileModel->getFilesByOrderId($orderId);
 
-        // --- NEW: Group files by item ID and merge into order items ---
+        // --- Group files by item ID and merge into order items ---
         $groupedFiles = [];
 
         // Group files by the item ID they belong to
@@ -656,6 +657,7 @@ class Diagnostics extends BaseController
         // 4. Load the correct view file
         return view('diagnostics/view_report_page', $data);
     }
+
     public function deleteFile($fileId)
     {
         $diagnosticsOrderFileModel = new DiagnosticsOrderFileModel();

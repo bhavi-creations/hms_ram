@@ -9,6 +9,7 @@ use App\Models\Laboratory\LabTestModel;
 use App\Models\Laboratory\LabTestTypeModel;
 use App\Models\Laboratory\LabOrderFileModel;
 use App\Models\PatientModel;
+use App\Models\DoctorModel;
 use App\Models\UserModel;
 
 class Laboratory extends BaseController
@@ -19,6 +20,7 @@ class Laboratory extends BaseController
     protected $labTestTypeModel;
     protected $patientModel;
     protected $userModel;
+    protected $doctorModel;
     protected $labOrderFileModel;
 
     public function __construct()
@@ -27,6 +29,7 @@ class Laboratory extends BaseController
         $this->labOrderItemModel = new LabOrderItemModel();
         $this->labTestModel = new LabTestModel();
         $this->labTestTypeModel = new LabTestTypeModel();
+        $this->doctorModel    = new DoctorModel();
         $this->patientModel = new PatientModel();
         $this->userModel = new UserModel();
         $this->labOrderFileModel = new LabOrderFileModel();
@@ -347,11 +350,25 @@ class Laboratory extends BaseController
 
     public function viewReport($orderId)
     {
-         
+        // Fetch the Lab Order details. We explicitly join 'patients' and 'doctors'.
         $order = $this->labOrderModel
-            ->select('lab_orders.*, patients.first_name as patient_first_name, patients.last_name as patient_last_name, patients.patient_id_code as patient_id_code, patients.phone_number as phone_number, users.first_name as doctor_first_name, users.last_name as doctor_last_name')
+            ->select('
+            lab_orders.*, 
+            patients.first_name as patient_first_name, 
+            patients.last_name as patient_last_name, 
+            patients.patient_id_code as patient_id_code, 
+            patients.phone_number as phone_number, 
+            doctors.first_name as doctor_first_name, 
+            doctors.last_name as doctor_last_name
+        ')
+            // Join to get patient details
             ->join('patients', 'patients.id = lab_orders.patient_id')
-            ->join('users', 'users.id = lab_orders.ordered_by')
+
+            // FIX: Replaced leftJoin() with the standard join() method, 
+            // passing 'left' as the third parameter for a LEFT JOIN.
+            // This ensures we get the Doctor's name based on the patient's referred_to_doctor_id.
+            ->join('doctors', 'doctors.id = patients.referred_to_doctor_id', 'left')
+
             ->where('lab_orders.id', $orderId)
             ->first();
 
@@ -359,6 +376,7 @@ class Laboratory extends BaseController
             return redirect()->back()->with('error', 'Order not found.');
         }
 
+        // Fetch the items for this lab order
         $orderItems = $this->labOrderItemModel
             ->select('lab_order_items.*, lab_tests.name as test_name, lab_test_types.name as test_type_name')
             ->join('lab_tests', 'lab_tests.id = lab_order_items.lab_test_id')
@@ -366,8 +384,9 @@ class Laboratory extends BaseController
             ->where('lab_order_items.lab_order_id', $orderId)
             ->findAll();
 
-         
+        // Group and attach files to each order item
         foreach ($orderItems as &$item) {
+            // Assuming labOrderFileModel->getFilesByOrderItem fetches files based on item ID
             $item['files'] = $this->labOrderFileModel->getFilesByOrderItem($item['id']);
         }
 
@@ -379,9 +398,11 @@ class Laboratory extends BaseController
 
         return view('laboratory/view_report_page', $data);
     }
-
-
     
+
+
+
+
     public function saveResult()
     {
         $post = $this->request->getPost();
@@ -439,7 +460,7 @@ class Laboratory extends BaseController
     }
 
 
-     
+
     public function deleteFile($fileId)
     {
         // Find the file record in the database
@@ -467,7 +488,7 @@ class Laboratory extends BaseController
 
     public function reports()
     {
-       
+
         $builder = $this->labOrderModel->builder();
         $builder->select('lab_orders.*, lab_orders.id AS order_id, 
                            IFNULL(patients.patient_id_code, "N/A") AS patient_id,
@@ -504,7 +525,7 @@ class Laboratory extends BaseController
 
 
 
- 
+
     // public function view_report($orderId)
     // {
     //     $order = $this->labOrderModel->find($orderId);
@@ -521,7 +542,7 @@ class Laboratory extends BaseController
     //     ]);
     // }
 
-  
+
     // public function edit_report($orderId)
     // {
     //     $order = $this->labOrderModel->find($orderId);
@@ -553,7 +574,7 @@ class Laboratory extends BaseController
 
     // public function view_report_page($orderId)
     // {
-    
+
     //     $order = $this->labOrderModel->builder()
     //         ->select('lab_orders.*, patients.patient_name, patients.phone_number, patients.patient_id_code, users.name as doctor_name')
     //         ->join('patients', 'patients.id = lab_orders.patient_id')
@@ -601,7 +622,7 @@ class Laboratory extends BaseController
 
     // public function delete_report($orderId)
     // {
-        
+
     //     $files = $this->labOrderFileModel->getFilesByOrderItem($orderId);
     //     foreach ($files as $file) {
     //         $filePath = ROOTPATH . 'public/uploads/laboratory/' . $file['file_path'];
@@ -611,7 +632,7 @@ class Laboratory extends BaseController
     //     }
     //     $this->labOrderFileModel->where('lab_order_item_id', $orderId)->delete();
 
-        
+
     //     $this->labOrderModel->delete($orderId);
 
     //     return redirect()->to(base_url('laboratory/reports'))->with('success', 'Report and associated files deleted successfully.');
