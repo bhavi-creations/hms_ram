@@ -32,7 +32,6 @@
                                 <th>Order Code</th>
                                 <th>Order Date</th>
                                 <th>Service/Test</th>
-                                <!-- <th>Prescribed By</th> -->
                                 <th>Status</th>
                                 <th>Results</th>
                             </tr>
@@ -43,23 +42,37 @@
                                 <td><?= $i++ ?></td>
                                 <td><?= esc($lab['order_id_code']) ?></td>
                                 <td><?= esc($lab['order_date']) ?></td>
-                                <td><?= esc($lab['test_name'] ?? 'N/A') ?></td>
-                                <!-- <td><?= esc($lab['doctor_id'] ?? 'N/A') ?></td> -->
+                                <!-- Display aggregated test names fetched from the model -->
+                                <td><?= esc($lab['test_names'] ?? 'N/A') ?></td>
                                 <td>
                                     <?php 
-                                        $status = esc($lab['status']);
-                                        $badgeClass = 'badge-secondary';
-                                        if ($status == 'Pending') $badgeClass = 'badge-warning';
-                                        if ($status == 'Processing') $badgeClass = 'badge-info';
-                                        if ($status == 'Completed') $badgeClass = 'badge-success';
+                                         $status = esc($lab['status']);
+                                         $badgeClass = 'badge-secondary';
+                                         if ($status == 'Pending') $badgeClass = 'badge-warning';
+                                         if ($status == 'Processing') $badgeClass = 'badge-info';
+                                         if ($status == 'Completed') $badgeClass = 'badge-success';
                                     ?>
                                     <span class="badge <?= $badgeClass ?>"><?= $status ?></span>
                                 </td>
                                 <td>
-                                    <?php if ($status == 'Completed'): ?>
-                                        <button class="btn btn-sm btn-success" onclick="alert('Lab Results for Order: <?= esc($lab['order_id_code']) ?> are ready.')">View Results</button>
+                                    <?php 
+                                        // The model returns a comma-separated string of file paths.
+                                        $filePaths = explode(',', $lab['report_file_paths'] ?? '');
+                                        $firstFile = trim($filePaths[0] ?? '');
+                                        $hasReports = !empty($firstFile);
+                                    ?>
+                                    <?php if ($status == 'Completed' && $hasReports): ?>
+                                        <!-- Secure link to the new viewLabReport method -->
+                                        <a href="<?= base_url('patient-portal/view-lab-report/' . urlencode($firstFile)) ?>" target="_blank" class="btn btn-sm btn-success">
+                                            <i class="fas fa-file-pdf"></i> View Report 
+                                        </a>
+                                        <?php if (count($filePaths) > 1): ?>
+                                            <span class="text-muted text-sm ml-1">(+<?= count($filePaths) - 1 ?> files)</span>
+                                        <?php endif; ?>
+                                    <?php elseif ($status == 'Completed'): ?>
+                                        <span class="text-danger text-sm">Report Missing</span>
                                     <?php else: ?>
-                                        <span class="text-muted">N/A</span>
+                                        <span class="text-muted">Awaiting Completion</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>

@@ -29,7 +29,17 @@ $routes->group('patient-portal', ['namespace' => 'App\Controllers\Patient_portal
 });
 
 
+$routes->group('patient-portal', ['filter' => 'patientauth', 'namespace' => 'App\Controllers\Patient_portal'], function ($routes) {
+    $routes->get('dashboard', 'PatientPortalController::dashboard');
+    $routes->get('appointments', 'PatientPortalController::appointments');
+    $routes->get('labs', 'PatientPortalController::labs');
+    $routes->get('diagnostics', 'PatientPortalController::diagnostics');
+    $routes->get('invoices', 'PatientPortalController::invoices');
+    $routes->get('test-dashboard', 'PatientPortalController::dashboard');  
+    $routes->get('view-report/(:segment)', 'PatientPortalController::viewReport/$1');
+    $routes->get('view-lab-report/(:segment)', 'PatientPortalController::viewLabReport/$1');
 
+});
 
 
 
@@ -39,10 +49,10 @@ $routes->group('patient-portal', ['namespace' => 'App\Controllers\Patient_portal
 
 $routes->get('referred-persons/create', 'ReferredPerson::create');
 $routes->post('referred-persons/store', 'ReferredPerson::store');
- 
+
 $routes->get('referred-persons/edit/(:num)', 'ReferredPerson::edit/$1');
 $routes->post('referred-persons/update/(:num)', 'ReferredPerson::update/$1');
-$routes->delete('referred-persons/delete/(:num)', 'ReferredPerson::delete/$1'); 
+$routes->delete('referred-persons/delete/(:num)', 'ReferredPerson::delete/$1');
 $routes->resource('referred-persons', ['controller' => 'ReferredPerson']);
 
 
@@ -54,22 +64,10 @@ $routes->resource('referred-persons', ['controller' => 'ReferredPerson']);
 $routes->group('departments', ['filter' => 'auth'], function ($routes) {
     // READ: List all departments (Index)
     $routes->GET('/', 'Department::index');
-
-    // CREATE: Display the creation form
     $routes->GET('create', 'Department::create'); // <-- This is the route that fixed your 404
-
-    // CREATE: Handle the form submission and save new department (Store)
     $routes->POST('store', 'Department::store');
-
-    // EDIT: Display the edit form for a specific department (Edit)
     $routes->GET('edit/(:num)', 'Department::edit/$1');
-
-    // UPDATE: Handle the form submission for updating a department (Update)
-    // We use POST here, and the controller handles the method override for PUT
     $routes->POST('update/(:num)', 'Department::update/$1');
-
-    // DELETE: Handle the soft-deletion of a department (Delete)
-    // We use POST here for the AJAX call, and the controller expects the ID
     $routes->POST('delete/(:num)', 'Department::delete/$1');
 });
 
@@ -82,15 +80,6 @@ $routes->group('departments', ['filter' => 'auth'], function ($routes) {
 // 2. PATIENT PORTAL PROTECTED ROUTES (FILTER APPLIED)
 // All routes in this group require the user to be authenticated (role_id=10)
 // ------------------------------------------------------------------
-$routes->group('patient-portal', ['filter' => 'patientauth', 'namespace' => 'App\Controllers\Patient_portal'], function ($routes) {
-    $routes->get('dashboard', 'PatientPortalController::dashboard');
-    $routes->get('appointments', 'PatientPortalController::appointments');
-    $routes->get('labs', 'PatientPortalController::labs');
-    $routes->get('diagnostics', 'PatientPortalController::diagnostics');
-    // FIX: Added the missing route for invoices
-    $routes->get('invoices', 'PatientPortalController::invoices');
-    $routes->get('test-dashboard', 'PatientPortalController::dashboard'); // Kept for your testing
-});
 
 
 

@@ -10,6 +10,7 @@ class DiagnosticsOrderModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'patient_id',
+        'procedure_id', // Assuming this field exists to link to the procedures table
         'ordered_by',
         'order_date',
         'status',
@@ -128,12 +129,44 @@ class DiagnosticsOrderModel extends Model
     }
 
 
-        public function getDiagnosticsOrdersForPatient(int $patientId)
+    /**
+     * Fetches diagnostic orders for a patient, joining related tables
+     * to get the procedure name and report file path.
+     * * IMPORTANT: This implementation uses GROUP_CONCAT to handle multiple tests or files per order.
+     * The procedure_name and report_file_path will be comma-separated lists if multiple items exist.
+     * * @param int $patientId The ID of the patient.
+     * @return array An array of diagnostic orders with joined data.
+     */
+    public function getDiagnosticsOrdersForPatient(int $patientId)
     {
-        // Join to the 'users' table using 'ordered_by' field to retrieve the doctor's name.
-        return $this->select("diagnostics_orders.*, CONCAT_WS(' ', users.first_name, users.last_name) as doctor_name")
+        return $this->select("
+                diagnostics_orders.*, 
+                CONCAT_WS(' ', users.first_name, users.last_name) as doctor_name,
+                -- Joins to items and tests to get the service name
+                GROUP_CONCAT(DISTINCT T.test_name SEPARATOR ', ') AS procedure_name,
+                -- Joins to items and files to get the report path
+                GROUP_CONCAT(DISTINCT R.file_path SEPARATOR ', ') AS report_file_path
+            ")
+            // Join for the doctor's name (Ordered By)
             ->join('users', 'users.id = diagnostics_orders.ordered_by', 'left')
+            
+            // 1. Join to the intermediate item table to find the specific tests ordered
+            // (Assumes: diagnostics_order_items.diagnostics_order_id = diagnostics_orders.id)
+            ->join('diagnostics_order_items OI', 'OI.diagnostics_order_id = diagnostics_orders.id', 'left')
+            
+            // 2. Join to the tests table to get the test name (aliased as procedure_name)
+            // (Assumes: diagnostics_tests.id = diagnostics_order_items.diagnostics_test_id)
+            ->join('diagnostics_tests T', 'T.id = OI.diagnostics_test_id', 'left')
+            
+            // 3. Join to the files table to get the report path (aliased as report_file_path)
+            // (Assumes: diagnostics_order_files.diagnostics_order_item_id = diagnostics_order_items.id)
+            ->join('diagnostics_order_files R', 'R.diagnostics_order_item_id = OI.id', 'left')
+            
             ->where('diagnostics_orders.patient_id', $patientId)
+            
+            // Group by the order ID to return one row per diagnostic order, even if it has multiple items/files
+            ->groupBy('diagnostics_orders.id') 
+            
             ->orderBy('diagnostics_orders.order_date', 'DESC')
             ->findAll();
     }

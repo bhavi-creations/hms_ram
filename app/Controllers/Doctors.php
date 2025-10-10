@@ -323,11 +323,19 @@ class Doctors extends BaseController
 
     public function view($id = null)
     {
+        // Define the columns to select. We explicitly add users.last_login AS last_login_at
+        // to retrieve the last login timestamp from the linked user account.
+        $selectFields = 'doctors.*, 
+                         hospital_departments.name AS department_name, 
+                         users.username AS user_username, 
+                         users.email AS user_email,
+                         users.last_login AS last_login_at'; // <-- NEW: Fetching last login
+
         // Fetch doctor details, including the department name
         $doctor = $this->doctorModel
-            ->select('doctors.*, hospital_departments.name AS department_name, users.username AS user_username, users.email AS user_email')
+            ->select($selectFields)
             ->join('hospital_departments', 'hospital_departments.id = doctors.department_id', 'left')
-            ->join('users', 'users.id = doctors.user_id', 'left') // Join with users table to get username/email
+            ->join('users', 'users.id = doctors.user_id', 'left')
             ->find($id);
 
         if (!$doctor) {

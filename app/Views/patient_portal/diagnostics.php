@@ -43,6 +43,7 @@
                                 <td><?= $i++ ?></td>
                                 <td><?= esc($diag['order_id_code']) ?></td>
                                 <td><?= esc($diag['order_date']) ?></td>
+                                <!-- Now correctly shows single or multiple concatenated service names -->
                                 <td><?= esc($diag['procedure_name'] ?? 'N/A') ?></td>
                                 <!-- <td><?= esc($diag['doctor_id'] ?? 'N/A') ?></td> -->
                                 <td>
@@ -56,8 +57,30 @@
                                     <span class="badge <?= $badgeClass ?>"><?= $status ?></span>
                                 </td>
                                 <td>
-                                    <?php if ($status == 'Completed'): ?>
-                                        <button class="btn btn-sm btn-success" onclick="alert('Diagnostic Report for Order: <?= esc($diag['order_id_code']) ?> is ready.')">View Report</button>
+                                    <?php 
+                                    // The model returns a comma-separated list in report_file_path.
+                                    $rawReportPath = $diag['report_file_path'] ?? null; 
+                                    
+                                    // We split the string and take only the first file path for the single link.
+                                    $allPaths = explode(',', $rawReportPath);
+                                    $reportPath = trim($allPaths[0] ?? '');
+                                    $hasMultipleFiles = count(array_filter($allPaths, 'trim')) > 1;
+                                    ?>
+                                    <?php if ($status == 'Completed' && !empty($reportPath)): ?>
+                                        <!-- UPDATED: Use a secure route to serve the file -->
+                                        <a href="<?= base_url('patient-portal/view-report/' . esc($reportPath)) ?>" target="_blank" class="btn btn-sm btn-success">
+                                            View Report 
+                                            <?php if ($hasMultipleFiles): ?>
+                                                <i class="fas fa-copy" title="Multiple files attached"></i>
+                                            <?php else: ?>
+                                                <i class="fas fa-file-alt"></i>
+                                            <?php endif; ?>
+                                        </a>
+                                        <?php if ($hasMultipleFiles): ?>
+                                            <small class="text-info d-block mt-1">First file only</small>
+                                        <?php endif; ?>
+                                    <?php elseif ($status == 'Completed' && empty($reportPath)): ?>
+                                        <span class="text-danger">Report File Missing</span>
                                     <?php else: ?>
                                         <span class="text-muted">Awaiting Report</span>
                                     <?php endif; ?>

@@ -14,7 +14,7 @@ class LabOrderModel extends Model
         'order_date',
         'status',
         'remarks',
-        'order_id_code', // Add the new field here
+        'order_id_code',
         'patient_id_code',
         'doctor_name',
         'patient_name',
@@ -59,10 +59,8 @@ class LabOrderModel extends Model
         return $data;
     }
 
- 
-
     /**
-     * Get lab orders with patient and user details for the orders page.
+     * Get lab orders with patient and user details for the orders page (Admin/Staff view).
      *
      * @return array
      */
@@ -75,17 +73,33 @@ class LabOrderModel extends Model
             ->findAll();
     }
 
-        public function getLabOrdersForPatient(int $patientId)
+    /**
+     * Fetches lab orders for a specific patient, aggregating test names and report file paths.
+     * This method is specifically for the Patient Portal view.
+     * * @param int $patientId
+     * @return array
+     */
+    public function getLabOrdersForPatient(int $patientId)
     {
-        // Use CONCAT_WS(' ', users.first_name, users.last_name) to combine first and last name
-        return $this->select("lab_orders.*, CONCAT_WS(' ', users.first_name, users.last_name) as doctor_name")
-            ->join('users', 'users.id = lab_orders.ordered_by')
-            ->where('lab_orders.patient_id', $patientId)
-            ->orderBy('lab_orders.order_date', 'DESC')
-            ->findAll();
-        
-        // FUTURE ENHANCEMENT: If you have a separate table linking lab orders to test names 
-        // (e.g., 'lab_order_details' and 'lab_tests'), you will need to add those joins here.
+        return $this->select(
+            'lab_orders.*, ' . 
+            'CONCAT_WS(" ", users.first_name, users.last_name) as doctor_name, ' .
+            // Aggregates all test names associated with the order
+            'GROUP_CONCAT(LT.name SEPARATOR ", ") AS test_names, ' . 
+            // Aggregates all attached file paths for reports
+            'GROUP_CONCAT(LF.file_path SEPARATOR ",") AS report_file_paths'
+        )
+        ->where('lab_orders.patient_id', $patientId)
+        // Join to get ordering doctor's name
+        ->join('users', 'users.id = lab_orders.ordered_by', 'left') 
+        // Join to get test names
+        ->join('lab_order_items LOI', 'LOI.lab_order_id = lab_orders.id', 'left')
+        ->join('lab_tests LT', 'LT.id = LOI.lab_test_id', 'left')
+        // Join to get report file paths (reports are linked to the order item)
+        ->join('lab_order_files LF', 'LF.lab_order_item_id = LOI.id', 'left')
+        ->groupBy('lab_orders.id')
+        ->orderBy('lab_orders.order_date', 'DESC')
+        ->findAll();
     }
 
 }
