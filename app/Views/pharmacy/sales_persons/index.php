@@ -50,6 +50,11 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>
+                                        <!-- NEW VIEW BUTTON -->
+                                        <a href="<?= site_url('pharmacy/salespersons/show/' . $person['id']) ?>" class="btn btn-sm btn-success" title="View Details">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                        <!-- END NEW VIEW BUTTON -->
                                         <a href="<?= site_url('pharmacy/salespersons/edit/' . $person['id']) ?>" class="btn btn-sm btn-info">Edit</a>
                                         <a href="<?= site_url('pharmacy/salespersons/toggle-status/' . $person['id']) ?>" class="btn btn-sm <?= ($person['status'] == 1) ? 'btn-danger' : 'btn-success' ?>" onclick="return confirm('Are you sure you want to change the status of this salesperson?');">
                                             <?= ($person['status'] == 1) ? 'Deactivate' : 'Activate' ?>

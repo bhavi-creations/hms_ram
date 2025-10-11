@@ -35,10 +35,9 @@ $routes->group('patient-portal', ['filter' => 'patientauth', 'namespace' => 'App
     $routes->get('labs', 'PatientPortalController::labs');
     $routes->get('diagnostics', 'PatientPortalController::diagnostics');
     $routes->get('invoices', 'PatientPortalController::invoices');
-    $routes->get('test-dashboard', 'PatientPortalController::dashboard');  
+    $routes->get('test-dashboard', 'PatientPortalController::dashboard');
     $routes->get('view-report/(:segment)', 'PatientPortalController::viewReport/$1');
     $routes->get('view-lab-report/(:segment)', 'PatientPortalController::viewLabReport/$1');
-
 });
 
 
@@ -409,6 +408,7 @@ $routes->group('pharmacy', ['namespace' => 'App\Controllers\Pharmacy'], function
     $routes->GET('salespersons/toggle-status/(:num)', 'SalesPersons::toggleStatus/$1');
     $routes->GET('salespersons/profile', 'SalesPersons::profile');
     $routes->GET('salespersons/profile/(:num)', 'SalesPersons::profile/$1');
+    $routes->get('salespersons/show/(:num)', 'SalesPersons::show/$1');
 
     // Purchases Management (PharmacyPurchasesController)
     $routes->GET('purchases', 'Purchases::index');

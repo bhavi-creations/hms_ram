@@ -11,12 +11,15 @@ class UserModel extends Model
 
     // The primary key of the table
     protected $primaryKey = 'id';
+    
+    // Important: Tells the model that the primary key is handled by the database
+    protected $useAutoIncrement = true;
 
     // Define the fields that can be manipulated (inserted/updated)
     protected $allowedFields = [
-        // Keeping 'manager_id' for backward compatibility, but hierarchy is now driven by 'role_id' and the roles table
         'role_id', 'manager_id', 'first_name', 'last_name', 'username', 'email', 
-        'password', 'phone_number', 'address', 'status', 'last_login'
+        'password', 'phone_number', 'address', 'status', 'last_login', 
+        'profile_picture' // Ensure this is allowed if you use it
     ];
 
     // Use timestamps to automatically manage created_at and updated_at fields
@@ -27,28 +30,34 @@ class UserModel extends Model
     // Return type for queries
     protected $returnType    = 'array';
 
-    // Validation rules (critical updates here)
+    // Validation rules (CRITICALLY CORRECTED)
     protected $validationRules      = [
-        // CRITICAL FIX: Add validation rule for 'id'. This is required by the
-        // 'is_unique' rule's {id} placeholder when model validation runs.
-        'id'           => 'required|is_natural_no_zero', 
+        // FIX: The 'id' rule must be REMOVED entirely for auto-incrementing fields
+        // on insert operations.
 
         // Ensure username is unique for new records, but ignore the current record's ID on update
-        'username' => 'required|min_length[3]|max_length[100]|is_unique[users.username,id,{id}]', 
+        'username'      => 'required|min_length[3]|max_length[100]|is_unique[users.username,id,{id}]', 
         
-        // Ensure email is unique for new records, but ignore the current record's ID on update
-        'email'    => 'required|valid_email|is_unique[users.email,id,{id}]', 
+        // Ensure email is unique
+        'email'         => 'required|valid_email|is_unique[users.email,id,{id}]', 
         
-        // Password is required on insert, but we use 'permit_empty' and logic in hashPassword for updates.
-        'password' => 'permit_empty|min_length[8]', 
+        // Password is required on insert (by controller), but we use 'permit_empty' for updates.
+        'password'      => 'permit_empty|min_length[8]', 
         
-        'role_id'  => 'required|integer',
-        'first_name' => 'required|min_length[2]|max_length[100]',
-        'last_name' => 'required|min_length[2]|max_length[100]',
+        'role_id'       => 'required|integer',
+        'first_name'    => 'required|min_length[2]|max_length[100]',
+        'last_name'     => 'required|min_length[2]|max_length[100]',
+        
+        // Fields passed in from the SalesPersons controller:
+        'phone_number'  => 'required|numeric|min_length[10]|max_length[15]',
+        'status'        => 'required|in_list[active,inactive]', // Assumes active/inactive status strings
+        'profile_picture' => 'permit_empty|max_length[255]',
         
         // Validation for manager_id (optional, only validates if provided)
-        'manager_id' => 'permit_empty|integer', 
+        'manager_id'    => 'permit_empty|integer', 
+        'address'       => 'permit_empty',
     ];
+    
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
@@ -71,6 +80,8 @@ class UserModel extends Model
 
         return $data;
     }
+    
+    // The rest of your UserModel methods (find, getUserIdsByRoleIds, getDepartmentHeads) remain unchanged...
     
     /**
      * Overrides the default find() method to fetch user details including role name 
