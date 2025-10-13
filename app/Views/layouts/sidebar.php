@@ -269,7 +269,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="<?= base_url('staff/register') ?>" class="nav-link <?= uri_string() == 'staff/register' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-user-plus"></i>
                                         <p>Add Staff</p>
@@ -280,7 +280,7 @@
                                         <i class="nav-icon fas fa-users"></i>
                                         <p>Staff List</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a href="<?= base_url('users') ?>" class="nav-link <?= uri_string() == 'users' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-users-gear"></i>
