@@ -412,7 +412,7 @@
                     <?php endif; ?>
 
 
-                    <?php if ($roleId == 1):    ?>
+                 <!--     <?php if ($roleId == 1):    ?>
                         <?php $isReportingActive = url_is('reports*'); ?>
                         <li class="nav-item <?= $isReportingActive ? 'menu-open' : '' ?>">
                             <a href="#" class="nav-link <?= $isReportingActive ? 'active' : '' ?>">
@@ -429,7 +429,7 @@
                                         <p>Diagnostics Reports</p>
                                     </a>
                                 </li>
-                                <!-- <li class="nav-item">
+                               <li class="nav-item">
                                     <a href="<?= base_url('reports/financial') ?>" class="nav-link <?= uri_string() == 'reports/financial' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-chart-pie"></i>
                                         <p>Financial Reports</p>
@@ -440,7 +440,7 @@
                                         <i class="nav-icon fas fa-chart-area"></i>
                                         <p>Pharmacy Reports</p>
                                     </a>
-                                </li> -->
+                                </li> 
                                 <li class="nav-item">
                                     <a href="<?= base_url('reports/lab') ?>" class="nav-link <?= uri_string() == 'reports/lab' ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-chart-line"></i>
@@ -448,7 +448,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
 
                         <?php $isSystemConfigActive = url_is('settings*') || url_is('master-data*') || url_is('audit*'); ?>
                         <li class="nav-item <?= $isSystemConfigActive ? 'menu-open' : '' ?>">
