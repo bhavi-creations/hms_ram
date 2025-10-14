@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">User Details</h3>
-        <a href="<?= base_url('users/edit/' . $user['id']) ?>" class="btn btn-warning float-right">Edit User</a>
+        <!-- <a href="<?= base_url('users/edit/' . $user['id']) ?>" class="btn btn-warning float-right">Edit User</a> -->
     </div>
     <div class="card-body">
         <table class="table">
