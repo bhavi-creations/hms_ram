@@ -22,11 +22,11 @@
         <div class="card card-primary card-outline rounded-lg shadow-sm">
             <div class="card-header">
                 <h3 class="card-title"><i class="fas fa-users mr-2"></i>Users List</h3>
-                <div class="card-tools">
+                <!-- <div class="card-tools">
                     <a href="<?= base_url('users/register') ?>" class="btn btn-primary btn-sm">
                         <i class="fas fa-user-plus mr-1"></i> Add New User
                     </a>
-                </div>
+                </div> -->
             </div>
             
             <div class="card-body">
@@ -84,10 +84,13 @@
                                 </td>
                                 <td>
                                     <a href="<?= base_url('users/view/' . $user['id']) ?>" class="btn btn-sm btn-info" title="View Details">
-                                        <i class="fas fa-eye"></i> View
+                                        <i class="fas fa-eye"></i>  
                                     </a>
+                                    <!-- <a href="<?= base_url('users/edit/' . $user['id']) ?>" class="btn btn-sm btn-warning" title="View Details">
+                                        <i class="fas fa-edit"></i>  
+                                    </a> -->
                                     <a href="<?= base_url('users/delete/' . $user['id']) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the user: <?= esc($user['first_name'] . ' ' . $user['last_name']) ?>?');" title="Delete User">
-                                        <i class="fas fa-trash"></i> Delete
+                                        <i class="fas fa-trash"></i>  
                                     </a>
                                 </td>
                             </tr>

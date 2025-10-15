@@ -1,4 +1,4 @@
-C:\xampp\htdocs\hms_ram\app\Views\doctors\edit.php
+
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
