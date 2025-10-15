@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="card card-primary card-outline rounded-lg shadow-sm">
             <div class="card-header">
-                <h3 class="card-title">All Assets & Equipment</h3>
+                <h3 class="card-title"><i class="fas fa-tools mr-2"></i>All Assets & Equipment</h3>
                 <div class="card-tools">
                     <a href="<?= base_url('assets/create') ?>" class="btn btn-primary btn-sm">
                         <i class="fas fa-plus mr-1"></i> Add New Asset
@@ -48,17 +48,17 @@
                     </div>
                 <?php endif; ?>
 
-                <table id="assetsTable" class="table table-bordered table-striped">
+                <table id="assetsTable" class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>S.No</th>
-                            <th>Name</th>
-                            <th>Asset Tag</th>
-                            <th>Category</th>
-                            <th>Location</th>
-                            <th>Status</th>
-                            <th>Purchase Date</th>
-                            <th>Actions</th>
+                            <th style="width: 5%;">S.No</th>
+                            <th style="width: 20%;">Name</th>
+                            <th style="width: 15%;">Asset Tag</th>
+                            <th style="width: 15%;">Category</th>
+                            <th style="width: 15%;">Location</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 10%;">Purchase Date</th>
+                            <th style="width: 10%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,11 +73,12 @@
                                     <td>
                                         <span class="badge
                                             <?php
+                                                // Using AdminLTE 3 utility classes (bg-*) for badge colors
                                                 if ($asset['status'] == 'Operational') echo 'bg-success';
-                                                else if ($asset['status'] == 'Under Maintenance') echo 'bg-warning';
+                                                else if ($asset['status'] == 'Under Maintenance') echo 'bg-warning text-dark'; // Use text-dark for visibility on light bg
                                                 else if ($asset['status'] == 'Out of Service') echo 'bg-danger';
                                                 else if ($asset['status'] == 'Disposed') echo 'bg-secondary';
-                                                else echo 'bg-info';
+                                                else echo 'bg-info text-dark'; // Use text-dark for visibility on light bg
                                             ?>
                                         "><?= esc($asset['status']) ?></span>
                                     </td>
@@ -105,33 +106,25 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
-
 <script>
     $(function () {
         $("#assetsTable").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            // Custom buttons with icons and AdminLTE styling
+            "buttons": [
+                { extend: 'copy', text: '<i class="fas fa-copy"></i> Copy', className: 'btn btn-sm btn-info' },
+                { extend: 'csv', text: '<i class="fas fa-file-csv"></i> CSV', className: 'btn btn-sm btn-secondary' },
+                { extend: 'excel', text: '<i class="fas fa-file-excel"></i> Excel', className: 'btn btn-sm btn-success' },
+                { extend: 'pdf', text: '<i class="fas fa-file-pdf"></i> PDF', className: 'btn btn-sm btn-danger' },
+                { extend: 'print', text: '<i class="fas fa-print"></i> Print', className: 'btn btn-sm btn-primary' },
+                { extend: 'colvis', text: '<i class="fas fa-columns"></i> Columns', className: 'btn btn-sm btn-warning' }
+            ],
+            "columnDefs": [
+                { "orderable": false, "targets": [0, 7] } // Disable sorting on S.No (0) and Actions (7)
+            ]
         }).buttons().container().appendTo('#assetsTable_wrapper .col-md-6:eq(0)');
     });
 </script>
-<?= $this->endSection() ?>
-
-<?= $this->section('styles') ?>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css">
 <?= $this->endSection() ?>

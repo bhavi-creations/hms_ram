@@ -68,12 +68,33 @@ class Department extends BaseController
 
 
     // ... apply this single return view() structure to edit() as well ...
+   
     public function edit($id = null)
     {
-        // ... logic to fetch department ...
-        $data = [ /* ... */];
+        // 1. Check if ID is provided
+        if ($id === null) {
+            // Handle case where no ID is provided (e.g., redirect or show 404)
+            return redirect()->to(base_url('departments'))->with('error', 'No department ID provided for editing.');
+        }
+        
+        // 2. Fetch the department record from the database
+        $department = $this->departmentModel->find($id);
 
-        // CORRECT WAY: Only return the final view.
+        // 3. Handle case where department is not found (404)
+        if (!$department) {
+            // Optional: Show a 404 page or redirect with error
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Cannot find department with ID: ' . $id);
+        }
+
+        // 4. Prepare data array to pass to the view
+        $data = [
+            'title' => 'Edit Department',
+            'page_title' => 'Edit Department',
+            'validation' => \Config\Services::validation(),
+            'department' => $department, // <<-- THIS IS THE CRUCIAL LINE
+        ];
+
+        // 5. Pass data to the view
         return view('department/edit', $data);
     }
     // --- UPDATE: Update an existing department ---

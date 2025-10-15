@@ -19,9 +19,10 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="card card-primary card-outline rounded-lg shadow-sm">
+        <!-- Using card-info for a distinct color theme for history -->
+        <div class="card card-info card-outline rounded-lg shadow-sm">
             <div class="card-header">
-                <h3 class="card-title">All Completed & Cancelled Appointments</h3>
+                <h3 class="card-title"><i class="fas fa-history mr-2"></i>All Completed & Cancelled Appointments</h3>
             </div>
 
             <div class="card-body">
@@ -43,17 +44,17 @@
                     </div>
                 <?php endif; ?>
 
-                <table id="appointmentHistoryTable" class="table table-bordered table-striped">
+                <table id="appointmentHistoryTable" class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>S.No</th>
+                            <th style="width: 5%;">S.No</th>
                             <th>Patient Name</th>
                             <th>Doctor</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
+                            <th style="width: 15%;">Date</th>
+                            <th style="width: 10%;">Time</th>
+                            <th style="width: 12%;">Status</th>
                             <th>Reason</th>
-                            <th>Actions</th>
+                            <th style="width: 10%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,13 +69,14 @@
                                     <td>
                                         <span class="badge
                                             <?php
-                                                if ($appt['status'] == 'Completed') echo 'bg-success';
-                                                else if ($appt['status'] == 'Cancelled') echo 'bg-danger';
-                                                else echo 'bg-secondary'; // Fallback, though not expected here
+                                            if ($appt['status'] == 'Completed') echo 'bg-success';
+                                            else if ($appt['status'] == 'Cancelled') echo 'bg-danger';
+                                            else echo 'bg-secondary';
                                             ?>
                                         "><?= esc($appt['status']) ?></span>
                                     </td>
                                     <td><?= esc($appt['reason_for_visit']) ?></td>
+                                   
                                     <td>
                                         <!-- For history, typically only view details is available -->
                                         <a href="<?= base_url('appointments/edit/' . $appt['id']) ?>" class="btn btn-sm btn-info" title="View/Edit Details">
@@ -84,7 +86,9 @@
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <tr><td colspan="8" class="text-center">No completed or cancelled appointments found.</td></tr>
+                            <tr>
+                                <td colspan="8" class="text-center">No completed or cancelled appointments found.</td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -111,12 +115,43 @@
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
 
 <script>
-    $(function () {
+    $(function() {
         $("#appointmentHistoryTable").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            // Custom DataTables Buttons with icons and classes
+            "buttons": [{
+                    extend: 'copy',
+                    text: '<i class="fas fa-copy"></i> Copy',
+                    className: 'btn btn-sm btn-info'
+                },
+                {
+                    extend: 'csv',
+                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    className: 'btn btn-sm btn-secondary'
+                },
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    className: 'btn btn-sm btn-success'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    className: 'btn btn-sm btn-danger'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Print',
+                    className: 'btn btn-sm btn-primary'
+                },
+                {
+                    extend: 'colvis',
+                    text: '<i class="fas fa-columns"></i> Columns',
+                    className: 'btn btn-sm btn-warning'
+                }
+            ]
         }).buttons().container().appendTo('#appointmentHistoryTable_wrapper .col-md-6:eq(0)');
     });
 </script>
