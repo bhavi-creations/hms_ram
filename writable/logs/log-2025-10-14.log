@@ -84,3 +84,10 @@ DEBUG - 2025-10-14 16:41:31 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2025-10-14 16:41:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-10-14 17:50:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-10-14 17:50:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-14 17:56:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-14 17:56:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-14 17:56:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-14 17:56:07 --> Login attempt for username/email: ramesh
+DEBUG - 2025-10-14 17:56:07 --> User found, verifying password for: ramesh
+DEBUG - 2025-10-14 17:56:07 --> Password matched. Setting session for: ramesh
+DEBUG - 2025-10-14 17:56:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

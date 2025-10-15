@@ -80,7 +80,7 @@
         <?= $this->include('layouts/navbar') ?>
         <?= $this->include('layouts/sidebar') ?>
 
-        <main class="app-main" style="background-color: #aeaeae;">
+        <main class="app-main"  >
             <div class="app-content-header">
                 <div class="container-fluid">
                     <?= $this->renderSection('content') ?>
