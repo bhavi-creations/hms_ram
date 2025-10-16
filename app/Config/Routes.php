@@ -70,7 +70,17 @@ $routes->group('departments', ['filter' => 'auth'], function ($routes) {
     $routes->POST('delete/(:num)', 'Department::delete/$1');
 });
 
-
+// New Specializations Routes
+$routes->group('specializations', ['filter' => 'auth'], function ($routes) {
+    // READ: List all specializations (Index)
+    $routes->GET('/', 'Specialization::index');
+    $routes->GET('create', 'Specialization::create');
+    $routes->POST('store', 'Specialization::store');
+    $routes->GET('edit/(:num)', 'Specialization::edit/$1');
+    $routes->PUT('update/(:num)', 'Specialization::update/$1');
+    // Note: I will use DELETE for better REST compliance in the Controller, but mapping to POST works too.
+    $routes->delete('delete/(:num)', 'Specialization::delete/$1');
+});
 
 
 
