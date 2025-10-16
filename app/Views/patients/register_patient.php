@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h4 class="mb-4 pb-2 border-bottom text-secondary" style="font-weight: 500;"><i class="fas fa-user-circle mr-2"></i>Personal Information</h4>
-                        
+
                         <div class="form-group">
                             <label for="patient_id_code">Patient Primary ID</label>
                             <input type="text" id="patient_id_code" class="form-control-plaintext font-weight-bold" value="<?= $isEditMode ? esc($patient['patient_id_code']) : 'Will be auto-generated' ?>" readonly>
@@ -221,16 +221,16 @@
                         <h4 class="mb-4 pb-2 border-bottom text-secondary" style="font-weight: 500;"><i class="fas fa-share-alt mr-2"></i>Referral & Remarks</h4>
                         <div class="form-group">
                             <label for="referred_to_doctor_id">Referred To Doctor</label>
-                            <select name="referred_to_doctor_id" class="form-control select2">
+                            <select name="referred_to_doctor_id" id="referred_to_doctor_id" class="form-control select2">
                                 <option value="">-- Select Doctor --</option>
                                 <?php foreach ($doctors as $doctor): ?>
                                     <option
                                         value="<?= esc($doctor['id']) ?>"
                                         data-opd-fee="<?= esc($doctor['opd_fee']) ?>"
                                         <?= old('referred_to_doctor_id', $isEditMode ? $patient['referred_to_doctor_id'] : '') == $doctor['id'] ? 'selected' : '' ?>>
-                                        <?= esc($doctor['first_name'] . ' ' . $doctor['last_name'] . ' - ' . $doctor['specialization']) ?>
+                                        <!-- UPDATED: Displaying specialization name (specialization_name) -->
+                                        <?= esc($doctor['first_name'] . ' ' . $doctor['last_name']) ?> (<?= esc($doctor['specialization_name'] ?? 'N/A') ?>)
                                     </option>
-
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -356,7 +356,7 @@
                                             if (!csrfTokenElement || !csrfHashElement) {
                                                 console.error("CSRF tokens not found in meta tags. Delete functionality may fail.");
                                             }
-                                            
+
                                             const csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : '';
                                             const csrfHash = csrfHashElement ? csrfHashElement.getAttribute('content') : '';
 
@@ -372,7 +372,7 @@
                                                             filename: filename,
                                                         };
                                                         // Add dynamic CSRF tokens to the request body
-                                                        if(csrfHash && csrfToken) {
+                                                        if (csrfHash && csrfToken) {
                                                             postData[csrfHash] = csrfToken;
                                                         }
 
@@ -437,70 +437,147 @@
     });
 </script>
 
-<script>
-    const feeInput = document.getElementById('fee');
-    const discountPercentageInput = document.getElementById('discount_percentage');
-    const finalAmountInput = document.getElementById('final_amount');
-
-    function calculateFinalAmount() {
-        const fee = parseFloat(feeInput.value) || 0;
-        const discountPercentage = parseFloat(discountPercentageInput.value) || 0;
-        let calculatedFinalAmount = fee;
-        if (discountPercentage > 0) {
-            const discountAmount = fee * (discountPercentage / 100);
-            calculatedFinalAmount = fee - discountAmount;
-        }
-        if (calculatedFinalAmount < 0) {
-            calculatedFinalAmount = 0;
-        }
-
-        finalAmountInput.value = calculatedFinalAmount.toFixed(2);
-    }
-
-
-    feeInput.addEventListener('input', calculateFinalAmount);
-    discountPercentageInput.addEventListener('input', calculateFinalAmount);
-
-    calculateFinalAmount();
-    
-    // Existing file upload label script (redundant with the one above, but kept for safety)
-    document.getElementById('upload_reports').addEventListener('change', function() {
-        var fileName = this.files.length > 0 ? this.files[0].name : 'Choose file...';
-        if (this.files.length > 1) {
-            fileName = `${this.files.length} files selected`;
-        }
-        var nextSibling = this.nextElementSibling;
-        if (nextSibling && nextSibling.classList.contains('custom-file-label')) {
-            nextSibling.innerText = fileName;
-        }
-    });
-</script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const doctorSelect = document.querySelector('select[name="referred_to_doctor_id"]');
-        const feeInput = document.querySelector('input[name="fee"]');
+    // Must be inside the document.ready block to ensure it runs after jQuery is ready
+    $(document).ready(function() {
 
-        // When a doctor is selected, update the Fee field
-        doctorSelect.addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            const opdFee = selectedOption.getAttribute('data-opd-fee');
+        // 1. Element References (Using vanilla JS for reliability)
+        const feeInput = document.getElementById('fee');
+        const finalAmountInput = document.getElementById('final_amount');
+        const doctorSelect = document.getElementById('referred_to_doctor_id');
+        const discountPercentageInput = document.getElementById('discount_percentage');
 
-            if (opdFee) {
-                feeInput.value = parseFloat(opdFee).toFixed(2);
-            } else {
-                feeInput.value = '0.00';
+        // 2. Financial Calculation Logic
+        function calculateFinalAmount() {
+            const fee = parseFloat(feeInput.value) || 0;
+            const discountPercentage = parseFloat(discountPercentageInput.value) || 0;
+            let calculatedFinalAmount = fee;
+
+            if (discountPercentage > 0) {
+                const discountAmount = fee * (discountPercentage / 100);
+                calculatedFinalAmount = fee - discountAmount;
             }
-            // Trigger the final amount calculation after updating the fee
-            calculateFinalAmount();
-        });
+            if (calculatedFinalAmount < 0) {
+                calculatedFinalAmount = 0;
+            }
 
-        // Trigger once when page loads (for edit mode)
+            finalAmountInput.value = calculatedFinalAmount.toFixed(2);
+        }
+
+        // 3. OPD Fee Fetching Logic
+        function updateFeeFromDoctor() {
+            // Get the currently selected <option> element
+            const selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+
+            // Read the fee from the data attribute. Use '0.00' if no doctor is selected.
+            const opdFee = selectedOption ? selectedOption.getAttribute('data-opd-fee') : '0.00';
+
+            // Set the fee input value
+            feeInput.value = parseFloat(opdFee || 0).toFixed(2);
+
+            // Recalculate the Final Amount
+            calculateFinalAmount();
+        }
+
+        // 4. Attach Event Listeners (The key fix: using jQuery's .on('change'))
+        // This is necessary because Select2 overrides the native 'change' event.
+        $(doctorSelect).on('change', updateFeeFromDoctor);
+
+        // Listeners for financial fields
+        feeInput.addEventListener('input', calculateFinalAmount);
+        discountPercentageInput.addEventListener('input', calculateFinalAmount);
+
+        // 5. Initial Run (Handles selected value on page load/edit mode)
+        // Run this check to set the fee if a doctor is already selected.
         if (doctorSelect.value !== "") {
-            doctorSelect.dispatchEvent(new Event('change'));
+            // Use a short delay just in case the Select2 initialization is still finishing.
+            setTimeout(updateFeeFromDoctor, 100);
         }
     });
+
+    // Also include your file upload script here
+    document.getElementById('upload_reports').addEventListener('change', function() {
+        const count = this.files.length;
+        const label = count === 1 ? this.files[0].name : `${count} files selected`;
+        this.nextElementSibling.innerText = label;
+    });
 </script>
+
+
+<?= $this->section('scripts') ?>
+
+    <script>
+        // All code runs once the page elements (DOM) and jQuery are fully ready.
+        $(document).ready(function() {
+
+            // 1. Element References 
+            const feeInput = document.getElementById('fee');
+            const finalAmountInput = document.getElementById('final_amount');
+            const doctorSelect = document.getElementById('referred_to_doctor_id');
+            const discountPercentageInput = document.getElementById('discount_percentage');
+            const uploadReportsInput = document.getElementById('upload_reports'); // Reference for File Upload
+
+            // 2. Financial Calculation Logic
+            function calculateFinalAmount() {
+                const fee = parseFloat(feeInput.value) || 0;
+                const discountPercentage = parseFloat(discountPercentageInput.value) || 0;
+                let calculatedFinalAmount = fee;
+
+                if (discountPercentage > 0) {
+                    const discountAmount = fee * (discountPercentage / 100);
+                    calculatedFinalAmount = fee - discountAmount;
+                }
+                if (calculatedFinalAmount < 0) {
+                    calculatedFinalAmount = 0;
+                }
+
+                finalAmountInput.value = calculatedFinalAmount.toFixed(2);
+            }
+
+            // 3. OPD Fee Fetching Logic
+            function updateFeeFromDoctor() {
+                // Get the currently selected <option> element
+                const selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+
+                // Read the fee from the data attribute.
+                const opdFee = selectedOption ? selectedOption.getAttribute('data-opd-fee') : '0.00';
+
+                // Set the fee input value
+                feeInput.value = parseFloat(opdFee || 0).toFixed(2);
+
+                // Recalculate the Final Amount
+                calculateFinalAmount();
+            }
+
+            // 4. Attach Event Listeners 
+
+            // A. Doctor Dropdown (Select2 compatible)
+            $(doctorSelect).on('change', updateFeeFromDoctor);
+
+            // B. Financial fields
+            feeInput.addEventListener('input', calculateFinalAmount);
+            discountPercentageInput.addEventListener('input', calculateFinalAmount);
+
+            // C. File Upload Handler (Now correctly inside the ready block)
+            if (uploadReportsInput) {
+                uploadReportsInput.addEventListener('change', function() {
+                    const count = this.files.length;
+                    const label = count === 1 ? this.files[0].name : `${count} files selected`;
+                    this.nextElementSibling.innerText = label;
+                });
+            }
+
+            // 5. Initial Run (Handles selected value on page load/edit mode)
+            // Run this check to set the fee if a doctor is already selected.
+            if (doctorSelect.value !== "") {
+                // Delay to ensure Select2 is fully ready
+                setTimeout(updateFeeFromDoctor, 100);
+            }
+        });
+    </script>
+
+<?= $this->endSection() ?>
 
 
 <?= $this->endSection() ?>

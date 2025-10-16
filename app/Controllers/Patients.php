@@ -14,6 +14,7 @@ use App\Models\AppointmentModel;
 use App\Models\PatientAdmissionModel;
 use App\Models\Diagnostics\DiagnosticsOrderModel;
 use App\Models\Laboratory\LabOrderModel;
+use App\Models\SpecializationModel; // Added SpecializationModel
 
 class Patients extends BaseController
 {
@@ -27,6 +28,7 @@ class Patients extends BaseController
     protected $patientAdmissionModel;
     protected $diagnosticsOrderModel;
     protected $labOrderModel;
+    protected $specializationModel; // Added model property
 
     public function __construct()
     {
@@ -39,11 +41,44 @@ class Patients extends BaseController
         $this->patientAdmissionModel = new PatientAdmissionModel();
         $this->diagnosticsOrderModel = new DiagnosticsOrderModel();
         $this->labOrderModel = new LabOrderModel();
+        $this->specializationModel = new SpecializationModel(); // Initialize SpecializationModel
 
         // Load helpers
         helper('form');
         helper('filesystem');
     }
+
+    public function register()
+    {
+        $data['title'] = 'Register New Patient';
+        $data['validation'] = \Config\Services::validation();
+
+        // Fetch all specializations to map IDs to names later (for list view, if needed)
+        // More importantly, we'll fetch doctors with their specialization name joined.
+        
+        // Fetch doctors and referred persons for dropdowns
+        // Assuming DoctorModel::findAllDoctors() needs modification or manual join here
+        
+        // We will fetch the doctors list, joining the specializations table to get the name
+        // This query structure is designed to load the specialization name as 'specialization_name'
+        $doctors = $this->doctorModel
+            ->select('doctors.*, users.first_name, users.last_name, specializations.name AS specialization_name')
+            ->join('users', 'users.id = doctors.user_id')
+            ->join('specializations', 'specializations.id = doctors.specialization', 'left')
+            ->findAll();
+
+        $data['doctors'] = $doctors;
+        $data['referred_persons'] = $this->referredPersonModel->findAll();
+        $data['patient'] = []; // Empty patient array for new registration
+
+        // Set old input values for form fields, or default values
+        $data['appointment_date'] = old('appointment_date', date('Y-m-d'));
+        $data['appointment_time'] = old('appointment_time', date('H:i'));
+        $data['reason_for_visit'] = old('reason_for_visit');
+
+        return view('patients/register_patient', $data);
+    }
+ 
 
     /**
      * Displays a list of all patients.
@@ -88,31 +123,7 @@ class Patients extends BaseController
         return view('patients/partials/patient_table', ['patients' => $patients]);
     }
 
-    /**
-     * Displays the form to register a new patient.
-     */
-    public function register()
-    {
-        $data['title'] = 'Register New Patient';
-        $data['validation'] = \Config\Services::validation();
-
-        // Fetch doctors and referred persons for dropdowns
-        $data['doctors'] = $this->doctorModel->findAllDoctors();
-        $data['referred_persons'] = $this->referredPersonModel->findAll();
-        $data['patient'] = []; // Empty patient array for new registration
-
-        // Set old input values for form fields, or default values
-        $data['appointment_date'] = old('appointment_date', date('Y-m-d'));
-        $data['appointment_time'] = old('appointment_time', date('H:i'));
-        $data['reason_for_visit'] = old('reason_for_visit');
-
-        return view('patients/register_patient', $data);
-    }
-
-    /**
-     * Saves a new patient record or updates an existing one.
-     * Handles file uploads and appointment creation/update.
-     */
+ 
     public function save()
     {
         $session = session();

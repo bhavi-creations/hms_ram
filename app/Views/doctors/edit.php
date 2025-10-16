@@ -1,719 +1,527 @@
-
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <h3 class="card-title"><?= esc($title) ?>: <?= esc($doctor['first_name'] . ' ' . $doctor['last_name']) ?></h3>
-                    <div class="card-tools">
-                        <a href="<?= base_url('doctors') ?>" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-arrow-left"></i> Back to List
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <?php if (session()->getFlashdata('errors')): ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <ul class="mb-0">
-                                <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                                    <li><?= esc($error) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    <?php endif; ?>
-
-                    <?= form_open_multipart('doctors/save') ?>
-                    <?= csrf_field() ?>
-                    <input type="hidden" name="id" value="<?= esc($doctor['id']) ?>">
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="first_name">First Name <span class="text-danger">*</span></label>
-                                <input type="text" name="first_name" id="first_name" class="form-control" value="<?= old('first_name', $doctor['first_name']) ?>" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="last_name">Last Name <span class="text-danger">*</span></label>
-                                <input type="text" name="last_name" id="last_name" class="form-control" value="<?= old('last_name', $doctor['last_name']) ?>" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="user_id">User ID (for Login)</label>
-                                <input type="text" id="user_id_display" class="form-control" value="<?= esc($doctor['user_id'] ?? 'N/A') ?>" disabled>
-                                <input type="hidden" name="user_id" value="<?= esc($doctor['user_id']) ?>">
-                            </div>
-                        </div>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"><?= esc($title ?? 'Edit Doctor') ?></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('doctors') ?>">Doctors</a></li>
+                    <li class="breadcrumb-item active">Edit Doctor</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card card-outline card-primary shadow-lg">
+                    <div class="card-header border-bottom-0">
+                        <h3 class="card-title"><i class="fas fa-file-alt mr-2"></i> Doctor Edit Form (All Fields Visible)</h3>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="specialization">Specialization <span class="text-danger">*</span></label>
-                                <input type="text" name="specialization" id="specialization" class="form-control" value="<?= old('specialization', $doctor['specialization']) ?>" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="qualification">Qualification</label>
-                                <input type="text" name="qualification" id="qualification" class="form-control" value="<?= old('qualification', $doctor['qualification']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="medical_license_no">Medical License No.</label>
-                                <input type="text" name="medical_license_no" id="medical_license_no" class="form-control" value="<?= old('medical_license_no', $doctor['medical_license_no']) ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="experience_years">Experience (Years)</label>
-                                <input type="number" name="experience_years" id="experience_years" class="form-control" value="<?= old('experience_years', $doctor['experience_years']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="department_id">Department</label>
-                                <select name="department_id" id="department_id" class="form-control" required>
-                                    <option value="">Select Department</option>
-                                    <?php foreach ($departments as $department): ?>
-                                        <option value="<?= esc($department['id']) ?>"
-                                            <?= old('department_id', $doctor['department_id']) == $department['id'] ? 'selected' : '' ?>>
-                                            <?= esc($department['name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="gender">Gender</label>
-                                <select name="gender" id="gender" class="form-control">
-                                    <option value="">Select Gender</option>
-                                    <option value="Male" <?= old('gender', $doctor['gender']) == 'Male' ? 'selected' : '' ?>>Male</option>
-                                    <option value="Female" <?= old('gender', $doctor['gender']) == 'Female' ? 'selected' : '' ?>>Female</option>
-                                    <option value="Other" <?= old('gender', $doctor['gender']) == 'Other' ? 'selected' : '' ?>>Other</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="date_of_birth">Date of Birth</label>
-                                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" value="<?= old('date_of_birth', $doctor['date_of_birth']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="phone_number">Phone Number</label>
-                                <input type="text" name="phone_number" id="phone_number" class="form-control" value="<?= old('phone_number', $doctor['phone_number']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" value="<?= old('email', $doctor['email']) ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <textarea name="address" id="address" class="form-control" rows="3"><?= old('address', $doctor['address']) ?></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bio">Biography</label>
-                        <textarea name="bio" id="bio" class="form-control" rows="5"><?= old('bio', $doctor['bio']) ?></textarea>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="emergency_contact_name">Emergency Contact Name</label>
-                                <input type="text" name="emergency_contact_name" id="emergency_contact_name" class="form-control" value="<?= old('emergency_contact_name', $doctor['emergency_contact_name']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="emergency_contact_phone">Emergency Contact Phone</label>
-                                <input type="text" name="emergency_contact_phone" id="emergency_contact_phone" class="form-control" value="<?= old('emergency_contact_phone', $doctor['emergency_contact_phone']) ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="registration_number">Registration Number</label>
-                                <input type="text" name="registration_number" id="registration_number" class="form-control" value="<?= old('registration_number', $doctor['registration_number']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="medical_council">Medical Council</label>
-                                <input type="text" name="medical_council" id="medical_council" class="form-control" value="<?= old('medical_council', $doctor['medical_council']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="joining_date">Joining Date</label>
-                                <input type="date" name="joining_date" id="joining_date" class="form-control" value="<?= old('joining_date', $doctor['joining_date']) ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="employment_status">Employment Status</label>
-                                <select name="employment_status" id="employment_status" class="form-control">
-                                    <option value="">Select Status</option>
-                                    <option value="Full-time" <?= old('employment_status', $doctor['employment_status']) == 'Full-time' ? 'selected' : '' ?>>Full-time</option>
-                                    <option value="Part-time" <?= old('employment_status', $doctor['employment_status']) == 'Part-time' ? 'selected' : '' ?>>Part-time</option>
-                                    <option value="Consultant" <?= old('employment_status', $doctor['employment_status']) == 'Consultant' ? 'selected' : '' ?>>Consultant</option>
-                                    <option value="On-Leave" <?= old('employment_status', $doctor['employment_status']) == 'On-Leave' ? 'selected' : '' ?>>On Leave</option>
-                                    <option value="Resigned" <?= old('employment_status', $doctor['employment_status']) == 'Resigned' ? 'selected' : '' ?>>Resigned</option>
-                                    <option value="Terminated" <?= old('employment_status', $doctor['employment_status']) == 'Terminated' ? 'selected' : '' ?>>Terminated</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="contract_type">Contract Type</label>
-                                <input type="text" name="contract_type" id="contract_type" class="form-control" value="<?= old('contract_type', $doctor['contract_type']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="designation">Designation</label>
-                                <input type="text" name="designation" id="designation" class="form-control" value="<?= old('designation', $doctor['designation']) ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="opd_fee">OPD Consultation Fee</label>
-                                <input type="number" step="0.01" name="opd_fee" id="opd_fee" class="form-control" value="<?= old('opd_fee', $doctor['opd_fee']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="ipd_charge_percentage">IPD Charge Percentage (%)</label>
-                                <input type="number" step="0.01" name="ipd_charge_percentage" id="ipd_charge_percentage" class="form-control" value="<?= old('ipd_charge_percentage', $doctor['ipd_charge_percentage']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="status">Current Status</label>
-                                <select name="status" id="status" class="form-control">
-                                    <option value="Active" <?= old('status', $doctor['status']) == 'Active' ? 'selected' : '' ?>>Active</option>
-                                    <option value="On Leave" <?= old('status', $doctor['status']) == 'On Leave' ? 'selected' : '' ?>>On Leave</option>
-                                    <option value="Suspended" <?= old('status', $doctor['status']) == 'Suspended' ? 'selected' : '' ?>>Suspended</option>
-                                    <option value="Terminated" <?= old('status', $doctor['status']) == 'Terminated' ? 'selected' : '' ?>>Terminated</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="is_available" name="is_available" value="1" <?= old('is_available', $doctor['is_available']) ? 'checked' : '' ?>>
-                                <label class="form-check-label" for="is_available">Is Available for Consultation?</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="last_login_at">Last Login At (for User)</label>
-                                <input type="datetime-local" name="last_login_at" id="last_login_at" class="form-control" value="<?= old('last_login_at', str_replace(' ', 'T', $doctor['last_login_at'])) ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    ---
-                    <h5>Bank Details</h5>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="bank_account_number">Bank Account Number</label>
-                                <input type="text" name="bank_account_number" id="bank_account_number" class="form-control" value="<?= old('bank_account_number', $doctor['bank_account_number']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="bank_name">Bank Name</label>
-                                <input type="text" name="bank_name" id="bank_name" class="form-control" value="<?= old('bank_name', $doctor['bank_name']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="ifsc_code">IFSC Code</label>
-                                <input type="text" name="ifsc_code" id="ifsc_code" class="form-control" value="<?= old('ifsc_code', $doctor['ifsc_code']) ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="pan_number">PAN Number</label>
-                                <input type="text" name="pan_number" id="pan_number" class="form-control" value="<?= old('pan_number', $doctor['pan_number']) ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    ---
-                    <h5>Document Uploads (Leave blank to keep current files)</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="profile_picture">Profile Picture (Max 2MB, JPG/PNG)</label>
-                                <div id="current_profile_picture_container" class="mt-2">
-                                    <?php if (!empty($doctor['profile_picture'])): ?>
-                                        <div class="d-flex flex-column align-items-start border p-2 rounded bg-light">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <i class="fas fa-image me-2 text-primary"></i>
-                                                <span class="text-muted me-2">Current:</span>
-                                                <a href="<?= base_url('public/uploads/doctors/' . esc($doctor['profile_picture'])) ?>" target="_blank" class="text-decoration-none">
-                                                    <strong><?= esc($doctor['profile_picture']) ?></strong>
-                                                </a>
-                                                <button type="button" class="btn btn-danger btn-sm ms-3"
-                                                    onclick="deleteDocument(<?= esc($doctor['id']) ?>, 'profile_picture', '<?= esc($doctor['profile_picture']) ?>', 'current_profile_picture_container', 'profile_picture')">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </div>
-                                            <?php
-                                            $profilePicExtension = pathinfo($doctor['profile_picture'], PATHINFO_EXTENSION);
-                                            $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-
-                                            if (in_array(strtolower($profilePicExtension), $imageExtensions)): ?>
-                                                <img src="<?= base_url('public/uploads/doctors/' . esc($doctor['profile_picture'])) ?>"
-                                                    alt="Profile Picture" class="img-thumbnail" style="max-width: 150px; height: auto;">
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php else: ?>
-                                        <p class="text-muted" id="no_profile_picture_display">No profile picture uploaded.</p>
-                                    <?php endif; ?>
+                    <form action="<?= base_url('doctors/update/' . $doctor['id']) ?>" method="post" enctype="multipart/form-data">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="_method" value="PUT" />
+                        <div class="card-body">
+                            <?php if (session()->getFlashdata('error')) : ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <?= session()->getFlashdata('error') ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                                <input type="file" name="profile_picture" id="profile_picture" class="form-control-file mt-2" accept="image/jpeg,image/png">
-                                <small class="form-text text-muted">Upload a new picture to replace the current one.</small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="signature_image">Signature Image (Max 1MB, PNG)</label>
-                                <div id="current_signature_image_container" class="mt-2">
-                                    <?php if (!empty($doctor['signature_image'])): ?>
-                                        <div class="d-flex flex-column align-items-start border p-2 rounded bg-light">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <i class="fas fa-signature me-2 text-info"></i>
-                                                <span class="text-muted me-2">Current:</span>
-                                                <a href="<?= base_url('public/uploads/doctors/' . esc($doctor['signature_image'])) ?>" target="_blank" class="text-decoration-none">
-                                                    <strong><?= esc($doctor['signature_image']) ?></strong>
-                                                </a>
-                                                <button type="button" class="btn btn-danger btn-sm ms-3"
-                                                    onclick="deleteDocument(<?= esc($doctor['id']) ?>, 'signature_image', '<?= esc($doctor['signature_image']) ?>', 'current_signature_image_container', 'signature_image')">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </div>
-                                            <?php
-                                            $signatureExtension = pathinfo($doctor['signature_image'], PATHINFO_EXTENSION);
-                                            $imageExtensions = ['png'];
+                            <?php endif; ?>
 
-                                            if (in_array(strtolower($signatureExtension), $imageExtensions)): ?>
-                                                <img src="<?= base_url('public/uploads/doctors/' . esc($doctor['signature_image'])) ?>"
-                                                    alt="Signature Image" class="img-thumbnail" style="max-width: 150px; height: auto;">
-                                            <?php endif; ?>
+                            <div class="row">
+                                <div class="col-md-7 pr-md-4 border-right">
+
+                                    <div class="card card-light card-outline mb-4">
+                                        <div class="card-header bg-light">
+                                            <h5 class="card-title text-primary"><i class="fas fa-user-circle mr-1"></i> Personal Information <span class="text-danger">*</span></h5>
                                         </div>
-                                    <?php else: ?>
-                                        <p class="text-muted" id="no_signature_image_display">No signature image uploaded.</p>
-                                    <?php endif; ?>
-                                </div>
-                                <input type="file" name="signature_image" id="signature_image" class="form-control-file mt-2" accept="image/png">
-                                <small class="form-text text-muted">Upload a new image to replace the current one.</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    ---
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="resume_file">Resume (Max 5MB, PDF/DOC/DOCX)</label>
-                                <div id="current_resume_path_container" class="mt-2">
-                                    <?php if (!empty($doctor['resume_path'])): ?>
-                                        <div class="d-flex flex-column align-items-start border p-2 rounded bg-light">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <?php
-                                                $resumeExtension = pathinfo($doctor['resume_path'], PATHINFO_EXTENSION);
-                                                $iconClass = 'fas fa-file-alt'; // Default icon
-                                                $viewButton = '';
-
-                                                if (strtolower($resumeExtension) === 'pdf') {
-                                                    $iconClass = 'fas fa-file-pdf text-danger';
-                                                    $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#pdfViewerModal" data-pdf-url="' . base_url('public/uploads/doctors/' . esc($doctor['resume_path'])) . '">
-                                                    <i class="fas fa-eye"></i> View PDF
-                                                </button>';
-                                                } elseif (in_array(strtolower($resumeExtension), ['doc', 'docx'])) {
-                                                    $iconClass = 'fas fa-file-word text-primary';
-                                                    $viewButton = '<a href="' . base_url('public/uploads/doctors/' . esc($doctor['resume_path'])) . '" target="_blank" class="btn btn-info btn-sm ms-3">
-                                                    <i class="fas fa-download"></i> Open Doc
-                                                </a>';
-                                                } elseif (in_array(strtolower($resumeExtension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
-                                                    $iconClass = 'fas fa-image text-primary';
-                                                    $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#imageViewerModal" data-image-url="' . base_url('public/uploads/doctors/' . esc($doctor['resume_path'])) . '">
-                                                    <i class="fas fa-eye"></i> View Image
-                                                </button>';
-                                                }
-                                                ?>
-                                                <i class="<?= $iconClass ?> me-2"></i>
-                                                <span class="text-muted me-2">Current:</span>
-                                                <a href="<?= base_url('public/uploads/doctors/' . esc($doctor['resume_path'])) ?>" target="_blank" class="text-decoration-none">
-                                                    <strong><?= esc($doctor['resume_path']) ?></strong>
-                                                </a>
-                                                <?= $viewButton ?>
-                                                <button type="button" class="btn btn-danger btn-sm ms-2"
-                                                    onclick="deleteDocument(<?= esc($doctor['id']) ?>, 'resume_path', '<?= esc($doctor['resume_path']) ?>', 'current_resume_path_container', 'resume_file')">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </div>
-                                            <?php if (strtolower($resumeExtension) === 'pdf'): ?>
-                                                <div class="mt-2 w-100" style="max-height: 300px; overflow-y: auto;">
-                                                    <embed src="<?= base_url('public/uploads/doctors/' . esc($doctor['resume_path'])) ?>" type="application/pdf" width="100%" height="280px" class="rounded">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="first_name">First Name <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?= set_value('first_name', $doctor['first_name']) ?>" placeholder="Enter first name" required>
+                                                    <?= session('errors.first_name') ? '<div class="text-danger small mt-1">' . session('errors.first_name') . '</div>' : '' ?>
                                                 </div>
-                                            <?php elseif (in_array(strtolower($resumeExtension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])): ?>
-                                                <img src="<?= base_url('public/uploads/doctors/' . esc($doctor['resume_path'])) ?>"
-                                                    alt="Resume Image" class="img-thumbnail mt-2" style="max-width: 150px; height: auto;">
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php else: ?>
-                                        <p class="text-muted" id="no_resume_path_display">No resume uploaded.</p>
-                                    <?php endif; ?>
-                                </div>
-                                <input type="file" name="resume_file" id="resume_file" class="form-control-file mt-2" accept=".pdf,.doc,.docx">
-                                <small class="form-text text-muted">Upload a new file to replace the current one.</small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="degree_certificate_file">Degree Certificate (Max 5MB, PDF/JPG/PNG)</label>
-                                <div id="current_degree_certificate_path_container" class="mt-2">
-                                    <?php if (!empty($doctor['degree_certificate_path'])): ?>
-                                        <div class="d-flex flex-column align-items-start border p-2 rounded bg-light">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <?php
-                                                $degreeCertExtension = pathinfo($doctor['degree_certificate_path'], PATHINFO_EXTENSION);
-                                                $iconClass = 'fas fa-file-alt';
-                                                $viewButton = '';
-
-                                                if (strtolower($degreeCertExtension) === 'pdf') {
-                                                    $iconClass = 'fas fa-file-pdf text-danger';
-                                                    $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#pdfViewerModal" data-pdf-url="' . base_url('public/uploads/doctors/' . esc($doctor['degree_certificate_path'])) . '">
-                                                    <i class="fas fa-eye"></i> View PDF
-                                                </button>';
-                                                } elseif (in_array(strtolower($degreeCertExtension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
-                                                    $iconClass = 'fas fa-image text-primary';
-                                                    $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#imageViewerModal" data-image-url="' . base_url('public/uploads/doctors/' . esc($doctor['degree_certificate_path'])) . '">
-                                                    <i class="fas fa-eye"></i> View Image
-                                                </button>';
-                                                }
-                                                ?>
-                                                <i class="<?= $iconClass ?> me-2"></i>
-                                                <span class="text-muted me-2">Current:</span>
-                                                <a href="<?= base_url('public/uploads/doctors/' . esc($doctor['degree_certificate_path'])) ?>" target="_blank" class="text-decoration-none">
-                                                    <strong><?= esc($doctor['degree_certificate_path']) ?></strong>
-                                                </a>
-                                                <?= $viewButton ?>
-                                                <button type="button" class="btn btn-danger btn-sm ms-2"
-                                                    onclick="deleteDocument(<?= esc($doctor['id']) ?>, 'degree_certificate_path', '<?= esc($doctor['degree_certificate_path']) ?>', 'current_degree_certificate_path_container', 'degree_certificate_file')">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </div>
-                                            <?php if (strtolower($degreeCertExtension) === 'pdf'): ?>
-                                                <div class="mt-2 w-100" style="max-height: 300px; overflow-y: auto;">
-                                                    <embed src="<?= base_url('public/uploads/doctors/' . esc($doctor['degree_certificate_path'])) ?>" type="application/pdf" width="100%" height="280px" class="rounded">
+                                                <div class="form-group col-md-6">
+                                                    <label for="last_name">Last Name <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?= set_value('last_name', $doctor['last_name']) ?>" placeholder="Enter last name" required>
+                                                    <?= session('errors.last_name') ? '<div class="text-danger small mt-1">' . session('errors.last_name') . '</div>' : '' ?>
                                                 </div>
-                                            <?php elseif (in_array(strtolower($degreeCertExtension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])): ?>
-                                                <img src="<?= base_url('public/uploads/doctors/' . esc($doctor['degree_certificate_path'])) ?>"
-                                                    alt="Degree Certificate" class="img-thumbnail mt-2" style="max-width: 150px; height: auto;">
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php else: ?>
-                                        <p class="text-muted" id="no_degree_certificate_path_display">No degree certificate uploaded.</p>
-                                    <?php endif; ?>
-                                </div>
-                                <input type="file" name="degree_certificate_file" id="degree_certificate_file" class="form-control-file mt-2" accept=".pdf,image/jpeg,image/png">
-                                <small class="form-text text-muted">Upload a new file to replace the current one.</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    ---
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="license_certificate_file">License Certificate (Max 5MB, PDF/JPG/PNG)</label>
-                                <div id="current_license_certificate_path_container" class="mt-2">
-                                    <?php if (!empty($doctor['license_certificate_path'])): ?>
-                                        <div class="d-flex flex-column align-items-start border p-2 rounded bg-light">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <?php
-                                                $licenseCertExtension = pathinfo($doctor['license_certificate_path'], PATHINFO_EXTENSION);
-                                                $iconClass = 'fas fa-id-card-alt';
-                                                $viewButton = '';
-
-                                                if (strtolower($licenseCertExtension) === 'pdf') {
-                                                    $iconClass = 'fas fa-file-pdf text-danger';
-                                                    $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#pdfViewerModal" data-pdf-url="' . base_url('public/uploads/doctors/' . esc($doctor['license_certificate_path'])) . '">
-                                                    <i class="fas fa-eye"></i> View PDF
-                                                </button>';
-                                                } elseif (in_array(strtolower($licenseCertExtension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
-                                                    $iconClass = 'fas fa-image text-primary';
-                                                    $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#imageViewerModal" data-image-url="' . base_url('public/uploads/doctors/' . esc($doctor['license_certificate_path'])) . '">
-                                                    <i class="fas fa-eye"></i> View Image
-                                                </button>';
-                                                }
-                                                ?>
-                                                <i class="<?= $iconClass ?> me-2"></i>
-                                                <span class="text-muted me-2">Current:</span>
-                                                <a href="<?= base_url('public/uploads/doctors/' . esc($doctor['license_certificate_path'])) ?>" target="_blank" class="text-decoration-none">
-                                                    <strong><?= esc($doctor['license_certificate_path']) ?></strong>
-                                                </a>
-                                                <?= $viewButton ?>
-                                                <button type="button" class="btn btn-danger btn-sm ms-2"
-                                                    onclick="deleteDocument(<?= esc($doctor['id']) ?>, 'license_certificate_path', '<?= esc($doctor['license_certificate_path']) ?>', 'current_license_certificate_path_container', 'license_certificate_file')">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
                                             </div>
-                                            <?php if (strtolower($licenseCertExtension) === 'pdf'): ?>
-                                                <div class="mt-2 w-100" style="max-height: 300px; overflow-y: auto;">
-                                                    <embed src="<?= base_url('public/uploads/doctors/' . esc($doctor['license_certificate_path'])) ?>" type="application/pdf" width="100%" height="280px" class="rounded">
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="gender">Gender</label>
+                                                    <select class="form-control" id="gender" name="gender">
+                                                        <option value="" disabled <?= empty(set_value('gender', $doctor['gender'])) ? 'selected' : '' ?>>Select Gender</option>
+                                                        <option value="Male" <?= set_value('gender', $doctor['gender']) == 'Male' ? 'selected' : '' ?>>Male</option>
+                                                        <option value="Female" <?= set_value('gender', $doctor['gender']) == 'Female' ? 'selected' : '' ?>>Female</option>
+                                                        <option value="Other" <?= set_value('gender', $doctor['gender']) == 'Other' ? 'selected' : '' ?>>Other</option>
+                                                    </select>
                                                 </div>
-                                            <?php elseif (in_array(strtolower($licenseCertExtension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])): ?>
-                                                <img src="<?= base_url('public/uploads/doctors/' . esc($doctor['license_certificate_path'])) ?>"
-                                                    alt="License Certificate" class="img-thumbnail mt-2" style="max-width: 150px; height: auto;">
-                                            <?php endif; ?>
+                                                <div class="form-group col-md-4">
+                                                    <label for="date_of_birth">Date of Birth</label>
+                                                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="<?= set_value('date_of_birth', $doctor['date_of_birth']) ?>">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="experience_years">Years of Experience</label>
+                                                    <input type="number" class="form-control" id="experience_years" name="experience_years" value="<?= set_value('experience_years', $doctor['experience_years']) ?>" placeholder="e.g., 10" min="0">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="bio">Biography / Professional Summary</label>
+                                                <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Brief professional summary..."><?= set_value('bio', $doctor['bio']) ?></textarea>
+                                            </div>
                                         </div>
-                                    <?php else: ?>
-                                        <p class="text-muted" id="no_license_certificate_path_display">No license certificate uploaded.</p>
-                                    <?php endif; ?>
+                                    </div>
+
+                                    <div class="card card-light card-outline mb-4">
+                                        <div class="card-header bg-light">
+                                            <h5 class="card-title text-info"><i class="fas fa-phone-alt mr-1"></i> Contact & Emergency</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email" value="<?= set_value('email', $doctor['email']) ?>" placeholder="Enter email">
+                                                    <?= session('errors.email') ? '<div class="text-danger small mt-1">' . session('errors.email') . '</div>' : '' ?>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="phone_number">Phone Number</label>
+                                                    <input type="tel" class="form-control" id="phone_number" name="phone_number" value="<?= set_value('phone_number', $doctor['phone_number']) ?>" placeholder="Enter phone number">
+                                                    <?= session('errors.phone_number') ? '<div class="text-danger small mt-1">' . session('errors.phone_number') . '</div>' : '' ?>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="address">Address</label>
+                                                <textarea class="form-control" id="address" name="address" rows="2" placeholder="Enter complete address"><?= set_value('address', $doctor['address']) ?></textarea>
+                                            </div>
+                                            <div class="row border-top pt-3 mt-3">
+                                                <div class="form-group col-md-6">
+                                                    <label for="emergency_contact_name">Emergency Contact Name</label>
+                                                    <input type="text" class="form-control" id="emergency_contact_name" name="emergency_contact_name" value="<?= set_value('emergency_contact_name', $doctor['emergency_contact_name']) ?>" placeholder="Emergency contact name">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="emergency_contact_phone">Emergency Contact Phone</label>
+                                                    <input type="tel" class="form-control" id="emergency_contact_phone" name="emergency_contact_phone" value="<?= set_value('emergency_contact_phone', $doctor['emergency_contact_phone']) ?>" placeholder="Emergency contact phone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-light card-outline mb-4">
+                                        <div class="card-header bg-light">
+                                            <h5 class="card-title text-success"><i class="fas fa-user-md mr-1"></i> Professional Credentials</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="specialization">Specialization <span class="text-danger">*</span></label>
+                                                    <select class="form-control" id="specialization" name="specialization" required>
+                                                        <option value="" disabled <?= empty(set_value('specialization', $doctor['specialization'])) ? 'selected' : '' ?>>Select Specialization</option>
+                                                        <?php foreach ($specializations as $spec): ?>
+                                                            <option value="<?= esc($spec['id']) ?>" <?= set_value('specialization', $doctor['specialization']) == $spec['id'] ? 'selected' : '' ?>>
+                                                                <?= esc($spec['name']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <?= session('errors.specialization') ? '<div class="text-danger small mt-1">' . session('errors.specialization') . '</div>' : '' ?>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="qualification">Qualification</label>
+                                                    <input type="text" class="form-control" id="qualification" name="qualification" value="<?= set_value('qualification', $doctor['qualification']) ?>" placeholder="e.g., MBBS, MD">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="medical_license_no">Medical License No.</label>
+                                                    <input type="text" class="form-control" id="medical_license_no" name="medical_license_no" value="<?= set_value('medical_license_no', $doctor['medical_license_no']) ?>" placeholder="License number">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="registration_number">Registration Number</label>
+                                                    <input type="text" class="form-control" id="registration_number" name="registration_number" value="<?= set_value('registration_number', $doctor['registration_number']) ?>" placeholder="Registration number">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="medical_council">Medical Council/Authority</label>
+                                                <input type="text" class="form-control" id="medical_council" name="medical_council" value="<?= set_value('medical_council', $doctor['medical_council']) ?>" placeholder="e.g., Medical Council of India">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input type="file" name="license_certificate_file" id="license_certificate_file" class="form-control-file mt-2" accept=".pdf,image/jpeg,image/png">
-                                <small class="form-text text-muted">Upload a new file to replace the current one.</small>
+
+                                <div class="col-md-5 pl-md-4">
+
+                                    <div class="card card-light card-outline mb-4">
+                                        <div class="card-header bg-light">
+                                            <h5 class="card-title text-warning"><i class="fas fa-briefcase mr-1"></i> Employment & Account</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="department_id">Department</label>
+                                                <select class="form-control" id="department_id" name="department_id" required>
+                                                    <option value="" disabled <?= empty(set_value('department_id', $doctor['department_id'])) ? 'selected' : '' ?>>Select Department</option>
+                                                    <?php foreach ($departments as $department): ?>
+                                                        <option value="<?= esc($department['id']) ?>" <?= set_value('department_id', $doctor['department_id']) == $department['id'] ? 'selected' : '' ?>>
+                                                            <?= esc($department['name']) ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <?= session('errors.department_id') ? '<div class="text-danger small mt-1">' . session('errors.department_id') . '</div>' : '' ?>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="joining_date">Joining Date</label>
+                                                    <input type="date" class="form-control" id="joining_date" name="joining_date" value="<?= set_value('joining_date', $doctor['joining_date']) ?>">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="designation">Designation</label>
+                                                    <input type="text" class="form-control" id="designation" name="designation" value="<?= set_value('designation', $doctor['designation']) ?>" placeholder="e.g., Consultant">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="employment_status">Employment Status</label>
+                                                    <select class="form-control" id="employment_status" name="employment_status">
+                                                        <option value="" disabled <?= empty(set_value('employment_status', $doctor['employment_status'])) ? 'selected' : '' ?>>Select Status</option>
+                                                        <option value="Full-time" <?= set_value('employment_status', $doctor['employment_status']) == 'Full-time' ? 'selected' : '' ?>>Full-time</option>
+                                                        <option value="Part-time" <?= set_value('employment_status', $doctor['employment_status']) == 'Part-time' ? 'selected' : '' ?>>Part-time</option>
+                                                        <option value="Contract" <?= set_value('employment_status', $doctor['employment_status']) == 'Contract' ? 'selected' : '' ?>>Contract</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="contract_type">Contract Type</label>
+                                                    <input type="text" class="form-control" id="contract_type" name="contract_type" value="<?= set_value('contract_type', $doctor['contract_type']) ?>" placeholder="e.g., Permanent">
+                                                </div>
+                                            </div>
+                                       
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="card card-light card-outline mb-4">
+                                        <div class="card-header bg-light">
+                                            <h5 class="card-title text-indigo"><i class="fas fa-money-check-alt mr-1"></i> Financial & Banking</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="opd_fee">OPD Consultation Fee</label>
+                                                    <input type="number" step="0.01" class="form-control" id="opd_fee" name="opd_fee" value="<?= set_value('opd_fee', $doctor['opd_fee']) ?>" placeholder="e.g., 800.00">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="ipd_charge_percentage">IPD Charge Percentage (%)</label>
+                                                    <input type="number" step="0.01" class="form-control" id="ipd_charge_percentage" name="ipd_charge_percentage" value="<?= set_value('ipd_charge_percentage', $doctor['ipd_charge_percentage']) ?>" placeholder="e.g., 15.00">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="bank_account_number">Bank Account Number</label>
+                                                <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" value="<?= set_value('bank_account_number', $doctor['bank_account_number']) ?>" placeholder="Enter bank account number">
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="bank_name">Bank Name</label>
+                                                    <input type="text" class="form-control" id="bank_name" name="bank_name" value="<?= set_value('bank_name', $doctor['bank_name']) ?>" placeholder="Enter bank name">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="ifsc_code">IFSC Code</label>
+                                                    <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" value="<?= set_value('ifsc_code', $doctor['ifsc_code']) ?>" placeholder="Enter IFSC code">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pan_number">PAN Number</label>
+                                                <input type="text" class="form-control" id="pan_number" name="pan_number" value="<?= set_value('pan_number', $doctor['pan_number']) ?>" placeholder="Enter PAN number">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="row mt-4 pt-3 border-top">
+                                <div class="col-md-12">
+                                    <h4 class="text-danger"><i class="fas fa-paperclip mr-1"></i> Required Documents & Files</h4>
+                                </div>
+
+                                <!-- Profile Picture Upload and Display -->
+                                <div class="form-group col-md-3">
+                                    <label for="profile_picture">Profile Picture</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="profile_picture" name="profile_picture" accept="image/*">
+                                            <label class="custom-file-label" for="profile_picture">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <?= session('errors.profile_picture') ? '<div class="text-danger small mt-1">' . session('errors.profile_picture') . '</div>' : '' ?>
+
+                                    <div id="profile_picture_container" class="mt-2">
+                                        <?php if (!empty($doctor['profile_picture'])): ?>
+                                            <img src="<?= base_url('public/uploads/doctors/' . $doctor['profile_picture']) ?>" alt="Profile Picture" class="img-thumbnail" style="max-width: 100px;">
+                                            <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteFile('profile_picture', <?= $doctor['id'] ?>)">Delete</button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <!-- Digital Signature Upload and Display -->
+                                <div class="form-group col-md-3">
+                                    <label for="signature_image">Digital Signature</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="signature_image" name="signature_image" accept="image/png">
+                                            <label class="custom-file-label" for="signature_image">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <?= session('errors.signature_image') ? '<div class="text-danger small mt-1">' . session('errors.signature_image') . '</div>' : '' ?>
+
+                                    <div id="signature_image_container" class="mt-2">
+                                        <?php if (!empty($doctor['signature_image'])): ?>
+                                            <img src="<?= base_url('public/uploads/doctors/' . $doctor['signature_image']) ?>" alt="Signature Image" class="img-thumbnail" style="max-width: 100px;">
+                                            <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteFile('signature_image', <?= $doctor['id'] ?>)">Delete</button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="resume_file">Resume/CV</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx">
+                                            <label class="custom-file-label" for="resume_file">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <?= session('errors.resume_file') ? '<div class="text-danger small mt-1">' . session('errors.resume_file') . '</div>' : '' ?>
+
+                                    <div id="resume_file_container" class="mt-2">
+                                        <?php if (!empty($doctor['resume_path'])):
+                                            $filePath = base_url('public/uploads/doctors/' . $doctor['resume_path']);
+                                            $fileExtension = pathinfo($doctor['resume_path'], PATHINFO_EXTENSION);
+                                        ?>
+                                            <?php if (strtolower($fileExtension) === 'pdf'): ?>
+                                                <iframe src="<?= $filePath ?>" style="width:100%; height:200px; border: 1px solid #ccc;"></iframe>
+                                                <p class="text-muted small mt-1">
+                                                    <a href="<?= $filePath ?>" target="_blank">View in New Tab</a>
+                                                </p>
+                                            <?php else: ?>
+                                                <a href="<?= $filePath ?>" target="_blank"><?= esc($doctor['resume_path']) ?></a>
+                                                <p class="text-muted small mt-1">
+                                                    Click to download/view the file.
+                                                </p>
+                                            <?php endif; ?>
+
+                                            <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteFile('resume_path', <?= $doctor['id'] ?>)">Delete</button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <!-- Highest Degree Certificate Upload and Display -->
+                                <div class="form-group col-md-3">
+                                    <label for="degree_certificate_file">Highest Degree Cert.</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="degree_certificate_file" name="degree_certificate_file" accept=".pdf,image/*">
+                                            <label class="custom-file-label" for="degree_certificate_file">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <?= session('errors.degree_certificate_file') ? '<div class="text-danger small mt-1">' . session('errors.degree_certificate_file') . '</div>' : '' ?>
+
+                                    <div id="degree_certificate_file_container" class="mt-2">
+                                        <?php if (!empty($doctor['degree_certificate_path'])):
+                                            $filePath = base_url('public/uploads/doctors/' . $doctor['degree_certificate_path']);
+                                            $fileExtension = strtolower(pathinfo($doctor['degree_certificate_path'], PATHINFO_EXTENSION));
+                                            $isImage = in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']);
+                                        ?>
+                                            <?php if ($isImage): ?>
+                                                <img src="<?= $filePath ?>" alt="Degree Certificate" class="img-thumbnail" style="max-width: 100px;">
+                                            <?php elseif ($fileExtension === 'pdf'): ?>
+                                                <iframe src="<?= $filePath ?>" style="width:100%; height:200px; border: 1px solid #ccc;"></iframe>
+                                                <p class="text-muted small mt-1">
+                                                    <a href="<?= $filePath ?>" target="_blank">View in New Tab</a>
+                                                </p>
+                                            <?php else: ?>
+                                                <a href="<?= $filePath ?>" target="_blank"><?= esc($doctor['degree_certificate_path']) ?></a>
+                                                <p class="text-muted small mt-1">
+                                                    Click to view or download the file.
+                                                </p>
+                                            <?php endif; ?>
+
+                                            <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteFile('degree_certificate_path', <?= $doctor['id'] ?>)">Delete</button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <!-- Medical License Certificate Upload and Display -->
+                                <div class="form-group col-md-3">
+                                    <label for="license_certificate_file">Medical License Cert.</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="license_certificate_file" name="license_certificate_file" accept=".pdf,image/*">
+                                            <label class="custom-file-label" for="license_certificate_file">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <?= session('errors.license_certificate_file') ? '<div class="text-danger small mt-1">' . session('errors.license_certificate_file') . '</div>' : '' ?>
+
+                                    <div id="license_certificate_file_container" class="mt-2">
+                                        <?php if (!empty($doctor['license_certificate_path'])):
+                                            $filePath = base_url('public/uploads/doctors/' . $doctor['license_certificate_path']);
+                                            $fileExtension = strtolower(pathinfo($doctor['license_certificate_path'], PATHINFO_EXTENSION));
+                                            $isImage = in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']);
+                                        ?>
+                                            <?php if ($isImage): ?>
+                                                <img src="<?= $filePath ?>" alt="License Certificate" class="img-thumbnail" style="max-width: 100px;">
+                                            <?php elseif ($fileExtension === 'pdf'): ?>
+                                                <iframe src="<?= $filePath ?>" style="width:100%; height:200px; border: 1px solid #ccc;"></iframe>
+                                                <p class="text-muted small mt-1">
+                                                    <a href="<?= $filePath ?>" target="_blank">View in New Tab</a>
+                                                </p>
+                                            <?php else: ?>
+                                                <a href="<?= $filePath ?>" target="_blank"><?= esc($doctor['license_certificate_path']) ?></a>
+                                                <p class="text-muted small mt-1">
+                                                    Click to view or download the file.
+                                                </p>
+                                            <?php endif; ?>
+
+                                            <button type="button" class="btn btn-sm btn-danger ml-1" onclick="deleteFile('license_certificate_path', <?= $doctor['id'] ?>)">Delete</button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
 
 
-                    </div>
+                                <!-- Other Certificates Multi-files -->
+                                <div class="form-group col-md-3">
+                                    <label for="other_certificate_file">Other Certificates (Multi)</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="other_certificate_file" name="other_certificate_file[]" accept=".pdf,image/*,.doc,.docx" multiple>
+                                            <label class="custom-file-label" for="other_certificate_file">Choose files</label>
+                                        </div>
+                                    </div>
+                                    <?php if (session('errors.other_certificate_file')): ?>
+                                        <div class="text-danger small mt-1"><?= implode('<br>', session('errors.other_certificate_file')) ?></div>
+                                    <?php elseif (session('errors')['other_certificate_file.*'] ?? false): ?>
+                                        <div class="text-danger small mt-1">One or more uploaded files failed validation.</div>
+                                    <?php endif; ?>
 
-                    <div class="row mt-5">
+                                    <div id="other_certificate_files_container" class="mt-2">
+                                        <?php if (!empty($doctor['other_certificates_array'])): ?>
+                                            <?php foreach ($doctor['other_certificates_array'] as $file):
+                                                $filePath = base_url('public/uploads/doctors/' . $file);
+                                                $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                                                $isImage = in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']);
+                                            ?>
+                                                <div id="file_<?= esc($file) ?>" class="d-flex align-items-center flex-wrap mb-2 p-1 border rounded">
+                                                    <?php if ($isImage): ?>
+                                                        <img src="<?= $filePath ?>" alt="Certificate" class="img-thumbnail mr-2" style="max-width: 80px;">
+                                                        <span class="text-truncate mr-2"><?= esc($file) ?></span>
+                                                    <?php elseif ($fileExtension === 'pdf'): ?>
+                                                        <a href="<?= $filePath ?>" target="_blank" class="mr-2">PDF: <?= esc($file) ?></a>
+                                                        <p class="text-muted small w-100 mb-0">Click to view in new tab.</p>
+                                                    <?php else: ?>
+                                                        <a href="<?= $filePath ?>" target="_blank" class="mr-2">File: <?= esc($file) ?></a>
+                                                        <p class="text-muted small w-100 mb-0">Click to download/view.</p>
+                                                    <?php endif; ?>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="other_certificate_file">Other Certificates/Awards (Max 5MB per file, PDF/JPG/PNG/DOC/DOCX)</label>
-                                <input type="file" name="other_certificate_file[]" id="other_certificate_file" class="form-control-file" accept=".pdf,image/jpeg,image/png,.doc,.docx" multiple>
-                                <small class="form-text text-muted">Select new files to add. Existing files are listed below.</small>
-
-                                <div id="other_certificates_list_container" class="mt-2 col-md-6"> <?php
-                                                                                                    $otherCertificates = $doctor['other_certificates_array'] ?? [];
-                                                                                                    ?>
-                                    <?php if (!empty($otherCertificates)): ?>
-                                        <ul class="list-group mb-3">
-                                            <?php foreach ($otherCertificates as $index => $fileName): ?>
-                                                <li class="list-group-item bg-light mb-2 rounded" id="other_certificate_item_<?= $index ?>" data-filename="<?= esc($fileName) ?>">
-                                                    <div class="d-flex flex-column align-items-start p-2">
-                                                        <div class="d-flex align-items-center mb-2 w-100">
-                                                            <?php
-                                                            $otherCertExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-                                                            $otherCertIconClass = 'fas fa-file';
-                                                            $otherCertTextColor = 'text-secondary';
-                                                            $viewButton = '';
-                                                            $inlineContent = '';
-
-                                                            if (strtolower($otherCertExtension) === 'pdf') {
-                                                                $otherCertIconClass = 'fas fa-file-pdf';
-                                                                $otherCertTextColor = 'text-danger';
-                                                                $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#pdfViewerModal" data-pdf-url="' . base_url('public/uploads/doctors/' . urlencode($fileName)) . '">
-                                            <i class="fas fa-eye"></i> View PDF
-                                        </button>';
-                                                                $inlineContent = '<div class="mt-2 w-100" style="max-height: 200px; overflow-y: auto;"><embed src="' . base_url('public/uploads/doctors/' . esc($fileName)) . '" type="application/pdf" width="100%" height="180px" class="rounded"></div>';
-                                                            } elseif (in_array(strtolower($otherCertExtension), ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
-                                                                $otherCertIconClass = 'fas fa-image';
-                                                                $otherCertTextColor = 'text-primary';
-                                                                $inlineContent = '<img src="' . base_url('public/uploads/doctors/' . esc($fileName)) . '" alt="Certificate Image" class="img-thumbnail mt-2" style="max-width: 120px; height: auto;">';
-                                                                $viewButton = '<button type="button" class="btn btn-info btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#imageViewerModal" data-image-url="' . base_url('public/uploads/doctors/' . urlencode($fileName)) . '">
-                                            <i class="fas fa-eye"></i> View Image
-                                        </button>';
-                                                            } elseif (in_array(strtolower($otherCertExtension), ['doc', 'docx'])) {
-                                                                $otherCertIconClass = 'fas fa-file-word';
-                                                                $otherCertTextColor = 'text-primary';
-                                                                $viewButton = '<a href="' . base_url('public/uploads/doctors/' . urlencode($fileName)) . '" target="_blank" class="btn btn-info btn-sm ms-3">
-                                            <i class="fas fa-download"></i> Open Doc
-                                        </a>';
-                                                            }
-                                                            ?>
-                                                            <i class="<?= $otherCertIconClass ?> me-2 <?= $otherCertTextColor ?>"></i>
-                                                            <a href="<?= base_url('public/uploads/doctors/' . urlencode($fileName)) ?>" target="_blank" class="text-decoration-none flex-grow-1">
-                                                                <strong><?= esc($fileName) ?></strong>
-                                                            </a>
-                                                            <?= $viewButton ?>
-                                                            <button type="button" class="btn btn-danger btn-sm ms-2"
-                                                                onclick="deleteDocument(<?= esc($doctor['id']) ?>, 'other_certificates_path', '<?= esc($fileName) ?>', 'other_certificate_item_<?= $index ?>', 'other_certificate_file')">
-                                                                <i class="fas fa-trash"></i> Delete
-                                                            </button>
-                                                        </div>
-                                                        <?= $inlineContent ?>
-                                                    </div>
-                                                </li>
+                                                    <button type="button" class="btn btn-sm btn-danger ml-auto" onclick="deleteFile('other_certificates_path', <?= $doctor['id'] ?>, '<?= esc($file) ?>')">Delete</button>
+                                                </div>
                                             <?php endforeach; ?>
-                                        </ul>
-                                    <?php else: ?>
-                                        <p class="text-muted" id="no_other_certificates_display">No other certificates currently uploaded.</p>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="pdfViewerModal" tabindex="-1" aria-labelledby="pdfViewerModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="pdfViewerModalLabel">Document Viewer</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <iframe id="pdfFrame" src="" width="100%" height="600px" style="border: none;"></iframe>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="modal fade" id="imageViewerModal" tabindex="-1" aria-labelledby="imageViewerModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="imageViewerModalLabel">Image Viewer</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <img id="imageFrame" src="" class="img-fluid" alt="Viewer Image">
-                                    </div>
+                                <!-- Available and Status fields remain unchanged -->
+                                <div class="form-group col-md-3">
+                                    <label for="is_available">Available for Duty?</label>
+                                    <select class="form-control" id="is_available" name="is_available">
+                                        <option value="1" <?= set_value('is_available', $doctor['is_available']) == '1' ? 'selected' : '' ?>>Yes</option>
+                                        <option value="0" <?= set_value('is_available', $doctor['is_available']) == '0' ? 'selected' : '' ?>>No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="status">Account Status</label>
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="Active" <?= set_value('status', $doctor['status']) == 'Active' ? 'selected' : '' ?>>Active</option>
+                                        <option value="Inactive" <?= set_value('status', $doctor['status']) == 'Inactive' ? 'selected' : '' ?>>Inactive</option>
+                                        <option value="On Leave" <?= set_value('status', $doctor['status']) == 'On Leave' ? 'selected' : '' ?>>On Leave</option>
+                                        <option value="Suspended" <?= set_value('status', $doctor['status']) == 'Suspended' ? 'selected' : '' ?>>Suspended</option>
+                                    </select>
                                 </div>
                             </div>
+
+
                         </div>
-
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const pdfViewerModal = document.getElementById('pdfViewerModal');
-                                if (pdfViewerModal) {
-                                    pdfViewerModal.addEventListener('show.bs.modal', function(event) {
-                                        const button = event.relatedTarget;
-                                        const pdfUrl = button.getAttribute('data-pdf-url');
-                                        const pdfFrame = pdfViewerModal.querySelector('#pdfFrame');
-                                        pdfFrame.src = pdfUrl;
-                                    });
-                                    pdfViewerModal.addEventListener('hide.bs.modal', function() {
-                                        const pdfFrame = pdfViewerModal.querySelector('#pdfFrame');
-                                        pdfFrame.src = '';
-                                    });
-                                }
-
-                                const imageViewerModal = document.getElementById('imageViewerModal');
-                                if (imageViewerModal) {
-                                    imageViewerModal.addEventListener('show.bs.modal', function(event) {
-                                        const button = event.relatedTarget;
-                                        const imageUrl = button.getAttribute('data-image-url');
-                                        const imageFrame = imageViewerModal.querySelector('#imageFrame');
-                                        imageFrame.src = imageUrl;
-                                    });
-                                    imageViewerModal.addEventListener('hide.bs.modal', function() {
-                                        const imageFrame = imageViewerModal.querySelector('#imageFrame');
-                                        imageFrame.src = '';
-                                    });
-                                }
-                            });
-                        </script>
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Update Doctor</button>
-                            <a href="<?= base_url('doctors') ?>" class="btn btn-secondary">Cancel</a>
+                        <div class="card-footer text-right">
+                            <a href="<?= base_url('doctors') ?>" class="btn btn-secondary ml-2">
+                                <i class="fas fa-times-circle mr-1"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save mr-1"></i> Update Doctor
+                            </button>
                         </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <script>
-     
 
-        function deleteDocument(doctorId, documentType, fileName, containerId, inputId) {
-            if (!confirm('Are you sure you want to delete this document?')) {
-                return;
-            }
 
-            const deleteUrl = `<?= base_url('doctors/delete_document_ajax') ?>`; // Verify this URL matches your route
-            const postData = {
-                id: doctorId,
-                field: documentType,
-                fileName: fileName
-            };
 
-            console.log('Attempting to delete:', {
-                url: deleteUrl,
-                data: postData,
-                container: containerId,
-                input: inputId
-            });
-
-            // If you have CSRF protection enabled in CodeIgniter 4
-            const csrfToken = document.querySelector('meta[name="csrf-token"]') ?
-                document.querySelector('meta[name="csrf-token"]').getAttribute('content') :
-                '';
-
-            fetch(deleteUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': csrfToken // Or include in body as 'csrf_test_name'
-                    },
-                    body: JSON.stringify(postData)
-                })
-                .then(response => {
-                    console.log('Server Response:', response); // Log the raw response object
-                    if (!response.ok) {
-                        // If you get here, it means the server responded with an HTTP error code (e.g., 404, 500)
-                        // The error message from CodeIgniter's "Cannot find route" would show here.
-                        return response.text().then(text => {
-                            throw new Error(`HTTP error! Status: ${response.status}. Response: ${text}`);
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Parsed JSON Data:', data); // Log the parsed JSON data
-                    // ... rest of your success/error handling
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    alert('An error occurred while deleting the document. Please check the console and server logs.');
-                });
+<script>
+    function deleteFile(fieldName, doctorId, filename = '') {
+        if (!confirm('Are you sure you want to delete this file?')) {
+            return;
         }
-    </script>
 
-    <?= $this->endSection() ?>
+        const data = {
+            doctor_id: doctorId,
+            field: fieldName
+        };
+        if (filename) {
+            data.filename = filename;
+        }
+
+        fetch('<?= base_url('doctors/deleteFile') ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    '<?= csrf_token() ?>': '<?= csrf_hash() ?>'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success) {
+                    if (filename) {
+                        // For multi-file fields, remove the specific file div
+                        const elem = document.getElementById('file_' + filename);
+                        if (elem) elem.remove();
+                    } else {
+                        // For single file fields, remove entire container
+                        const container = document.getElementById(fieldName + '_container');
+                        if (container) container.innerHTML = '';
+                    }
+                } else {
+                    alert(json.message || 'Failed to delete the file.');
+                }
+            })
+            .catch(() => {
+                alert('Error deleting the file.');
+            });
+    }
+</script>
+
+
+
+
+
+<?= $this->endSection() ?>

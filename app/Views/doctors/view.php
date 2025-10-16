@@ -33,32 +33,33 @@
                             <li class="nav-item"><a class="nav-link" href="#documents" data-toggle="tab"><i class="fas fa-file-alt mr-1"></i> Documents</a></li>
                         </ul>
                         <div class="card-tools pt-2 pr-2">
-                             <a href="<?= base_url('doctors/edit/' . $doctor['id']) ?>" class="btn btn-warning btn-sm" title="Edit Doctor">
+                            <a href="<?= base_url('doctors/edit/' . $doctor['id']) ?>" class="btn btn-warning btn-sm" title="Edit Doctor">
                                 <i class="fas fa-edit"></i> Edit Profile
                             </a>
                             <a href="<?= base_url('doctors') ?>" class="btn btn-secondary btn-sm ml-1">
                                 <i class="fas fa-arrow-left"></i> Back to List
                             </a>
                         </div>
-                    </div><div class="card-body">
+                    </div>
+                    <div class="card-body">
                         <div class="tab-content">
 
                             <div class="tab-pane active" id="profile">
                                 <div class="row">
-                                    
+
                                     <div class="col-md-3 text-center border-right">
                                         <?php
                                         // Use consistent paths from the previous files
-                                        $profilePictureUrl = !empty($doctor['profile_picture']) 
-                                            ? base_url('public/uploads/doctors/' . urlencode($doctor['profile_picture'])) 
+                                        $profilePictureUrl = !empty($doctor['profile_picture'])
+                                            ? base_url('public/uploads/doctors/' . urlencode($doctor['profile_picture']))
                                             : base_url('dist/img/default-avatar.png');
                                         ?>
                                         <img src="<?= esc($profilePictureUrl) ?>" class="img-fluid rounded-circle img-thumbnail mb-3" style="width: 150px; height: 150px; object-fit: cover;" alt="Profile Picture">
-                                        
+
                                         <h4><?= esc($doctor['first_name'] . ' ' . $doctor['last_name']) ?></h4>
                                         <p class="text-primary text-bold"><?= esc($doctor['specialization'] ?? 'Specialist') ?></p>
                                         <p class="text-muted">ID: **<?= esc($doctor['doctor_id_code'] ?? 'N/A') ?>**</p>
-                                        
+
                                         <p>
                                             <span class="badge 
                                                 <?php
@@ -82,7 +83,7 @@
                                     </div>
 
                                     <div class="col-md-9">
-                                        
+
                                         <h5 class="text-info"><i class="fas fa-info-circle mr-1"></i> Personal & Contact Information</h5>
                                         <hr class="mt-0">
                                         <div class="row">
@@ -128,14 +129,14 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="callout callout-primary pt-2 pb-2 mt-0">
                                             <strong><i class="fas fa-book mr-1"></i> Biography / Summary</strong>
                                             <p class="text-muted mb-0">
                                                 <?= nl2br(esc($doctor['bio'] ?? 'N/A')) ?>
                                             </p>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +148,7 @@
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item"><b>Department:</b> <span class="float-right text-bold"><?= esc($doctor['department_name'] ?? 'N/A') ?></span></li>
                                             <li class="list-group-item"><b>Designation:</b> <span class="float-right"><?= esc($doctor['designation'] ?? 'N/A') ?></span></li>
+                                            <li class="list-group-item"><b>Specialization:</b> <span class="float-right"><?= esc($doctor['specialization_name'] ?? 'N/A') ?></span></li>
                                             <li class="list-group-item"><b>Employment Status:</b> <span class="float-right"><?= esc($doctor['employment_status'] ?? 'N/A') ?></span></li>
                                         </ul>
                                     </div>
@@ -155,10 +157,10 @@
                                             <li class="list-group-item"><b>Joining Date:</b> <span class="float-right"><?= esc($doctor['joining_date'] ?? 'N/A') ?></span></li>
                                             <li class="list-group-item"><b>Contract Type:</b> <span class="float-right"><?= esc($doctor['contract_type'] ?? 'N/A') ?></span></li>
                                             <li class="list-group-item"><b>Available for Duty:</b> <span class="float-right">
-                                                <span class="badge <?= ($doctor['is_available'] ?? 0) ? 'bg-success' : 'bg-danger' ?>">
-                                                    <?= ($doctor['is_available'] ?? 0) ? 'Available' : 'Not Available' ?>
-                                                </span>
-                                            </span></li>
+                                                    <span class="badge <?= ($doctor['is_available'] ?? 0) ? 'bg-success' : 'bg-danger' ?>">
+                                                        <?= ($doctor['is_available'] ?? 0) ? 'Available' : 'Not Available' ?>
+                                                    </span>
+                                                </span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -205,16 +207,16 @@
                                             <div class="card p-2 text-center document-card" style="height: auto; min-height: 180px;">
                                                 <small class="text-bold text-muted mb-2"><?= esc($doc['label']) ?></small>
                                                 <?php if (!empty($fileName)): ?>
-                                                    <?php 
-                                                        $iconClass = 'fas fa-file-alt text-info';
-                                                        $linkText = 'View Document';
-                                                        if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])) {
-                                                            $iconClass = 'fas fa-image text-primary';
-                                                            $linkText = 'View Image';
-                                                        } elseif (strtolower($ext) === 'pdf') {
-                                                            $iconClass = 'fas fa-file-pdf text-danger';
-                                                            $linkText = 'View PDF';
-                                                        }
+                                                    <?php
+                                                    $iconClass = 'fas fa-file-alt text-info';
+                                                    $linkText = 'View Document';
+                                                    if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])) {
+                                                        $iconClass = 'fas fa-image text-primary';
+                                                        $linkText = 'View Image';
+                                                    } elseif (strtolower($ext) === 'pdf') {
+                                                        $iconClass = 'fas fa-file-pdf text-danger';
+                                                        $linkText = 'View PDF';
+                                                    }
                                                     ?>
                                                     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px;">
                                                         <i class="<?= $iconClass ?> fa-3x mb-2"></i>
@@ -230,11 +232,11 @@
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
-                                    
+
                                     <div class="col-md-12">
                                         <h6 class="mt-3 mb-2 text-primary border-top pt-3"><i class="fas fa-scroll mr-1"></i> Other Certificates/Awards (Multiple Files)</h6>
                                     </div>
-                                    
+
                                     <?php
                                     $otherCertificates = [];
                                     if (!empty($doctor['other_certificates_path'])) {
@@ -244,7 +246,7 @@
                                         }
                                     }
                                     ?>
-                                    
+
                                     <?php if (!empty($otherCertificates)): ?>
                                         <?php foreach ($otherCertificates as $index => $fileName):
                                             $fileUrl = base_url('public/uploads/doctors/' . urlencode($fileName));
@@ -253,16 +255,16 @@
                                             <div class="col-md-4 col-sm-6 mb-3">
                                                 <div class="card p-2 text-center document-card" style="height: auto; min-height: 180px;">
                                                     <small class="text-bold text-muted mb-2">Certificate #<?= $index + 1 ?></small>
-                                                    <?php 
-                                                        $iconClass = 'fas fa-file-alt text-info';
-                                                        $linkText = 'View Document';
-                                                        if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])) {
-                                                            $iconClass = 'fas fa-image text-primary';
-                                                            $linkText = 'View Image';
-                                                        } elseif (strtolower($ext) === 'pdf') {
-                                                            $iconClass = 'fas fa-file-pdf text-danger';
-                                                            $linkText = 'View PDF';
-                                                        }
+                                                    <?php
+                                                    $iconClass = 'fas fa-file-alt text-info';
+                                                    $linkText = 'View Document';
+                                                    if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])) {
+                                                        $iconClass = 'fas fa-image text-primary';
+                                                        $linkText = 'View Image';
+                                                    } elseif (strtolower($ext) === 'pdf') {
+                                                        $iconClass = 'fas fa-file-pdf text-danger';
+                                                        $linkText = 'View PDF';
+                                                    }
                                                     ?>
                                                     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px;">
                                                         <i class="<?= $iconClass ?> fa-3x mb-2"></i>
@@ -281,7 +283,10 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            </div></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

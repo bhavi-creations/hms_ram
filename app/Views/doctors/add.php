@@ -30,7 +30,15 @@
                         <?= csrf_field() ?>
                         
                         <div class="card-body">
-                            <?php // Keep your flash message logic here ?>
+                            <?php // Display flash messages if any
+                            if (session()->getFlashdata('error')) : ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <?= session()->getFlashdata('error') ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                             
                             <div class="row">
                                 
@@ -56,7 +64,12 @@
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     <label for="gender">Gender</label>
-                                                    <select class="form-control" id="gender" name="gender">...</select>
+                                                    <select class="form-control" id="gender" name="gender">
+                                                        <option value="" disabled selected>Select Gender</option>
+                                                        <option value="Male" <?= old('gender') == 'Male' ? 'selected' : '' ?>>Male</option>
+                                                        <option value="Female" <?= old('gender') == 'Female' ? 'selected' : '' ?>>Female</option>
+                                                        <option value="Other" <?= old('gender') == 'Other' ? 'selected' : '' ?>>Other</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="date_of_birth">Date of Birth</label>
@@ -83,10 +96,12 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="email">Email</label>
                                                     <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Enter email">
+                                                    <?= session('errors.email') ? '<div class="text-danger small mt-1">' . session('errors.email') . '</div>' : '' ?>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="phone_number">Phone Number</label>
                                                     <input type="tel" class="form-control" id="phone_number" name="phone_number" value="<?= old('phone_number') ?>" placeholder="Enter phone number">
+                                                    <?= session('errors.phone_number') ? '<div class="text-danger small mt-1">' . session('errors.phone_number') . '</div>' : '' ?>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -114,7 +129,17 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label for="specialization">Specialization <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="specialization" name="specialization" value="<?= old('specialization') ?>" placeholder="e.g., Cardiology" required>
+                                                    <!-- START: UPDATED Specialization Dropdown -->
+                                                    <select class="form-control" id="specialization" name="specialization" required>
+                                                        <option value="" disabled selected>Select Specialization</option>
+                                                        <?php foreach ($specializations as $spec): ?>
+                                                            <option value="<?= esc($spec['id']) ?>"
+                                                                <?= old('specialization') == $spec['id'] ? 'selected' : '' ?>>
+                                                                <?= esc($spec['name']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <!-- END: UPDATED Specialization Dropdown -->
                                                     <?= session('errors.specialization') ? '<div class="text-danger small mt-1">' . session('errors.specialization') . '</div>' : '' ?>
                                                 </div>
                                                 <div class="form-group col-md-6">
@@ -174,7 +199,12 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label for="employment_status">Employment Status</label>
-                                                    <select class="form-control" id="employment_status" name="employment_status">...</select>
+                                                    <select class="form-control" id="employment_status" name="employment_status">
+                                                        <option value="" disabled selected>Select Status</option>
+                                                        <option value="Full-time" <?= old('employment_status') == 'Full-time' ? 'selected' : '' ?>>Full-time</option>
+                                                        <option value="Part-time" <?= old('employment_status') == 'Part-time' ? 'selected' : '' ?>>Part-time</option>
+                                                        <option value="Contract" <?= old('employment_status') == 'Contract' ? 'selected' : '' ?>>Contract</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="contract_type">Contract Type</label>
@@ -184,14 +214,14 @@
                                             <hr>
                                             <h6 class="text-muted">Login/System Access</h6>
                                             <div class="form-group">
-                                                <label for="username">Login Username</label>
-                                                <input type="text" class="form-control" id="username" name="username" value="<?= old('username') ?>" placeholder="Enter login username">
+                                                <label for="username">Login Username <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="username" name="username" value="<?= old('username') ?>" placeholder="Enter login username" required>
                                                 <?= session('errors.username') ? '<div class="text-danger small mt-1">' . session('errors.username') . '</div>' : '' ?>
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Login Password</label>
+                                                <label for="password">Login Password <span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password (optional)">
+                                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
                                                     <div class="input-group-append">
                                                         <span class="input-group-text"><i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i></span>
                                                     </div>
@@ -250,6 +280,7 @@
                                             <label class="custom-file-label" for="profile_picture">Choose file</label>
                                         </div>
                                     </div>
+                                    <?= session('errors.profile_picture') ? '<div class="text-danger small mt-1">' . session('errors.profile_picture') . '</div>' : '' ?>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="signature_image">Digital Signature</label>
@@ -259,6 +290,7 @@
                                             <label class="custom-file-label" for="signature_image">Choose file</label>
                                         </div>
                                     </div>
+                                    <?= session('errors.signature_image') ? '<div class="text-danger small mt-1">' . session('errors.signature_image') . '</div>' : '' ?>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="resume_file">Resume/CV</label>
@@ -268,6 +300,7 @@
                                             <label class="custom-file-label" for="resume_file">Choose file</label>
                                         </div>
                                     </div>
+                                    <?= session('errors.resume_file') ? '<div class="text-danger small mt-1">' . session('errors.resume_file') . '</div>' : '' ?>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="degree_certificate_file">Highest Degree Cert.</label>
@@ -277,6 +310,7 @@
                                             <label class="custom-file-label" for="degree_certificate_file">Choose file</label>
                                         </div>
                                     </div>
+                                    <?= session('errors.degree_certificate_file') ? '<div class="text-danger small mt-1">' . session('errors.degree_certificate_file') . '</div>' : '' ?>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="license_certificate_file">Medical License Cert.</label>
@@ -286,6 +320,7 @@
                                             <label class="custom-file-label" for="license_certificate_file">Choose file</label>
                                         </div>
                                     </div>
+                                    <?= session('errors.license_certificate_file') ? '<div class="text-danger small mt-1">' . session('errors.license_certificate_file') . '</div>' : '' ?>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="other_certificate_file">Other Certificates (Multi)</label>
@@ -295,6 +330,11 @@
                                             <label class="custom-file-label" for="other_certificate_file">Choose files</label>
                                         </div>
                                     </div>
+                                    <?php if (session('errors.other_certificate_file')): ?>
+                                        <div class="text-danger small mt-1"><?= implode('<br>', session('errors.other_certificate_file')) ?></div>
+                                    <?php elseif (session('errors')['other_certificate_file.*'] ?? false): ?>
+                                        <div class="text-danger small mt-1">One or more uploaded files failed validation.</div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="is_available">Available for Duty?</label>
@@ -331,12 +371,26 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
+<!-- Select2 CSS and JS for enhanced dropdowns -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 <script>
     $(document).ready(function() {
         // Initialize custom file input
         if (typeof bsCustomFileInput !== 'undefined') {
             bsCustomFileInput.init();
         }
+
+        // Initialize Select2 on all dropdowns with the .form-control class
+        // This includes: gender, specialization, department_id, employment_status, is_available, status
+        $('select.form-control').select2({
+            theme: 'bootstrap4', // Use the AdminLTE compatible theme
+            width: '100%',
+            // Allow clearing the selection if it's not a required field
+            allowClear: true 
+        });
 
         // Toggle Password Visibility
         const togglePassword = document.getElementById('togglePassword');

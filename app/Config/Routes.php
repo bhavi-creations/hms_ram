@@ -312,6 +312,8 @@ $routes->group('doctors', ['filter' => 'auth'], function ($routes) {
     $routes->GET('edit/(:num)', 'Doctors::edit/$1');
     $routes->GET('view/(:num)', 'Doctors::view/$1');
     $routes->POST('delete_document_ajax', 'Doctors::deleteDocumentAjax');
+    $routes->POST('deleteFile', 'Doctors::deleteFile'); 
+    $routes->PUT('update/(:num)', 'Doctors::update/$1');
 });
 
 

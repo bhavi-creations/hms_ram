@@ -77,7 +77,8 @@
                                                 <td>
                                                     <h5 class="font-weight-bold mb-0"><?= esc($doctor['first_name'] . ' ' . $doctor['last_name']) ?></h5>
                                                 </td>
-                                                <td><span class="badge bg-secondary p-1"><?= esc($doctor['specialization']) ?></span></td>
+                                                    <td><span class="badge bg-secondary p-1"><?= esc($doctor['specialization']) ?></span></td>
+                                                
                                                 <td><?= esc($doctor['department_name'] ?? 'N/A') ?></td>
                                                 <td><a href="tel:<?= esc($doctor['phone_number']) ?>"><?= esc($doctor['phone_number']) ?></a></td>
                                                 <td><a href="mailto:<?= esc($doctor['email']) ?>"><?= esc($doctor['email']) ?></a></td>
