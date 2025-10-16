@@ -5,10 +5,10 @@
                 <th style="width: 50px;">S.No.</th> 
                 <th>Primary ID</th>
                 <th>Type</th>
-                <th>OPD ID</th>
+                <!-- <th>OPD ID</th>
                 <th>IPD ID</th>
                 <th>General ID</th>
-                <th>Casualty ID</th>
+                <th>Casualty ID</th> -->
                 <th>Full Name</th>
                 <th>Gender</th>
                 <th>DOB</th>
@@ -32,10 +32,10 @@
                         <td><?= $serial++ ?>.</td> 
                         <td><span class="badge bg-primary p-2"><strong><?= esc($patient['patient_id_code']) ?></strong></span></td>
                         <td><span class="badge bg-success"><?= esc($patient['patient_type']) ?></span></td>
-                        <td><span class="badge bg-info"><?= esc($patient['opd_id_code'] ?? 'N/A') ?></span></td>
+                        <!-- <td><span class="badge bg-info"><?= esc($patient['opd_id_code'] ?? 'N/A') ?></span></td>
                         <td><span class="badge bg-info"><?= esc($patient['ipd_id_code'] ?? 'N/A') ?></span></td>
                         <td><span class="badge bg-secondary"><?= esc($patient['gen_id_code'] ?? 'N/A') ?></span></td>
-                        <td><span class="badge bg-secondary"><?= esc($patient['cus_id_code'] ?? 'N/A') ?></span></td>
+                        <td><span class="badge bg-secondary"><?= esc($patient['cus_id_code'] ?? 'N/A') ?></span></td> -->
                         <td><h5 class="font-weight-bold mb-0"><?= esc($patient['first_name'] . ' ' . $patient['last_name']) ?></h5></td>
                         <td><?= esc($patient['gender']) ?></td>
                         <td><?= esc(date('M d, Y', strtotime($patient['date_of_birth']))) ?></td>
